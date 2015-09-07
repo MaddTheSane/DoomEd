@@ -73,11 +73,12 @@ typedef struct
 	UBYTE		xAspect,yAspect;
 	WORD		pageWidth,pageHeight;
 } bmhd_t;
-
+
+
 //
 // things that might need to be freed on an exception
 //
-NXStream	*filestream;		// the memory map of the lbm file
+NSStream	*filestream;		// the memory map of the lbm file
 byte			*byteimage;			// the decompressed lbm image, expanded to 8 bits/pixel
 unsigned		*meschedimage;		// 32 bit truecolor 
 id			imagerep;			// NXBitmapImageRep for meschedimage
@@ -226,7 +227,7 @@ BOOL	LoadRawLBM (char const *filename)
 	int		size;
 	
 //===========
-NX_DURING
+NS_DURING
 //===========
 	
 	cmap = NULL;
@@ -234,14 +235,17 @@ NX_DURING
 	filestream = NULL;
 //printf ("Filename: %s\n",filename);	
 //
-// load the LBMwith file mapping
-//	
-	filestream = NXMapFile (filename, NX_READONLY);
+// load the LBM
+// with file mapping
+//
+	
+	filestream = NSMapFile (filename, NX_READONLY);
 	if (!filestream)
 		NX_RAISE(LBMERR, "Couldn't map file",0);
 
 	NXGetMemoryBuffer(filestream, &streambuf, &streamlen, &streammaxlen);
-	
+	
+
 
 //
 // parse the LBM header
@@ -297,9 +301,11 @@ NX_DURING
 //
 	if ( bmhd.compression != cm_rle1 && bmhd.compression != cm_none)
 		NX_RAISE (LBMERR, "Unknown compression type", 0);
-	if (!cmap)
+	
+if (!cmap)
 		NX_RAISE (LBMERR, "No CMAP in file", 0);
-	if (!body)
+	
+if (!body)
 		NX_RAISE (LBMERR, "No BODY in file", 0);
 	if (formtype != PBMID)
 		NX_RAISE (LBMERR,"Can't read interlaced LBMS yet...",0);
@@ -343,7 +349,7 @@ NX_DURING
 	NX_VALRETURN(YES);
 	
 //===========
-NX_HANDLER
+NS_HANDLER
 //===========
 	if (filestream)
 		NXCloseMemory(filestream, NX_FREEBUFFER);
@@ -362,7 +368,7 @@ NX_HANDLER
 			NXLocalHandler.data1,
 			nil, nil, nil);
 //===========
-NX_ENDHANDLER
+NS_ENDHANDLER
 //===========
 	return NO;
 }

@@ -1,6 +1,8 @@
 #import "pathops.h"
 #import "PreferencePanel.h"
-#import "wraps.h"
+#import "ps_quartz.h"
+//#import "wraps.h"
+void PSWHitPath(const float HPts[], int Tot_HPts, const char HOps[], int Tot_HOps, const float Pts[], int Tot_Pts, const char Ops[], int Tot_Ops, int *Hit);
 
 #define LINETYPES	16
 #define MAXLINES	100
@@ -96,7 +98,7 @@ void		AddLine (int path, float x1, float y1, float x2, float y2)
 
 void		FinishPath (int path)
 {
-	int	count;
+	size_t	count;
 	
 	count = ops_p[path] - ops[path];
 	if (!count)

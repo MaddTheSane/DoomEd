@@ -329,6 +329,6 @@ void IdException (char const *format, ...)
 	va_end(args);
 	strcat (msg,"\n");
 	
-	NX_RAISE (NX_APPBASE, msg, 0);
+	[[NSException exceptionWithName:@"DoomEdInternalException" reason:@(msg) userInfo:nil] raise];
 }
 

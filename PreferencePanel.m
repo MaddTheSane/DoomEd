@@ -38,40 +38,38 @@ int			openupValues[NUMOPENUP];
 
 + (void) initialize
 {
-	static NXDefaultsVector defaults = 
-	{
-		{"back_c","1:1:1"},
-		{"grid_c","0.8:0.8:0.8"},
-		{"tile_c","0.5:0.5:0.5"},
-		{"selected_c","1:0:0"},
-
-		{"point_c","0:0:0"},
-		{"onesided_c","0:0:0"},
-		{"twosided_c","0.5:1:0.5"},
-		{"area_c","1:0:0"},
-		{"thing_c","1:1:0"},
-		{"special_c","0.5:1:0.5"},
+	NSDictionary *defaults = @{
+		@"back_c":@"1:1:1",
+		@"grid_c":@"0.8:0.8:0.8",
+		@"tile_c":@"0.5:0.5:0.5",
+		@"selected_c":@"1:0:0",
 		
-//		{"launchType","1"},
-		{launchTypeName,"1"},
+		@"point_c":@"0:0:0",
+		@"onesided_c":@"0:0:0",
+		@"twosided_c":@"0.5:1:0.5",
+		@"area_c":@"1:0:0",
+		@"thing_c":@"1:1:0",
+		@"special_c":@"0.5:1:0.5",
+		
+		//		{"launchType":@"1"},
+		@(launchTypeName):@"1",
 #if 1
-//		{"projectPath","/aardwolf/DoomMaps/project.dpr"},
-		{projectPathName,"/aardwolf/DoomMaps/project.dpr"},
+		//		{"projectPath":@"/aardwolf/DoomMaps/project.dpr"},
+		@(projectPathName):@"/aardwolf/DoomMaps/project.dpr",
 #else
-		{"projectPath","/RavenDev/maps/project.dpr"},
+		"projectPath":@"/RavenDev/maps/project.dpr",
 #endif
-		{"texturePaletteOpen",	"1"},
-		{"lineInspectorOpen",	"1"},
-		{"lineSpecialsOpen",	"1"},
-		{"errorLogOpen",		"0"},
-		{"sectorEditorOpen",	"1"},
-		{"thingPanelOpen",		"0"},
-		{"sectorSpecialsOpen",	"0"},
-		{"textureEditorOpen",	"0"},
-		{NULL}
+		@"texturePaletteOpen": @YES,
+		@"lineInspectorOpen": @YES,
+		@"lineSpecialsOpen": @YES,
+		@"errorLogOpen": @NO,
+		@"sectorEditorOpen": @YES,
+		@"thingPanelOpen": @NO,
+		@"sectorSpecialsOpen": @NO,
+		@"textureEditorOpen": @NO,
 	};
 
-	NXRegisterDefaults(APPDEFAULTS, defaults);
+	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
 - (NSColor *) getColorFromString: (char const *)string
