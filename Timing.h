@@ -50,8 +50,9 @@ Here's an example of its use.
 */
 
 #if 0
+#import <AppKit/AppKit.h>
 #include <sys/time.h>
-#import <sys/resource.h>
+#include <sys/resource.h>
 #define PSTIME 0
 #define WALLTIME 1
 
@@ -79,47 +80,47 @@ Here's an example of its use.
                                 time is desired */
 }
 
-+newWithTag:(int) aTag;
++(instancetype)newWithTag:(int) aTag;
     /* Creates a new timing object with tag = aTag */
 
--enter:(int)wt;
+-(void)enter:(int)wt;
     /* Starts a timing interval measuring either elapsed wall time if 
        wt ==WALLTIME or elapsed process time + system time + Server time 
        if wt == PSTIME.  Sets the wallTime flag to be equal to wt. */
 
--wallEnter;
+-(void)wallEnter;
     /* Called by enter: if WALLTIME is desired.  You should call enter: 
        rather than call this method directly. */
 
--psEnter;
+-(void)psEnter;
     /* Called by enter: if PSTIME is desired.  You should call enter: 
        rather than call this method directly. */
 
--wallLeave;
+-(void)wallLeave;
     /* Called by leave if WALLTIME was specified on the previous enter.  
        You should call leave rather than call this method directly.  
        Updates cumWallTime based on the elapsed time. */
 
--psLeave;
+-(void)psLeave;
     /* Called by leave if PSTIME was specified on the previous enter.  
        You should call leave rather than call this method directly.  
        Updates cumPSTime and cumAppTime based on the elapsed time. */
 
--leave;
+-(void)leave;
     /* Call leave to leave a timing interval.  Depending on whether 
        WALLTIME or PSTIME was specified on the previous call to enter:, 
        leave will invoke wallLeave or psLeave. */
 
--reset;
+-(void)reset;
     /* Resets the values of cumWallTime, cumPSTime, cumAppTime, 
        cumTimesEntered and other variables to 0 in preparation for 
        measuring a series of timing intervals.  Should be called prior to 
        running a timing test. */
 
--avgElapsedTime;
+-(void)avgElapsedTime;
     /* Calculates averages.  Called automatically by summary:. */
 
--summary:(NSOutputStream *)c;
+-(void)summary:(NSOutputStream *)c;
     /* Writes out a summary to the stream pointed to by c.  Depending on 
        the current value of wallTime will write out a summary for either 
        wall time or ps time. */

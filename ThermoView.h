@@ -1,11 +1,11 @@
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 @interface ThermoView:NSView
 {
 	float		thermoWidth;
 }
 
-- setThermoWidth:(int)current max:(int)maximum;
+- (void)setThermoWidth:(int)current max:(int)maximum;
 
 @end

@@ -84,44 +84,44 @@ typedef struct
 	NSSound *saveSound;				// Sound instance
 }
 
-- applicationWillTerminate: (NSNotification *)notification;
-- loadWorldFile: (NSString *)path;
-- saveDoomEdMapBSP:sender;
+- (void)applicationWillTerminate: (NSNotification *)notification;
+- (void)loadWorldFile: (NSString *)path;
+- (IBAction)saveDoomEdMapBSP:sender;
 
 - (BOOL)loaded;
 - (BOOL)dirty;
 - (BOOL)dirtyPoints;
 
-- closeWorld;
+- (void)closeWorld;
 
 //
 // menu targets
 //
-- newWindow:sender;
-- saveWorld:sender;
-- print:sender;
+- (IBAction)newWindow:sender;
+- (IBAction)saveWorld:sender;
+- (IBAction)print:sender;
 
 //
 // selection operations
 //
 
-- cut: sender;
-- copy: sender;
-- paste: sender;
-- delete: sender;
-- flipSelectedLines: sender;
-- fusePoints: sender;
-- seperatePoints: sender;
+- (IBAction)cut: sender;
+- (IBAction)copy: sender;
+- (IBAction)paste: sender;
+- (IBAction)delete: sender;
+- (IBAction)flipSelectedLines: sender;
+- (IBAction)fusePoints: sender;
+- (IBAction)seperatePoints: sender;
 
 //
 // dealing with map windows
 //
-- windowWillClose:(NSNotification *)notification;
+- (void)windowWillClose:(NSNotification *)notification;
 - (void) updateWindows;
-- addToDirtyRect: (int)p1 : (int)p2;
-- updateLineNormal:(int) num;
-- redrawWindows;
-- getMainWindow;	// returns window id
+- (void)addToDirtyRect: (int)p1 : (int)p2;
+- (void)updateLineNormal:(int) num;
+- (void)redrawWindows;
+- (void)getMainWindow;	// returns window id
 
 //
 // get info
@@ -131,16 +131,16 @@ typedef struct
 //
 // change info
 //
-- selectPoint: (int)num;
-- deselectPoint: (int)num;
-- selectLine: (int)num;
-- deselectLine: (int)num;
-- selectThing: (int)num;
-- deselectThing: (int)num;
-- deselectAllPoints;
-- deselectAllLines;
-- deselectAllThings;
-- deselectAll;
+- (void)selectPoint: (int)num;
+- (void)deselectPoint: (int)num;
+- (void)selectLine: (int)num;
+- (void)deselectLine: (int)num;
+- (void)selectThing: (int)num;
+- (void)deselectThing: (int)num;
+- (void)deselectAllPoints;
+- (void)deselectAllLines;
+- (void)deselectAllThings;
+- (void)deselectAll;
 
 
 - (int)allocatePoint: (NSPoint *)pt;
@@ -148,16 +148,16 @@ typedef struct
 - (int)newLine: (worldline_t *)line from: (NSPoint *)p1 to:(NSPoint *)p2;
 - (int)newThing: (worldthing_t *)thing;
 
-- changePoint: (int)p to: (worldpoint_t *)data;
-- changeLine: (int)p to: (worldline_t *)data;
-- changeThing: (int)p to: (worldthing_t *)data;
+- (void)changePoint: (int)p to: (worldpoint_t *)data;
+- (void)changeLine: (int)p to: (worldline_t *)data;
+- (void)changeThing: (int)p to: (worldthing_t *)data;
 
 
 //
 // Cut/copy/paste stuff
 //
-- storeCopies;
-- copyDeselect;
+- (void)storeCopies;
+- (void)copyDeselect;
 - (NSPoint)findCopyCenter;
 - (int)findMin:(int)num0	:(int)num1;
 - (int)findMax:(int)num0	:(int)num1;
@@ -170,12 +170,12 @@ typedef struct
 @interface EditWorld (EWLoadSave)
 
 - (BOOL)readLine: (NSPoint *)p1 : (NSPoint *)p2 : (worldline_t *)line from: (FILE *)file;
-- writeLine: (worldline_t *)line to: (FILE *)file;
+- (void)writeLine: (worldline_t *)line to: (FILE *)file;
 - (BOOL)readThing: (worldthing_t *)thing from: (FILE *)file;
-- writeThing: (worldthing_t *)thing to: (FILE *)file;
+- (void)writeThing: (worldthing_t *)thing to: (FILE *)file;
 
-- loadV4File: (FILE *)file;
-- saveFile: (FILE *)file;
+- (void)loadV4File: (FILE *)file;
+- (void)saveFile: (FILE *)file;
 
 @end
 
@@ -184,7 +184,7 @@ typedef struct
 //
 @interface EditWorld (EWDoomSave)
 
-- saveDoomMap;
+- (void)saveDoomMap;
 
 @end
 

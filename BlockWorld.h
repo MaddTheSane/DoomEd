@@ -9,10 +9,10 @@ extern	BOOL	fillerror;
 
 @interface BlockWorld : NSObject
 
-- displayBlockMap;
-- createBlockMap;
-- drawBlockLine: (int) linenum;
-- floodFillSector: (NSPoint *)pt;
+- (void)displayBlockMap;
+- (void)createBlockMap;
+- (void)drawBlockLine: (int) linenum;
+- (void)floodFillSector: (NSPoint *)pt;
 - (BOOL)connectSectors;
 
 @end

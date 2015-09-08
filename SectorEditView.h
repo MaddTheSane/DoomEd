@@ -3,8 +3,8 @@
 
 @interface SectorEditView:NSView
 {
-	id	f_height_i;
-	id	c_height_i;
+	IBOutlet id	f_height_i;
+	IBOutlet id	c_height_i;
 }
 
 

@@ -35,35 +35,35 @@ typedef struct
 	id	lsStatus_i;
 }
 
-- setupPalette;
-- initTextures;
-- finishInit;
-- searchForTexture:sender;
+- (void)setupPalette;
+- (void)initTextures;
+- (void)finishInit;
+- (IBAction)searchForTexture:sender;
 - (int) getNumTextures;
 - (int) getTextureIndex:(char *)name;
-- createAllTextureImages;
+- (void)createAllTextureImages;
 - (texpal_t) createTextureImage:(int)which;
 
-- computePalViewSize;
+- (void)computePalViewSize;
 - (texpal_t *)getNewTexture:(int)which;
 - (int)selectTextureNamed:(char *)name;
 
 - (texpal_t *)getTexture:(int)which;
-- storeTexture:(int)which;
+- (void)storeTexture:(int)which;
 - (char *)getSelTextureName;
-- setSelTexture:(char *)name;
+- (void)setSelTexture:(char *)name;
 - (int) currentSelection;
-- selectTexture:(int)val;
-- menuTarget:sender;
-- saveFrame;
+- (void)selectTexture:(int)val;
+- (IBAction)menuTarget:sender;
+- (void)saveFrame;
 
-- searchWidth:sender;
-- searchHeight:sender;
-- showTextureInMap:sender;
+- (IBAction)searchWidth:sender;
+- (IBAction)searchHeight:sender;
+- (IBAction)showTextureInMap:sender;
 
-- saveTextureLBM:sender;
-- saveAllTexturesAsLBM:sender;
-- doSaveAllTexturesAsLBM:sender;
+- (IBAction)saveTextureLBM:sender;
+- (IBAction)saveAllTexturesAsLBM:sender;
+- (IBAction)doSaveAllTexturesAsLBM:sender;
 
 @end
 

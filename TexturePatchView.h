@@ -16,7 +16,7 @@ typedef struct
 	CompatibleStorage *dividers_i;
 }
 
-- addDividerX:(int)x Y:(int)y String:(char *)string;
-- dumpDividers;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)dumpDividers;
 
 @end

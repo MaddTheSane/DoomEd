@@ -13,15 +13,16 @@ typedef enum
 	LAUNCH_TOOL
 } tool_t;
 
-extern	id	toolpanel_i;
+@class ToolPanel;
+extern ToolPanel *toolpanel_i;
 
-@interface ToolPanel:NSObject
+@interface ToolPanel: NSObject
 {
-    id	toolmatrix_i;
+    IBOutlet id	toolmatrix_i;
 }
 
-- toolChanged:sender;
+- (IBAction)toolChanged:sender;
 - (tool_t)currentTool;
-- changeTool:(int)which;
+- (void)changeTool:(int)which;
 
 @end

@@ -18,24 +18,24 @@ typedef struct
 
 @interface SectorEditor:NSObject<SpecialListDelegate>
 {
-	id	window_i;
-	id	sectorEditView_i;
-	id	flatScrPalView_i;
-	id	flatPalView_i;
+	IBOutlet id	window_i;
+	IBOutlet id	sectorEditView_i;
+	IBOutlet id	flatScrPalView_i;
+	IBOutlet id	flatPalView_i;
 	
-	id	lightLevel_i;
-	id	lightSlider_i;
-	id	special_i;
-	id	tag_i;
-	id	floorAndCeiling_i;		// radio button matrix
-	id	ceiling_i;				// radio button
-	id	floor_i;				// radio button
-	id	cheightfield_i;
-	id	fheightfield_i;
-	id	cflatname_i;
-	id	fflatname_i;
-	id	totalHeight_i;
-	id	curFlat_i;
+	IBOutlet id	lightLevel_i;
+	IBOutlet id	lightSlider_i;
+	IBOutlet id	special_i;
+	IBOutlet id	tag_i;
+	IBOutlet id	floorAndCeiling_i;		// radio button matrix
+	IBOutlet id	ceiling_i;				// radio button
+	IBOutlet id	floor_i;				// radio button
+	IBOutlet id	cheightfield_i;
+	IBOutlet id	fheightfield_i;
+	IBOutlet id	cflatname_i;
+	IBOutlet id	fflatname_i;
+	IBOutlet id	totalHeight_i;
+	IBOutlet id	curFlat_i;
 	
 	int	ceiling_flat,floor_flat;
 	sectordef_t	sector;
@@ -46,50 +46,50 @@ typedef struct
 	SpecialList *specialPanel_i;
 }
 
-- setKey:sender;
-- setupEditor;
-- pgmTarget;
-- ceilingAdjust:sender;
-- floorAdjust:sender;
-- totalHeightAdjust:sender;
-- getTagValue:sender;
-- lightLevelDown:sender;
-- lightLevelUp:sender;
-- setSector:(sectordef_t *)s;
+- (IBAction)setKey:sender;
+- (void)setupEditor;
+- (void)pgmTarget;
+- (IBAction)ceilingAdjust:sender;
+- (IBAction)floorAdjust:sender;
+- (IBAction)totalHeightAdjust:sender;
+- (IBAction)getTagValue:sender;
+- (IBAction)lightLevelDown:sender;
+- (IBAction)lightLevelUp:sender;
+- (void)setSector:(sectordef_t *)s;
 - (sectordef_t *) getSector;
-- selectFloor;
-- selectCeiling;
-- lightChanged:sender;
-- lightSliderChanged:sender;
+- (void)selectFloor;
+- (void)selectCeiling;
+- (IBAction)lightChanged:sender;
+- (IBAction)lightSliderChanged:sender;
 - (flat_t *) getCeilingFlat;
 - (flat_t *) getFloorFlat;
-- setCeiling:(int) what;
-- setFloor:(int) what;
-- CorFheightChanged:sender;
-- locateFlat:sender;
+- (void)setCeiling:(int) what;
+- (void)setFloor:(int) what;
+- (IBAction)CorFheightChanged:sender;
+- (IBAction)locateFlat:sender;
 - (int) getNumFlats;
 - (NSString *) flatName: (int) flat;
 - (flat_t *) getFlat:(int) which;
-- selectFlat:(int) which;
-- setCurrentFlat:(int)which;
+- (void)selectFlat:(int) which;
+- (void)setCurrentFlat:(int)which;
 - (int) getCurrentFlat;
-- menuTarget:sender;
-- dumpAllFlats;
-- emptySpecialList;
+- (IBAction)menuTarget:sender;
+- (void)dumpAllFlats;
+- (void)emptySpecialList;
 - (int)loadFlats;
-- computeFlatDocView;
+- (void)computeFlatDocView;
 - (int) findFlat:(const char *)name;
-- error:(const char *)string;
-- saveFrame;
+- (void)error:(const char *)string;
+- (void)saveFrame;
 
-- searchForTaggedSector:sender;
-- searchForTaggedLine:sender;
+- (IBAction)searchForTaggedSector:sender;
+- (IBAction)searchForTaggedLine:sender;
 
 //
 // sector special list
 //
-- activateSpecialList:sender;
-- updateSectorSpecialsDSP:(FILE *)stream;
+- (IBAction)activateSpecialList:sender;
+- (void)updateSectorSpecialsDSP:(FILE *)stream;
 @end
 
 extern SectorEditor *sectorEdit_i;

@@ -3,10 +3,10 @@
 
 @interface SpecialListWindow:NSWindow
 {
-	id parent_i;
+	IBOutlet id parent_i;
 	NSString *string;
 }
 
-- setParent:(id)p;
+@property (assign) IBOutlet id parent;
 
 @end

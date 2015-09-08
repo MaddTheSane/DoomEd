@@ -5,7 +5,7 @@
 	id	button1, button2;
 }
 
-- initWithFrame:(NSRect)frameRect button1: b1 button2: b2;
-- tile;
+- (instancetype)initWithFrame:(NSRect)frameRect button1: b1 button2: b2;
+- (void)tile;
 
 @end

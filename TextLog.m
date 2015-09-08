@@ -11,7 +11,7 @@
 //
 //======================================================
 
-- initTitle: (NSString *) title
+- initWithTitle: (NSString *) title
 {
 	window_i = [[NSBundle mainBundle] loadNibNamed: @"TextLog.nib"
 		owner: self
@@ -21,7 +21,7 @@
 	return self;
 }
 
-- msg:(char *)string
+- (void)msg:(char *)string
 {
 	int		len;
 
@@ -29,25 +29,20 @@
 	[text_i setSel:len :len];
 	[text_i replaceSel:string];
 	[text_i	scrollSelToVisible];
-
-	return self;
 }
 
-- display:sender
+- (IBAction)display:sender
 {
 	[window_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- clear:sender
+- (IBAction)clear:sender
 {
 	int		len;
 
 	len = [text_i textLength];
 	[text_i setSel:0 :len];
 	[text_i replaceSel:"\0"];
-
-	return self;
 }
 
 @end

@@ -2,7 +2,7 @@
 #import "DoomProject.h"
 
 @implementation SpecialList
-
+@synthesize delegate;
 //=====================================================================
 //
 //	Special List
@@ -20,10 +20,9 @@
 	return specialList_i;
 }
 
-- empty
+- (void)empty
 {
 	[specialList_i	empty];
-	return self;
 }
 
 - saveFrame
@@ -42,12 +41,6 @@
 - setSpecialTitle:(char *)string
 {
 	strncpy(title,string,31);
-	return self;
-}
-
-- setDelegate: (id<SpecialListDelegate>)dg
-{
-	delegate = dg;
 	return self;
 }
 
@@ -94,7 +87,7 @@
 //	Suggest a new value for the list
 //
 //===================================================================
-- suggestValue:sender
+- (IBAction)suggestValue:sender
 {
 	int	max,i,num,found;
 	
@@ -111,7 +104,6 @@
 			break;
 		}
 	}
-	return self;
 }
 
 //===================================================================
@@ -119,7 +111,7 @@
 //	Make sure the string isn't weird
 //
 //===================================================================
-- validateSpecialString:sender
+- (IBAction)validateSpecialString:sender
 {
 	int	i;
 	char		s[32];
@@ -139,7 +131,6 @@
 	}
 	
 	[specialDesc_i	setStringValue:s];
-	return self;
 }
 
 //===================================================================
@@ -147,12 +138,11 @@
 //	Fill data from textfields
 //
 //===================================================================
-- fillSpecialData:(speciallist_t *)special
+- (void)fillSpecialData:(speciallist_t *)special
 {
 	special->value = [specialValue_i	intValue];
 	[self	validateSpecialString:NULL];
 	strcpy(special->desc,[specialDesc_i	stringValue]);
-	return self;
 }
 
 //===================================================================
@@ -160,7 +150,7 @@
 //	Take data in textfields and add that data to the list
 //
 //===================================================================
-- addSpecial:sender
+- (IBAction)addSpecial:sender
 {
 	speciallist_t		t;
 	int	which;
@@ -177,7 +167,7 @@
 		NSRunAlertPanel(@"Oops!",
 			@"You already have a LINE SPECIAL by that name!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 
 	[specialList_i	addElement:&t];
@@ -187,8 +177,6 @@
 	[matrix	selectCellAtRow:which column:0];
 	[matrix	scrollCellToVisibleAtRow:which column:0];
 	[doomproject_i	setDirtyProject:TRUE];
-	
-	return self;
 }
 
 //===================================================================
@@ -216,11 +204,10 @@
 //	Fill textfields from data
 //
 //===================================================================
-- fillDataFromSpecial:(speciallist_t *)special
+- (void)fillDataFromSpecial:(speciallist_t *)special
 {
 	[specialValue_i	setIntValue:special->value];
 	[specialDesc_i	setStringValue:special->desc];
-	return self;
 }
 
 //===================================================================
@@ -228,7 +215,7 @@
 //	Clicked on browser entry.  Tell delegate which value was selected.
 //
 //===================================================================
-- chooseSpecial:sender
+- (IBAction)chooseSpecial:sender
 {
 	id	cell;
 	int	which;
@@ -236,20 +223,19 @@
 	
 	cell = [sender	selectedCell];
 	if (!cell)
-		return self;
+		return;
 		
 	which = [self	findSpecialString:(char *)[cell  stringValue]];
 	if (which < 0)
 	{
 		NSBeep();
 		printf("Whoa! Can't find that special!\n");
-		return self;
+		return;
 	}
 
 	t = [specialList_i	elementAt:which];
 	[self	fillDataFromSpecial:t];
 	[delegate specialChosen:t->value];
-	return self;
 }
 
 //===================================================================
@@ -257,7 +243,7 @@
 //	Highlight special with matching value and fill textfields with the data
 //
 //===================================================================
-- setSpecial:(int)which
+- (void)setSpecial:(int)which
 {
 	int	i,max;
 	speciallist_t	*s;
@@ -273,12 +259,11 @@
 			[matrix	selectCellAtRow:i column:0];
 			[matrix	scrollCellToVisibleAtRow:i column:0];
 			[self	fillDataFromSpecial:s];
-			return self;
+			return;
 		}
 	}
 	[specialDesc_i	setStringValue:nil];
 	[specialValue_i	setStringValue:nil];
-	return self;
 }
 
 //===================================================================
@@ -286,7 +271,7 @@
 //	Sort the specials list alphabetically
 //
 //===================================================================
-- sortSpecials
+- (void)sortSpecials
 {
 	id	cell, matrix;
 	int	max,i,j,flag, which;
@@ -327,8 +312,6 @@
 		[matrix	selectCellAtRow:which column:0];
 		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}
-
-	return self;
 }
 
 //===================================================================

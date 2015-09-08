@@ -7,7 +7,7 @@
 	char	string[32];
 }
 
-- setParent:(id)p;
+- (void)setParent:(id)p;
 
 
 @end

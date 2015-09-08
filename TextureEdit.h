@@ -10,39 +10,39 @@
 
 @interface TextureEdit:NSObject
 {
-	id	window_i;				// Texture Editor window
-	id	textureView_i;				// texture editing area
-	id	texturePatchWidthField_i;	// under Patch Palette (information)
-	id	texturePatchHeightField_i;	// . . .
-	id	texturePatchNameField_i;
-	id	texturePatchXField_i;
-	id	texturePatchYField_i;
-	id	textureWidthField_i;	// at top of window
-	id	textureHeightField_i;	// . . .
-	id	textureNameField_i;
-	id	patchWidthField_i;		// under Patch Palette
-	id	patchHeightField_i;		// . . .
-	id	patchNameField_i;
-	id	scrollView_i;			// texture editing area
-	id	outlinePatches_i;		// switch
-	id	lockedPatch_i;			// switch
-	id	centerPatch_i;			// switch
-	id	texturePatchScrollView_i;	// Patch Palette
-	id	texturePatchView_i;		// Patch Palette
-	id	dragWarning_i;			// warning for dragging selections outside
-	id	splitView_i;			// NXSplitView!
-	id	topView_i;
-	id	botView_i;
+	IBOutlet id	window_i;				// Texture Editor window
+	IBOutlet id	textureView_i;				// texture editing area
+	IBOutlet id	texturePatchWidthField_i;	// under Patch Palette (information)
+	IBOutlet id	texturePatchHeightField_i;	// . . .
+	IBOutlet id	texturePatchNameField_i;
+	IBOutlet id	texturePatchXField_i;
+	IBOutlet id	texturePatchYField_i;
+	IBOutlet id	textureWidthField_i;	// at top of window
+	IBOutlet id	textureHeightField_i;	// . . .
+	IBOutlet id	textureNameField_i;
+	IBOutlet id	patchWidthField_i;		// under Patch Palette
+	IBOutlet id	patchHeightField_i;		// . . .
+	IBOutlet id	patchNameField_i;
+	IBOutlet id	scrollView_i;			// texture editing area
+	IBOutlet id	outlinePatches_i;		// switch
+	IBOutlet id	lockedPatch_i;			// switch
+	IBOutlet id	centerPatch_i;			// switch
+	IBOutlet id	texturePatchScrollView_i;	// Patch Palette
+	IBOutlet id	texturePatchView_i;		// Patch Palette
+	IBOutlet id	dragWarning_i;			// warning for dragging selections outside
+	IBOutlet id	splitView_i;			// NXSplitView!
+	IBOutlet id	topView_i;
+	IBOutlet id	botView_i;
 
-	id	createTexture_i;		// Create Texture window
-	id	createWidth_i;			// in Create Texture dialog
-	id	createHeight_i;			// . . .
-	id	createName_i;
-	id	createDone_i;			// "Create" button
-	id	setMatrix_i;			// Texture Set radio-button matrix
-	id	textureSetField_i;		// Texture Set field in Texture Editor
-	id	newSetButton_i;			// Create New Set button
-	id	patchSearchField_i;		// Search for patch string
+	IBOutlet id	createTexture_i;		// Create Texture window
+	IBOutlet id	createWidth_i;			// in Create Texture dialog
+	IBOutlet id	createHeight_i;			// . . .
+	IBOutlet id	createName_i;
+	IBOutlet id	createDone_i;			// "Create" button
+	IBOutlet id	setMatrix_i;			// Texture Set radio-button matrix
+	IBOutlet id	textureSetField_i;		// Texture Set field in Texture Editor
+	IBOutlet id	newSetButton_i;			// Create New Set button
+	IBOutlet id	patchSearchField_i;		// Search for patch string
 
 	CompatibleStorage *patchImages;		// Patch Palette images
 	
@@ -102,61 +102,60 @@ typedef	struct
 } texpatch_t;
 
 - (int)numSets;
-- findPatch:sender;
-- searchForPatch:sender;
-- changedWidthOrHeight:sender;
-- setOldVars:(int)x :(int)y;
-- doLockToggle;
-- togglePatchLock:sender;
-- deleteCurrentPatch:sender;
-- sortUp:sender;
-- sortDown:sender;
+- (IBAction)findPatch:sender;
+- (IBAction)searchForPatch:sender;
+- (IBAction)changedWidthOrHeight:sender;
+- (void)setOldVars:(int)x :(int)y;
+- (void)doLockToggle;
+- (IBAction)togglePatchLock:sender;
+- (IBAction)deleteCurrentPatch:sender;
+- (IBAction)sortUp:sender;
+- (IBAction)sortDown:sender;
 
-- updateTexPatchInfo;
+- (void)updateTexPatchInfo;
 - (CompatibleStorage *) getSTP;
-- changeSelectedTexturePatch:(int)which	to:(int)val;
-- addSelectedTexturePatch:(int)val;
+- (void)changeSelectedTexturePatch:(int)which	to:(int)val;
+- (void)addSelectedTexturePatch:(int)val;
 - (BOOL) selTextureEditPatchExists:(int)val;
-- removeSelTextureEditPatch:(int)val;
+- (void)removeSelTextureEditPatch:(int)val;
 - (int)getCurrentEditPatch;
 - (int)findHighestNumberedPatch;
-- changePatchX:sender;
-- changePatchY:sender;
+- (IBAction)changePatchX:sender;
+- (IBAction)changePatchY:sender;
 
-- outlineWasSet:sender;
+- (IBAction)outlineWasSet:sender;
 - (apatch_t *)getPatch:(int)which;
 - (apatch_t *)getPatchImage:(char *)name;
-- finishTexture:sender;
-- addPatch:(int)which;
-- sizeChanged:sender;
-- fillWithPatch:sender;
-- menuTarget:sender;
+- (IBAction)finishTexture:sender;
+- (void)addPatch:(int)which;
+- (IBAction)sizeChanged:sender;
+- (IBAction)fillWithPatch:sender;
+- (IBAction)menuTarget:sender;
 - (int)getCurrentTexture;
 - (int)getCurrentPatch;
 
-- makeNewTexture:sender;
-- createTextureDone:sender;
-- createTextureName:sender;
-- createTextureAbort:sender;
-- createNewSet:sender;
+- (IBAction)makeNewTexture:sender;
+- (IBAction)createTextureDone:sender;
+- (IBAction)createTextureName:sender;
+- (IBAction)createTextureAbort:sender;
+- (IBAction)createNewSet:sender;
 
-- newSelection:(int)which;
-- setSelectedPatch:(int)which;
-- selectPatchAndScroll:(int)patch;
+- (void)newSelection:(int)which;
+- (void)setSelectedPatch:(int)which;
+- (void)selectPatchAndScroll:(int)patch;
 - (int)getOutlineFlag;
-- dumpAllPatches;
-- initPatches;
-- createPatchX2:(apatch_t *)p;
-- menuTarget:sender;
-- computePatchDocView: (NSRect *)theframe;
-- setWarning:(BOOL)state;
-- saveFrame;
+- (void)dumpAllPatches;
+- (void)initPatches;
+- (void)createPatchX2:(apatch_t *)p;
+- (void)computePatchDocView: (NSRect *)theframe;
+- (void)setWarning:(BOOL)state;
+- (void)saveFrame;
 
 - (int)getNumPatches;
 - (int)findPatchIndex:(char *)name;
 - (char *)getPatchName:(int)which;
 
-- locatePatchInTextures:sender;
+- (IBAction)locatePatchInTextures:sender;
 
 @end
 

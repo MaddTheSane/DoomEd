@@ -16,25 +16,25 @@ extern	BOOL	linecross[9][9];
 	int		gridsize;
 }
 
-- initFromEditWorld;
+- (instancetype)initFromEditWorld;
 
 - (float)currentScale;
 - (NSPoint) getCurrentOrigin;
 
-- scaleMenuTarget: sender;
-- gridMenuTarget: sender;
+- (IBAction)scaleMenuTarget: sender;
+- (IBAction)gridMenuTarget: sender;
 
-- zoomFrom:(NSPoint)origin toScale:(float)newscale;
+- (void)zoomFrom:(NSPoint)origin toScale:(float)newscale;
 
-- displayDirty: (NSRect const *)dirty;
+- (void)displayDirty: (NSRect const *)dirty;
 
 - (NSPoint) getPointFrom: (NSEvent const *)event;
 - (NSPoint) getGridPointFrom: (NSEvent const *)event;
 
-- adjustFrameForOrigin: (NSPoint)org scale:(float)scl;
-- adjustFrameForOrigin: (NSPoint)org;
-- setOrigin: (NSPoint)org scale: (float)scl;
-- setOrigin: (NSPoint)org;
+- (void)adjustFrameForOrigin: (NSPoint)org scale:(float)scl;
+- (void)adjustFrameForOrigin: (NSPoint)org;
+- (void)setOrigin: (NSPoint)org scale: (float)scl;
+- (void)setOrigin: (NSPoint)org;
 
 @end
 

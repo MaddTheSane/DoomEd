@@ -5,10 +5,10 @@ extern	id	thingRemapper_i;
 
 @interface ThingRemapper:NSObject <Remapper>
 {
-	id	remapper_i;
+	IBOutlet id	remapper_i;
 }
 
-- menuTarget:sender;
-- addToList: (NSString *) orgname to: (NSString *) newname;
+- (IBAction)menuTarget:sender;
+- (void)addToList: (NSString *) orgname to: (NSString *) newname;
 
 @end

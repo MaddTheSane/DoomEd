@@ -9,38 +9,38 @@ typedef struct
 } speciallist_t;
 
 @protocol SpecialListDelegate <NSObject>
-- specialChosen: (int)value;
+- (void)specialChosen: (int)value;
 @end
 
-@interface SpecialList:NSObject
+@interface SpecialList:NSObject <NSMatrixDelegate>
 {
-	id	specialDesc_i;
-	id	specialBrowser_i;
-	id	specialValue_i;
-	id	specialPanel_i;
+	IBOutlet id	specialDesc_i;
+	IBOutlet id	specialBrowser_i;
+	IBOutlet id	specialValue_i;
+	IBOutlet id	specialPanel_i;
 	CompatibleStorage *specialList_i;
 
 	id<SpecialListDelegate> delegate;
 	char		title[32];
 	char		frameString[32];
 }
+@property (assign) IBOutlet id<SpecialListDelegate> delegate;
 
 - (CompatibleStorage *) getSpecialList;
-- scrollToItem:(int)i;
-- setSpecialTitle:(char *)string;
-- setFrameName:(char *)string;
-- saveFrame;
-- displayPanel;
-- addSpecial:sender;
-- suggestValue:sender;
-- chooseSpecial:sender;
-- updateSpecialsDSP:(FILE *)stream;
+- (void)scrollToItem:(int)i;
+- (void)setSpecialTitle:(char *)string;
+- (void)setFrameName:(char *)string;
+- (void)saveFrame;
+- (void)displayPanel;
+- (IBAction)addSpecial:sender;
+- (IBAction)suggestValue:sender;
+- (IBAction)chooseSpecial:sender;
+- (void)updateSpecialsDSP:(FILE *)stream;
 - (int)findSpecial:(int)value;
-- validateSpecialString:sender;
-- setSpecial:(int)which;
-- fillSpecialData:(speciallist_t *)special;
-- setDelegate: (id<SpecialListDelegate>)dg;
-- empty;
+- (IBAction)validateSpecialString:sender;
+- (void)setSpecial:(int)which;
+- (void)fillSpecialData:(speciallist_t *)special;
+- (void)empty;
 
 @end
 

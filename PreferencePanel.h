@@ -35,22 +35,22 @@ typedef enum
 
 @interface PreferencePanel:NSObject
 {
-    id	backcolor_i;
-    id	gridcolor_i;
-    id	tilecolor_i;
-    id	selectedcolor_i;
-    id	pointcolor_i;
-    id	onesidedcolor_i;
-    id	twosidedcolor_i;
-    id	areacolor_i;
-    id	thingcolor_i;
-	id	specialcolor_i;
+    IBOutlet id	backcolor_i;
+    IBOutlet id	gridcolor_i;
+    IBOutlet id	tilecolor_i;
+    IBOutlet id	selectedcolor_i;
+    IBOutlet id	pointcolor_i;
+    IBOutlet id	onesidedcolor_i;
+    IBOutlet id	twosidedcolor_i;
+    IBOutlet id	areacolor_i;
+    IBOutlet id	thingcolor_i;
+	IBOutlet id	specialcolor_i;
 	
-	id	launchThingType_i;
-	id	projectDefaultPath_i;
-	id	openupDefaults_i;
+	IBOutlet id	launchThingType_i;
+	IBOutlet id	projectDefaultPath_i;
+	IBOutlet id	openupDefaults_i;
 	
-    id	window_i;
+    IBOutlet NSWindow *window_i;
 	
 	id		colorwell[NUMCOLORS];
 	NSColor	*color[NUMCOLORS];
@@ -58,13 +58,13 @@ typedef enum
 	char	projectPath[128];
 }
 
-- menuTarget:sender;
-- colorChanged:sender;
-- launchThingTypeChanged:sender;
-- projectPathChanged:sender;
-- openupChanged:sender;
+- (IBAction)menuTarget:sender;
+- (IBAction)colorChanged:sender;
+- (IBAction)launchThingTypeChanged:sender;
+- (IBAction)projectPathChanged:sender;
+- (IBAction)openupChanged:sender;
 
-- applicationWillTerminate: (NSNotification *)notification;
+- (void)applicationWillTerminate: (NSNotification *)notification;
 
 //
 //	DoomEd accessor methods

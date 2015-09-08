@@ -20,21 +20,21 @@ typedef struct
 
 @interface Remapper:NSObject
 {
-	id		original_i;
-	id		new_i;
-	id		remapPanel_i;
-	id		remapString_i;
-	id		status_i;
-	id		browser_i;
-	id		matrix_i;
+	IBOutlet id		original_i;
+	IBOutlet id		new_i;
+	IBOutlet id		remapPanel_i;
+	IBOutlet id		remapString_i;
+	IBOutlet id		status_i;
+	IBOutlet id		browser_i;
+	IBOutlet id		matrix_i;
 	
 	CompatibleStorage *storage_i;
-	id		delegate_i;
+	IBOutlet id		delegate_i;
 	NSString *frameName;
 }
 
 //	EXTERNAL USE
-- setFrameName:(NSString *)fname
+- (void)setFrameName:(NSString *)fname
   setPanelTitle:(NSString *)ptitle
   setBrowserTitle:(NSString *)btitle
   setRemapString:(NSString *)rstring
@@ -42,16 +42,16 @@ typedef struct
 
 //extern - (int)doRemap:(char *)oldname to:(char *)newname;
 
-- showPanel;
+- (void)showPanel;
   
-- addToList: (NSString *) orgname to: (NSString *) newname;
+- (void)addToList: (NSString *) orgname to: (NSString *) newname;
 
 //	INTERNAL USE
-- remapGetButtons:sender;
-- doRemappingOneMap:sender;
-- doRemappingAllMaps:sender;
-- addToList:sender;
-- deleteFromList:sender;
-- clearList:sender;
+- (IBAction)remapGetButtons:sender;
+- (IBAction)doRemappingOneMap:sender;
+- (IBAction)doRemappingAllMaps:sender;
+- (IBAction)addToList:sender;
+- (IBAction)deleteFromList:sender;
+- (IBAction)clearList:sender;
 
 @end

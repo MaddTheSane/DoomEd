@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -11,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="7" userLabel="TexturePalette" customClass="TexturePalette"/>
         <customObject id="15" userLabel="ThingPanel" customClass="ThingPanel"/>
         <customObject id="27" userLabel="EditWorld" customClass="EditWorld"/>
@@ -592,8 +593,8 @@ johnc@idsoftware.com</string>
                 </subviews>
             </view>
         </window>
-        <window title="TOOLS" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="FloatingPanel">
-            <windowStyleMask key="styleMask" titled="YES"/>
+        <window title="Tools" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="2" y="391" width="105" height="165"/>
             <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
@@ -735,6 +736,7 @@ johnc@idsoftware.com</string>
                     </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="302.5" y="445.5"/>
         </window>
     </objects>
     <resources>

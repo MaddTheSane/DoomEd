@@ -12,16 +12,16 @@ typedef struct
 
 @interface ThingStripper:NSObject
 {
-	id	thingBrowser_i;		// nib outlets
-	id	thingStripPanel_i;
+	IBOutlet id	thingBrowser_i;		// nib outlets
+	IBOutlet id	thingStripPanel_i;
 
 	CompatibleStorage *thingList_i;
 }
 
-- displayPanel:sender;
-- addThing:sender;
-- deleteThing:sender;
-- doStrippingAllMaps:sender;
-- doStrippingOneMap:sender;
+- (IBAction)displayPanel:sender;
+- (IBAction)addThing:sender;
+- (IBAction)deleteThing:sender;
+- (IBAction)doStrippingAllMaps:sender;
+- (IBAction)doStrippingOneMap:sender;
 
 @end

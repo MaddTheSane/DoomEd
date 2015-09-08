@@ -9,11 +9,11 @@ extern	BOOL	debugflag;
 
 @interface Coordinator:NSObject
 {
-	id	toolPanel_i;
-	id	infoPanel_i;
+	IBOutlet id	toolPanel_i;
+	IBOutlet id	infoPanel_i;
 	NSSound *startupSound_i;
 }
 
-- toggleDebug: sender;
-- redraw: sender;
+- (IBAction)toggleDebug: sender;
+- (IBAction)redraw: sender;
 @end

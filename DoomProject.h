@@ -1,4 +1,4 @@
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 #import "Storage.h"
 #import "TextLog.h"
 #import "Wadfile.h"
@@ -49,90 +49,90 @@ typedef struct
 
 	int		texturessize;
 	
-	id		window_i;
-	id		projectpath_i;
-	id		wadpath_i;
-	id		maps_i;
-	id		thingPanel_i;
-	id		findPanel_i;
-	id		mapNameField_i;
-	id		BSPprogram_i;
-	id		BSPhost_i;
-	id		mapwaddir_i;
+	IBOutlet id		window_i;
+	IBOutlet id		projectpath_i;
+	IBOutlet id		wadpath_i;
+	IBOutlet id		maps_i;
+	IBOutlet id		thingPanel_i;
+	IBOutlet id		findPanel_i;
+	IBOutlet id		mapNameField_i;
+	IBOutlet id		BSPprogram_i;
+	IBOutlet id		BSPhost_i;
+	IBOutlet id		mapwaddir_i;
 	
 	BOOL	projectdirty;
 	BOOL	texturesdirty;
 	BOOL	mapdirty;
 	
-	id		thermoTitle_i;
-	id		thermoMsg_i;
-	id		thermoView_i;
-	id		thermoWindow_i;
+	IBOutlet id		thermoTitle_i;
+	IBOutlet id		thermoMsg_i;
+	IBOutlet id		thermoView_i;
+	IBOutlet id		thermoWindow_i;
 	
-	id		printPrefWindow_i;
+	IBOutlet id		printPrefWindow_i;
 }
 
 
-- init;
-- displayLog:sender;
+- (instancetype)init;
+- (IBAction)displayLog:sender;
 - (BOOL)loaded;
 - (char *)wadfile;
 - (char const *)directory;
 
-- menuTarget: sender;
-- openProject: sender;
-- newProject: sender;
-- saveProject: sender;
-- reloadProject: sender;
-- openMap: sender;
-- newMap: sender;
-- removeMap: sender;
-- printMap:sender;
-- printAllMaps:sender;
+- (IBAction)menuTarget: sender;
+- (IBAction)openProject: sender;
+- (IBAction)newProject: sender;
+- (IBAction)saveProject: sender;
+- (IBAction)reloadProject: sender;
+- (IBAction)openMap: sender;
+- (IBAction)newMap: sender;
+- (IBAction)removeMap: sender;
+- (IBAction)printMap:sender;
+- (IBAction)printAllMaps:sender;
 
-- loadProject: (char const *)path;
-- updateTextures;
+- (void)loadProject: (char const *)path;
+- (void)updateTextures;
 
-- updatePanel;
+- (void)updatePanel;
 
 - (int)textureNamed: (char const *)name;
 
 - (BOOL)readTexture: (worldtexture_t *)tex from: (FILE *)file;
-- writeTexture: (worldtexture_t *)tex to: (FILE *)file;
+- (void)writeTexture: (worldtexture_t *)tex to: (FILE *)file;
 
 - (int)newTexture: (worldtexture_t *)tex;
-- changeTexture: (int)num to: (worldtexture_t *)tex;
+- (void)changeTexture: (int)num to: (worldtexture_t *)tex;
 
-- saveDoomLumps;
-- loadAndSaveAllMaps:sender;
-- printStatistics:sender;
-- printSingleMapStatistics:sender;
-- updateThings;
-- updateSectorSpecials;
-- updateLineSpecials;
-- saveFrame;
-- changeWADfile:(char *)string;
-- quit;
-- setDirtyProject:(BOOL)truth;
-- setDirtyMap:(BOOL)truth;
+- (void)saveDoomLumps;
+- (IBAction)loadAndSaveAllMaps:sender;
+- (IBAction)printStatistics:sender;
+- (IBAction)printSingleMapStatistics:sender;
+- (void)updateThings;
+- (void)updateSectorSpecials;
+- (void)updateLineSpecials;
+- (void)saveFrame;
+- (void)changeWADfile:(char *)string;
+- (void)quit;
+- (void)setDirtyProject:(BOOL)truth;
+- (void)setDirtyMap:(BOOL)truth;
 - (BOOL)projectDirty;
 - (BOOL)mapDirty;
-- checkDirtyProject;
+- (void)checkDirtyProject;
 
-- printPrefs:sender;
-- togglePanel:sender;
-- toggleMonsters:sender;
-- toggleItems:sender;
-- toggleWeapons:sender;
+- (IBAction)printPrefs:sender;
+- (IBAction)togglePanel:sender;
+- (IBAction)toggleMonsters:sender;
+- (IBAction)toggleItems:sender;
+- (IBAction)toggleWeapons:sender;
 
 // Thermometer functions
-- initThermo:(NSString *)title message:(NSString *)msg;
-- updateThermo:(int)current max:(int)maximum;
-- closeThermo;
+- (void)initThermo:(NSString *)title message:(NSString *)msg;
+- (void)updateThermo:(int)current max:(int)maximum;
+- (void)closeThermo;
 
 
 //	Map Loading Functions
-- beginOpenAllMaps;
+- (void)beginOpenAllMaps;
 - (BOOL)openNextMap;
 
 @end

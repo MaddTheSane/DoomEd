@@ -1,9 +1,7 @@
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 @interface ThingPalView:NSView
-{
-}
 
 
 @end

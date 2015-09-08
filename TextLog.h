@@ -3,13 +3,13 @@
 
 @interface TextLog:NSObject
 {
-	id	text_i;
+	IBOutlet id	text_i;
 	NSWindow *window_i;
 }
 
-- initTitle: (NSString *) title;
-- msg:(char *)string;
-- display:sender;
-- clear:sender;
+- (instancetype)initWithTitle: (NSString *) title;
+- (void)msg:(char *)string;
+- (IBAction)display:sender;
+- (IBAction)clear:sender;
 
 @end

@@ -5,10 +5,10 @@ extern	id	lineSpecialRemapper_i;
 
 @interface LineSpecialRemapper:NSObject <Remapper>
 {
-	id	remapper_i;
+	IBOutlet id	remapper_i;
 }
 
-- addToList: (NSString *) orgname to: (NSString *) newname;
-- menuTarget:sender;
+- (void)addToList: (NSString *) orgname to: (NSString *) newname;
+- (IBAction)menuTarget:sender;
 
 @end

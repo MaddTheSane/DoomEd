@@ -7,7 +7,7 @@ typedef struct
 	NSRect	r;
 	NSSize	imagesize;
 	char	name[10];
-	id		image;
+	NSImage	*image;
 } icon_t;
 
 #define	SPACING		10
@@ -15,24 +15,24 @@ typedef struct
 
 @interface ThingPalette:NSObject
 {
-	id		window_i;			// outlet
-	id		thingPalView_i;		// outlet
-	id		thingPalScrView_i;	// outlet
-	id		nameField_i;		// outlet
+	IBOutlet id		window_i;			// outlet
+	IBOutlet id		thingPalView_i;		// outlet
+	IBOutlet id		thingPalScrView_i;	// outlet
+	IBOutlet id		nameField_i;		// outlet
 
 	CompatibleStorage *thingImages;		// Storage for icons
 	int		currentIcon;		// currently selected icon
 }
 
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - (int)findIcon:(char *)name;
 - (icon_t *)getIcon:(int)which;
 - (int)getCurrentIcon;
-- setCurrentIcon:(int)which;
+- (void)setCurrentIcon:(int)which;
 - (int)getNumIcons;
-- computeThingDocView;
-- initIcons;
-- dumpAllIcons;
+- (void)computeThingDocView;
+- (void)initIcons;
+- (void)dumpAllIcons;
 
 
 @end

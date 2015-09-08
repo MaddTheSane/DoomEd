@@ -6,7 +6,7 @@
 	int	segmenttype;
 }
 
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - (int) segmentType;
 
 @end

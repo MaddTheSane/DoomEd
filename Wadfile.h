@@ -11,10 +11,9 @@
 	BOOL	dirty;
 }
 
-- initFromFile: (char const *)path;
-- initNew: (char const *)path;
-- close;
-- (void) dealloc;
+- (instancetype)initFromFile: (char const *)path;
+- (instancetype)initNew: (char const *)path;
+- (void)close;
 
 - (int)numLumps;
 - (int)lumpsize: (int)lump;
@@ -24,7 +23,7 @@
 - (void *)loadLump: (int)lump;
 - (void *)loadLumpNamed: (char const *)name;
 
-- addName: (char const *)name data: (void *)data size: (int)size;
-- writeDirectory; 
+- (void)addName: (char const *)name data: (void *)data size: (int)size;
+- (void)writeDirectory;
 
 @end

@@ -1,22 +1,22 @@
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
-@interface FindLine:NSObject
+@interface FindLine: NSObject
 {
-	id	window_i;
-	id	status_i;
-	id	numfield_i;
+	IBOutlet id	window_i;
+	IBOutlet id	status_i;
+	IBOutlet id	numfield_i;
 	NSSound *delSound;
-	id	fromBSP_i;
+	IBOutlet id	fromBSP_i;
 }
 
 #define MARGIN		64			// margin from window edge
 #define	PREFNAME	@"FindLinePanel"
 
 - (int)getRealLineNum:(int)num;
-- findLine:sender;
-- deleteLine:sender;
-- menuTarget:sender;
+- (IBAction)findLine:sender;
+- (IBAction)deleteLine:sender;
+- (IBAction)menuTarget:sender;
 - (void)rectFromPoints:(NSRect *)r p1:(NSPoint)p1 p2:(NSPoint)p2;
 
 @end

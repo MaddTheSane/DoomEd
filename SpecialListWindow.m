@@ -4,12 +4,7 @@
 #import	"TextureEdit.h"
 
 @implementation SpecialListWindow
-
-- setParent:(id)p
-{
-	parent_i = p;
-	return self;
-}
+@synthesize parent = parent_i;
 
 //===================================================================
 //
