@@ -8,10 +8,12 @@
 //	Find Line init
 //
 //=============================================================
-- init
+- (instancetype)init
 {
-	window_i = NULL;
-	delSound = [NSSound soundNamed: @"D_EPain"];
+	if (self = [super init]) {
+		window_i = NULL;
+		delSound = [[NSSound soundNamed: @"D_EPain"] retain];
+	}
 	return self;
 }
 
@@ -20,20 +22,19 @@
 //	Pop up the window from the menu
 //
 //=============================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"FindLine.nib"
+		
+		[[NSBundle mainBundle] loadNibNamed: @"FindLine"
 			owner: self
-			options: nil];
+			topLevelObjects:nil];
 
 		[status_i	setStringValue:@" "];
 		[window_i	setFrameUsingName:PREFNAME];
 	}
 	[window_i	makeKeyAndOrderFront:self];
-
-	return self;
 }
 
 //=============================================================
@@ -41,12 +42,12 @@
 //	Find the line and scroll it to center
 //
 //=============================================================
-- findLine:sender
+- (IBAction)findLine:sender
 {
 	int				linenum;
 	NSRect			r;
 	worldline_t		*l;
-	id				window;
+	NSWindow		*window;
 	
 	linenum = [numfield_i	intValue];
 	if ([fromBSP_i	intValue])
@@ -54,7 +55,7 @@
 	if (linenum < 0)
 	{
 		[status_i	setStringValue:@"No such line!"];
-		return self;
+		return;
 	}
 	
 	[editworld_i	selectLine:linenum];
@@ -68,11 +69,9 @@
 	r.origin.y -= MARGIN;
 	r.size.width += MARGIN*2;
 	r.size.height += MARGIN*2;
-	[[[window	contentView] docView] scrollRectToVisible:r];
+	[[[window	contentView] documentView] scrollRectToVisible:r];
 	[editworld_i	redrawWindows];
 	[status_i	setStringValue:@"Found it!"];
-	
-	return self;
 }
 
 //=============================================================
@@ -80,7 +79,7 @@
 //	Delete the line
 //
 //=============================================================
-- deleteLine:sender
+- (IBAction)deleteLine:sender
 {
 	int		linenum;
 	
@@ -91,7 +90,7 @@
 	if (linenum < 0)
 	{
 		[status_i	setStringValue:@"No such line!"];
-		return self;
+		return;
 	}
 	
 	[editworld_i	selectLine:linenum];
@@ -101,8 +100,6 @@
 	lines[linenum].selected = -1;
 	[status_i	setStringValue:@"Toasted it!"];
 	[delSound play];
-	
-	return self;
 }
 
 //=============================================================

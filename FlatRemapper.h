@@ -1,11 +1,12 @@
 #import	"Remapper.h"
 #import <AppKit/AppKit.h>
 
-extern	id	flatRemapper_i;
+@class FlatRemapper;
+extern FlatRemapper *flatRemapper_i;
 
 @interface FlatRemapper:NSObject <Remapper>
 {
-	IBOutlet id	remapper_i;
+	IBOutlet Remapper	*remapper_i;
 }
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;

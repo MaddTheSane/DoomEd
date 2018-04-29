@@ -2,7 +2,7 @@
 #import	"SectorEditor.h"
 #import	"FlatRemapper.h"
 
-id	flatRemapper_i;
+FlatRemapper *flatRemapper_i;
 
 @implementation FlatRemapper
 //===================================================================
@@ -12,15 +12,18 @@ id	flatRemapper_i;
 //===================================================================
 - init
 {
+	if (self = [super init]) {
 	flatRemapper_i = self;
 
-	remapper_i = [[Remapper alloc]
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i
 		setFrameName: @"FlatRemapper"
 		setPanelTitle: @"Flat Remapper"
 		setBrowserTitle: @"List of flats to be remapped"
 		setRemapString: @"Flat"
 		setDelegate: self
 	];
+	}
 	return self;
 }
 
@@ -29,16 +32,14 @@ id	flatRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
-- addToList: (NSString *)orgname to: (NSString *) newname;
+- (void)addToList: (NSString *)orgname to: (NSString *) newname;
 {
 	[remapper_i addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================

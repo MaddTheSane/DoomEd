@@ -191,6 +191,7 @@
                     </box>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="124" y="622"/>
         </window>
         <window title="Texture Editor" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="40" userLabel="EditWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -198,7 +199,7 @@
             <rect key="contentRect" x="258" y="-21" width="658" height="577"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="38">
-                <rect key="frame" x="1" y="1" width="658" height="577"/>
+                <rect key="frame" x="0.0" y="0.0" width="658" height="577"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <customView id="78" customClass="NSSplitView">
@@ -217,7 +218,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" autoresizesSubviews="NO" id="xDb-gY-0ws">
                                         <rect key="frame" x="1" y="1" width="650" height="185"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView id="48" customClass="TextureView">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
@@ -349,9 +350,9 @@ Texture</string>
                                 <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="37">
                                     <rect key="frame" x="5" y="102" width="652" height="204"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <clipView key="contentView" autoresizesSubviews="NO" id="tDH-dI-Iro">
+                                    <clipView key="contentView" autoresizesSubviews="NO" copiesOnScroll="NO" id="tDH-dI-Iro">
                                         <rect key="frame" x="1" y="1" width="650" height="202"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView id="61" customClass="TexturePatchView">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>

@@ -21,35 +21,35 @@
         <window title="Remapper" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="13" userLabel="RemapperPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="483" y="177" width="289" height="353"/>
+            <rect key="contentRect" x="483" y="177" width="356" height="394"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
-            <view key="contentView" id="3">
-                <rect key="frame" x="0.0" y="0.0" width="289" height="353"/>
+            <view key="contentView" misplaced="YES" id="3">
+                <rect key="frame" x="0.0" y="0.0" width="356" height="394"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="16">
-                        <rect key="frame" x="6" y="329" width="56" height="15"/>
+                        <rect key="frame" x="6" y="370" width="56" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="right" title="FROM$:" id="46">
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="8">
-                        <rect key="frame" x="8" y="305" width="54" height="15"/>
+                        <rect key="frame" x="8" y="346" width="54" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="right" title="Map to:" id="40">
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="10">
-                        <rect key="frame" x="64" y="329" width="96" height="21"/>
+                    <textField verticalHuggingPriority="750" misplaced="YES" id="10">
+                        <rect key="frame" x="64" y="368" width="146" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="41">
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -57,11 +57,11 @@
                             <outlet property="nextKeyView" destination="15" id="32"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="15">
-                        <rect key="frame" x="64" y="305" width="96" height="21"/>
+                    <textField verticalHuggingPriority="750" misplaced="YES" id="15">
+                        <rect key="frame" x="64" y="342" width="146" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="45">
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -69,80 +69,80 @@
                             <outlet property="nextKeyView" destination="10" id="33"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="11">
-                        <rect key="frame" x="168" y="329" width="29" height="18"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="11">
+                        <rect key="frame" x="213" y="363" width="45" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="42">
+                        <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="42">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="remapGetButtons:" target="-2" id="18"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" id="5">
-                        <rect key="frame" x="168" y="305" width="29" height="18"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" tag="1" imageHugsTitle="YES" id="5">
+                        <rect key="frame" x="213" y="338" width="45" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" borderStyle="border" tag="1" inset="2" id="37">
+                        <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" tag="1" inset="2" id="37">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="remapGetButtons:" target="-2" id="19"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="2">
-                        <rect key="frame" x="13" y="39" width="120" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="2">
+                        <rect key="frame" x="13" y="39" width="138" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Remap in Current" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="35">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="doRemappingOneMap:" target="-2" id="28"/>
                         </connections>
                     </button>
                     <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" id="9">
-                        <rect key="frame" x="5" y="95" width="280" height="204"/>
+                        <rect key="frame" x="5" y="95" width="347" height="245"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="delegate" destination="-2" id="17"/>
                         </connections>
                     </browser>
-                    <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" id="4">
-                        <rect key="frame" x="205" y="305" width="76" height="42"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" tag="1" imageHugsTitle="YES" id="4">
+                        <rect key="frame" x="260" y="346" width="93" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Add to List" bezelStyle="rounded" alignment="center" borderStyle="border" tag="1" inset="2" id="36">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="addToList:" target="-2" id="20"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="7">
-                        <rect key="frame" x="6" y="65" width="276" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <rect key="frame" x="6" y="65" width="343" height="22"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" alignment="center" title="****************Title*****************" id="39">
                             <font key="font" size="18" name="Helvetica"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="14">
-                        <rect key="frame" x="13" y="10" width="121" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="14">
+                        <rect key="frame" x="13" y="10" width="144" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Remap in All Maps" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="44">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="doRemappingAllMaps:" target="-2" id="29"/>
                         </connections>
                     </button>
-                    <button imageHugsTitle="YES" id="6">
-                        <rect key="frame" x="218" y="2" width="71" height="65"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <button misplaced="YES" imageHugsTitle="YES" id="6">
+                        <rect key="frame" x="288" y="2" width="64" height="64"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="bevel" image="Recycle" imagePosition="above" alignment="center" inset="2" id="38">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
@@ -152,8 +152,8 @@
                         </connections>
                     </button>
                     <button misplaced="YES" imageHugsTitle="YES" id="12">
-                        <rect key="frame" x="146" y="-23" width="71" height="90"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                        <rect key="frame" x="224" y="2" width="64" height="64"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="bevel" image="Delete" imagePosition="above" alignment="center" inset="2" id="43">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
@@ -167,6 +167,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="27"/>
             </connections>
+            <point key="canvasLocation" x="172" y="182"/>
         </window>
     </objects>
     <resources>

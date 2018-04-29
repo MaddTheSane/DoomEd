@@ -178,7 +178,7 @@
 ===================
 */
 
-- loadV4File: (FILE *)file
+- (BOOL)loadV4File: (FILE *)file
 {
 	int			i;
 	int			linecount, thingcount;
@@ -192,12 +192,12 @@
 // read lines
 //	
 	if (fscanf (file,"\nlines:%d\n",&linecount) != 1)
-		return nil;
+		return NO;
 	printf ("%i lines\n", linecount);
 	for (i=0 ; i<linecount ; i++)
 	{
 		if (![self readLine: &p1 : &p2 : &line from: file])
-			return nil;
+			return NO;
 		[self newLine: &line from: &p1 to: &p2];
 	}
 		
@@ -205,17 +205,17 @@
 // read things
 //
 	if (fscanf (file,"\nthings:%d\n",&thingcount) != 1)
-		return nil;
+		return NO;
 	printf ( "%i things\n", thingcount);
 	for (i=0 ; i<thingcount ; i++)
 	{
 		if (![self readThing: &thing from: file])
-			return nil;
+			return NO;
 		[self newThing: &thing];
 	}
 
 
-	return self;
+	return YES;
 }
 
 

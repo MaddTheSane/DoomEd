@@ -1,5 +1,6 @@
 #import "SpecialList.h"
 #import "DoomProject.h"
+#import "SpecialListWindow.h"
 
 @implementation SpecialList
 @synthesize delegate;
@@ -10,8 +11,10 @@
 //=====================================================================
 - init
 {
+	if (self = [super init]) {
 	delegate = NULL;
 	frameString[0] = 0;
+	}
 	return self;
 }
 
@@ -25,23 +28,20 @@
 	[specialList_i	empty];
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (frameString[0])
 		[specialPanel_i	saveFrameUsingName:frameString];
-	return self;
 }
 
-- setFrameName:(char *)string
+- (void)setFrameName:(const char *)string
 {
 	strncpy(frameString,string,31);
-	return self;
 }
 
-- setSpecialTitle:(char *)string
+- (void)setSpecialTitle:(const char *)string
 {
 	strncpy(title,string,31);
-	return self;
 }
 
 //===================================================================
@@ -319,10 +319,10 @@
 //	Delegate method called by "specialBrowser_i" when reloadColumn is invoked
 //
 //===================================================================
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (NSInteger)browser:(NSBrowser*)sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
 {
-	int	max, i;
-	id	cell;
+	NSInteger	max, i;
+	NSBrowserCell	*cell;
 	speciallist_t		*t;
 	
 	if (column > 0)
@@ -333,8 +333,8 @@
 	for (i = 0; i < max; i++)
 	{
 		t = [specialList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
+		[matrix	insertRow:i];
+		cell = [matrix	cellAtRow:i	column:0];
 		[cell	setStringValue:t->desc];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
@@ -379,7 +379,7 @@
 	return -1;
 }
 
-- updateSpecialsDSP:(FILE *)stream
+- (void)updateSpecialsDSP:(FILE *)stream
 {
 	speciallist_t		t,*t2;
 	int	count, i, found;
@@ -422,8 +422,6 @@
 	}
 	else
 		fprintf(stream,"numspecials: %d\n",0);
-	
-	return self;
 }
 
 

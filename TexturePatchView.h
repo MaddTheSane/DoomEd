@@ -1,6 +1,6 @@
 #import "Storage.h"
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 #ifndef	H_DIVIDERT
 #define	H_DIVIDERT

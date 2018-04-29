@@ -39,7 +39,7 @@ typedef struct
 
 //============================================================================
 
-@interface DoomProject : NSObject
+@interface DoomProject : NSObject <NSBrowserDelegate>
 {
 	BOOL	loaded;
 	char	projectdirectory[1024];
@@ -49,16 +49,16 @@ typedef struct
 
 	int		texturessize;
 	
-	IBOutlet id		window_i;
-	IBOutlet id		projectpath_i;
-	IBOutlet id		wadpath_i;
-	IBOutlet id		maps_i;
+	IBOutlet NSWindow		*window_i;
+	IBOutlet NSTextField	*projectpath_i;
+	IBOutlet NSTextField	*wadpath_i;
+	IBOutlet NSBrowser		*maps_i;
 	IBOutlet id		thingPanel_i;
 	IBOutlet id		findPanel_i;
-	IBOutlet id		mapNameField_i;
-	IBOutlet id		BSPprogram_i;
-	IBOutlet id		BSPhost_i;
-	IBOutlet id		mapwaddir_i;
+	IBOutlet NSTextField	*mapNameField_i;
+	IBOutlet NSTextField	*BSPprogram_i;
+	IBOutlet NSTextField	*BSPhost_i;
+	IBOutlet NSTextField	*mapwaddir_i;
 	
 	BOOL	projectdirty;
 	BOOL	texturesdirty;

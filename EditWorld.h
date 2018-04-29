@@ -121,7 +121,7 @@ typedef struct
 - (void)addToDirtyRect: (int)p1 : (int)p2;
 - (void)updateLineNormal:(int) num;
 - (void)redrawWindows;
-- (void)getMainWindow;	// returns window id
+- (NSWindow*)getMainWindow;	// returns window id
 
 //
 // get info
@@ -174,8 +174,8 @@ typedef struct
 - (BOOL)readThing: (worldthing_t *)thing from: (FILE *)file;
 - (void)writeThing: (worldthing_t *)thing to: (FILE *)file;
 
-- (void)loadV4File: (FILE *)file;
-- (void)saveFile: (FILE *)file;
+- (BOOL)loadV4File: (FILE *)file;
+- (BOOL)saveFile: (FILE *)file;
 
 @end
 

@@ -4,6 +4,7 @@
 #import	"Wadfile.h"
 #import	<ctype.h>
 #import	"lbmfunctions.h"
+#import "TextureView.h"
 
 TextureEdit *textureEdit_i;
 CompatibleStorage *texturePatches;

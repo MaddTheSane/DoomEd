@@ -14,22 +14,22 @@ typedef struct
 - (NSString *) getOriginalName;
 - (NSString *) getNewName;
 - (int)doRemap: (NSString *) oldname to: (NSString *) newname;
-- finishUp;
+- (void)finishUp;
 @end
 
 
 @interface Remapper:NSObject <NSApplicationDelegate>
 {
-	IBOutlet id		original_i;
-	IBOutlet id		new_i;
-	IBOutlet id		remapPanel_i;
-	IBOutlet id		remapString_i;
-	IBOutlet id		status_i;
-	IBOutlet id		browser_i;
+	IBOutlet NSTextField	*original_i;
+	IBOutlet NSTextField	*new_i;
+	IBOutlet NSWindow		*remapPanel_i;
+	IBOutlet NSTextField	*remapString_i;
+	IBOutlet NSTextField	*status_i;
+	IBOutlet NSBrowser		*browser_i;
 	IBOutlet id		matrix_i;
 	
 	CompatibleStorage *storage_i;
-	IBOutlet id		delegate_i;
+	IBOutlet id<RemapperDelegate> delegate_i;
 	NSString *frameName;
 }
 
@@ -38,7 +38,7 @@ typedef struct
   setPanelTitle:(NSString *)ptitle
   setBrowserTitle:(NSString *)btitle
   setRemapString:(NSString *)rstring
-  setDelegate:(id)delegate;
+  setDelegate:(id<Remapper>)delegate;
 
 //extern - (int)doRemap:(char *)oldname to:(char *)newname;
 
@@ -55,3 +55,4 @@ typedef struct
 - (IBAction)clearList:sender;
 
 @end
+

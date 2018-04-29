@@ -1,6 +1,6 @@
 #import "Storage.h"
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 typedef struct
 {
@@ -12,8 +12,8 @@ typedef struct
 
 @interface ThingStripper:NSObject
 {
-	IBOutlet id	thingBrowser_i;		// nib outlets
-	IBOutlet id	thingStripPanel_i;
+	IBOutlet NSBrowser	*thingBrowser_i;		// nib outlets
+	IBOutlet NSWindow	*thingStripPanel_i;
 
 	CompatibleStorage *thingList_i;
 }

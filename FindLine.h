@@ -3,11 +3,11 @@
 
 @interface FindLine: NSObject
 {
-	IBOutlet id	window_i;
-	IBOutlet id	status_i;
-	IBOutlet id	numfield_i;
+	IBOutlet NSWindow		*window_i;
+	IBOutlet NSTextField	*status_i;
+	IBOutlet NSTextField	*numfield_i;
 	NSSound *delSound;
-	IBOutlet id	fromBSP_i;
+	IBOutlet NSButton		*fromBSP_i;
 }
 
 #define MARGIN		64			// margin from window edge

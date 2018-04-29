@@ -17,55 +17,44 @@
         <window title="Thing Stripper" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="4" userLabel="ThingStripPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="445" y="157" width="226" height="277"/>
+            <rect key="contentRect" x="445" y="157" width="258" height="277"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
-            <view key="contentView" id="5">
-                <rect key="frame" x="0.0" y="0.0" width="226" height="277"/>
+            <view key="contentView" misplaced="YES" id="5">
+                <rect key="frame" x="0.0" y="0.0" width="258" height="277"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" id="3">
-                        <rect key="frame" x="2" y="69" width="222" height="181"/>
+                        <rect key="frame" x="2" y="69" width="254" height="181"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
                             <outlet property="delegate" destination="-2" id="11"/>
                         </connections>
                     </browser>
                     <button verticalHuggingPriority="750" imageHugsTitle="YES" id="8">
-                        <rect key="frame" x="7" y="253" width="212" height="20"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <rect key="frame" x="7" y="253" width="244" height="20"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Add Thing selected in Thing Panel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="20">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="addThing:" target="-2" id="9"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="2">
-                        <rect key="frame" x="5" y="38" width="149" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Strip from All Maps" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="17">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-BoldOblique"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="doStrippingAllMaps:" target="-2" id="13"/>
-                        </connections>
-                    </button>
                     <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="7">
-                        <rect key="frame" x="4" y="7" width="150" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <rect key="frame" x="5" y="5" width="172" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Strip from Current Map" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="19">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-BoldOblique"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="doStrippingOneMap:" target="-2" id="14"/>
                         </connections>
                     </button>
                     <button imageHugsTitle="YES" id="6">
-                        <rect key="frame" x="155" y="2" width="71" height="64"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="187" y="2" width="71" height="64"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="bevel" image="Delete" imagePosition="above" alignment="center" inset="2" id="18">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
@@ -74,8 +63,20 @@
                             <action selector="deleteThing:" target="-2" id="15"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="2">
+                        <rect key="frame" x="5" y="38" width="149" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Strip from All Maps" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="17">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="doStrippingAllMaps:" target="-2" id="13"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="155" y="161.5"/>
         </window>
     </objects>
     <resources>

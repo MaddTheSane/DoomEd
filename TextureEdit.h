@@ -5,44 +5,45 @@
 #import "EditWorld.h"
 #import	"TexturePatchView.h"
 
+@class TextureView;
 
 #define	SPACING				10
 
 @interface TextureEdit:NSObject
 {
-	IBOutlet id	window_i;				// Texture Editor window
-	IBOutlet id	textureView_i;				// texture editing area
-	IBOutlet id	texturePatchWidthField_i;	// under Patch Palette (information)
-	IBOutlet id	texturePatchHeightField_i;	// . . .
-	IBOutlet id	texturePatchNameField_i;
-	IBOutlet id	texturePatchXField_i;
-	IBOutlet id	texturePatchYField_i;
-	IBOutlet id	textureWidthField_i;	// at top of window
-	IBOutlet id	textureHeightField_i;	// . . .
-	IBOutlet id	textureNameField_i;
-	IBOutlet id	patchWidthField_i;		// under Patch Palette
-	IBOutlet id	patchHeightField_i;		// . . .
-	IBOutlet id	patchNameField_i;
-	IBOutlet id	scrollView_i;			// texture editing area
-	IBOutlet id	outlinePatches_i;		// switch
-	IBOutlet id	lockedPatch_i;			// switch
-	IBOutlet id	centerPatch_i;			// switch
-	IBOutlet id	texturePatchScrollView_i;	// Patch Palette
-	IBOutlet id	texturePatchView_i;		// Patch Palette
-	IBOutlet id	dragWarning_i;			// warning for dragging selections outside
-	IBOutlet id	splitView_i;			// NXSplitView!
-	IBOutlet id	topView_i;
-	IBOutlet id	botView_i;
+	IBOutlet NSWindow			*window_i;					// Texture Editor window
+	IBOutlet TextureView		*textureView_i;				// texture editing area
+	IBOutlet NSTextField		*texturePatchWidthField_i;	// under Patch Palette (information)
+	IBOutlet NSTextField		*texturePatchHeightField_i;	// . . .
+	IBOutlet NSTextField		*texturePatchNameField_i;
+	IBOutlet NSTextField		*texturePatchXField_i;
+	IBOutlet NSTextField		*texturePatchYField_i;
+	IBOutlet NSTextField		*textureWidthField_i;	// at top of window
+	IBOutlet NSTextField		*textureHeightField_i;	// . . .
+	IBOutlet NSTextField		*textureNameField_i;
+	IBOutlet NSTextField		*patchWidthField_i;		// under Patch Palette
+	IBOutlet NSTextField		*patchHeightField_i;	// . . .
+	IBOutlet NSTextField		*patchNameField_i;
+	IBOutlet NSScrollView		*scrollView_i;			// texture editing area
+	IBOutlet NSButton			*outlinePatches_i;		// switch
+	IBOutlet NSButton			*lockedPatch_i;			// switch
+	IBOutlet NSButton			*centerPatch_i;			// switch
+	IBOutlet NSScrollView		*texturePatchScrollView_i;	// Patch Palette
+	IBOutlet TexturePatchView	*texturePatchView_i;		// Patch Palette
+	IBOutlet NSTextField		*dragWarning_i;			// warning for dragging selections outside
+	IBOutlet NSSplitView		*splitView_i;			// NXSplitView!
+	IBOutlet NSBox				*topView_i;
+	IBOutlet NSBox				*botView_i;
 
-	IBOutlet id	createTexture_i;		// Create Texture window
-	IBOutlet id	createWidth_i;			// in Create Texture dialog
-	IBOutlet id	createHeight_i;			// . . .
-	IBOutlet id	createName_i;
-	IBOutlet id	createDone_i;			// "Create" button
-	IBOutlet id	setMatrix_i;			// Texture Set radio-button matrix
-	IBOutlet id	textureSetField_i;		// Texture Set field in Texture Editor
-	IBOutlet id	newSetButton_i;			// Create New Set button
-	IBOutlet id	patchSearchField_i;		// Search for patch string
+	IBOutlet NSPanel		*createTexture_i;		// Create Texture window
+	IBOutlet NSTextField	*createWidth_i;			// in Create Texture dialog
+	IBOutlet NSTextField	*createHeight_i;		// . . .
+	IBOutlet NSTextField	*createName_i;
+	IBOutlet NSButton		*createDone_i;			// "Create" button
+	IBOutlet NSMatrix		*setMatrix_i;			// Texture Set radio-button matrix
+	IBOutlet NSTextField	*textureSetField_i;		// Texture Set field in Texture Editor
+	IBOutlet NSButton		*newSetButton_i;		// Create New Set button
+	IBOutlet NSTextField	*patchSearchField_i;	// Search for patch string
 
 	CompatibleStorage *patchImages;		// Patch Palette images
 	
@@ -53,14 +54,14 @@
 	int	oldx,oldy;				// last texture x,y
 }
 
-typedef struct
+typedef struct store_s
 {
 	int	sel;
 } store_t;
 
 // a patch holds one or more collumns
 // Some patches will be in native color, while be used with a color remap table
-typedef struct
+typedef struct patch_s
 {
 	short	width;				// bounding box size
 	short	height;
@@ -70,7 +71,7 @@ typedef struct
 								// &collumnofs[width]
 } patch_t;
 
-typedef struct
+typedef struct post_s
 {
 	byte		topdelta;			// -1 is the last post in a collumn
 	byte		length;
@@ -83,7 +84,7 @@ typedef post_t	collumn_t;
 //
 // structure for loaded patches
 //
-typedef struct
+typedef struct apatch_s
 {
 	NSRect	r;
 	NSSize	size;
@@ -93,7 +94,7 @@ typedef struct
 	int		WADindex;
 } apatch_t;
 
-typedef	struct
+typedef	struct texpatch_s
 {
 	int	patchLocked;
 	NSRect	r;
@@ -162,6 +163,6 @@ typedef	struct
 extern CompatibleStorage *texturePatches;
 extern TextureEdit *textureEdit_i;
 
-id	patchToImage(patch_t *patchData, unsigned short *shortpal,
-	NSSize *size,char *name);
+NSImage *patchToImage(patch_t *patchData, unsigned short *shortpal,
+					  NSSize *size,char *name);
 

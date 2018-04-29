@@ -1,6 +1,6 @@
 
 #import "Storage.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 typedef struct
 {
@@ -8,16 +8,17 @@ typedef struct
 	char		desc[32];
 } speciallist_t;
 
+@class SpecialListWindow;
 @protocol SpecialListDelegate <NSObject>
 - (void)specialChosen: (int)value;
 @end
 
-@interface SpecialList:NSObject <NSMatrixDelegate>
+@interface SpecialList:NSObject <NSMatrixDelegate, NSBrowserDelegate>
 {
-	IBOutlet id	specialDesc_i;
-	IBOutlet id	specialBrowser_i;
-	IBOutlet id	specialValue_i;
-	IBOutlet id	specialPanel_i;
+	IBOutlet NSTextField	*specialDesc_i;
+	IBOutlet NSBrowser		*specialBrowser_i;
+	IBOutlet NSTextField	*specialValue_i;
+	IBOutlet SpecialListWindow	*specialPanel_i;
 	CompatibleStorage *specialList_i;
 
 	id<SpecialListDelegate> delegate;
@@ -28,8 +29,8 @@ typedef struct
 
 - (CompatibleStorage *) getSpecialList;
 - (void)scrollToItem:(int)i;
-- (void)setSpecialTitle:(char *)string;
-- (void)setFrameName:(char *)string;
+- (void)setSpecialTitle:(const char *)string;
+- (void)setFrameName:(const char *)string;
 - (void)saveFrame;
 - (void)displayPanel;
 - (IBAction)addSpecial:sender;

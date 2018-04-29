@@ -643,17 +643,16 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 	[thingpanel_i updateThingInspector];
 }
 
-- redrawWindows
+- (void)redrawWindows
 {
 	[windowlist_i makeObjectsPerformSelector: @selector(display)];
 
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
 	[thingpanel_i updateThingInspector];
-	return self;
 }
 
-- getMainWindow
+- (NSWindow*)getMainWindow
 {
 	return [windowlist_i objectAtIndex: 0];
 }
