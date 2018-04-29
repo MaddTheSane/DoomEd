@@ -26,7 +26,7 @@ int		byteimagewidth, byteimageheight;
 #define PEL_READ_ADR		0x3c7
 #define PEL_DATA			0x3c9
 
-#if 0
+#ifdef __LITTLE_ENDIAN__
 #define FORMID	('M'+('R'<<8)+((long)'O'<<16)+((long)'F'<<24))
 #define ILBMID	('M'+('B'<<8)+((long)'L'<<16)+((long)'I'<<24))
 #define PBMID   	(' '+('M'<<8)+((long)'B'<<16)+((long)'P'<<24))
@@ -400,7 +400,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 	lbm = lbmptr = malloc (width*height+2048);
 	if (!lbm)
 	{
-		NXLogError ("couldn't malloc %i bytes\n",width*height+2048);
+		NSLogError ("couldn't malloc %i bytes\n",width*height+2048);
 		return NO;
 	}
    
@@ -413,17 +413,17 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 //
 // start FORM
 //
-	*((long *)lbmptr)++ = FORMID;
+	*((unsigned int *)lbmptr)++ = FORMID;
 	
 	formlength = (long *)lbmptr;
 	lbmptr+=4;			// leave space for length
 	
-	*((long *)lbmptr)++ = PBMID;
+	*((unsigned int *)lbmptr)++ = PBMID;
 
 //
 // write BMHD
 //
-	*((long *)lbmptr)++ = BMHDID;
+	*((unsigned int *)lbmptr)++ = BMHDID;
 	
 	bmhdlength = (long *)lbmptr;
 	lbmptr+=4;			// leave space for length

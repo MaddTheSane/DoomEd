@@ -18,7 +18,7 @@ typedef struct
 @end
 
 
-@interface Remapper:NSObject
+@interface Remapper:NSObject <NSApplicationDelegate>
 {
 	IBOutlet id		original_i;
 	IBOutlet id		new_i;

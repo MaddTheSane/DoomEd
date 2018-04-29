@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8187.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -32,18 +33,18 @@
                             <rect key="frame" x="2" y="2" width="346" height="57"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button id="50">
+                                <button imageHugsTitle="YES" id="50">
                                     <rect key="frame" x="1" y="-13" width="64" height="68"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <buttonCell key="cell" type="bevel" image="SmallDemon" imagePosition="above" alignment="center" inset="2" id="k0P-Lm-S2R">
+                                    <buttonCell key="cell" type="bevel" image="SmallDemon" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="bx4-9U-m5m">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="12" name="Helvetica"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                 </button>
                                 <textField verticalHuggingPriority="750" id="79">
                                     <rect key="frame" x="73" y="17" width="256" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="left" title="Title" id="B6N-dF-a0k">
+                                    <textFieldCell key="cell" alignment="left" title="Title" id="11f-vi-5Ny">
                                         <font key="font" size="18" name="Helvetica"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -51,15 +52,13 @@
                                 </textField>
                             </subviews>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" size="12" name="Helvetica"/>
                     </box>
                     <textField verticalHuggingPriority="750" id="60">
                         <rect key="frame" x="8" y="62" width="320" height="30"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="Title" id="nCA-oC-9H5">
-                            <font key="font" size="12" name="Helvetica"/>
+                        <textFieldCell key="cell" alignment="center" title="Title" id="w67-aP-hox">
+                            <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
@@ -74,7 +73,7 @@
                                 <textField verticalHuggingPriority="750" id="109">
                                     <rect key="frame" x="10" y="25" width="321" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="left" id="PQ1-RY-QzO">
+                                    <textFieldCell key="cell" alignment="left" id="EzM-Ur-GgP">
                                         <font key="font" size="18" name="Helvetica"/>
                                         <string key="title">|	       |		       |              |  	      |</string>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -84,10 +83,10 @@
                                 <textField verticalHuggingPriority="750" id="45">
                                     <rect key="frame" x="10" y="5" width="320" height="28"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" borderStyle="bezel" alignment="center" drawsBackground="YES" id="GfS-kT-Hu2">
+                                    <textFieldCell key="cell" borderStyle="bezel" alignment="center" drawsBackground="YES" id="ECH-4s-9va">
                                         <font key="font" size="18" name="Helvetica"/>
                                         <color key="textColor" red="1" green="0.30513930320739746" blue="0.46142458915710449" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.3333333432674408" alpha="1" colorSpace="calibratedWhite"/>
                                     </textFieldCell>
                                 </textField>
                                 <customView id="78" customClass="ThermoView">
@@ -97,7 +96,7 @@
                                 <textField verticalHuggingPriority="750" id="142">
                                     <rect key="frame" x="5" y="44" width="19" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="0" id="1PD-NA-jSZ">
+                                    <textFieldCell key="cell" alignment="center" title="0" id="HKK-nc-1mc">
                                         <font key="font" size="12" name="Helvetica-Bold"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -106,7 +105,7 @@
                                 <textField verticalHuggingPriority="750" id="98">
                                     <rect key="frame" x="80" y="44" width="23" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="25" id="MlM-S6-OGv">
+                                    <textFieldCell key="cell" alignment="center" title="25" id="9DZ-Z7-fbk">
                                         <font key="font" size="12" name="Helvetica-Bold"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -115,7 +114,7 @@
                                 <textField verticalHuggingPriority="750" id="54">
                                     <rect key="frame" x="159" y="44" width="23" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="50" id="fqj-pA-jTK">
+                                    <textFieldCell key="cell" alignment="center" title="50" id="9J6-H0-FDQ">
                                         <font key="font" size="12" name="Helvetica-Bold"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -124,7 +123,7 @@
                                 <textField verticalHuggingPriority="750" id="92">
                                     <rect key="frame" x="233" y="44" width="23" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="75" id="Wch-0z-4Ec">
+                                    <textFieldCell key="cell" alignment="center" title="75" id="eMJ-CT-EJy">
                                         <font key="font" size="12" name="Helvetica-Bold"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -133,7 +132,7 @@
                                 <textField verticalHuggingPriority="750" id="107">
                                     <rect key="frame" x="308" y="44" width="30" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="100" id="ujO-7b-CqM">
+                                    <textFieldCell key="cell" alignment="center" title="100" id="oVr-SY-iLw">
                                         <font key="font" size="12" name="Helvetica-Bold"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -141,8 +140,6 @@
                                 </textField>
                             </subviews>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" size="12" name="Helvetica"/>
                     </box>
                 </subviews>
@@ -445,10 +442,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="112" height="97"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button id="46">
-                        <rect key="frame" x="7" y="73" width="81" height="17"/>
+                    <button imageHugsTitle="YES" id="46">
+                        <rect key="frame" x="8" y="74" width="80" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="right" alignment="right" controlSize="small" inset="2" id="fSr-6F-Zbk">
+                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="trailing" alignment="right" inset="2" id="Ma7-7t-sTq">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -456,10 +453,10 @@
                             <action selector="toggleMonsters:" target="48" id="199"/>
                         </connections>
                     </button>
-                    <button id="72">
-                        <rect key="frame" x="29" y="55" width="59" height="17"/>
+                    <button imageHugsTitle="YES" id="72">
+                        <rect key="frame" x="30" y="56" width="58" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Items" imagePosition="right" alignment="right" controlSize="small" inset="2" id="TdP-4A-6SA">
+                        <buttonCell key="cell" type="check" title="Items" imagePosition="trailing" alignment="right" inset="2" id="F9h-TH-qI5">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -467,10 +464,10 @@
                             <action selector="toggleItems:" target="48" id="200"/>
                         </connections>
                     </button>
-                    <button id="99">
-                        <rect key="frame" x="14" y="36" width="74" height="17"/>
+                    <button misplaced="YES" imageHugsTitle="YES" id="99">
+                        <rect key="frame" x="15" y="37" width="73" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="right" alignment="right" controlSize="small" inset="2" id="8eq-Sa-55k">
+                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="trailing" alignment="right" inset="2" id="eHM-gB-rKM">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -478,10 +475,10 @@
                             <action selector="toggleWeapons:" target="48" id="201"/>
                         </connections>
                     </button>
-                    <button id="111">
-                        <rect key="frame" x="14" y="6" width="74" height="17"/>
+                    <button imageHugsTitle="YES" id="111">
+                        <rect key="frame" x="15" y="7" width="73" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Panel" imagePosition="right" alignment="right" controlSize="small" inset="2" id="hGe-bq-VQH">
+                        <buttonCell key="cell" type="check" title="Panel" imagePosition="trailing" alignment="right" inset="2" id="l4X-3X-sFL">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -528,7 +525,7 @@
                     <textField verticalHuggingPriority="750" id="19">
                         <rect key="frame" x="86" y="130" width="261" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="DoomEd" id="LF2-Iv-WXG">
+                        <textFieldCell key="cell" alignment="center" title="DoomEd" id="9qP-rZ-TBf">
                             <font key="font" size="48" name="Charcoal"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -537,7 +534,7 @@
                     <textField verticalHuggingPriority="750" id="56">
                         <rect key="frame" x="77" y="118" width="279" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="&quot;Adobe Illustrator 5.0 for World Maps!&quot;" id="6io-B1-ktz">
+                        <textFieldCell key="cell" alignment="center" title="&quot;Adobe Illustrator 5.0 for World Maps!&quot;" id="Xoc-5T-dRK">
                             <font key="font" size="14" name="Helvetica-BoldOblique"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -546,8 +543,8 @@
                     <textField verticalHuggingPriority="750" id="85">
                         <rect key="frame" x="82" y="32" width="213" height="75"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" id="BdL-Ip-xaR">
-                            <font key="font" size="12" name="Helvetica"/>
+                        <textFieldCell key="cell" alignment="center" id="IQb-Cb-AII">
+                            <font key="font" metaFont="smallSystem"/>
                             <string key="title">by John Romero &amp; John Carmack
 copyright (C) 1993, id Software, inc.
 
@@ -557,18 +554,18 @@ johnc@idsoftware.com</string>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button id="61">
+                    <button imageHugsTitle="YES" id="61">
                         <rect key="frame" x="8" y="-4" width="80" height="116"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="bevel" title="Romero" image="Me1" imagePosition="above" alignment="center" alternateImage="Me2" inset="2" id="9r3-Pa-DrL">
+                        <buttonCell key="cell" type="bevel" title="Romero" image="Me1" imagePosition="above" alignment="center" alternateImage="Me2" imageScaling="proportionallyDown" inset="2" id="M5P-YP-AVO">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" size="12" name="Helvetica-Bold"/>
                         </buttonCell>
                     </button>
-                    <button id="83">
+                    <button imageHugsTitle="YES" id="83">
                         <rect key="frame" x="285" y="-5" width="88" height="106"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="bevel" title="Carmack" image="johnc" imagePosition="above" alignment="center" inset="2" id="wZ0-cK-dwx">
+                        <buttonCell key="cell" type="bevel" title="Carmack" image="johnc" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="IDL-Fp-mkf">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Helvetica-Bold"/>
                         </buttonCell>
@@ -576,30 +573,30 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="96">
                         <rect key="frame" x="139" y="3" width="92" height="18"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="version 0.92" id="0mk-DE-4Di">
+                        <textFieldCell key="cell" alignment="center" title="version 0.92" id="Jfe-zH-x4E">
                             <font key="font" size="14" name="Helvetica-BoldOblique"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" id="47">
+                    <button imageHugsTitle="YES" id="47">
                         <rect key="frame" x="16" y="113" width="60" height="60"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="SmallDemon" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="0cE-ee-3QF">
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SmallDemon" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="brj-f3-7cg">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                     </button>
                 </subviews>
             </view>
         </window>
-        <window title="Tools" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
+        <window title="TOOLS" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="FloatingPanel">
+            <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="2" y="391" width="105" height="165"/>
             <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
             <view key="contentView" id="59">
-                <rect key="frame" x="0.0" y="0.0" width="105" height="165"/>
+                <rect key="frame" x="1" y="1" width="105" height="165"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="127">
@@ -607,48 +604,48 @@ johnc@idsoftware.com</string>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="97" height="15"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="lkA-Do-8jz">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="bo6-Of-FMe">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" size="12" name="Helvetica"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Select" imagePosition="left" alignment="left" state="on" inset="2" id="141">
+                                <buttonCell type="radio" title="Select" imagePosition="leading" alignment="left" state="on" inset="2" id="141">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">k</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Poly line" imagePosition="left" alignment="left" inset="2" id="14">
+                                <buttonCell type="radio" title="Poly line" imagePosition="leading" alignment="left" inset="2" id="14">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">,</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Line" imagePosition="left" alignment="left" tag="1" inset="2" id="22">
+                                <buttonCell type="radio" title="Line" imagePosition="leading" alignment="left" tag="1" inset="2" id="22">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">l</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Zoom" imagePosition="left" alignment="left" inset="2" id="90">
+                                <buttonCell type="radio" title="Zoom" imagePosition="leading" alignment="left" inset="2" id="90">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">z</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Move" imagePosition="left" alignment="left" inset="2" id="66">
+                                <buttonCell type="radio" title="Move" imagePosition="leading" alignment="left" inset="2" id="66">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">M</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Sector get/fill" imagePosition="left" alignment="left" inset="2" id="13">
+                                <buttonCell type="radio" title="Sector get/fill" imagePosition="leading" alignment="left" inset="2" id="13">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">g</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="New thing" imagePosition="left" alignment="left" inset="2" id="88">
+                                <buttonCell type="radio" title="New thing" imagePosition="leading" alignment="left" inset="2" id="88">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">t</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="left" alignment="left" inset="2" id="42">
+                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="leading" alignment="left" inset="2" id="42">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                 </buttonCell>
@@ -661,7 +658,7 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="89">
                         <rect key="frame" x="88" y="146" width="24" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="k" id="Zpl-l3-eC4">
+                        <textFieldCell key="cell" alignment="center" title="k" id="Am4-Y2-GZk">
                             <font key="font" size="10" name="Helvetica-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -670,7 +667,7 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="136">
                         <rect key="frame" x="88" y="115" width="24" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="l" id="vrC-2M-FIN">
+                        <textFieldCell key="cell" alignment="center" title="l" id="oHu-al-0Fs">
                             <font key="font" size="10" name="Helvetica-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -679,7 +676,7 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="124">
                         <rect key="frame" x="87" y="100" width="24" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="z" id="hBZ-z3-JrQ">
+                        <textFieldCell key="cell" alignment="center" title="z" id="Vac-fG-eOG">
                             <font key="font" size="10" name="Helvetica-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -688,7 +685,7 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="134">
                         <rect key="frame" x="88" y="70" width="24" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="g" id="lDS-uX-NJ0">
+                        <textFieldCell key="cell" alignment="center" title="g" id="TKD-PO-VrT">
                             <font key="font" size="10" name="Helvetica-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -697,7 +694,7 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="100">
                         <rect key="frame" x="87" y="85" width="24" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="M" id="d9B-IX-vJ7">
+                        <textFieldCell key="cell" alignment="center" title="M" id="Ybv-FB-HHO">
                             <font key="font" size="10" name="Helvetica-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -706,16 +703,16 @@ johnc@idsoftware.com</string>
                     <textField verticalHuggingPriority="750" id="58">
                         <rect key="frame" x="88" y="57" width="24" height="13"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="center" title="t" id="3fW-fF-C20">
+                        <textFieldCell key="cell" alignment="center" title="t" id="ei9-Oy-E9A">
                             <font key="font" size="10" name="Helvetica-Bold"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" id="69">
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="69">
                         <rect key="frame" x="3" y="21" width="100" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Separate Points" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="Ota-bN-RLP">
+                        <buttonCell key="cell" type="push" title="Separate Points" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="nPi-vD-sKt">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="10" name="Helvetica-Bold"/>
                         </buttonCell>
@@ -723,10 +720,10 @@ johnc@idsoftware.com</string>
                             <action selector="seperatePoints:" target="27" id="169"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" id="30">
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="30">
                         <rect key="frame" x="3" y="3" width="100" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Fuse Points" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="D62-BL-iIB">
+                        <buttonCell key="cell" type="push" title="Fuse Points" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="CRf-Xa-MTK">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="10" name="Helvetica-Bold"/>
                         </buttonCell>
