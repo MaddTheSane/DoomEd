@@ -35,20 +35,20 @@ typedef enum
 
 @interface PreferencePanel:NSObject
 {
-    IBOutlet id	backcolor_i;
-    IBOutlet id	gridcolor_i;
-    IBOutlet id	tilecolor_i;
-    IBOutlet id	selectedcolor_i;
-    IBOutlet id	pointcolor_i;
-    IBOutlet id	onesidedcolor_i;
-    IBOutlet id	twosidedcolor_i;
-    IBOutlet id	areacolor_i;
-    IBOutlet id	thingcolor_i;
-	IBOutlet id	specialcolor_i;
+    IBOutlet NSColorWell	*backcolor_i;
+    IBOutlet NSColorWell	*gridcolor_i;
+    IBOutlet NSColorWell	*tilecolor_i;
+    IBOutlet NSColorWell	*selectedcolor_i;
+    IBOutlet NSColorWell	*pointcolor_i;
+    IBOutlet NSColorWell	*onesidedcolor_i;
+    IBOutlet NSColorWell	*twosidedcolor_i;
+    IBOutlet NSColorWell	*areacolor_i;
+    IBOutlet NSColorWell	*thingcolor_i;
+	IBOutlet NSColorWell	*specialcolor_i;
 	
-	IBOutlet id	launchThingType_i;
-	IBOutlet id	projectDefaultPath_i;
-	IBOutlet id	openupDefaults_i;
+	IBOutlet NSTextField	*launchThingType_i;
+	IBOutlet NSTextField	*projectDefaultPath_i;
+	IBOutlet NSMatrix		*openupDefaults_i;
 	
     IBOutlet NSWindow *window_i;
 	

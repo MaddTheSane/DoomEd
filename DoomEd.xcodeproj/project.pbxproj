@@ -69,6 +69,7 @@
 		27DA44BA19706396005CB000 /* ToolPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448C19706396005CB000 /* ToolPanel.m */; };
 		27DA44BB19706396005CB000 /* Wadfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448D19706396005CB000 /* Wadfile.m */; };
 		55CDCE24209668E3007FA890 /* TextLog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE26209668E3007FA890 /* TextLog.xib */; };
+		55CDCE2920966EAD007FA890 /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE2B20966EAD007FA890 /* preferences.xib */; };
 		55D5FD182095B0C300E54855 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD172095B0C300E54855 /* Media.xcassets */; };
 		55D5FD202095B65000E54855 /* DEStart.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD192095B65000E54855 /* DEStart.snd */; };
 		55D5FD212095B65000E54855 /* D_Ratdie.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1A2095B65000E54855 /* D_Ratdie.snd */; };
@@ -194,6 +195,7 @@
 		27DA448D19706396005CB000 /* Wadfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wadfile.m; sourceTree = "<group>"; };
 		27DA44BC19706492005CB000 /* DoomEd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DoomEd-Info.plist"; sourceTree = "<group>"; };
 		55CDCE25209668E3007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextLog.xib; sourceTree = "<group>"; };
+		55CDCE2E20966EBB007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/preferences.xib; sourceTree = "<group>"; };
 		55D5FD172095B0C300E54855 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		55D5FD192095B65000E54855 /* DEStart.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = DEStart.snd; sourceTree = "<group>"; };
 		55D5FD1A2095B65000E54855 /* D_Ratdie.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_Ratdie.snd; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				276AB5DD1970AE9D001718D1 /* DoomEd.xib */,
 				276AB5DF1970AE9D001718D1 /* FindLine.xib */,
 				276AB5E11970AE9D001718D1 /* FlatRemapper.xib */,
+				55CDCE2B20966EAD007FA890 /* preferences.xib */,
 				276AB5E61970AECA001718D1 /* Project.xib */,
 				276AB5E81970AECA001718D1 /* ProjectInfo.xib */,
 				276AB5EA1970AECA001718D1 /* Remapper.xib */,
@@ -465,6 +468,7 @@
 				55D5FD262095B65000E54855 /* D_Dbite.snd in Resources */,
 				55D5FD242095B65000E54855 /* DESave.snd in Resources */,
 				276AB5E51970AE9D001718D1 /* FlatRemapper.xib in Resources */,
+				55CDCE2920966EAD007FA890 /* preferences.xib in Resources */,
 				276AB5FB1970AEE0001718D1 /* TextureEdit.xib in Resources */,
 				276AB5FC1970AEE0001718D1 /* TexturePalette.xib in Resources */,
 				55D5FD252095B65000E54855 /* Pop.snd in Resources */,
@@ -647,6 +651,14 @@
 				55CDCE25209668E3007FA890 /* en */,
 			);
 			name = TextLog.xib;
+			sourceTree = "<group>";
+		};
+		55CDCE2B20966EAD007FA890 /* preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55CDCE2E20966EBB007FA890 /* en */,
+			);
+			name = preferences.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
