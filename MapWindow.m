@@ -112,37 +112,15 @@ static	int	cornerx = 128, cornery = 64;
 	return self;
 }
 
-- mapView
-{
-	return mapview_i;
-}
+@synthesize mapView=mapview_i;
+@synthesize scalemenu=scalemenu_i;
+@synthesize scalebutton=scalebutton_i;
+@synthesize gridmenu=gridmenu_i;
+@synthesize gridbutton=gridbutton_i;
 
-- scalemenu
-{
-	return scalemenu_i;
-}
-
-- scalebutton
-{
-	return scalebutton_i;
-}
-
-
-- gridmenu
-{
-	return gridmenu_i;
-}
-
-- gridbutton
-{
-	return gridbutton_i;
-}
-
-
-- reDisplay: (NSRect *)dirty
+- (void)reDisplay: (NSRect *)dirty
 {
 	[mapview_i displayDirty: dirty];
-	return self;
 }
 
 /*

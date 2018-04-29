@@ -1,4 +1,4 @@
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 #import "EditWorld.h"
 
 #define CPOINTSIZE	7		// size for clicking

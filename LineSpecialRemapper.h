@@ -1,5 +1,5 @@
 #import	"Remapper.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 extern	id	lineSpecialRemapper_i;
 

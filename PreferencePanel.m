@@ -117,6 +117,7 @@ int			openupValues[NUMOPENUP];
 
 - init
 {
+	if (self = [super init]) {
 	int		i;
 	int		val;
 
@@ -141,7 +142,7 @@ int			openupValues[NUMOPENUP];
 //		[[openupDefaults_i findCellWithTag:i] setIntValue:val];
 		openupValues[i] = val;
 	}
-
+	}
 
 	return self;
 }
@@ -155,7 +156,7 @@ int			openupValues[NUMOPENUP];
 =====================
 */
 
-- applicationWillTerminate: (NSNotification *)notification
+- (void)applicationWillTerminate: (NSNotification *)notification
 {
 	int i;
 	NSString *string;
@@ -182,7 +183,6 @@ int			openupValues[NUMOPENUP];
 
 	if (window_i)
 		[window_i saveFrameUsingName:PREFNAME];
-	return self;
 }
 
 
@@ -194,7 +194,7 @@ int			openupValues[NUMOPENUP];
 ==============
 */
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	int		i;
 	
@@ -230,7 +230,6 @@ int			openupValues[NUMOPENUP];
 
 	[window_i orderFront:self];
 
-	return self;
 }
 
 /*
@@ -241,7 +240,7 @@ int			openupValues[NUMOPENUP];
 ==============
 */
 
-- colorChanged:sender
+- (IBAction)colorChanged:sender
 {
 	int i;
 	NSWindow *win;
@@ -261,8 +260,6 @@ int			openupValues[NUMOPENUP];
 		if ([win class] == [MapWindow class])
 			[[(MapWindow *) win mapView] display];
 	}
-	
-	return self;
 }
 
 - (NSColor *)colorFor: (int)ucolor
@@ -270,10 +267,9 @@ int			openupValues[NUMOPENUP];
 	return color[ucolor];
 }
 
-- launchThingTypeChanged:sender
+- (IBAction)launchThingTypeChanged:sender
 {
 	launchThingType = [sender	intValue];
-	return self;
 }
 
 - (int)getLaunchThingType
@@ -281,17 +277,15 @@ int			openupValues[NUMOPENUP];
 	return	launchThingType;
 }
 
-- projectPathChanged:sender
+- (IBAction)projectPathChanged:sender
 {
-	strcpy(projectPath, [sender	stringValue] );
-	return self;
+	strcpy(projectPath, [sender	stringValue].fileSystemRepresentation );
 }
 
-- openupChanged:sender
+- (IBAction)openupChanged:sender
 {
 	id	cell = [sender selectedCell];
 	openupValues[[cell tag]] = [cell intValue];
-	return self;
 }
 
 - (char *)getProjectPath
