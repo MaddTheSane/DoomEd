@@ -18,6 +18,9 @@ BOOL	linecross[9][9];
 
 + (void) initialize
 {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		
 	int x1, y1, x2, y2;
 
 	for (x1 = 0; x1 < 3 ; x1++)
@@ -37,6 +40,7 @@ BOOL	linecross[9][9];
 			}
 		}
 	}
+	});
 }
 
 
@@ -48,29 +52,33 @@ BOOL	linecross[9][9];
 ==================
 */
 
--initFromEditWorld
+-(instancetype)initFromEditWorld
 {
 	NSRect	aRect;
 
+	// call -setOrigin after installing in clip view
+	aRect = NSMakeRect(0, 0, 100, 100);
+	if ([super initWithFrame: aRect]) {	// to set the proper rectangle
 	 if (![editworld_i loaded])
 	 {
 		NSRunAlertPanel(@"Error",
 			@"MapView inited with NULL world",
 			nil, nil, nil);
-		return NULL;
+		 [self release];
+		 return nil;
 	}
 
 	gridsize = 8;		// these are changed by the pop up menus
 	scale = 1;
 
-	// call -setOrigin after installing in clip view
-	aRect = NSMakeRect(0, 0, 100, 100);
-	[super initWithFrame: aRect];	// to set the proper rectangle
-	[self setOpaque: YES];
-
+	}
 	return self;
 }
 
+- (BOOL)isOpaque
+{
+	return YES;
+}
 
 #define TESTOPS	1000
 
@@ -141,7 +149,7 @@ printf ("Done\n");
 ====================
 */
 
-- scaleMenuTarget: sender
+- (IBAction)scaleMenuTarget: sender
 {
 	NSString *item;
 	float nscale;
@@ -152,7 +160,7 @@ printf ("Done\n");
 	nscale /= 100;
 
 	if (nscale == scale)
-		return NULL;
+		return;
 
 	// try to keep the center of the view constant
 	visrect = [[self superview] visibleRect];
@@ -161,8 +169,6 @@ printf ("Done\n");
 	visrect.origin.y += visrect.size.height/2;
 
 	[self zoomFrom: visrect.origin toScale: nscale];
-
-	return self;
 }
 
 
@@ -176,7 +182,7 @@ printf ("Done\n");
 ====================
 */
 
-- gridMenuTarget: sender
+- (IBAction)gridMenuTarget: sender
 {
 	NSString *item;
 	int grid;
@@ -185,12 +191,10 @@ printf ("Done\n");
 	sscanf([item UTF8String], "grid %d", &grid);
 
 	if (grid == gridsize)
-		return NULL;
+		return;
 
 	gridsize = grid;
 	[self display];
-
-	return self;
 }
 
 /*
@@ -234,10 +238,7 @@ printf ("Done\n");
 	return YES;
 }
 
-- (float)currentScale
-{
-	return scale;
-}
+@synthesize currentScale=scale;
 
 
 /*
@@ -281,23 +282,23 @@ printf ("Done\n");
 ====================
 */
 
-- displayDirty: (NSRect const *)dirty
+- (void)displayDirty: (NSRect)dirty
 {
 	NSRect	rect;
-	float		adjust;
+	CGFloat	adjust;
 	
 	adjust = CPOINTDRAW*scale;
 	if (adjust <= LINENORMALLENGTH)
 		adjust = LINENORMALLENGTH+1;
 		
-	rect.origin.x = dirty->origin.x - adjust;
-	rect.origin.y = dirty->origin.y - adjust;
-	rect.size.width = dirty->size.width + adjust*2;
-	rect.size.height = dirty->size.height + adjust*2;
+	rect.origin.x = dirty.origin.x - adjust;
+	rect.origin.y = dirty.origin.y - adjust;
+	rect.size.width = dirty.size.width + adjust*2;
+	rect.size.height = dirty.size.height + adjust*2;
 
 	rect = NSIntegralRect(rect);
 
-	return [self display: &rect : 1];
+	[self display: &rect : 1];
 }
 
 
@@ -358,12 +359,12 @@ printf ("Done\n");
 ==================
 */
 
-- adjustFrameForOrigin: (NSPoint)org
+- (void)adjustFrameForOrigin: (NSPoint)org
 {
-	return [self adjustFrameForOrigin: org scale:scale];
+	[self adjustFrameForOrigin: org scale:scale];
 }
 
-- adjustFrameForOrigin: (NSPoint)org scale: (float)scl
+- (void)adjustFrameForOrigin: (NSPoint)org scale: (CGFloat)scl
 {
 	NSRect map;
 	NSRect newbounds;
@@ -374,7 +375,7 @@ printf ("Done\n");
 	if (scl != scale)
 	{
 //printf ("changed scale\n");
-		[self setDrawSize: [self frame].size.width/scl : [self frame].size.height/scl];
+		[self setFrameSize:NSMakeSize([self frame].size.width/scl, [self frame].size.height/scl)];
 		scale = scl;
 	}
 	
@@ -396,17 +397,15 @@ printf ("Done\n");
 	    newbounds.size.height != viewbounds.size.height)
 	{
 //printf ("changed size\n");
-		[self sizeTo: newbounds.size.width*scale : newbounds.size.height*scale];
+		[self setBoundsSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
 	}
 
 	if (newbounds.origin.x != viewbounds.origin.x ||
 	    newbounds.origin.y != viewbounds.origin.y)
 	{
 //printf ("changed origin\n");
-		[self setDrawOrigin: newbounds.origin.x : newbounds.origin.y];
+		[super setBoundsOrigin:newbounds.origin];
 	}
-
-	return self;
 }
 
 
@@ -422,16 +421,15 @@ printf ("Done\n");
 =======================
 */
 
-- setOrigin: (NSPoint) org
+- (void)setOrigin: (NSPoint) org
 {
-	return [self setOrigin: org scale: scale];
+	[self setOrigin: org scale: scale];
 }
 
-- setOrigin: (NSPoint) org scale: (float)scl
+- (void)setOrigin: (NSPoint) org scale: (CGFloat)scl
 {
 	[self adjustFrameForOrigin: org scale:scl];
 	[self scrollPoint: org];
-	return self;
 }
 
 /*
@@ -444,11 +442,11 @@ printf ("Done\n");
 ====================
 */
 
-- zoomFrom:(NSPoint)origin toScale:(float)newscale
+- (void)zoomFrom:(NSPoint)origin toScale:(CGFloat)newscale
 {
 	NSPoint		neworg, orgnow;
 	
-	[[self window] disableDisplay];		// don't redraw twice (scaling and translating)
+	[[self window] disableFlushWindow];		// don't redraw twice (scaling and translating)
 //
 // find where the point is now
 //
@@ -457,13 +455,14 @@ printf ("Done\n");
 //
 // change scale
 //
-	[self setDrawSize: [self frame].size.width/newscale : [self frame].size.height/newscale];
+	
+	[self setFrameSize:NSMakeSize([self frame].size.width/newscale, [self frame].size.height/newscale)];
 	scale = newscale;
 
 //
 // convert the point back
 //
-	[self convertPoint: neworg fromView: NULL];
+	neworg = [self convertPoint: neworg fromView: NULL];
 	orgnow = [self getCurrentOrigin];
 	orgnow.x += origin.x - neworg.x;
 	orgnow.y += origin.y - neworg.y;
@@ -472,10 +471,8 @@ printf ("Done\n");
 //
 // redraw
 // 
-	[[self window] reenableDisplay];
-	[[[self superview] superview] display];  // redraw everything just once
-	
-	return self;
+	[[self window] enableFlushWindow];
+	[[[self superview] superview] setNeedsDisplay:YES];  // redraw everything just once
 }
 
 

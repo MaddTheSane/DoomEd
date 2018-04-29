@@ -3,7 +3,7 @@
 
 @interface TextureRemapper:NSObject <Remapper>
 {
-	IBOutlet id	remapper_i;
+	IBOutlet Remapper	*remapper_i;
 }
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;

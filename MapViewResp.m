@@ -139,18 +139,18 @@
 	NSString *item;
 	float			nscale;
 	id			itemlist;
-	int			selected, numrows, numcollumns;
+	NSInteger			selected, numrows, numcollumns;
 	NSPoint		origin;
 	
-	itemlist = [[[self window] scalemenu] itemList];
-	[itemlist getNumRows: &numrows numCols:&numcollumns];
+	itemlist = [[(MapWindow*)[self window] scalemenu] itemList];
+	[itemlist getNumberOfRows:&numrows columns:&numcollumns];
 	
 	selected = [itemlist selectedRow] + 1;
 	if (selected >= numrows)
 		return NULL;
 		
 	[itemlist selectCellAtRow: selected column: 0];
-	[[[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
+	[[(MapWindow*)[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
 
 // parse the scale from the title
 	item = [[itemlist selectedCell] title];
@@ -183,19 +183,19 @@
 - zoomOut:(NSEvent *)event
 {
 	NSString *item;
-	float			nscale;
+	float		nscale;
 	id			itemlist;
-	int			selected;
+	NSInteger	selected;
 	NSPoint		origin;
 
-	itemlist = [[[self window] scalemenu] itemList];
+	itemlist = [[(MapWindow*)[self window] scalemenu] itemList];
 	selected = [itemlist selectedRow] - 1;
 	
 	if (selected < 0)
 		return NULL;
 		
 	[itemlist selectCellAtRow: selected column: 0];
-	[[[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
+	[[(MapWindow*)[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
 	
 // parse the scale from the title
 	item = [[itemlist selectedCell] title];
@@ -243,7 +243,7 @@
 	[self lockFocus];
 	PSsetinstance (YES);
 	PSsetlinewidth (0.15);
-	NXSetColor ([prefpanel_i colorFor: [settingspanel_i segmentType]]);
+	[[prefpanel_i colorFor: [settingspanel_i segmentType]] set];
 
 	fixedpoint = [self getGridPointFrom: event];		// handle grid and such
 
@@ -251,11 +251,10 @@
 	{
 		dragpoint = [self getGridPointFrom: event];  // handle grid and such
 
-		PSnewinstance ();
-
-		PSmoveto (fixedpoint.x, fixedpoint.y);
-		PSlineto (dragpoint.x, dragpoint.y);
-		PSstroke ();
+		NSBezierPath *path = [NSBezierPath bezierPath];
+		[path moveToPoint:fixedpoint];
+		[path lineToPoint:dragpoint];
+		[path stroke];
 		NXPing ();
 
 		event = [[self window]
@@ -279,7 +278,7 @@
 	[editworld_i deselectAll];
 	[self addLineFrom: &fixedpoint  to: &dragpoint];
 	[editworld_i updateWindows];	
-	[doomproject_i	setDirtyMap:TRUE];	
+	[doomproject_i	setMapDirty:TRUE];
 
 	return self;
 }
@@ -304,14 +303,14 @@
 //	
 	[self lockFocus];
 	PSsetlinewidth (0.15);
-	NXSetColor ([prefpanel_i colorFor: [settingspanel_i segmentType]]);
+	[[prefpanel_i colorFor: [settingspanel_i segmentType]] set];
 
 //
 // wait for a mouse up to specify first point
 //
 	do
 	{
-		event = [[self window] nextEventMatchingMask: NSLeftMouseUp];
+		event = [[self window] nextEventMatchingMask: NSEventMaskLeftMouseUp];
 	} while (event == nil || [event type] != NSLeftMouseUp);
 
 //
@@ -359,7 +358,7 @@
 
 		[self addLineFrom: &fixedpoint  to: &dragpoint];
 		[editworld_i updateWindows];		
-		[doomproject_i	setDirtyMap:TRUE];
+		[doomproject_i	setMapDirty:TRUE];
 	} while (1);
 	
 	[self unlockFocus];
@@ -529,7 +528,7 @@
 				}
 
 			if (moved.x || moved.y)
-				[doomproject_i	setDirtyMap:TRUE];
+				[doomproject_i	setMapDirty:TRUE];
 				
 			moved = cursor;
 		}
@@ -550,7 +549,7 @@
 		updaterect = NSUnionRect(olddragrect, updaterect);
 		updaterect = NSUnionRect(fixedrect, updaterect);
 		olddragrect = currentdragrect;
-		[self displayDirty: &updaterect];
+		[self displayDirty: updaterect];
 
 	} while (1);
 
@@ -573,7 +572,7 @@
 			points[p].pt.y -= totalmoved.y;
 			[editworld_i changePoint: p to: &newpoint];
 			if (totalmoved.x || totalmoved.y)
-				[doomproject_i	setDirtyMap:TRUE];
+				[doomproject_i	setMapDirty:TRUE];
 		}
 
 	return self;
@@ -629,7 +628,7 @@
 		// redraw new frame
 		//
 		PSnewinstance ();
-		NXFrameRectWithWidth(&newframe, FRAMEWIDTH);
+		NSFrameRectWithWidth(newframe, FRAMEWIDTH);
 		NXPing ();
 
 		event = [[self window]

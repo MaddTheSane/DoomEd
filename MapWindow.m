@@ -100,7 +100,7 @@ static	int	cornerx = 128, cornery = 64;
 // link objects together
 	[self setDelegate: self];
 
-	[scrollview_i setDocView: mapview_i];
+	[scrollview_i setDocumentView: mapview_i];
 	[self  setContentView: scrollview_i];
 
 // scroll to the middle
@@ -120,7 +120,7 @@ static	int	cornerx = 128, cornery = 64;
 
 - (void)reDisplay: (NSRect *)dirty
 {
-	[mapview_i displayDirty: dirty];
+	[mapview_i displayDirty: *dirty];
 }
 
 /*
@@ -144,12 +144,12 @@ static	int	cornerx = 128, cornery = 64;
 ==================
 */
 
-- windowWillResize:sender toSize:(NSSize *)frameSize
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize
 {
 	oldscreenorg.x = oldscreenorg.y = 0;
-	[self convertBaseToScreen: oldscreenorg];
+	oldscreenorg = [self convertBaseToScreen: oldscreenorg];
 	presizeorigin = [mapview_i getCurrentOrigin];
-	return self;
+	return frameSize;
 }
 
 /*
@@ -163,7 +163,7 @@ static	int	cornerx = 128, cornery = 64;
 ======================
 */
 
-- windowDidResize:sender
+- (void)windowDidResize:(NSNotification *)notification
 {
 	NSRect	wincont, scrollcont;
 	float		scale;
@@ -190,7 +190,6 @@ static	int	cornerx = 128, cornery = 64;
 	                                hasHorizontalScroller: YES
 					hasVerticalScroller: YES
 					borderType: NSNoBorder];
-	return self;
 }
 
 

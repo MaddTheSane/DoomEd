@@ -1,14 +1,16 @@
 #import <AppKit/AppKit.h>
 
-@interface MapWindow: NSWindow
+@class MapView;
+
+@interface MapWindow: NSWindow <NSWindowDelegate>
 {
-	IBOutlet NSScrollView		*scrollview_i;
-	IBOutlet NSView		*mapview_i;
+	IBOutlet NSScrollView	*scrollview_i;
+	IBOutlet MapView		*mapview_i;
 	
 	IBOutlet NSMenu			*scalemenu_i;
-	IBOutlet NSButton		*scalebutton_i;
+	IBOutlet NSPopUpButton	*scalebutton_i;
 	IBOutlet NSMenu			*gridmenu_i;
-	IBOutlet NSButton		*gridbutton_i;
+	IBOutlet NSPopUpButton	*gridbutton_i;
 	
 	NSPoint	oldscreenorg;			// taken when resizing to keep view constant
 	NSPoint	presizeorigin;			// map view origin before resize

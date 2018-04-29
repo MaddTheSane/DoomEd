@@ -130,7 +130,7 @@ void IDEnclosePoint (NSRect *rect, NSPoint const *point)
 
 unsigned short ShortSwap (unsigned short dat)
 {
-	return NXSwapLittleShortToHost (dat);
+	return CFSwapInt16LittleToHost (dat);
 }
 
 
@@ -144,7 +144,7 @@ unsigned short ShortSwap (unsigned short dat)
 
 unsigned LongSwap (unsigned dat)
 {
-	return NXSwapLittleLongToHost (dat);
+	return CFSwapInt32LittleToHost (dat);
 }
 
 
@@ -156,7 +156,7 @@ unsigned LongSwap (unsigned dat)
 ================
 */
 
-int filelength (int handle)
+off_t filelength (int handle)
 {
 	struct stat	fileinfo;
     
@@ -169,7 +169,7 @@ int filelength (int handle)
 	return fileinfo.st_size;
 }
 
-int tell (int handle)
+off_t tell (int handle)
 {
 	return lseek (handle, 0, L_INCR);
 }

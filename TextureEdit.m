@@ -11,22 +11,23 @@ CompatibleStorage *texturePatches;
 
 @implementation TextureEdit
 
-- init
+- (instancetype)init
 {
+	if (self = [super init]) {
 	window_i = NULL;
 	textureEdit_i = self;
 	currentTexture = -1; 
 	oldx = oldy = 0;
+	}
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:@"TextureEditor"];
 	if (createTexture_i)
 		[createTexture_i	saveFrameUsingName:@"CTexturePanel"];
-	return self;
 }
 
 //
@@ -35,7 +36,7 @@ CompatibleStorage *texturePatches;
 //
 - (IBAction)menuTarget:sender
 {
-	if (![doomproject_i loaded])
+	if (![doomproject_i isLoaded])
 	{
 		NSRunAlertPanel(@"Oops!",
 			@"There must be a project loaded before you even\n"
@@ -72,8 +73,8 @@ CompatibleStorage *texturePatches;
 		//
 		// start texture editor at top
 		//
-		[textureView_i		getFrame:&dvf];
-		[scrollView_i		getContentSize:&s];
+		dvf = [textureView_i		frame];
+		s = [scrollView_i		contentSize];
 		startPoint.y = dvf.size.height - s.height;
 		[textureView_i		scrollPoint:startPoint];
 
@@ -129,13 +130,12 @@ CompatibleStorage *texturePatches;
 	return max;
 }
 
-- windowDidMiniaturize:(NSNotification *)notification
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
 	NSWindow *window = [notification object];
 
 	//[sender setMiniwindowIcon:"DoomEd"];
 	[window setMiniwindowTitle:@"TextureEdit"];
-	return self;
 }
 
 
@@ -375,7 +375,7 @@ CompatibleStorage *texturePatches;
 //	AND scroll the Patch Palette to that patch!
 //
 //===============================================================
-- selectPatchAndScroll:(int)patch
+- (void)selectPatchAndScroll:(int)patch
 {
 	NSRect		r;
 	apatch_t	*p;
@@ -389,7 +389,6 @@ CompatibleStorage *texturePatches;
 	r.size.height += SPACING*2;
 	[texturePatchView_i	scrollRectToVisible:r];
 	[texturePatchScrollView_i	display];
-	return self;
 }
 
 //===============================================================
@@ -541,9 +540,9 @@ CompatibleStorage *texturePatches;
 		[texturePatchXField_i	setIntValue:0];
 		[texturePatchYField_i	setIntValue:0];
 		[lockedPatch_i	setEnabled:NO];
-		[texturePatchWidthField_i	setStringValue:nil];
-		[texturePatchHeightField_i	setStringValue:nil];
-		[texturePatchNameField_i	setStringValue:nil];
+		[texturePatchWidthField_i	setStringValue:@""];
+		[texturePatchHeightField_i	setStringValue:@""];
+		[texturePatchNameField_i	setStringValue:@""];
 	}
 	else
 	{
@@ -561,7 +560,7 @@ CompatibleStorage *texturePatches;
 	}
 }
 
-- removeSelTextureEditPatch:(int)val
+- (void)removeSelTextureEditPatch:(int)val
 {
 	int	count = 0,*v;
 	while ((v = [selectedTexturePatches	elementAt:count]) != NULL)
@@ -572,7 +571,6 @@ CompatibleStorage *texturePatches;
 		}
 		else
 			count++;
-	return self;
 }
 
 - (CompatibleStorage *) getSTP
@@ -580,29 +578,26 @@ CompatibleStorage *texturePatches;
 	return selectedTexturePatches;
 }
 
-- changeSelectedTexturePatch:(int)which	to:(int)val
+- (void)changeSelectedTexturePatch:(int)which	to:(int)val
 {
 	*(int *)[selectedTexturePatches	elementAt:which] = val;
-	return self;
 }
 
 //
 // add texture patch # to selected array
 //
-- addSelectedTexturePatch:(int)val
+- (void)addSelectedTexturePatch:(int)val
 {
 	[selectedTexturePatches	addElement:&val];
-	return self;
 }
 
 //
 // patch lock switch was modified, so change patch flag
 //
-- doLockToggle
+- (void)doLockToggle
 {
 	[lockedPatch_i	setIntValue:1 - [lockedPatch_i intValue]];
 	[self	togglePatchLock:NULL];
-	return self;
 }
 
 - (IBAction)togglePatchLock:sender
@@ -724,7 +719,7 @@ CompatibleStorage *texturePatches;
 	worldtexture_t		tex;
 	id	cell;
 
-	if (![doomproject_i loaded])
+	if (![doomproject_i isLoaded])
 		return;
 
 	//
@@ -831,11 +826,11 @@ CompatibleStorage *texturePatches;
 - (IBAction)createNewSet:sender
 {
 	NSString *string;
-	int nr, nc;
+	NSInteger nr, nc;
 	id cell;
 
 	
-	[setMatrix_i	getNumRows:&nr numCols:&nc ];
+	[setMatrix_i	getNumberOfRows:&nr columns:&nc];
 	if (nr == 5)
 	{
 		[newSetButton_i	setEnabled:NO ];
@@ -843,11 +838,11 @@ CompatibleStorage *texturePatches;
 		return;
 	}
 	
-	[setMatrix_i	addRow ];
+	[setMatrix_i	addRow];
 	nr++;
-	cell = [setMatrix_i	cellAt:nr-1 :0 ];
+	cell = [setMatrix_i	cellAtRow:nr-1 column:0 ];
 
-	string = [NSString stringWithFormat: @"%d", nr];
+	string = [NSString stringWithFormat: @"%ld", (long)nr];
 	[cell		setTitle:string ];
 	[cell		setTag: nr-1 ];
 	[setMatrix_i	sizeToCells ];
@@ -893,13 +888,13 @@ CompatibleStorage *texturePatches;
 //
 // change to a new texture
 //
-- newSelection:(int)which
+- (void)newSelection:(int)which
 {
 	texpatch_t	t;
 	int	count,i;
 
 	if (which < 0)
-		return self;
+		return;
 
 	currentTexture = which;
 	if (texturePatches)
@@ -935,15 +930,13 @@ CompatibleStorage *texturePatches;
 	
 	[textureView_i		sizeTo:textures[currentTexture].width * 2
 					:textures[currentTexture].height * 2];
-	[textureView_i		display];
+	[textureView_i		setNeedsDisplay:YES];
 
 	[textureWidthField_i	setIntValue:textures[currentTexture].width];
 	[textureHeightField_i	setIntValue:textures[currentTexture].height];
 	[textureNameField_i setStringValue:
 		[NSString stringWithUTF8String: textures[currentTexture].name]];
 	[textureSetField_i	setIntValue:textures[currentTexture].WADindex + 1 ];
-
-	return self;
 }
 
 //
@@ -954,27 +947,25 @@ CompatibleStorage *texturePatches;
 	return currentTexture;
 }
 
-- setOldVars:(int)x :(int)y
+- (void)setOldVars:(int)x :(int)y
 {
 	oldx = x;
 	oldy = y;
-	return self;
 }
 
-- setWarning:(BOOL)state
+- (void)setWarning:(BOOL)state
 {
 	if (state == YES)
 		[dragWarning_i	setStringValue:@"Selections dragged outside texture!"];
 	else
 		[dragWarning_i	setStringValue:@" "];
-	return self;
 }
 
 //
 // user double-clicked on patch in patch palette.
 // add that patch to the texture definition.
 //
-- addPatch:(int)which
+- (void)addPatch:(int)which
 {
 	int	ct, ox, oy;
 	NSRect	dvr;
@@ -989,7 +980,7 @@ CompatibleStorage *texturePatches;
 	if (ct < 0)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	if ([texturePatches	count] == MAXPATCHES)
@@ -997,7 +988,7 @@ CompatibleStorage *texturePatches;
 		NSRunAlertPanel(@"Um!",
 			@"A maximum of 100 patches is in force!",
 			@"OK", nil, nil);
-		return self;
+		return;
 	}
 	
 	if (dvr.size.width > textures[ct].width*2)
@@ -1062,7 +1053,6 @@ CompatibleStorage *texturePatches;
 	p.r.origin.x += p.r.size.width * 1.5;
 	[textureView_i		scrollRectToVisible:p.r];
 	[textureView_i		display];
-	return self;
 }
 
 - (IBAction)fillWithPatch:sender
@@ -1097,7 +1087,7 @@ CompatibleStorage *texturePatches;
 //
 // set patch selected in Patch Palette
 //
-- setSelectedPatch:(int)which
+- (void)setSelectedPatch:(int)which
 {
 	apatch_t	*t;
 	NSRect		r;
@@ -1116,7 +1106,6 @@ CompatibleStorage *texturePatches;
 	r.size.height += SPACING*2;
 	[texturePatchView_i			scrollRectToVisible:r];
 	[texturePatchScrollView_i	display];
-	return self;
 }
 
 //==========================================================
@@ -1162,7 +1151,7 @@ CompatibleStorage *texturePatches;
 //	Load in all the patches and init storage array
 //
 //==========================================================
-- initPatches
+- (void)initPatches
 {
 	int		patchStart, patchEnd, i;
 	patch_t	*patch;
@@ -1236,23 +1225,20 @@ CompatibleStorage *texturePatches;
 
 	free(palLBM);
 	[doomproject_i	closeThermo];
-	return self;
 }
 
 //
 // make a copy that's 2 times the size
 //
-- createPatchX2:(apatch_t *)p
+- (void)createPatchX2:(apatch_t *)p
 {
 	NSSize theSize;
 
-	p->image_x2 = [p->image	copyFromZone:NXDefaultMallocZone()];
+	p->image_x2 = [p->image	copy];
 	theSize = p->size;
 	theSize.width *= 2;
 	theSize.height *= 2;
-	[p->image_x2 setScalable:YES];
 	[p->image_x2 setSize:theSize];
-	return self;
 }
 
 //

@@ -15,7 +15,8 @@ TextureRemapper *textureRemapper_i;
 {
 	textureRemapper_i = self;
 
-	remapper_i = [[Remapper alloc]
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i
 		setFrameName: @"TextureRemapper"
 		setPanelTitle: @"Texture Remapper"
 		setBrowserTitle: @"List of textures to be remapped"
@@ -36,10 +37,9 @@ TextureRemapper *textureRemapper_i;
 	return self;
 }
 
-- addToList: (NSString *) orgname to: (NSString *) newname;
+- (void)addToList: (NSString *) orgname to: (NSString *) newname;
 {
 	[remapper_i addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================
@@ -116,9 +116,8 @@ TextureRemapper *textureRemapper_i;
 	return linenum;
 }
 
-- finishUp
+- (void)finishUp
 {
-	return self;
 }
 
 @end

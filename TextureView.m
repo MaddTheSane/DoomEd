@@ -67,11 +67,11 @@
 	if (ct < 0)
 		return self;
 
-	NXSetColor([NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]);
+	[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0] set];
 	NSRectFill(rects[0]);
 
 	outlineflag = [textureEdit_i	getOutlineFlag];
-	PSsetgray(NX_DKGRAY);
+	[[NSColor darkGrayColor] set];
 
 	//
 	// draw all patches
@@ -81,7 +81,7 @@
 	{
 		tpatch = [texturePatches	elementAt:i];
 //		if (NSIntersectsRect(tpatch->r, rects[0]))
-			[tpatch->patch->image_x2	composite:NSCompositeSourceOver toPoint:&tpatch->r.origin];
+			[tpatch->patch->image_x2 drawAtPoint:tpatch->r.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 	}
 
 	//
@@ -92,7 +92,7 @@
 		{
 			tpatch = [texturePatches	elementAt:i];
 //			if (NSIntersectsRect(tpatch->r, rects[0]))
-				NXFrameRectWithWidth(&tpatch->r,5);
+				NSFrameRectWithWidth(tpatch->r,5);
 		}
 
 	//
@@ -106,8 +106,8 @@
 		for (i = 0;i<max;i++)
 		{
 			tpatch = [texturePatches	elementAt:*(int *)[[textureEdit_i getSTP] elementAt:i]];
-			PSsetgray(NX_WHITE);
-			NXFrameRectWithWidth(&tpatch->r,5);
+			[[NSColor whiteColor] set];
+			NSFrameRectWithWidth(tpatch->r, 5);
 		}
 	}
 	
@@ -161,7 +161,7 @@
 				[textureEdit_i	addSelectedTexturePatch:i];
 				[textureEdit_i	updateTexPatchInfo];
 			}
-			[self	display];
+			[self	setNeedsDisplay:YES];
 			clicked = 1;
 			break;
 		}

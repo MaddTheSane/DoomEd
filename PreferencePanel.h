@@ -52,10 +52,10 @@ typedef enum
 	
     IBOutlet NSWindow *window_i;
 	
-	id		colorwell[NUMCOLORS];
-	NSColor	*color[NUMCOLORS];
-	int		launchThingType;
-	char	projectPath[128];
+	NSColorWell	*colorwell[NUMCOLORS];
+	NSColor		*color[NUMCOLORS];
+	int			launchThingType;
+	NSString	*projectPath;
 }
 
 - (IBAction)menuTarget:sender;
@@ -69,10 +69,11 @@ typedef enum
 //
 //	DoomEd accessor methods
 //
-- (NSColor *)colorFor: (int)ucolor;
+- (NSColor *)colorFor: (ucolor_e)ucolor;
 - (int)getLaunchThingType;
-- (char *)getProjectPath;
+- (const char *)getProjectPath DEPRECATED_MSG_ATTRIBUTE("Use projectPath property instead") NS_RETURNS_INNER_POINTER;
 - (BOOL)openUponLaunch:(openup_e)type;
+@property (copy) NSString *projectPath;
 
 @end
 

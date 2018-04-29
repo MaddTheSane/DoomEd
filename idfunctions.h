@@ -1,4 +1,4 @@
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
@@ -18,8 +18,8 @@ void IDEnclosePoint (NSRect *rect, NSPoint const *point);
 
 unsigned short ShortSwap (unsigned short dat);
 unsigned LongSwap (unsigned dat);
-int filelength (int handle);
-int tell (int handle);
+off_t filelength (int handle);
+off_t tell (int handle);
 
 void BackupFile (char const *fname);
 

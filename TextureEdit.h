@@ -9,7 +9,7 @@
 
 #define	SPACING				10
 
-@interface TextureEdit:NSObject
+@interface TextureEdit:NSObject <NSWindowDelegate, NSSplitViewDelegate>
 {
 	IBOutlet NSWindow			*window_i;					// Texture Editor window
 	IBOutlet TextureView		*textureView_i;				// texture editing area
@@ -89,8 +89,8 @@ typedef struct apatch_s
 	NSRect	r;
 	NSSize	size;
 	char		name[9];
-	id		image;
-	id		image_x2;
+	NSImage		*image;
+	NSImage		*image_x2;
 	int		WADindex;
 } apatch_t;
 

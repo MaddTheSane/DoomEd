@@ -11,29 +11,29 @@ extern	BOOL	linecross[9][9];
 
 @interface MapView: NSView
 {
-	float		scale;
+	CGFloat		scale;
 	
 	int		gridsize;
 }
 
 - (instancetype)initFromEditWorld;
 
-- (float)currentScale;
+@property (readonly) CGFloat currentScale;
 - (NSPoint) getCurrentOrigin;
 
 - (IBAction)scaleMenuTarget: sender;
 - (IBAction)gridMenuTarget: sender;
 
-- (void)zoomFrom:(NSPoint)origin toScale:(float)newscale;
+- (void)zoomFrom:(NSPoint)origin toScale:(CGFloat)newscale;
 
-- (void)displayDirty: (NSRect const *)dirty;
+- (void)displayDirty: (NSRect)dirty;
 
 - (NSPoint) getPointFrom: (NSEvent const *)event;
 - (NSPoint) getGridPointFrom: (NSEvent const *)event;
 
-- (void)adjustFrameForOrigin: (NSPoint)org scale:(float)scl;
+- (void)adjustFrameForOrigin: (NSPoint)org scale:(CGFloat)scl;
 - (void)adjustFrameForOrigin: (NSPoint)org;
-- (void)setOrigin: (NSPoint)org scale: (float)scl;
+- (void)setOrigin: (NSPoint)org scale: (CGFloat)scl;
 - (void)setOrigin: (NSPoint)org;
 
 @end
