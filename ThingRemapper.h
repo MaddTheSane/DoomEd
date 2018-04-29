@@ -1,11 +1,11 @@
 #import	"Remapper.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 extern	id	thingRemapper_i;
 
 @interface ThingRemapper:NSObject <Remapper>
 {
-	IBOutlet id	remapper_i;
+	IBOutlet Remapper	*remapper_i;
 }
 
 - (IBAction)menuTarget:sender;

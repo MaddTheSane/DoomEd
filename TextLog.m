@@ -33,7 +33,7 @@
 
 - (IBAction)display:sender
 {
-	[window_i	makeKeyAndOrderFront:NULL];
+	[window_i	makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)clear:sender

@@ -24,19 +24,19 @@ typedef struct
 @interface ThingPanel:NSObject
 {
 	IBOutlet id	fields_i;
- 	IBOutlet id	window_i;
-	IBOutlet id	addButton_i;
-	IBOutlet id	updateButton_i;
-	IBOutlet id	nameField_i;
+ 	IBOutlet NSWindow	*window_i;
+	IBOutlet NSButton	*addButton_i;
+	IBOutlet NSButton	*updateButton_i;
+	IBOutlet NSTextField	*nameField_i;
 	IBOutlet id	thingBrowser_i;
-	IBOutlet id	thingColor_i;
+	IBOutlet NSColorWell	*thingColor_i;
 	IBOutlet id	thingAngle_i;
 	CompatibleStorage *masterList_i;
 	IBOutlet id	iconField_i;
 	IBOutlet id	ambush_i;		// switch
 	IBOutlet id	network_i;		// switch
-	IBOutlet id	difficulty_i;	// switch matrix
-	IBOutlet id	diffDisplay_i;	// radio matrix
+	IBOutlet NSMatrix	*difficulty_i;	// switch matrix
+	IBOutlet NSMatrix	*diffDisplay_i;	// radio matrix
 	IBOutlet id	count_i;		// display count
 	
 	int	diffDisplay;
@@ -70,7 +70,7 @@ typedef struct
 - (int)searchForThingType:(int)type;
 - (IBAction)suggestNewType:sender;
 - (void)scrollToItem:(int)which;
-- (void)getThingList;
+- (CompatibleStorage*)getThingList;
 
 - (IBAction)verifyIconName:sender;
 - (IBAction)assignIcon:sender;

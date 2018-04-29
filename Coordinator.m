@@ -11,27 +11,28 @@
 #import	"ThingPanel.h"
 #import	"DoomProject.h"
 
-id	coordinator_i;
+Coordinator *coordinator_i;
 
 BOOL	debugflag = NO;
 
 @implementation Coordinator
 
-- init
+- (instancetype)init
 {
-	coordinator_i = self;
+	if (self = [super init]) {
+		coordinator_i = self;
+	}
 	return self;
 }
 
-- toggleDebug: sender
+- (IBAction)toggleDebug: sender
 {
-	debugflag ^= 1;
-	return self;
+	debugflag = !debugflag;
 }
 
-- redraw: sender
+- (IBAction)redraw: sender
 {
-	int i;
+	NSInteger i;
 	NSWindow *win;
 	NSArray *winList;
 
@@ -41,11 +42,9 @@ BOOL	debugflag = NO;
 	while (--i >= 0)
 	{
 		win = [winList objectAtIndex: i];
-		if ([win class] == [MapWindow class])
-			[[(MapWindow *) win mapView] display];
+		if ([win isKindOfClass:[MapWindow class]])
+			[[(MapWindow *) win mapView] setNeedsDisplay:YES];
 	}
-	
-	return self;
 }
 
 
@@ -63,12 +62,20 @@ BOOL	debugflag = NO;
 		return YES;
 	return NO;
 }
-	
+
+- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename
+{
+	if ([doomproject_i isLoaded])
+		return NO;
+	[doomproject_i loadProject: filename.fileSystemRepresentation];
+	return YES;
+}
+
 - (int)app:			sender 
 	openFile:		(const char *)filename 
 	type:		(const char *)aType
 {
-	if ([doomproject_i loaded])
+	if ([doomproject_i isLoaded])
 		return NO;
 	[doomproject_i loadProject: filename];
 	return YES;
@@ -77,9 +84,9 @@ BOOL	debugflag = NO;
 
 - (void) applicationDidFinishLaunching: (NSNotification *) notification
 {
-	if (![doomproject_i loaded])
+	if (![doomproject_i isLoaded])
 		[doomproject_i loadProject: [prefpanel_i  getProjectPath] ];
-	[doomproject_i	setDirtyProject:FALSE];
+	[doomproject_i	setProjectDirty:FALSE];
 	[toolPanel_i	setFrameUsingName:TOOLNAME];
 
 	if ([prefpanel_i	openUponLaunch:texturePalette] == TRUE)
@@ -103,7 +110,7 @@ BOOL	debugflag = NO;
 	[startupSound_i	play];
 }
 
-- applicationWillTerminate: (NSNotification *)notification
+- (void)applicationWillTerminate: (NSNotification *)notification
 {
 	[startupSound_i release];
 
@@ -120,7 +127,6 @@ BOOL	debugflag = NO;
 	[toolPanel_i	saveFrameUsingName:TOOLNAME];
 	
 	printf("DoomEd terminated.\n\n");
-	return self;
 }
 
 @end

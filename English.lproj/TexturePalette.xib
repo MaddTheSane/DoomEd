@@ -82,7 +82,7 @@
             <rect key="contentRect" x="655" y="291" width="261" height="397"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
             <view key="contentView" id="3">
-                <rect key="frame" x="1" y="9" width="261" height="397"/>
+                <rect key="frame" x="0.0" y="0.0" width="261" height="397"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="23">
@@ -90,7 +90,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" autoresizesSubviews="NO" id="Aul-3u-1bw">
                             <rect key="frame" x="1" y="1" width="254" height="302"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView id="27" customClass="TexturePalView">
                                     <rect key="frame" x="0.0" y="0.0" width="360" height="278"/>

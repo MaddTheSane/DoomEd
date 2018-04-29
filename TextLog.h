@@ -3,8 +3,8 @@
 
 @interface TextLog:NSObject
 {
-	IBOutlet id	text_i;
-	NSWindow *window_i;
+	IBOutlet NSTextView	*text_i;
+	IBOutlet NSPanel	*window_i;
 }
 
 - (instancetype)initWithTitle: (NSString *) title;

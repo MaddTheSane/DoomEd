@@ -57,72 +57,70 @@ char	bsphost[32];		// bsp host machine
 	numtextures = 0;
 	texturessize = BASELISTSIZE;
 	textures = malloc (texturessize*sizeof(worldtexture_t));
-	log_i = [[TextLog alloc] initTitle: @"DoomEd Error Log"];
+	log_i = [[TextLog alloc] initWithTitle: @"DoomEd Error Log"];
 	projectdirty = mapdirty = FALSE;
 	
 	return self;
 }
 
-- checkDirtyProject
+- (void)checkDirtyProject
 {
-	int	val;
+	NSInteger	val;
 	
 	if ([self	projectDirty] == FALSE)
-		return self;
+		return;
 		
 	val = NSRunAlertPanel(@"Important",
 		@"Do you wish to save your project before exiting?",
 		@"Yes", @"No", nil);
 	if (val == NSAlertDefaultReturn)
 		[self	saveProject:self];
-		
-	return self;
 }
 
 //
 //	App is going to terminate:
 //
-- quit
+- (void)quit
 {
 	[editworld_i	closeWorld];
 	[self	checkDirtyProject];
-	
-	return self;
 }
 
-- setDirtyProject:(BOOL)truth
-{
-	projectdirty = truth;
-	return self;
-}
+@synthesize projectDirty=projectdirty;
+@synthesize mapDirty=mapdirty;
 
-- setDirtyMap:(BOOL)truth
+- (void)setMapDirty:(BOOL)truth
 {
 	mapdirty = truth;
-	[[editworld_i	getMainWindow] setDocEdited:truth];
-	return self;
+	[[editworld_i	getMainWindow] setDocumentEdited:truth];
+}
+
+- (void)setDirtyProject:(BOOL)truth
+{
+	self.projectDirty = truth;
+}
+
+- (void)setDirtyMap:(BOOL)truth
+{
+	self.mapDirty = truth;
 }
 
 - (BOOL)mapDirty
 {
-	return mapdirty;
+	return self.mapDirty;
 }
 
 - (BOOL)projectDirty
 {
-	return projectdirty;
+	return self.projectDirty;
 }
 
-- displayLog:sender
+- (IBAction)displayLog:sender
 {
-	[log_i	display:NULL];
-	return self;
+	[log_i	display:sender];
 }
 
-- (BOOL)loaded
-{
-	return loaded;
-}
+@synthesize loaded;
 
 - (char *)wadfile
 {
@@ -208,17 +206,17 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- menuTarget: sender
+- (IBAction)menuTarget: sender
 {
 	if (!loaded)
 	{
 		NSRunAlertPanel(@"Error", @"No project loaded", nil, nil, nil);
-		return nil;
+		return;
 	}
 
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"Project.nib"
+		[[NSBundle mainBundle] loadNibNamed: @"Project"
 			owner: self
 			options: nil];
 		[window_i	setFrameUsingName:DOOMNAME];
@@ -226,15 +224,12 @@ char	bsphost[32];		// bsp host machine
 
 	[self updatePanel];
 	[window_i orderFront:self];
-
-	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:DOOMNAME];
-	return self;
 }
 
 
@@ -246,7 +241,7 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- openProject: sender
+- (IBAction)openProject: sender
 {
 	NSOpenPanel *openpanel;
 	NSString *filename;
@@ -256,7 +251,7 @@ char	bsphost[32];		// bsp host machine
 	openpanel = [NSOpenPanel openPanel];
 	[openpanel setAllowedFileTypes: @[@"dpr"]];
 	if ([openpanel runModal] != NSFileHandlingPanelOKButton)
-		return NULL;
+		return;
 
 	printf("Purging existing texture patches.\n");
 	[ textureEdit_i	dumpAllPatches ];
@@ -266,7 +261,7 @@ char	bsphost[32];		// bsp host machine
 
 	filename = [openpanel filename];
 
-	if (![self loadProject: [filename UTF8String]])
+	if (![self loadProject: [filename fileSystemRepresentation]])
 	{
 		NSRunAlertPanel(@"Uh oh!", @"Couldn't load your project!",
 		                @"OK", nil, nil);
@@ -277,10 +272,8 @@ char	bsphost[32];		// bsp host machine
 		[ thingPalette_i initIcons];
 		[ wadfile_i close ];
 
-		return nil;
+		return;
 	}
-
-	return self;
 }
 
 /*
@@ -291,7 +284,7 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- newProject: sender
+- (IBAction)newProject: sender
 {
 	FILE *stream;
 	NSOpenPanel *panel;
@@ -309,7 +302,7 @@ char	bsphost[32];		// bsp host machine
 	[panel setCanChooseDirectories:YES];
 	[panel setCanChooseFiles:NO];
 	if ([panel runModal] != NSFileHandlingPanelOKButton)
-		return self;
+		return;
 
 	filename = [panel filename];
 	if (filename == nil || [filename length] == 0)
@@ -317,7 +310,7 @@ char	bsphost[32];		// bsp host machine
 		NSRunAlertPanel(@"Nope.",
 			@"I need a directory for projects to create one.",
 			@"OK", nil, nil);
-		return self;
+		return;
 	}
 
 	strcpy (projectdirectory, [filename UTF8String]);
@@ -330,14 +323,14 @@ char	bsphost[32];		// bsp host machine
 	[panel setCanChooseFiles:YES];
 	[panel setAllowedFileTypes: @[@"wad"]];
 	if ([panel runModal] != NSFileHandlingPanelOKButton)
-		return self;
+		return;
 
 	filename = [panel filename];
 	if (filename == nil || [filename length] == 0)
 	{
 		NSRunAlertPanel(@"Nope.", @"I need a WADfile for this project.",
 			@"OK", nil, nil);
-		return self;
+		return;
 	}
 
 	strcpy(wadfile, [filename UTF8String]);
@@ -357,7 +350,7 @@ char	bsphost[32];		// bsp host machine
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't create %s.",
 			nil, nil, nil, projpath);
-		return self;
+		return;
 	}
 	fprintf (stream, "Doom Project version 1\n\n");
 	fprintf (stream, "wadfile: %s\n\n",wadfile);
@@ -371,7 +364,7 @@ char	bsphost[32];		// bsp host machine
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't create %s.",
 			nil, nil, nil, texturepath);
-		return self;
+		return;
 	}
 	fprintf (stream, "numtextures: 0\n");
 	fclose (stream);
@@ -423,8 +416,6 @@ char	bsphost[32];		// bsp host machine
 	[self	setDirtyMap:FALSE];
 	[self	setDirtyProject:FALSE];
 	[self menuTarget: self];		// bring the panel to front
-
-	return self;
 }
 
 
@@ -436,13 +427,13 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- saveProject: sender
+- (IBAction)saveProject: sender
 {
 	FILE		*stream;
 	char		filename[1024];
 
 	if (!loaded)
-		return nil;
+		return;
 		
 	strcpy (filename, projectdirectory);
 	strcat (filename ,"/project.dpr");
@@ -459,8 +450,6 @@ char	bsphost[32];		// bsp host machine
 	[texturePalette_i	finishInit];
 	[self	saveDoomLumps];
 	[self	setDirtyProject:FALSE];
-	
-	return self;
 }
 
 
@@ -472,18 +461,16 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- reloadProject: sender
+- (IBAction)reloadProject: sender
 {
 	if (!loaded)
-		return nil;
+		return;
 		
 	[self updateTextures];
 	[self	updateThings];
 	[self	updateSectorSpecials];
 	[self	updateLineSpecials];
 	[self	setDirtyProject:FALSE];
-	
-	return self;
 }
 
 
@@ -503,7 +490,7 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- updatePanel
+- (void)updatePanel
 {
 	[projectpath_i setStringValue:
 		[NSString stringWithUTF8String: projectdirectory]];
@@ -516,7 +503,6 @@ char	bsphost[32];		// bsp host machine
 	[mapwaddir_i setStringValue:
 		[NSString stringWithUTF8String: mapwads]];
 	[maps_i reloadColumn: 0];
-	return self;
 }
 
 - changeWADfile:(char *)string
@@ -539,7 +525,7 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- loadProject: (char const *)path
+- (BOOL)loadProject: (char const *)path
 {
 	FILE	*stream;
 	char	projpath[1024];
@@ -557,7 +543,7 @@ char	bsphost[32];		// bsp host machine
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't open %s",
 			nil, nil, nil, projpath);
-		return nil;	
+		return NO;
 	}
 	version = -1;
 	fscanf (stream, "Doom Project version %d\n", &version);
@@ -569,7 +555,7 @@ char	bsphost[32];		// bsp host machine
 		NSRunAlertPanel(@"Error",
 			@"Unknown file version for project %s",
 			nil, nil, nil, projpath);
-		return nil;
+		return NO;
 	}
 
 	if (!ret)
@@ -578,7 +564,7 @@ char	bsphost[32];		// bsp host machine
 		NSRunAlertPanel(@"Error",
 			@"Couldn't parse project file %s",
 			nil, nil, nil, projpath);
-		return nil;	
+		return NO;
 	}
 	
 	fclose (stream);
@@ -593,7 +579,7 @@ char	bsphost[32];		// bsp host machine
 		NSRunAlertPanel(@"Error",
 			@"Couldn't open wadfile %s",
 			nil, nil, nil, wadfile);
-		return nil;
+		return NO;
 	}
 	
 	[editworld_i	closeWorld];
@@ -625,7 +611,7 @@ char	bsphost[32];		// bsp host machine
 	
 	[self	setDirtyMap:FALSE];
 	[self	setDirtyProject:FALSE];
-	return self;
+	return YES;
 }
 
 

@@ -590,13 +590,13 @@ johnc@idsoftware.com</string>
                 </subviews>
             </view>
         </window>
-        <window title="TOOLS" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="FloatingPanel">
+        <window title="TOOLS" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="2" y="391" width="105" height="165"/>
             <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
             <view key="contentView" id="59">
-                <rect key="frame" x="1" y="1" width="105" height="165"/>
+                <rect key="frame" x="0.0" y="0.0" width="105" height="165"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="127">

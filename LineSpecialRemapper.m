@@ -15,7 +15,8 @@ id	lineSpecialRemapper_i;
 {
 	lineSpecialRemapper_i = self;
 
-	remapper_i = [[Remapper alloc]
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i
 		setFrameName: @"LineSpecialRemapper"
 		setPanelTitle: @"Line Special Remapper"
 		setBrowserTitle: @"List of line specials to be remapped"

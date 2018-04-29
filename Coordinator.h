@@ -1,16 +1,17 @@
 
 #import <AppKit/AppKit.h>
 
-extern	id	coordinator_i;
+@class Coordinator;
+extern Coordinator *coordinator_i;
 
 extern	BOOL	debugflag;
 
 #define	TOOLNAME	@"ToolPanel"
 
-@interface Coordinator:NSObject
+@interface Coordinator:NSObject <NSApplicationDelegate>
 {
-	IBOutlet id	toolPanel_i;
-	IBOutlet id	infoPanel_i;
+	IBOutlet NSPanel	*toolPanel_i;
+	IBOutlet NSPanel	*infoPanel_i;
 	NSSound *startupSound_i;
 }
 

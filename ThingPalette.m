@@ -1,4 +1,5 @@
 #import "ThingPalette.h"
+#import "ThingPalView.h"
 #import	"DoomProject.h"
 #import	"TextureEdit.h"
 #import	"Wadfile.h"
@@ -17,7 +18,8 @@ ThingPalette *thingPalette_i;
 - init
 {
 	thingPalette_i = self;
-	thingImages = window_i = NULL;
+	window_i = nil;
+	thingImages = NULL;
 	currentIcon = -1;
 	return self;
 }
@@ -27,21 +29,21 @@ ThingPalette *thingPalette_i;
 //	Menu target
 //
 //============================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (![thingImages	count])
 	{
 		NSRunAlertPanel(@"Nope!",
 			@"You haven't grabbed any icons!",
 			@"OK", nil, nil);
-		return self;
+		return;
 	}
 
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"ThingPalette.nib"
+		[[NSBundle mainBundle] loadNibNamed: @"ThingPalette"
 			owner: self
-			options: nil];
+			topLevelObjects:nil];
 
 		[window_i	setDelegate:self];
 		[self		computeThingDocView];
@@ -49,8 +51,6 @@ ThingPalette *thingPalette_i;
 	}
 
 	[window_i	makeKeyAndOrderFront:self];
-	
-	return self;
 }
 
 //============================================================
@@ -90,9 +90,10 @@ ThingPalette *thingPalette_i;
 //	Return currently selected icon #
 //
 //============================================================
+@synthesize currentIcon;
 - (int)getCurrentIcon
 {
-	return currentIcon;
+	return self.currentIcon;
 }
 
 //============================================================
@@ -100,13 +101,13 @@ ThingPalette *thingPalette_i;
 //	Set currently selected icon #
 //
 //============================================================
-- setCurrentIcon:(int)which
+- (void)setCurrentIcon:(int)which
 {
 	icon_t	*icon;
 	NSRect	r;
 	
 	if (which < 0)
-		return self;
+		return;
 		
 	currentIcon = which;
 	icon = [thingImages	elementAt:which];
@@ -116,7 +117,6 @@ ThingPalette *thingPalette_i;
 	r.size.height += SPACING*2;
 	[thingPalView_i		scrollRectToVisible:r];
 	[thingPalScrView_i	display];
-	return self;
 }
 
 //============================================================
@@ -134,7 +134,7 @@ ThingPalette *thingPalette_i;
 //	Dump all icons
 //
 //============================================================
-- dumpAllIcons
+- (void)dumpAllIcons
 {
 	int		i;
 	int		max;
@@ -148,8 +148,6 @@ ThingPalette *thingPalette_i;
 			free(icon->image);
 	}
 	[thingImages	empty];
-	
-	return self;
 }
 
 //============================================================
@@ -157,7 +155,7 @@ ThingPalette *thingPalette_i;
 //	Set coords for all icons in the thingPalView
 //
 //============================================================
-- computeThingDocView
+- (void)computeThingDocView
 {
 	NSRect	dvr;
 	int		i;
@@ -228,8 +226,6 @@ ThingPalette *thingPalette_i;
 	}
 	
 	[thingPalView_i	scrollPoint:p ];
-
-	return self;
 }
 
 //==========================================================
@@ -237,7 +233,7 @@ ThingPalette *thingPalette_i;
 //	Load in and init thingImages
 //
 //==========================================================
-- initIcons
+- (void)initIcons
 {
 	int		start;
 	int		end;
@@ -282,7 +278,7 @@ ThingPalette *thingPalette_i;
 	if  (start == -1 || end == -1 )
 	{
 		[doomproject_i	closeThermo];
-		return self;		// no icons, no problem.
+		return;		// no icons, no problem.
 	}
 			
 	for (i = start; i < end; i++)
@@ -312,8 +308,6 @@ ThingPalette *thingPalette_i;
 	
 	free(palLBM);
 	[doomproject_i	closeThermo];
-	
-	return 0;
 }
 
 @end

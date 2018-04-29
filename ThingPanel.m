@@ -482,26 +482,24 @@ id	thingpanel_i;
 	return self;
 }
 
-- getThingList
+- (CompatibleStorage*)getThingList
 {
 	return masterList_i;
 }
 
-- scrollToItem:(int)which
+- (void)scrollToItem:(int)which
 {
 	id	matrix;
 	
 	matrix = [thingBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:which column:0];
 	[matrix	scrollCellToVisibleAtRow:which column:0];
-	return self;
 }
 
-- setAngle:sender
+- (IBAction)setAngle:sender
 {
 	[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
 	[self		formTarget:NULL];
-	return self;
 }
 
 - (NSColor *)getThingColor:(int)type
@@ -535,7 +533,7 @@ id	thingpanel_i;
 //
 // fill data from thing
 //
-- fillDataFromThing:(thinglist_t *)thing
+- (void)fillDataFromThing:(thinglist_t *)thing
 {
 	[fields_i	setIntValue:thing->value	at:1];
 	[nameField_i	setStringValue:thing->name];
@@ -543,8 +541,6 @@ id	thingpanel_i;
 	[iconField_i	setStringValue:thing->iconname];
 	
 	basething.type = thing->value;
-	
-	return self;
 }
 
 //

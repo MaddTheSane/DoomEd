@@ -1,6 +1,6 @@
 #import "Storage.h"
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 typedef struct
 {
@@ -10,15 +10,17 @@ typedef struct
 	NSImage	*image;
 } icon_t;
 
+@class ThingPalView;
+
 #define	SPACING		10
 #define	ICONSIZE	48
 
-@interface ThingPalette:NSObject
+@interface ThingPalette:NSObject <NSWindowDelegate>
 {
-	IBOutlet id		window_i;			// outlet
-	IBOutlet id		thingPalView_i;		// outlet
-	IBOutlet id		thingPalScrView_i;	// outlet
-	IBOutlet id		nameField_i;		// outlet
+	IBOutlet NSWindow		*window_i;			// outlet
+	IBOutlet ThingPalView	*thingPalView_i;	// outlet
+	IBOutlet NSScrollView	*thingPalScrView_i;	// outlet
+	IBOutlet NSTextField	*nameField_i;		// outlet
 
 	CompatibleStorage *thingImages;		// Storage for icons
 	int		currentIcon;		// currently selected icon
@@ -27,8 +29,8 @@ typedef struct
 - (IBAction)menuTarget:sender;
 - (int)findIcon:(char *)name;
 - (icon_t *)getIcon:(int)which;
-- (int)getCurrentIcon;
-- (void)setCurrentIcon:(int)which;
+@property (nonatomic) int currentIcon;
+- (int)getCurrentIcon DEPRECATED_MSG_ATTRIBUTE("Use currentIcon instead");
 - (int)getNumIcons;
 - (void)computeThingDocView;
 - (void)initIcons;

@@ -29,7 +29,7 @@ typedef struct
 	IBOutlet id		matrix_i;
 	
 	CompatibleStorage *storage_i;
-	IBOutlet id<RemapperDelegate> delegate_i;
+	IBOutlet id<Remapper> delegate_i;
 	NSString *frameName;
 }
 

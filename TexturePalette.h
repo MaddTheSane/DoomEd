@@ -1,7 +1,9 @@
 #import "Storage.h"
 
 #import	"TextureEdit.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
+
+@class TexturePalView;
 
 typedef struct
 {
@@ -15,24 +17,24 @@ typedef struct
 
 @interface TexturePalette:NSObject
 {
-	id	window_i;
-	id	texturePalView_i;
-	id	texturePalScrView_i;
-	id	titleField_i;
-	id	widthField_i;
-	id	heightField_i;
-	id	searchField_i;
-	id	patchField_i;
-	id	widthSearch_i;
-	id	heightSearch_i;
+	IBOutlet NSWindow		*window_i;
+	IBOutlet TexturePalView	*texturePalView_i;
+	IBOutlet NSScrollView	*texturePalScrView_i;
+	IBOutlet NSTextField	*titleField_i;
+	IBOutlet NSTextField	*widthField_i;
+	IBOutlet NSTextField	*heightField_i;
+	IBOutlet NSTextField	*searchField_i;
+	IBOutlet NSTextField	*patchField_i;
+	IBOutlet NSTextField	*widthSearch_i;
+	IBOutlet NSTextField	*heightSearch_i;
 	
 	id	texturePatches;
 	CompatibleStorage *allTextures;
 	CompatibleStorage *newTextures;
 	int	selectedTexture;
-	id	lsTextField_i;
-	id	lsPanel_i;
-	id	lsStatus_i;
+	IBOutlet NSTextField	*lsTextField_i;
+	IBOutlet NSPanel		*lsPanel_i;
+	IBOutlet NSTextField	*lsStatus_i;
 }
 
 - (void)setupPalette;

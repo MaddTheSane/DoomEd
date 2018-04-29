@@ -14,7 +14,8 @@ id	thingRemapper_i;
 {
 	thingRemapper_i = self;
 
-	remapper_i = [[Remapper alloc]
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i
 		setFrameName: @"ThingRemapper"
 		setPanelTitle: @"Thing Remapper"
 		setBrowserTitle: @"List of things to be remapped"
@@ -29,16 +30,14 @@ id	thingRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
-- addToList: (NSString *) orgname to: (NSString *) newname;
+- (void)addToList: (NSString *) orgname to: (NSString *) newname;
 {
 	[remapper_i addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================
@@ -88,10 +87,9 @@ id	thingRemapper_i;
 	return thingnum;
 }
 
-- finishUp
+- (void)finishUp
 {
 	[editworld_i	redrawWindows];
-	return self;
 }
 
 @end

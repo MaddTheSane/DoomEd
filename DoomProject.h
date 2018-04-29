@@ -75,7 +75,7 @@ typedef struct
 
 - (instancetype)init;
 - (IBAction)displayLog:sender;
-- (BOOL)loaded;
+@property (readonly, getter=isLoaded) BOOL loaded;
 - (char *)wadfile;
 - (char const *)directory;
 
@@ -90,7 +90,7 @@ typedef struct
 - (IBAction)printMap:sender;
 - (IBAction)printAllMaps:sender;
 
-- (void)loadProject: (char const *)path;
+- (BOOL)loadProject: (char const *)path;
 - (void)updateTextures;
 
 - (void)updatePanel;
@@ -113,10 +113,12 @@ typedef struct
 - (void)saveFrame;
 - (void)changeWADfile:(char *)string;
 - (void)quit;
-- (void)setDirtyProject:(BOOL)truth;
-- (void)setDirtyMap:(BOOL)truth;
-- (BOOL)projectDirty;
-- (BOOL)mapDirty;
+- (void)setDirtyProject:(BOOL)truth DEPRECATED_MSG_ATTRIBUTE("Use setProjectDirty: instead");
+- (void)setDirtyMap:(BOOL)truth DEPRECATED_MSG_ATTRIBUTE("Use setMapDirty: instead");
+- (BOOL)projectDirty DEPRECATED_MSG_ATTRIBUTE("Use projectDirty property instead");
+- (BOOL)mapDirty DEPRECATED_MSG_ATTRIBUTE("Use mapDirty property instead");
+@property (getter=isProjectDirty) BOOL projectDirty;
+@property (nonatomic, getter=isMapDirty) BOOL mapDirty;
 - (void)checkDirtyProject;
 
 - (IBAction)printPrefs:sender;
