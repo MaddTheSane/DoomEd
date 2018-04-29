@@ -26,7 +26,7 @@ int		byteimagewidth, byteimageheight;
 #define PEL_READ_ADR		0x3c7
 #define PEL_DATA			0x3c9
 
-#if 0
+#ifdef __LITTLE_ENDIAN__
 #define FORMID	('M'+('R'<<8)+((long)'O'<<16)+((long)'F'<<24))
 #define ILBMID	('M'+('B'<<8)+((long)'L'<<16)+((long)'I'<<24))
 #define PBMID   	(' '+('M'<<8)+((long)'B'<<16)+((long)'P'<<24))
@@ -226,7 +226,7 @@ BOOL	LoadRawLBM (char const *filename)
 	int		size;
 	
 //===========
-NX_DURING
+NS_DURING
 //===========
 	
 	cmap = NULL;
@@ -234,7 +234,7 @@ NX_DURING
 	filestream = NULL;
 //printf ("Filename: %s\n",filename);	
 //
-// load the LBMwith file mapping
+// load the LBM// with file mapping
 //	
 	filestream = NXMapFile (filename, NX_READONLY);
 	if (!filestream)
@@ -340,10 +340,10 @@ NX_DURING
 	else if (bmhd.compression == cm_rle1)	
 		DecompressRLEPBM (body, byteimage, byteimagewidth, byteimageheight);
 		
-	NX_VALRETURN(YES);
+	NS_VALUERETURN(YES, t);
 	
 //===========
-NX_HANDLER
+NS_HANDLER
 //===========
 	if (filestream)
 		NXCloseMemory(filestream, NX_FREEBUFFER);
@@ -362,7 +362,7 @@ NX_HANDLER
 			NXLocalHandler.data1,
 			nil, nil, nil);
 //===========
-NX_ENDHANDLER
+NS_ENDHANDLER
 //===========
 	return NO;
 }
@@ -394,7 +394,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 	lbm = lbmptr = malloc (width*height+2048);
 	if (!lbm)
 	{
-		NXLogError ("couldn't malloc %i bytes\n",width*height+2048);
+		NSLogError ("couldn't malloc %i bytes\n",width*height+2048);
 		return NO;
 	}
    
@@ -407,12 +407,12 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 //
 // start FORM
 //
-	*((long *)lbmptr)++ = FORMID;
+	*((unsigned int *)lbmptr)++ = FORMID;
 	
 	formlength = (long *)lbmptr;
 	lbmptr+=4;			// leave space for length
 	
-	*((long *)lbmptr)++ = PBMID;
+	*((unsigned int *)lbmptr)++ = PBMID;
 
 //
 // write BMHD

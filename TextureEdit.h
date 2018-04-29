@@ -102,17 +102,17 @@ typedef	struct
 } texpatch_t;
 
 - (int)numSets;
-- findPatch:sender;
-- searchForPatch:sender;
-- changedWidthOrHeight:sender;
+- (IBAction)findPatch:sender;
+- (IBAction)searchForPatch:sender;
+- (IBAction)changedWidthOrHeight:sender;
 - setOldVars:(int)x :(int)y;
 - doLockToggle;
-- togglePatchLock:sender;
-- deleteCurrentPatch:sender;
-- sortUp:sender;
-- sortDown:sender;
+- (IBAction)togglePatchLock:sender;
+- (IBAction)deleteCurrentPatch:sender;
+- (IBAction)sortUp:sender;
+- (IBAction)sortDown:sender;
 
-- updateTexPatchInfo;
+- (void)updateTexPatchInfo;
 - (CompatibleStorage *) getSTP;
 - changeSelectedTexturePatch:(int)which	to:(int)val;
 - addSelectedTexturePatch:(int)val;
@@ -120,25 +120,25 @@ typedef	struct
 - removeSelTextureEditPatch:(int)val;
 - (int)getCurrentEditPatch;
 - (int)findHighestNumberedPatch;
-- changePatchX:sender;
-- changePatchY:sender;
+- (IBAction)changePatchX:sender;
+- (IBAction)changePatchY:sender;
 
-- outlineWasSet:sender;
+- (IBAction)outlineWasSet:sender;
 - (apatch_t *)getPatch:(int)which;
 - (apatch_t *)getPatchImage:(char *)name;
-- finishTexture:sender;
+- (IBAction)finishTexture:sender;
 - addPatch:(int)which;
-- sizeChanged:sender;
-- fillWithPatch:sender;
-- menuTarget:sender;
+- (IBAction)sizeChanged:sender;
+- (IBAction)fillWithPatch:sender;
+- (IBAction)menuTarget:sender;
 - (int)getCurrentTexture;
 - (int)getCurrentPatch;
 
-- makeNewTexture:sender;
-- createTextureDone:sender;
-- createTextureName:sender;
-- createTextureAbort:sender;
-- createNewSet:sender;
+- (IBAction)makeNewTexture:sender;
+- (IBAction)createTextureDone:sender;
+- (IBAction)createTextureName:sender;
+- (IBAction)createTextureAbort:sender;
+- (IBAction)createNewSet:sender;
 
 - newSelection:(int)which;
 - setSelectedPatch:(int)which;
@@ -147,7 +147,7 @@ typedef	struct
 - dumpAllPatches;
 - initPatches;
 - createPatchX2:(apatch_t *)p;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - computePatchDocView: (NSRect *)theframe;
 - setWarning:(BOOL)state;
 - saveFrame;

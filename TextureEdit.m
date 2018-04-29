@@ -32,7 +32,7 @@ CompatibleStorage *texturePatches;
 // user wants to activate the Texture Editor. If it hasn't been used yet,
 // init everything, otherwise just pull it back up.
 //
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (![doomproject_i loaded])
 	{
@@ -40,7 +40,7 @@ CompatibleStorage *texturePatches;
 			@"There must be a project loaded before you even\n"
 			"THINK about editing textures!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 	
 	if (!window_i)
@@ -99,7 +99,6 @@ CompatibleStorage *texturePatches;
 	
 	[self	newSelection:currentTexture];
 	[window_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 //
@@ -235,7 +234,7 @@ CompatibleStorage *texturePatches;
 //
 // move a patch up in the patch hierarchy
 //
-- sortUp:sender
+- (IBAction)sortUp:sender
 {
 	int	newpatch;
 	texpatch_t	*t, t1, t2;
@@ -244,14 +243,14 @@ CompatibleStorage *texturePatches;
 		([texturePatches	count] - 1 == [self	getCurrentEditPatch]))
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
 	if (t->patchLocked)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	newpatch = [self	getCurrentEditPatch];
@@ -262,7 +261,7 @@ CompatibleStorage *texturePatches;
 		if (!t)
 		{
 			NSBeep();
-			return self;
+			return;
 		}
 	} while (t->patchLocked);
 
@@ -276,13 +275,12 @@ CompatibleStorage *texturePatches;
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
 	[textureView_i		display];
-	return self;
 }
 
 //
 // move a patch down in the patch hierarchy
 //
-- sortDown:sender
+- (IBAction)sortDown:sender
 {
 	int	newpatch;
 	texpatch_t	*t, t1, t2;
@@ -290,14 +288,14 @@ CompatibleStorage *texturePatches;
 	if ([self	getCurrentEditPatch] < 1)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
 	if (t->patchLocked)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	newpatch = [self	getCurrentEditPatch];
@@ -308,7 +306,7 @@ CompatibleStorage *texturePatches;
 		if (!t)
 		{
 			NSBeep();
-			return self;
+			return;
 		}
 	} while (t->patchLocked);
 
@@ -322,7 +320,6 @@ CompatibleStorage *texturePatches;
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
 	[textureView_i		display];
-	return self;
 }
 
 //===============================================================
@@ -330,13 +327,13 @@ CompatibleStorage *texturePatches;
 //	Set patch X manually
 //
 //===============================================================
-- changePatchX:sender
+- (IBAction)changePatchX:sender
 {
 	texpatch_t	*tp;
 	int			delta;
 	
 	if (![selectedTexturePatches	count])
-		return self;
+		return;
 		
 	tp = [texturePatches	elementAt:*(int *)
 		[selectedTexturePatches  elementAt:0]];
@@ -346,8 +343,6 @@ CompatibleStorage *texturePatches;
 	tp->patchInfo.originx += delta/2;
 	
 	[textureView_i		display];
-	
-	return self;
 }
 
 //===============================================================
@@ -355,13 +350,13 @@ CompatibleStorage *texturePatches;
 //	Set patch Y manually
 //
 //===============================================================
-- changePatchY:sender
+- (IBAction)changePatchY:sender
 {
 	texpatch_t	*tp;
 	int			delta;
 	
 	if (![selectedTexturePatches	count])
-		return self;
+		return;
 
 	tp = [texturePatches	elementAt:*(int *)
 		[selectedTexturePatches  elementAt:0]];
@@ -370,9 +365,7 @@ CompatibleStorage *texturePatches;
 	tp->r.origin.y += delta;
 	tp->patchInfo.originy -= delta/2;
 	
-	[textureView_i		display];
-	
-	return self;
+	[textureView_i		setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -403,7 +396,7 @@ CompatibleStorage *texturePatches;
 //	Search for patch in Patch Palette
 //
 //===============================================================
-- searchForPatch:sender
+- (IBAction)searchForPatch:sender
 {
 	NSString *strval;
 	char		string[9];
@@ -428,7 +421,7 @@ CompatibleStorage *texturePatches;
 			if (!strncasecmp(string,p->name+j,slen))
 			{
 				[self	setSelectedPatch:i];
-				return self;
+				return;
 			}
 	}
 	
@@ -439,17 +432,15 @@ CompatibleStorage *texturePatches;
 			if (!strncasecmp(string,p->name+j,slen))
 			{
 				[self	setSelectedPatch:i];
-				return self;
+				return;
 			}
 	}
-	
-	return self;
 }
 
 //
 // find in the Patch Palette the single patch selected in the Texture Editor
 //
-- findPatch:sender
+- (IBAction)findPatch:sender
 {
 	apatch_t	*patch;
 	texpatch_t	*tp;
@@ -459,7 +450,7 @@ CompatibleStorage *texturePatches;
 	if (!c || c > 1)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	tp = [texturePatches	elementAt:*(int *)[selectedTexturePatches  elementAt:0]];
@@ -472,7 +463,6 @@ CompatibleStorage *texturePatches;
 	}
 	
 	[self	setSelectedPatch:pnum];
-	return self;
 }
 
 //
@@ -498,7 +488,7 @@ CompatibleStorage *texturePatches;
 //
 // delete all patches selected in the Texture Editor
 //
-- deleteCurrentPatch:sender
+- (IBAction)deleteCurrentPatch:sender
 {
 	int	count, i;
 	
@@ -506,7 +496,7 @@ CompatibleStorage *texturePatches;
 	if (!count)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	for (i = 0; i < count; i++)
@@ -514,7 +504,6 @@ CompatibleStorage *texturePatches;
 	[selectedTexturePatches	empty];
 	
 	[textureView_i		display];
-	return self;
 }
 
 //
@@ -540,7 +529,7 @@ CompatibleStorage *texturePatches;
 	return NO;
 }
 
-- updateTexPatchInfo
+- (void)updateTexPatchInfo
 {
 	NSString *patchname;
 	texpatch_t	*t;
@@ -569,7 +558,6 @@ CompatibleStorage *texturePatches;
 			[NSString stringWithUTF8String: t->patchInfo.patchname];
 		[texturePatchNameField_i setStringValue: patchname];
 	}
-	return self;
 }
 
 - removeSelTextureEditPatch:(int)val
@@ -616,7 +604,7 @@ CompatibleStorage *texturePatches;
 	return self;
 }
 
-- togglePatchLock:sender
+- (IBAction)togglePatchLock:sender
 {
 	int	val;
 	texpatch_t	*t;
@@ -624,12 +612,11 @@ CompatibleStorage *texturePatches;
 	if ([self	getCurrentEditPatch] < 0)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	val = [lockedPatch_i	intValue];
 	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
 	t->patchLocked = val;
-	return self;
 }
 
 //
@@ -643,10 +630,9 @@ CompatibleStorage *texturePatches;
 //
 // the "outline patches" switch was modified, so redraw edit view
 //
-- outlineWasSet:sender
+- (IBAction)outlineWasSet:sender
 {
 	[window_i	display];
-	return self;
 }
 
 //
@@ -675,7 +661,7 @@ CompatibleStorage *texturePatches;
 //
 // user changed the width/height/title of the texture. validate & change.
 //
-- changedWidthOrHeight:sender
+- (IBAction)changedWidthOrHeight:sender
 {
 	worldtexture_t		tex;
 	texpatch_t		*p;
@@ -713,7 +699,7 @@ CompatibleStorage *texturePatches;
 					@"OK", nil, nil);
 				[textureWidthField_i	setIntValue:textures[currentTexture].width];
 				[textureHeightField_i	setIntValue:textures[currentTexture].height];
-				return self;
+				return;
 			}
 		}
 		
@@ -725,13 +711,12 @@ CompatibleStorage *texturePatches;
 	[doomproject_i	changeTexture:currentTexture to:&tex];
 	[texturePalette_i		storeTexture:currentTexture];
 	[self	newSelection:currentTexture];
-	return self;
 }
 
 //
 //	Create a new texture
 //
-- makeNewTexture:sender
+- (IBAction)makeNewTexture:sender
 {
 	NSModalResponse rcode;
 	int	textureNum;
@@ -739,7 +724,7 @@ CompatibleStorage *texturePatches;
 	id	cell;
 
 	if (![doomproject_i loaded])
-		return self;
+		return;
 
 	//
 	// create a default new texture
@@ -749,7 +734,7 @@ CompatibleStorage *texturePatches;
 	];
 	[createTexture_i	close];
 	if (rcode == NSModalResponseAbort)
-		return self;
+		return;
 
 	tex.width = [createWidth_i	intValue];
 	tex.height = [createHeight_i	intValue];
@@ -781,13 +766,12 @@ CompatibleStorage *texturePatches;
 
 	[texturePalette_i	selectTexture:currentTexture];
 	oldx = oldy = 0;
-	return self;
 }
 
 //
 // clicked the "create it!" button in the New Texture dialog
 //
-- createTextureDone:sender
+- (IBAction)createTextureDone:sender
 {
 	NSString *name;
 	
@@ -801,7 +785,7 @@ CompatibleStorage *texturePatches;
 		NSRunAlertPanel(@"Oops!",
 			@"You already have a texture with the same name!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 
 	if ([createWidth_i	intValue]
@@ -811,13 +795,12 @@ CompatibleStorage *texturePatches;
 	else
 		NSBeep();
 
-	return self;
 }
 
 //
 // approve the name entered in the dialog
 //
-- createTextureName:sender
+- (IBAction)createTextureName:sender
 {
 	NSString *name;
 	
@@ -832,13 +815,11 @@ CompatibleStorage *texturePatches;
 			@"You already have a texture with the same name!",
 			@"OK", nil, nil, nil);
 	}
-	return self;
 }
 
-- createTextureAbort:sender
+- (IBAction)createTextureAbort:sender
 {
 	[NSApp	abortModal];
-	return self;
 }
 
 //======================================================
@@ -846,7 +827,7 @@ CompatibleStorage *texturePatches;
 //	Allows selection of another texture set when creating new texture
 //
 //======================================================
-- createNewSet:sender
+- (IBAction)createNewSet:sender
 {
 	NSString *string;
 	int nr, nc;
@@ -858,7 +839,7 @@ CompatibleStorage *texturePatches;
 	{
 		[newSetButton_i	setEnabled:NO ];
 		NSBeep ();
-		return self;
+		return;
 	}
 	
 	[setMatrix_i	addRow ];
@@ -871,8 +852,6 @@ CompatibleStorage *texturePatches;
 	[setMatrix_i	sizeToCells ];
 	[setMatrix_i	selectCell:cell ];
 	[setMatrix_i	display ];
-	
-	return self;
 }
 
 //======================================================
@@ -880,7 +859,7 @@ CompatibleStorage *texturePatches;
 //	Done editing texture. add to texture palette
 //
 //======================================================
-- finishTexture:sender
+- (IBAction)finishTexture:sender
 {
 	int	count;
 	texpatch_t	*t;
@@ -908,8 +887,6 @@ CompatibleStorage *texturePatches;
 	}
 	[doomproject_i	changeTexture:currentTexture to:&tex];
 	[texturePalette_i	storeTexture:currentTexture];
-	
-	return self;
 }
 
 //
@@ -1087,14 +1064,12 @@ CompatibleStorage *texturePatches;
 	return self;
 }
 
-- fillWithPatch:sender
+- (IBAction)fillWithPatch:sender
 {
-	return self;
 }
 
-- sizeChanged:sender
+- (IBAction)sizeChanged:sender
 {
-	return self;
 }
 
 //=====================================================

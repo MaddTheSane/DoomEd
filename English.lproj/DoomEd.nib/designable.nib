@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="121" id="146"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application"/>
+        <customObject id="7" userLabel="TexturePalette" customClass="TexturePalette"/>
+        <customObject id="15" userLabel="ThingPanel" customClass="ThingPanel"/>
+        <customObject id="27" userLabel="EditWorld" customClass="EditWorld"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="37" userLabel="ThermoPanel" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="405" y="419" width="336" height="155"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
+            <view key="contentView" id="126">
+                <rect key="frame" x="0.0" y="0.0" width="336" height="155"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <box title="Title" titlePosition="noTitle" id="103">
+                        <rect key="frame" x="-4" y="96" width="350" height="61"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <view key="contentView" id="39">
+                            <rect key="frame" x="2" y="2" width="346" height="57"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <button imageHugsTitle="YES" id="50">
+                                    <rect key="frame" x="1" y="-13" width="64" height="68"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <buttonCell key="cell" type="bevel" image="SmallDemon" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="bx4-9U-m5m">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="12" name="Helvetica"/>
+                                    </buttonCell>
+                                </button>
+                                <textField verticalHuggingPriority="750" id="79">
+                                    <rect key="frame" x="73" y="17" width="256" height="22"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="left" title="Title" id="11f-vi-5Ny">
+                                        <font key="font" size="18" name="Helvetica"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <font key="titleFont" size="12" name="Helvetica"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" id="60">
+                        <rect key="frame" x="8" y="62" width="320" height="30"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="Title" id="w67-aP-hox">
+                            <font key="font" size="12" name="Helvetica"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box title="Title" titlePosition="noTitle" id="10">
+                        <rect key="frame" x="-2" y="-2" width="347" height="63"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <view key="contentView" id="29">
+                            <rect key="frame" x="2" y="2" width="343" height="59"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" id="109">
+                                    <rect key="frame" x="10" y="25" width="321" height="22"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="left" id="EzM-Ur-GgP">
+                                        <font key="font" size="18" name="Helvetica"/>
+                                        <string key="title">|	       |		       |              |  	      |</string>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="45">
+                                    <rect key="frame" x="10" y="5" width="320" height="28"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" borderStyle="bezel" alignment="center" drawsBackground="YES" id="ECH-4s-9va">
+                                        <font key="font" size="18" name="Helvetica"/>
+                                        <color key="textColor" red="1" green="0.30513930320739746" blue="0.46142458915710449" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.3333333432674408" alpha="1" colorSpace="calibratedWhite"/>
+                                    </textFieldCell>
+                                </textField>
+                                <customView id="78" customClass="ThermoView">
+                                    <rect key="frame" x="14" y="12" width="310" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </customView>
+                                <textField verticalHuggingPriority="750" id="142">
+                                    <rect key="frame" x="5" y="44" width="19" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="center" title="0" id="HKK-nc-1mc">
+                                        <font key="font" size="12" name="Helvetica-Bold"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="98">
+                                    <rect key="frame" x="80" y="44" width="23" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="center" title="25" id="9DZ-Z7-fbk">
+                                        <font key="font" size="12" name="Helvetica-Bold"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="54">
+                                    <rect key="frame" x="159" y="44" width="23" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="center" title="50" id="9J6-H0-FDQ">
+                                        <font key="font" size="12" name="Helvetica-Bold"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="92">
+                                    <rect key="frame" x="233" y="44" width="23" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="center" title="75" id="eMJ-CT-EJy">
+                                        <font key="font" size="12" name="Helvetica-Bold"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" id="107">
+                                    <rect key="frame" x="308" y="44" width="30" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <textFieldCell key="cell" alignment="center" title="100" id="oVr-SY-iLw">
+                                        <font key="font" size="12" name="Helvetica-Bold"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                        </view>
+                        <font key="titleFont" size="12" name="Helvetica"/>
+                    </box>
+                </subviews>
+            </view>
+        </window>
+        <menu title="DoomEd" systemMenu="main" id="41" userLabel="MainMenu">
+            <items>
+                <menuItem title="Info" id="28">
+                    <menu key="submenu" title="Info" id="4">
+                        <items>
+                            <menuItem title="Info Panel..." id="44">
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="135" id="175"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Preferences..." id="21">
+                                <connections>
+                                    <action selector="menuTarget:" target="81" id="176"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Help..." keyEquivalent="?" id="75">
+                                <connections>
+                                    <action selector="showHelp:" target="-1" id="174"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Project" id="63">
+                    <menu key="submenu" title="Project" id="49">
+                        <items>
+                            <menuItem title="Open" keyEquivalent="o" id="117">
+                                <connections>
+                                    <action selector="openProject:" target="48" id="155"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save" id="104">
+                                <connections>
+                                    <action selector="saveProject:" target="48" id="156"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="New" id="128">
+                                <connections>
+                                    <action selector="newProject:" target="48" id="157"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Reload" keyEquivalent="r" id="71">
+                                <connections>
+                                    <action selector="reloadProject:" target="48" id="158"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Total Map Statistics..." id="82">
+                                <connections>
+                                    <action selector="printStatistics:" target="48" id="167"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save texture as LBM" id="57">
+                                <connections>
+                                    <action selector="saveTextureLBM:" target="7" id="204"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save ALL textures as LBMs" id="11">
+                                <connections>
+                                    <action selector="saveAllTexturesAsLBM:" target="7" id="205"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Debugging" id="130">
+                                <menu key="submenu" title="Debugging" id="120">
+                                    <items>
+                                        <menuItem title="All Maps Load &amp; Save" id="80">
+                                            <connections>
+                                                <action selector="loadAndSaveAllMaps:" target="48" id="190"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Map" id="9">
+                    <menu key="submenu" title="Map" id="51">
+                        <items>
+                            <menuItem title="Save DoomEd map/BSP map" keyEquivalent="s" id="40">
+                                <connections>
+                                    <action selector="saveDoomEdMapBSP:" target="27" id="177"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save DoomEd map" keyEquivalent="S" id="12">
+                                <connections>
+                                    <action selector="saveWorld:" target="27" id="154"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Map Statistics..." id="123">
+                                <connections>
+                                    <action selector="printSingleMapStatistics:" target="48" id="171"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Print preferences" keyEquivalent="P" id="112">
+                                <connections>
+                                    <action selector="printPrefs:" target="48" id="198"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Print map" keyEquivalent="p" id="35">
+                                <connections>
+                                    <action selector="printMap:" target="48" id="192"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Print ALL maps" id="74">
+                                <connections>
+                                    <action selector="printAllMaps:" target="48" id="197"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Edit" id="133">
+                    <menu key="submenu" title="Edit" id="122">
+                        <items>
+                            <menuItem title="Cut" keyEquivalent="x" id="97">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="160"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="2">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="161"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="119">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="162"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Find line" id="113">
+                                <connections>
+                                    <action selector="menuTarget:" target="118" id="178"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete" id="102">
+                                <connections>
+                                    <action selector="delete:" target="-1" id="163"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Flip Lines" keyEquivalent="f" id="16">
+                                <connections>
+                                    <action selector="flipSelectedLines:" target="27" id="153"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Panels" id="36">
+                    <menu key="submenu" title="Panels" id="20">
+                        <items>
+                            <menuItem title="Error log..." keyEquivalent="1" id="91">
+                                <connections>
+                                    <action selector="displayLog:" target="48" id="173"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Line..." keyEquivalent="2" id="31">
+                                <connections>
+                                    <action selector="menuTarget:" target="110" id="149"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Thing..." keyEquivalent="3" id="68">
+                                <connections>
+                                    <action selector="menuTarget:" target="15" id="151"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Texture Palette..." keyEquivalent="4" id="70">
+                                <connections>
+                                    <action selector="menuTarget:" target="7" id="148"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Texture Editor..." keyEquivalent="5" id="64">
+                                <connections>
+                                    <action selector="menuTarget:" target="65" id="152"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sector Editor..." keyEquivalent="6" id="17">
+                                <connections>
+                                    <action selector="menuTarget:" target="76" id="164"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Project..." keyEquivalent="7" id="18">
+                                <connections>
+                                    <action selector="menuTarget:" target="48" id="159"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Thing Palette..." keyEquivalent="8" id="23">
+                                <connections>
+                                    <action selector="menuTarget:" target="106" id="183"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Line Specials..." id="131">
+                                <connections>
+                                    <action selector="activateSpecialList:" target="110" id="185"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Sector Specials..." id="87">
+                                <connections>
+                                    <action selector="activateSpecialList:" target="76" id="184"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Colors..." keyEquivalent="C" id="6">
+                                <connections>
+                                    <action selector="orderFrontColorPanel:" target="-1" id="147"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Remapping" id="8">
+                    <menu key="submenu" title="Remapping" id="129">
+                        <items>
+                            <menuItem title="Remap Textures..." id="94">
+                                <connections>
+                                    <action selector="menuTarget:" target="67" id="181"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remap Flats..." id="73">
+                                <connections>
+                                    <action selector="menuTarget:" target="116" id="182"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remap Things..." id="33">
+                                <connections>
+                                    <action selector="menuTarget:" target="77" id="180"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remap Line Specials..." id="52">
+                                <connections>
+                                    <action selector="menuTarget:" target="105" id="193"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Strip Things from maps..." id="25">
+                                <connections>
+                                    <action selector="displayPanel:" target="62" id="179"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Windows" id="115">
+                    <menu key="submenu" title="Windows" systemMenu="window" id="101">
+                        <items>
+                            <menuItem title="Arrange in Front" id="53">
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1" id="196"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Miniaturize Window" keyEquivalent="m" id="26">
+                                <connections>
+                                    <action selector="performMiniaturize:" target="-1" id="194"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Close Window" keyEquivalent="w" id="5">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="195"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Print..." id="143">
+                    <connections>
+                        <action selector="print:" target="-1" id="172"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Hide" keyEquivalent="h" id="125">
+                    <connections>
+                        <action selector="hide:" target="-2" id="144"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Quit" keyEquivalent="q" id="108">
+                    <connections>
+                        <action selector="terminate:" target="-2" id="145"/>
+                    </connections>
+                </menuItem>
+            </items>
+        </menu>
+        <customObject id="43" userLabel="SettingsPanel" customClass="SettingsPanel"/>
+        <customObject id="48" userLabel="DoomProject" customClass="DoomProject">
+            <connections>
+                <outlet property="printPrefWindow_i" destination="55" id="202"/>
+                <outlet property="thermoMsg_i" destination="60" id="186"/>
+                <outlet property="thermoTitle_i" destination="79" id="187"/>
+                <outlet property="thermoView_i" destination="78" id="189"/>
+                <outlet property="thermoWindow_i" destination="37" id="188"/>
+                <outlet property="thingPanel_i" destination="15" id="165"/>
+            </connections>
+        </customObject>
+        <window title="Print Prefs" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="55" userLabel="PrintPrefs" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="480" y="354" width="112" height="97"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
+            <view key="contentView" id="139">
+                <rect key="frame" x="0.0" y="0.0" width="112" height="97"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button imageHugsTitle="YES" id="46">
+                        <rect key="frame" x="8" y="74" width="80" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="trailing" alignment="right" inset="2" id="Ma7-7t-sTq">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="12" name="Helvetica"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleMonsters:" target="48" id="199"/>
+                        </connections>
+                    </button>
+                    <button imageHugsTitle="YES" id="72">
+                        <rect key="frame" x="30" y="56" width="58" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="check" title="Items" imagePosition="trailing" alignment="right" inset="2" id="F9h-TH-qI5">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="12" name="Helvetica"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleItems:" target="48" id="200"/>
+                        </connections>
+                    </button>
+                    <button imageHugsTitle="YES" id="99">
+                        <rect key="frame" x="15" y="37" width="73" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="trailing" alignment="right" inset="2" id="eHM-gB-rKM">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="12" name="Helvetica"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleWeapons:" target="48" id="201"/>
+                        </connections>
+                    </button>
+                    <button imageHugsTitle="YES" id="111">
+                        <rect key="frame" x="15" y="7" width="73" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="check" title="Panel" imagePosition="trailing" alignment="right" inset="2" id="l4X-3X-sFL">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="12" name="Helvetica"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="togglePanel:" target="48" id="203"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+        <customObject id="62" userLabel="ThingStripper" customClass="ThingStripper"/>
+        <customObject id="65" userLabel="TextureEdit" customClass="TextureEdit"/>
+        <customObject id="67" userLabel="TextureRemapper" customClass="TextureRemapper"/>
+        <customObject id="76" userLabel="SectorEditor" customClass="SectorEditor"/>
+        <customObject id="77" userLabel="ThingRemapper" customClass="ThingRemapper"/>
+        <customObject id="81" userLabel="PreferencePanel" customClass="PreferencePanel"/>
+        <customObject id="86" userLabel="BlockWorld" customClass="BlockWorld"/>
+        <customObject id="93" userLabel="SpecialList" customClass="SpecialList"/>
+        <customObject id="95" userLabel="ToolPanel" customClass="ToolPanel">
+            <connections>
+                <outlet property="toolmatrix_i" destination="127" id="150"/>
+            </connections>
+        </customObject>
+        <customObject id="105" userLabel="LineSpecialRemapper" customClass="LineSpecialRemapper"/>
+        <customObject id="106" userLabel="ThingPalette" customClass="ThingPalette"/>
+        <customObject id="110" userLabel="LinePanel" customClass="LinePanel"/>
+        <customObject id="116" userLabel="FlatRemapper" customClass="FlatRemapper"/>
+        <customObject id="118" userLabel="FindLine" customClass="FindLine"/>
+        <customObject id="121" userLabel="Coordinator" customClass="Coordinator">
+            <connections>
+                <outlet property="infoPanel_i" destination="135" id="191"/>
+                <outlet property="toolPanel_i" destination="140" id="168"/>
+            </connections>
+        </customObject>
+        <window title="Info Panel" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="135" userLabel="Info Panel" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="108" y="215" width="370" height="174"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
+            <view key="contentView" id="38">
+                <rect key="frame" x="0.0" y="0.0" width="370" height="174"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" id="19">
+                        <rect key="frame" x="86" y="130" width="261" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="DoomEd" id="9qP-rZ-TBf">
+                            <font key="font" size="48" name="Charcoal"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="56">
+                        <rect key="frame" x="77" y="118" width="279" height="18"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="&quot;Adobe Illustrator 5.0 for World Maps!&quot;" id="Xoc-5T-dRK">
+                            <font key="font" size="14" name="Helvetica-BoldOblique"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="85">
+                        <rect key="frame" x="82" y="32" width="213" height="75"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" id="IQb-Cb-AII">
+                            <font key="font" size="12" name="Helvetica"/>
+                            <string key="title">by John Romero &amp; John Carmack
+copyright (C) 1993, id Software, inc.
+
+email: romero@idsoftware.com
+johnc@idsoftware.com</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button imageHugsTitle="YES" id="61">
+                        <rect key="frame" x="8" y="-4" width="80" height="116"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="bevel" title="Romero" image="Me1" imagePosition="above" alignment="center" alternateImage="Me2" imageScaling="proportionallyDown" inset="2" id="M5P-YP-AVO">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" size="12" name="Helvetica-Bold"/>
+                        </buttonCell>
+                    </button>
+                    <button imageHugsTitle="YES" id="83">
+                        <rect key="frame" x="285" y="-5" width="88" height="106"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="bevel" title="Carmack" image="johnc" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="IDL-Fp-mkf">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Helvetica-Bold"/>
+                        </buttonCell>
+                    </button>
+                    <textField verticalHuggingPriority="750" id="96">
+                        <rect key="frame" x="139" y="3" width="92" height="18"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="version 0.92" id="Jfe-zH-x4E">
+                            <font key="font" size="14" name="Helvetica-BoldOblique"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button imageHugsTitle="YES" id="47">
+                        <rect key="frame" x="16" y="113" width="60" height="60"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="SmallDemon" imagePosition="above" alignment="center" imageScaling="proportionallyDown" inset="2" id="brj-f3-7cg">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Helvetica"/>
+                        </buttonCell>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+        <window title="TOOLS" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="140" userLabel="Tools" customClass="FloatingPanel">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="2" y="391" width="105" height="165"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="800" height="580"/>
+            <view key="contentView" id="59">
+                <rect key="frame" x="1" y="1" width="105" height="165"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="127">
+                        <rect key="frame" x="2" y="41" width="97" height="120"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="cellSize" width="97" height="15"/>
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="bo6-Of-FMe">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="12" name="Helvetica"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="radio" title="Select" imagePosition="leading" alignment="left" state="on" inset="2" id="141">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">k</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Poly line" imagePosition="leading" alignment="left" inset="2" id="14">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">,</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Line" imagePosition="leading" alignment="left" tag="1" inset="2" id="22">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">l</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Zoom" imagePosition="leading" alignment="left" inset="2" id="90">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">z</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Move" imagePosition="leading" alignment="left" inset="2" id="66">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">M</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Sector get/fill" imagePosition="leading" alignment="left" inset="2" id="13">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">g</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="New thing" imagePosition="leading" alignment="left" inset="2" id="88">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <string key="keyEquivalent">t</string>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="leading" alignment="left" inset="2" id="42">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="toolChanged:" target="95" id="166"/>
+                        </connections>
+                    </matrix>
+                    <textField verticalHuggingPriority="750" id="89">
+                        <rect key="frame" x="88" y="146" width="24" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="k" id="Am4-Y2-GZk">
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="136">
+                        <rect key="frame" x="88" y="115" width="24" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="l" id="oHu-al-0Fs">
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="124">
+                        <rect key="frame" x="87" y="100" width="24" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="z" id="Vac-fG-eOG">
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="134">
+                        <rect key="frame" x="88" y="70" width="24" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="g" id="TKD-PO-VrT">
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="100">
+                        <rect key="frame" x="87" y="85" width="24" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="M" id="Ybv-FB-HHO">
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" id="58">
+                        <rect key="frame" x="88" y="57" width="24" height="13"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" alignment="center" title="t" id="ei9-Oy-E9A">
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="69">
+                        <rect key="frame" x="3" y="21" width="100" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="push" title="Separate Points" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="nPi-vD-sKt">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="seperatePoints:" target="27" id="169"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="30">
+                        <rect key="frame" x="3" y="3" width="100" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <buttonCell key="cell" type="push" title="Fuse Points" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="CRf-Xa-MTK">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="fusePoints:" target="27" id="170"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
+    </objects>
+    <resources>
+        <image name="Me1" width="80" height="92"/>
+        <image name="Me2" width="80" height="91"/>
+        <image name="SmallDemon" width="53" height="53"/>
+        <image name="johnc" width="67" height="80"/>
+    </resources>
+</document>
