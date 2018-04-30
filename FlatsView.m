@@ -7,17 +7,18 @@
 @implementation FlatsView
 - initWithFrame:(NSRect)frameRect
 {
-	dividers_i = [ [ CompatibleStorage alloc ]
-		initCount: 0
-		elementSize: sizeof (divider_t)
-		description: NULL
-	];
-
-	[super	initWithFrame:frameRect];
+	if (self = [super initWithFrame:frameRect]) {
+		dividers_i = [[CompatibleStorage alloc]
+					  initCount: 0
+					  elementSize: sizeof (divider_t)
+					  description: NULL
+					  ];
+		
+	}
 	return self;
 }
 
-- addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
 {
 	divider_t		d;
 	
@@ -25,17 +26,14 @@
 	d.y = y;
 	strcpy (d.string, string );
 	[dividers_i	addElement:&d ];
-	
-	return self;
 }
 
-- dumpDividers
+- (void)dumpDividers
 {
 	[dividers_i	empty];
-	return self;
 }
 
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
 {
 	flat_t	*f;
 	int	max, i, cf;
@@ -58,8 +56,8 @@
 	for (i = 0; i < max; i++)
 	{
 		f = [sectorEdit_i	getFlat:i];
-		if (NSIntersectsRect(rects[0], f->r))
-			[f->image	composite:NSCompositeCopy	toPoint:&f->r.origin];
+		if (NSIntersectsRect(dirtyRect, f->r))
+			[f->image drawAtPoint:f->r.origin fromRect:NSZeroRect operation:NSCompositeCopy fraction:1];
 	}
 
 	//
@@ -85,8 +83,6 @@
 		PSlineto ( [self bounds].size.width - SPACING, d->y - 2 );
 		PSstroke ();
 	}
-	
-	return self;
 }
 
 - (void) mouseDown:(NSEvent *)theEvent

@@ -5,9 +5,9 @@
 
 @class TexturePalView;
 
-typedef struct
+typedef struct texpal_s
 {
-	id	image;
+	NSImage	*image;
 	int	patchamount;
 	char	 name[9];
 	NSRect	r;
@@ -15,7 +15,7 @@ typedef struct
 	int	oldIndex;
 } texpal_t;
 
-@interface TexturePalette:NSObject
+@interface TexturePalette:NSObject <NSWindowDelegate>
 {
 	IBOutlet NSWindow		*window_i;
 	IBOutlet TexturePalView	*texturePalView_i;
@@ -48,12 +48,12 @@ typedef struct
 
 - (void)computePalViewSize;
 - (texpal_t *)getNewTexture:(int)which;
-- (int)selectTextureNamed:(char *)name;
+- (int)selectTextureNamed:(const char *)name;
 
 - (texpal_t *)getTexture:(int)which;
 - (void)storeTexture:(int)which;
 - (char *)getSelTextureName;
-- (void)setSelTexture:(char *)name;
+- (void)setSelTexture:(const char *)name;
 - (int) currentSelection;
 - (void)selectTexture:(int)val;
 - (IBAction)menuTarget:sender;

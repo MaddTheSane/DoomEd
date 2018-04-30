@@ -10,8 +10,9 @@ TexturePalette *texturePalette_i;
 
 @implementation TexturePalette
 
-- init
+- (instancetype)init
 {
+	if (self = [super init]) {
 	window_i = NULL;
 	texturePalette_i = self;
 	selectedTexture = -1;
@@ -21,25 +22,24 @@ TexturePalette *texturePalette_i;
 		elementSize: sizeof(texpal_t)
 		description: NULL
 	];
+	}
 
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:@"TexturePalette"];
-	return self;
 }
 
-- initTextures
+- (void)initTextures
 {
 	[self	createAllTextureImages];
 	[self	finishInit];
-	return self;
 }
 
-- finishInit
+- (void)finishInit
 {
 	NSPoint	p;
 	NSRect	dvr;
@@ -52,49 +52,44 @@ TexturePalette *texturePalette_i;
 	p.x = 0;
 	p.y = dvr.size.height;
 	[texturePalView_i scrollPoint:p];
-	return self;
 }
 
-- setupPalette
+- (void)setupPalette
 {
 	[self	finishInit];
 	if ([allTextures	count])
 		[self	selectTexture:0];
 	[window_i	setFrameUsingName:@"TexturePalette"];
-	return self;
 }
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
-	if (![doomproject_i loaded])
+	if (![doomproject_i isLoaded])
 	{
 		NSRunAlertPanel(@"Oops!",
-			@"There must be a project loaded before you even\n"
-			"THINK about choosing textures!",
+			@"There must be a project loaded before you even THINK about choosing textures!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 		
 	if (!window_i)
 	{
 		[[NSBundle mainBundle] loadNibNamed: @"TexturePalette.nib"
-			owner: self
-			options: nil];
+									  owner: self
+							topLevelObjects: nil];
 
 		[self setupPalette];
 		[window_i	setDelegate:self];
 	}
 
 	[window_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- windowDidMiniaturize:(NSNotification *)notification
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
 	NSWindow *window = [notification object];
 	// TODO [window setMiniwindowIcon:"DoomEd"];
 	[window setMiniwindowTitle:@"TxPalette"];
-	return self;
 }
 
 
@@ -102,7 +97,7 @@ TexturePalette *texturePalette_i;
 // create all the texture images for the palette
 // NOTE: allTextures must have been created
 //
-- createAllTextureImages
+- (void)createAllTextureImages
 {
 	int		j;
 	texpal_t	t;
@@ -114,8 +109,6 @@ TexturePalette *texturePalette_i;
 		t = [self	createTextureImage:j];
 		[allTextures	addElement:&t];
 	}
-
-	return self;
 }
 
 //
@@ -165,7 +158,7 @@ TexturePalette *texturePalette_i;
 		p.r.size.width = p.patch->r.size.width;
 		p.r.size.height = p.patch->r.size.height;
 		[p.patch->image	drawAtPoint:p.r.origin fromRect:NSZeroRect
-		                operation:NSCompositeSourceOver];
+		                operation:NSCompositeSourceOver fraction:1];
 	}
 	[t.image unlockFocus];
 	return t;
@@ -174,7 +167,7 @@ TexturePalette *texturePalette_i;
 //
 // add/replace a texture image in palette
 //
-- storeTexture:(int)which
+- (void)storeTexture:(int)which
 {
 	texpal_t	*t,tex;
 	
@@ -185,6 +178,7 @@ TexturePalette *texturePalette_i;
 	{
 		t = [allTextures	elementAt:which];
 		[t->image release];
+		t->image = nil;
 	}
 
 	tex = [self	createTextureImage:which];
@@ -192,9 +186,7 @@ TexturePalette *texturePalette_i;
 
 	[self	computePalViewSize];
 	[self	selectTexture:which];
-	[doomproject_i	setDirtyProject:TRUE];
-
-	return self;
+	[doomproject_i setProjectDirty:TRUE];
 }
 
 //=========================================================
@@ -207,7 +199,7 @@ TexturePalette *texturePalette_i;
 	return	[newTextures	elementAt:which];
 }
 
-- computePalViewSize
+- (void)computePalViewSize
 {
 	texpal_t *t, *t2;
 	int count,maxwidth,x,y;
@@ -293,8 +285,6 @@ TexturePalette *texturePalette_i;
 	// TODO: Check this is the right replacement method:
 	//[texturePalView_i sizeTo:s.width :s.height];
 	[texturePalView_i setFrameSize:s];
-
-	return self;
 }
 
 //
@@ -305,7 +295,7 @@ TexturePalette *texturePalette_i;
 	return [allTextures	elementAt:which];
 }
 
-- (int)selectTextureNamed:(char *)name
+- (int)selectTextureNamed:(const char *)name
 {
 	texpal_t *t;
 	int		i;
@@ -336,7 +326,7 @@ TexturePalette *texturePalette_i;
 	return i;
 }
 
-- selectTexture:(int)val
+- (void)selectTexture:(int)val
 {
 	texpal_t	*t;
 	NSRect		r;
@@ -357,7 +347,6 @@ TexturePalette *texturePalette_i;
 		[texturePalView_i		scrollRectToVisible:r];
 		[texturePalScrView_i	display];
 	}
-	return self;
 }
 
 - (char *)getSelTextureName
@@ -365,7 +354,7 @@ TexturePalette *texturePalette_i;
 	return	[self getTexture:selectedTexture]->name;
 }
 
-- setSelTexture:(char *)name
+- (void)setSelTexture:(const char *)name
 {
 	int	i, max;
 	NSRect	r;
@@ -389,11 +378,9 @@ TexturePalette *texturePalette_i;
 			[texturePalScrView_i	display];
 			break;
 		}
-		
-	return self;
 }
 
-- searchForTexture:sender
+- (IBAction)searchForTexture:sender
 {
 	int	i, max, slen,j;
 	const char *string;
@@ -410,7 +397,7 @@ TexturePalette *texturePalette_i;
 			if (!strncasecmp(string,t->name+j,slen))
 			{
 				[self	setSelTexture:t->name];
-				return self;
+				return;
 			}
 	}
 	
@@ -421,12 +408,11 @@ TexturePalette *texturePalette_i;
 			if (!strncasecmp(string,t->name+j,slen))
 			{
 				[self	setSelTexture:t->name];
-				return self;
+				return;
 			}
 	}
 	
 	NSBeep();
-	return self;
 }
 
 - (int) currentSelection
@@ -462,7 +448,7 @@ TexturePalette *texturePalette_i;
 //	Search for specific width
 //
 //========================================================
-- searchWidth:sender
+- (IBAction)searchWidth:sender
 {
 	int	i, max,width;
 	texpal_t	*t;
@@ -475,7 +461,7 @@ TexturePalette *texturePalette_i;
 		if (t->r.size.width == width)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
@@ -485,12 +471,11 @@ TexturePalette *texturePalette_i;
 		if (t->r.size.width == width)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
 	NSBeep();
-	return self;
 }
 
 //========================================================
@@ -498,7 +483,7 @@ TexturePalette *texturePalette_i;
 //	Search for specific height
 //
 //========================================================
-- searchHeight:sender
+- (IBAction)searchHeight:sender
 {
 	int	i, max,height;
 	texpal_t	*t;
@@ -511,7 +496,7 @@ TexturePalette *texturePalette_i;
 		if (t->r.size.height == height)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
@@ -521,12 +506,11 @@ TexturePalette *texturePalette_i;
 		if (t->r.size.height == height)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
 	NSBeep();
-	return self;
 }
 
 //========================================================
@@ -534,7 +518,7 @@ TexturePalette *texturePalette_i;
 //	Show current texture in map by highlighting all lines that use it
 //
 //========================================================
-- showTextureInMap:sender
+- (IBAction)showTextureInMap:sender
 {
 	int		i;
 	int		found;
@@ -544,7 +528,7 @@ TexturePalette *texturePalette_i;
 	strcpy(name,[searchField_i	stringValue]);
 	strupr(name);
 	found = 0;
-	[log_i	msg:"Searching for texture in lines...\n"];
+	[log_i addLogString:@"Searching for texture in lines...\n"];
 	
 	for (i = 0;i < numlines;i++)
 		if ((!strcasecmp(lines[i].side[0].bottomtexture,name) ||
@@ -566,7 +550,6 @@ TexturePalette *texturePalette_i;
 	[editworld_i	redrawWindows];
 	if (found)
 		NSBeep();
-	return self;
 }
 
 //========================================================
@@ -575,7 +558,7 @@ TexturePalette *texturePalette_i;
 //	and also save out .LS file for graphic
 //
 //========================================================
-- saveTextureLBM:sender
+- (IBAction)saveTextureLBM:sender
 {
 	int		cs;
 	char	lbmname[1024];
@@ -588,7 +571,7 @@ TexturePalette *texturePalette_i;
 	if (cs < 0)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 
 	strcpy(waddir,[doomproject_i wadfile]);
@@ -607,14 +590,12 @@ TexturePalette *texturePalette_i;
 	if (fp == NULL)
 	{
 		printf ("Error creating %s file!\n",lsname);
-		return self;
+		return;
 	}
 
 	strlwr(lbmname);
 	createAndSaveLBM(lbmname, cs, fp);	
 	fclose (fp);
-	
-	return self;
 }
 
 //========================================================
@@ -623,13 +604,12 @@ TexturePalette *texturePalette_i;
 //	and also save out .LS file for each graphic
 //
 //========================================================
-- saveAllTexturesAsLBM:sender
+- (IBAction)saveAllTexturesAsLBM:sender
 {
 	[lsPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- doSaveAllTexturesAsLBM:sender
+- (IBAction)doSaveAllTexturesAsLBM:sender
 {
 	char	lbmname[1024];
 	char	lsEnteredName[24];
@@ -645,7 +625,7 @@ TexturePalette *texturePalette_i;
 	if ((!lsEnteredName[0]) || strlen(lsEnteredName)>12)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	strcpy(waddir,[doomproject_i wadfile]);
@@ -666,7 +646,7 @@ TexturePalette *texturePalette_i;
 	if (fp == NULL)
 	{
 		printf ("Error creating %s file!\n",lsname);
-		return self;
+		return;
 	}
 	
 	for (j = 0; j < numtextures; j++)
@@ -683,7 +663,6 @@ TexturePalette *texturePalette_i;
 	fclose (fp);
 	
 	[lsPanel_i	close];
-	return self;
 }
 
 

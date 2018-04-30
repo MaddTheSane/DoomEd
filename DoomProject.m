@@ -1023,7 +1023,7 @@ typedef struct
 		return;
 	}
 	
-	[ log_i	msg:"Single map statistics\n" ];	
+	[ log_i	addLogString:@"Single map statistics\n" ];
 
 	//
 	//	Thing report data
@@ -1338,7 +1338,7 @@ typedef struct
 		strcpy(thingCount[k].name,thing->name);
 	}
 	
-	[log_i	msg:"Starting to calculate multiple map statistics...\n" ];
+	[log_i addLogString:@"Starting to calculate multiple map statistics...\n" ];
 	
 	errors = 0;
 	
@@ -1353,7 +1353,7 @@ typedef struct
 		//
 		//	Thing report data
 		//
-		[log_i	msg:"Counting things.\n" ];
+		[log_i addLogString:@"Counting things.\n"];
 		for (k = 0;k < numthings;k++)
 		{
 			int	type = things[k].type;
@@ -1393,7 +1393,7 @@ typedef struct
 		//
 		// count amount of each texture
 		//
-		[log_i	msg:"Counting textures and flats.\n" ];
+		[log_i addLogString:@"Counting textures and flats.\n"];
 		for (k=0;k<numlines;k++)
 		{
 			// SIDE 0
@@ -2455,7 +2455,7 @@ static	byte		*buffer, *buf_p;
 	[thermoTitle_i	setStringValue:title];
 	[thermoMsg_i	setStringValue:msg];
 	[thermoView_i	setThermoWidth:0 max:1000];
-	[thermoView_i	display];
+	[thermoView_i	setNeedsDisplay:YES];
 	[thermoWindow_i	makeKeyAndOrderFront:NULL];
 	NXPing();
 }
@@ -2513,15 +2513,16 @@ void IO_Error (char *error, ...)
 //=======================================================
 void DE_DrawOutline(NSRect *r)
 {
-	PSsetrgbcolor ( 148,0,0 );
-	PSmoveto ( r->origin.x, r->origin. y );
-	PSsetlinewidth( 2.0 );
-	PSlineto (r->origin.x+r->size.width-1,r->origin.y);
-	PSlineto (r->origin.x+r->size.width-1,
-			r->origin.y+r->size.height-1);
-	PSlineto (r->origin.x,r->origin.y+r->size.height-1);
-	PSlineto (r->origin.x,r->origin.y);
-	PSstroke ();
+	[[NSColor colorWithDeviceRed:148.0/255 green:0 blue:0 alpha:1] set];
+	NSBezierPath *path = [NSBezierPath bezierPath];
+	[path moveToPoint:r->origin];
+	path.lineWidth = 2;
+	[path lineToPoint:NSMakePoint(r->origin.x+r->size.width-1,r->origin.y)];
+	[path lineToPoint:NSMakePoint(r->origin.x+r->size.width-1,
+								  r->origin.y+r->size.height-1)];
+	[path lineToPoint:NSMakePoint(r->origin.x,r->origin.y+r->size.height-1)];
+	[path lineToPoint:r->origin];
+	[path stroke];
 
 	return;	
 }
