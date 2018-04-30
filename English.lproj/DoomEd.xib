@@ -604,48 +604,48 @@ johnc@idsoftware.com</string>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="97" height="15"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="bo6-Of-FMe">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="bo6-Of-FMe">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Select" imagePosition="leading" alignment="left" state="on" inset="2" id="141">
+                                <buttonCell type="radio" title="Select" imagePosition="left" alignment="left" state="on" inset="2" id="141">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">k</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Poly line" imagePosition="leading" alignment="left" inset="2" id="14">
+                                <buttonCell type="radio" title="Poly line" imagePosition="left" alignment="left" inset="2" id="14">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">,</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Line" imagePosition="leading" alignment="left" tag="1" inset="2" id="22">
+                                <buttonCell type="radio" title="Line" imagePosition="left" alignment="left" tag="1" inset="2" id="22">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">l</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Zoom" imagePosition="leading" alignment="left" inset="2" id="90">
+                                <buttonCell type="radio" title="Zoom" imagePosition="left" alignment="left" inset="2" id="90">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">z</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Move" imagePosition="leading" alignment="left" inset="2" id="66">
+                                <buttonCell type="radio" title="Move" imagePosition="left" alignment="left" inset="2" id="66">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">M</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Sector get/fill" imagePosition="leading" alignment="left" inset="2" id="13">
+                                <buttonCell type="radio" title="Sector get/fill" imagePosition="left" alignment="left" inset="2" id="13">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">g</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="New thing" imagePosition="leading" alignment="left" inset="2" id="88">
+                                <buttonCell type="radio" title="New thing" imagePosition="left" alignment="left" inset="2" id="88">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                     <string key="keyEquivalent">t</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="leading" alignment="left" inset="2" id="42">
+                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="left" alignment="left" inset="2" id="42">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="10" name="Helvetica-Bold"/>
                                 </buttonCell>

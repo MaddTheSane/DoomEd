@@ -1,10 +1,13 @@
 #import "Storage.h"
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 #import 	"DoomProject.h"
 #import		"EditWorld.h"
 
-extern	id	thingpanel_i;
+@class ThingPanel;
+@class ThingWindow;
+
+extern ThingPanel *thingpanel_i;
 
 typedef struct
 {
@@ -21,10 +24,10 @@ typedef struct
 #define DIFF_HARD	2
 #define DIFF_ALL	3
 
-@interface ThingPanel:NSObject
+@interface ThingPanel:NSObject <NSWindowDelegate>
 {
 	IBOutlet id	fields_i;
- 	IBOutlet NSWindow	*window_i;
+ 	IBOutlet ThingWindow	*window_i;
 	IBOutlet NSButton	*addButton_i;
 	IBOutlet NSButton	*updateButton_i;
 	IBOutlet NSTextField	*nameField_i;

@@ -13,36 +13,45 @@
 
 - initWithTitle: (NSString *) title
 {
-	window_i = [[NSBundle mainBundle] loadNibNamed: @"TextLog.nib"
-		owner: self
-		options: nil
-	];
-	[window_i setTitle: title];
+	if (self = [super init]) {
+		[[NSBundle mainBundle] loadNibNamed: @"TextLog"
+									  owner: self
+							topLevelObjects: nil];
+		[window_i setTitle: title];
+	}
 	return self;
+}
+
+- (void)addLogString:(NSString*)string
+{
+	NSAttributedString *tmpAttr = [[NSAttributedString alloc] initWithString:string];
+	[self addLogAttributedString:tmpAttr];
+	[tmpAttr release];
+}
+
+- (void)addLogAttributedString:(NSAttributedString*)string
+{
+	[text_i.textStorage beginEditing];
+	[text_i.textStorage appendAttributedString:string];
+	[text_i.textStorage endEditing];
+	[text_i.enclosingScrollView scrollToEndOfDocument:nil];
 }
 
 - (void)msg:(char *)string
 {
-	int		len;
-
-	len = [text_i textLength];
-	[text_i setSel:len :len];
-	[text_i replaceSel:string];
-	[text_i	scrollSelToVisible];
+	[self addLogString:@(string)];
 }
 
 - (IBAction)display:sender
 {
-	[window_i	makeKeyAndOrderFront:sender];
+	[window_i makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)clear:sender
 {
-	int		len;
-
-	len = [text_i textLength];
-	[text_i setSel:0 :len];
-	[text_i replaceSel:"\0"];
+	[text_i.textStorage beginEditing];
+	[text_i.textStorage setAttributedString:[[[NSAttributedString alloc] init] autorelease]];
+	[text_i.textStorage endEditing];
 }
 
 @end

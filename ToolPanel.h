@@ -18,7 +18,7 @@ extern ToolPanel *toolpanel_i;
 
 @interface ToolPanel: NSObject
 {
-    IBOutlet id	toolmatrix_i;
+    IBOutlet NSMatrix	*toolmatrix_i;
 }
 
 - (IBAction)toolChanged:sender;

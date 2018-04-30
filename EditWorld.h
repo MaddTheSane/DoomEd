@@ -85,7 +85,7 @@ typedef struct
 }
 
 - (void)applicationWillTerminate: (NSNotification *)notification;
-- (void)loadWorldFile: (NSString *)path;
+- (BOOL)loadWorldFile: (NSString *)path;
 - (IBAction)saveDoomEdMapBSP:sender;
 
 - (BOOL)loaded;
@@ -184,7 +184,7 @@ typedef struct
 //
 @interface EditWorld (EWDoomSave)
 
-- (void)saveDoomMap;
+- (BOOL)saveDoomMap;
 
 @end
 

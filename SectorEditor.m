@@ -18,48 +18,46 @@ SectorEditor *sectorEdit_i;
 	sectorEdit_i = self;
 	currentFlat = -1;
 	specialPanel_i = [SpecialList alloc];
-	[specialPanel_i setSpecialTitle:"Sector Editor - Specials"];
-	[specialPanel_i setFrameName:"SectorSpecialPanel"];
+	[specialPanel_i setSpecialTitle:@"Sector Editor - Specials"];
+	[specialPanel_i setFrameName:@"SectorSpecialPanel"];
 	[specialPanel_i setDelegate:self];
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	[specialPanel_i	saveFrame];
 	if (window_i)
 		[window_i	saveFrameUsingName:@"SectorEditor"];
-	return self;
 }
 
-- setKey:sender
+- (void)setKey:sender
 {
 	[[editworld_i	getMainWindow] makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- pgmTarget
+- (void)pgmTarget
 {
-	if (![doomproject_i loaded])
+	if (![doomproject_i isLoaded])
 	{
 		NSRunAlertPanel(@"Oops!",
 			@"There must be a project loaded before you even\n"
 			"THINK about editing sectors!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 
 	if (!window_i)
 	{
 		[self	menuTarget:NULL];
-		return self;
+		return;
 	}
 	
 	[window_i	orderFront:NULL];
-	return self;
+	return;
 }
 
-- setupEditor
+- (void)setupEditor
 {
 	[self	computeFlatDocView];
 	
@@ -79,27 +77,26 @@ SectorEditor *sectorEdit_i;
 	
 	[window_i	setFrameUsingName:@"SectorEditor"];
 	[self	setCurrentFlat:0];
-	return self;
 }
 
-- menuTarget:sender
+- (void)menuTarget:sender
 {
-	if (![doomproject_i loaded])
+	if (![doomproject_i isLoaded])
 	{
 		NSRunAlertPanel(@"Oops!",
 			@"There must be a project loaded before you even\n"
 			"THINK about editing sectors!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"SectorEditor.nib"
-			owner: self
-			options: nil];
+		[[NSBundle mainBundle] loadNibNamed: @"SectorEditor"
+									  owner: self
+							topLevelObjects:nil];
 		[self	setupEditor];
-		[window_i	setAvoidsActivation:YES];
+		//[window_i	setAvoidsActivation:YES];
 	}
 
 	//
@@ -107,15 +104,13 @@ SectorEditor *sectorEdit_i;
 	//	
 	[window_i	setDelegate:self];
 	[window_i	orderFront:NULL];
-	return self;
 }
 
-- windowDidMiniaturize:(NSNotification *)notification
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
 	NSWindow *window = [notification object];
 	//[window setMiniwindowIcon:"DoomEd"];
 	[window setMiniwindowTitle:@"SectorEdit"];
-	return self;
 }
 
 //============================================================
@@ -123,20 +118,18 @@ SectorEditor *sectorEdit_i;
 //	Clicked on little arrow adjusters
 //
 //============================================================
-- ceilingAdjust:sender
+- (void)ceilingAdjust:sender
 {
 	[cheightfield_i	setIntValue:[cheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
-	return self;
 }
 
-- floorAdjust:sender
+- (void)floorAdjust:sender
 {
 	[fheightfield_i	setIntValue:[fheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
-	return self;
 }
 
 //============================================================
@@ -144,12 +137,10 @@ SectorEditor *sectorEdit_i;
 //	Get tag value from line panel tag field
 //
 //============================================================
-- getTagValue:sender
+- (void)getTagValue:sender
 {
 	[tag_i	setIntValue:[linepanel_i	getTagValue]];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -157,7 +148,7 @@ SectorEditor *sectorEdit_i;
 //	Light level arrow clicks
 //
 //============================================================
-- lightLevelDown:sender
+- (void)lightLevelDown:sender
 {
 	int	level;
 	
@@ -170,11 +161,9 @@ SectorEditor *sectorEdit_i;
 	[lightLevel_i	setIntValue:level];
 	[lightSlider_i	setIntValue:level];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
-- lightLevelUp:sender
+- (void)lightLevelUp:sender
 {
 	int	level;
 	
@@ -185,8 +174,6 @@ SectorEditor *sectorEdit_i;
 	[lightLevel_i	setIntValue:level];
 	[lightSlider_i	setIntValue:level];
 	[self	setKey:NULL];
-
-	return self;
 }
 
 //============================================================
@@ -194,7 +181,7 @@ SectorEditor *sectorEdit_i;
 //	Set all Sector Editor info to what's being passed
 //
 //============================================================
-- setSector:(sectordef_t *) s
+- (void)setSector:(sectordef_t *) s
 {
 	int	val;
 	flat_t	*f;
@@ -240,16 +227,15 @@ SectorEditor *sectorEdit_i;
 	[tag_i				setIntValue:sector.tag];
 	[cheightfield_i		setIntValue:sector.ceilingheight];
 	[fheightfield_i		setIntValue:sector.floorheight];
-	[cflatname_i		setStringValue:sector.ceilingflat];
-	[fflatname_i		setStringValue:sector.floorflat];
+	[cflatname_i		setStringValue:@(sector.ceilingflat)];
+	[fflatname_i		setStringValue:@(sector.floorflat)];
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[specialPanel_i		setSpecial:sector.special];
 
-	[sectorEditView_i	display];
-	return self;
+	[sectorEditView_i	setNeedsDisplay:YES];
 }
 
-- lightChanged:sender
+- (void)lightChanged:sender
 {
 	int	val;
 	val = [lightLevel_i	intValue];
@@ -258,10 +244,9 @@ SectorEditor *sectorEdit_i;
 	[lightLevel_i	setIntValue:val];
 	[lightSlider_i	setIntValue:val];
 	[self	setKey:NULL];
-	return self;
 }
 
-- lightSliderChanged:sender
+- (void)lightSliderChanged:sender
 {
 	int	val;
 	val = [lightSlider_i	intValue];
@@ -270,37 +255,30 @@ SectorEditor *sectorEdit_i;
 	[lightLevel_i	setIntValue:val];
 	[lightSlider_i	setIntValue:val];
 	[self	setKey:NULL];
-	return self;
 }
 
-- selectFloor
+- (void)selectFloor
 {
 	[floorAndCeiling_i	selectCellAtRow:0 column:1];
-	return self;
 }
 
-- selectCeiling
+- (void)selectCeiling
 {
 	[floorAndCeiling_i	selectCellAtRow:0 column:0];
-	return self;
 }
 
-- setCeiling:(int) what
+- (void)setCeiling:(int) what
 {
 	[cheightfield_i		setIntValue:what];
 	[totalHeight_i		setIntValue:what - [fheightfield_i  intValue]];
 	[self	setKey:NULL];
-
-	return self;
 }
 
-- setFloor:(int) what
+- (void)setFloor:(int) what
 {
 	[fheightfield_i		setIntValue:what];
 	[totalHeight_i		setIntValue:[cheightfield_i  intValue] - what];
 	[self	setKey:NULL];
-
-	return self;
 }
 
 //============================================================
@@ -309,7 +287,7 @@ SectorEditor *sectorEdit_i;
 //	Floor height remains the same; adjust ceilingheight.
 //
 //============================================================
-- totalHeightAdjust:sender
+- (void)totalHeightAdjust:sender
 {
 	int	val;
 	val = [fheightfield_i		intValue];
@@ -317,10 +295,8 @@ SectorEditor *sectorEdit_i;
 	val &= -8;
 	[self		setCeiling:val];
 	sector.ceilingheight = val;
-	[sectorEditView_i	display];
+	[sectorEditView_i	setNeedsDisplay:YES];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -328,7 +304,7 @@ SectorEditor *sectorEdit_i;
 //	Ceiling or Floor height changed -- clip and modify totalHeight
 //
 //============================================================
-- CorFheightChanged:sender
+- (void)CorFheightChanged:sender
 {
 	int	val;
 	
@@ -348,8 +324,6 @@ SectorEditor *sectorEdit_i;
 	[sectorEditView_i	display];
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -357,7 +331,7 @@ SectorEditor *sectorEdit_i;
 //	Find the flat in the palette designated by floor/ceiling radio button
 //
 //============================================================
-- locateFlat:sender
+- (void)locateFlat:sender
 {
 	int	flat;
 	flat_t	*f;
@@ -371,7 +345,7 @@ SectorEditor *sectorEdit_i;
 	if (flat < 0)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	[self	selectFlat:flat];
@@ -384,8 +358,6 @@ SectorEditor *sectorEdit_i;
 	[flatPalView_i		scrollRectToVisible:r];
 	[flatPalView_i		display];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -411,7 +383,7 @@ SectorEditor *sectorEdit_i;
 //	Get rid of all flats and their images
 //
 //==========================================================
-- dumpAllFlats
+- (void)dumpAllFlats
 {
 	int			i, max;
 	flat_t		*p;
@@ -433,14 +405,11 @@ SectorEditor *sectorEdit_i;
 	[ flatImages	empty ];
 	[panel	orderOut:NULL];
 	NSReleaseAlertPanel(panel);
-
-	return self;
 }
 
-- emptySpecialList
+- (void)emptySpecialList
 {
 	[ specialPanel_i	empty ];
-	return self;
 }
 
 //============================================================
@@ -461,7 +430,6 @@ SectorEditor *sectorEdit_i;
 	int		windex;
 	char	start[10];
 	char	end[10];
-	char	string[80];
 
 	//
 	//	Get palette and convert to 16-bit
@@ -482,8 +450,7 @@ SectorEditor *sectorEdit_i;
 	windex = 0;
 	do
 	{
-		sprintf(string,"Loading flat set #%d for Sector Editor.",windex+1);
-		[doomproject_i initThermo:@"One moment..." message:string];
+		[doomproject_i initThermo:@"One moment..." message:[NSString stringWithFormat:@"Loading flat set #%d for Sector Editor.",windex+1]];
 
 		//
 		// get inclusive lump #'s for patches
@@ -536,7 +503,7 @@ SectorEditor *sectorEdit_i;
 //	Set coords for all flats in the flatView -- setup flatView
 //
 //============================================================
-- computeFlatDocView
+- (void)computeFlatDocView
 {
 	NSRect	dvr;
 	int		i,x,y,max;
@@ -574,7 +541,7 @@ SectorEditor *sectorEdit_i;
 		x += FLATSIZE + SPACING;
 	}
 	
-	[flatPalView_i	sizeTo:dvr.size.width	:y + FLATSIZE + SPACING];
+	[flatPalView_i setSize:NSMakeSize(dvr.size.width, y + FLATSIZE + SPACING)];
 	p.x = 0;
 	p.y = y + FLATSIZE*2 + SPACING*2;
 	x = SPACING;
@@ -609,9 +576,7 @@ SectorEditor *sectorEdit_i;
 	}
 	
 	[flatPalView_i	scrollPoint:p ];
-	[flatScrPalView_i	display];
-
-	return self;
+	[flatScrPalView_i	setNeedsDisplay:YES];
 }
 
 - (NSString *) flatName: (int) flat
@@ -648,7 +613,7 @@ SectorEditor *sectorEdit_i;
 	return	[flatImages	elementAt:floor_flat];
 }
 
-- selectFlat:(int) which
+- (void)selectFlat:(int) which
 {
 	flat_t	*f;
 	
@@ -659,25 +624,24 @@ SectorEditor *sectorEdit_i;
 	{
 		ceiling_flat = which;
 		strncpy(sector.ceilingflat,f->name,9);
-		[cflatname_i	setStringValue:sector.ceilingflat];
-		[curFlat_i		setStringValue:sector.ceilingflat];
+		[cflatname_i	setStringValue:@(sector.ceilingflat)];
+		[curFlat_i		setStringValue:@(sector.ceilingflat)];
 	}
 	else
 	{
 		floor_flat = which;
 		strncpy(sector.floorflat,f->name,9);
-		[fflatname_i	setStringValue:sector.floorflat];
-		[curFlat_i		setStringValue:sector.ceilingflat];
+		[fflatname_i	setStringValue:@(sector.floorflat)];
+		[curFlat_i		setStringValue:@(sector.ceilingflat)];
 	}
 	
 	[flatPalView_i	scrollRectToVisible:f->r];
 	[flatScrPalView_i	display];
 	[sectorEditView_i	display];
 	[self	setKey:NULL];
-	return self;
 }
 
-- setCurrentFlat:(int)which
+- (void)setCurrentFlat:(int)which
 {
 	flat_t	*f;
 	NSRect	r;
@@ -692,8 +656,6 @@ SectorEditor *sectorEdit_i;
 	r.size.height += SPACING*2;
 	[flatPalView_i		scrollRectToVisible:r];
 	[flatScrPalView_i	display];
-	
-	return self;
 }
 
 - (int) getCurrentFlat
@@ -716,7 +678,7 @@ SectorEditor *sectorEdit_i;
 //	Search for sector that matches TAG field
 //
 //=================================================================
-- searchForTaggedSector:sender
+- (void)searchForTaggedSector:sender
 {
 	int		tag, i, found;
 	
@@ -737,7 +699,6 @@ SectorEditor *sectorEdit_i;
 		[editworld_i	updateWindows];
 		
 	[self	setKey:NULL];
-	return self;
 }
 
 //=================================================================
@@ -745,7 +706,7 @@ SectorEditor *sectorEdit_i;
 //	Search for line that matches TAG field
 //
 //=================================================================
-- searchForTaggedLine:sender
+- (void)searchForTaggedLine:sender
 {
 	int		tag, i, found;
 	
@@ -765,43 +726,37 @@ SectorEditor *sectorEdit_i;
 		[editworld_i	updateWindows];
 		
 	[self	setKey:NULL];
-	return self;
 }
 
-- error:(const char *)string
+- (void)error:(const char *)string
 {
-	NSString *objcString = [NSString initWithUTF8String: string];
+	NSString *objcString = [NSString stringWithUTF8String: string];
 	NSRunAlertPanel(@"Oops!", objcString, @"OK", nil, nil, nil);
-	return self;
 }
 
 //
 // user resized the Sector Editor window.
 // change the size of the flats/sector palettes.
 //
-- windowDidResize:(NSNotification *)notification
+- (void)windowDidResize:(NSNotification *)notification
 {
 	[self		computeFlatDocView];
 	[window_i	display];
-	return self;
 }
 
-- specialChosen:(int)value
+- (void)specialChosen:(int)value
 {
 	[special_i		setIntValue:value];
-	return self;
 }
 
-- updateSectorSpecialsDSP:(FILE *)stream
+- (void)updateSectorSpecialsDSP:(FILE *)stream
 {
 	[specialPanel_i	updateSpecialsDSP:stream];
-	return self;
 }
 
-- activateSpecialList:sender
+- (void)activateSpecialList:sender
 {
 	[specialPanel_i	displayPanel];
-	return self;
 }
 
 @end

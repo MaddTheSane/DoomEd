@@ -1524,3 +1524,23 @@ NSImage *patchToImage(patch_t *patchData, unsigned short *shortpal,
 	return fastImage_i;
 }
 
+char *strupr(char *string)
+{
+	char *s = string;
+	while (*string) {
+		*string = toupper(*string);
+		string++;
+	}
+	return s;
+}
+
+char *strlwr(char *string)
+{
+	char *s = string;
+	while (*string) {
+		*string = tolower(*string);
+		string++;
+	}
+	return s;
+}
+

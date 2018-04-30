@@ -20,6 +20,7 @@ id	thingpanel_i;
 
 - init
 {
+	if (self = [super init]) {
 	thingpanel_i = self;
 	window_i = NULL;		// until nib is loaded
 	masterList_i = [[CompatibleStorage alloc]
@@ -29,14 +30,14 @@ id	thingpanel_i;
 	];
 
 	diffDisplay = DIFF_ALL;
+	}
 
 	return self;
 }
 
-- emptyThingList
+- (void)emptyThingList
 {
 	[masterList_i	empty];
-	return self;
 }
 
 /*
@@ -47,13 +48,13 @@ id	thingpanel_i;
 ==============
 */
 
-- menuTarget:sender
+- (void)menuTarget:sender
 {
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"thing.nib"
-			owner: self
-			options: nil];
+		[[NSBundle mainBundle] loadNibNamed: @"thing"
+									  owner: self
+							topLevelObjects:nil];
 		[window_i	setFrameUsingName:THINGNAME];
 		[window_i	setDelegate:self];
 		[thingBrowser_i	reloadColumn:0];
@@ -63,33 +64,28 @@ id	thingpanel_i;
 	}
 
 	[window_i makeKeyAndOrderFront:self];
-
-	return self;
 }
 
-- windowDidMiniaturize:(NSNotification *)notification
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
 	NSWindow *window = [notification object];
 	//[window setMiniwindowIcon:"DoomEd"];
 	[window setMiniwindowTitle:@"Things"];
-	return self;
 }
 
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:THINGNAME];
-	return self;
 }
 
-- pgmTarget
+- (void)pgmTarget
 {
 	if (!window_i)
 		[self	menuTarget:NULL];
 	else
 		[window_i	orderFront:NULL];
-	return self;
 }
 
 - (thinglist_t *)getCurrentThingData
@@ -124,7 +120,7 @@ id	thingpanel_i;
 //	Change the difficulty of Things to view
 //
 //===================================================================
-- changeDifficultyDisplay:sender
+- (void)changeDifficultyDisplay:sender
 {
 	id				cell;
 	
@@ -135,8 +131,6 @@ id	thingpanel_i;
 	diffDisplay = [cell tag];
 	[editworld_i	redrawWindows];
 	[self	currentThingCount];
-	
-	return self;
 }
 
 //===================================================================
@@ -144,7 +138,7 @@ id	thingpanel_i;
 //	Display # of Things that match currently selected type
 //
 //===================================================================
-- currentThingCount
+- (void)currentThingCount
 {
 	int				max;
 	int				j;
@@ -158,7 +152,7 @@ id	thingpanel_i;
 	if (diffDisplay == DIFF_ALL)
 	{
 		[count_i	setStringValue:@"-"];
-		return self;
+		return;
 	}
 		
 	max = [masterList_i	count];
@@ -180,8 +174,6 @@ id	thingpanel_i;
 		}
 
 	[count_i	setIntValue:count];
-	
-	return self;
 }
 
 //===================================================================
@@ -189,7 +181,7 @@ id	thingpanel_i;
 //	Select the Thing that has icon "name"
 //
 //===================================================================
-- selectThingWithIcon:(char *)name
+- (void)selectThingWithIcon:(char *)name
 {
 	int				max;
 	int				i;
@@ -206,11 +198,9 @@ id	thingpanel_i;
 			matrix = [thingBrowser_i	matrixInColumn:0];
 			[matrix	selectCellAtRow:i column:0];
 			[matrix	scrollCellToVisibleAtRow:i column:0];
-			return self;
+			return;
 		}
 	}
-	
-	return self;
 }
 
 //===================================================================
@@ -218,11 +208,10 @@ id	thingpanel_i;
 //	Unlink icon from this Thing
 //
 //===================================================================
-- unlinkIcon:sender
+- (void)unlinkIcon:sender
 {
 	[iconField_i	setStringValue:@"NOICON"];
 	[updateButton_i	performClick:self];
-	return self;
 }
 
 //===================================================================
@@ -230,22 +219,20 @@ id	thingpanel_i;
 //	Assign icon selected in Thing Palette to current thing data
 //
 //===================================================================
-- assignIcon:sender
+- (void)assignIcon:sender
 {
 	int		iconnum;
 	icon_t	*icon;
 	
-	iconnum = [thingPalette_i	getCurrentIcon];
+	iconnum = [thingPalette_i	currentIcon];
 	if (iconnum < 0)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	icon = [thingPalette_i	getIcon:iconnum];
 	[iconField_i	setStringValue:icon->name];
 	[updateButton_i	performClick:self];
-	
-	return self;
 }
 
 //===================================================================
@@ -253,23 +240,21 @@ id	thingpanel_i;
 //	Verify a correct icon name input
 //
 //===================================================================
-- verifyIconName:sender
+- (void)verifyIconName:sender
 {
 	char	name[10];
 	int		which;
 	
-	strcpy(name,[iconField_i	stringValue]);
+	strncpy(name,[iconField_i stringValue].UTF8String, sizeof(name));
 	strupr(name);
 	which = [thingPalette_i	findIcon:name];
 	if (which < 0)
 	{
 		NSBeep();
 		[iconField_i	setStringValue:@"NOICON"];
-		return self;
+		return;
 	}
-	[iconField_i	setStringValue:name];
-	
-	return self;
+	[iconField_i	setStringValue:@(name)];
 }
 
 //===================================================================
@@ -277,7 +262,7 @@ id	thingpanel_i;
 //	Suggest a new type for a new Thing
 //
 //===================================================================
-- suggestNewType:sender
+- (IBAction)suggestNewType:sender
 {
 	int	num,i,found,max;
 	
@@ -294,19 +279,18 @@ id	thingpanel_i;
 		if (!found)
 		{
 			[fields_i	setIntValue:num	at:1];
-			return self;
+			return;
 		}
 	}
-	return self;
 }
 
 //
 // delegate method called by "thingBrowser_i"
 //
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (NSInteger)browser:sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
 {
-	int	max, i;
-	id	cell;
+	NSInteger		max, i;
+	NSBrowserCell	*cell;
 	thinglist_t		*t;
 	
 	if (column > 0)
@@ -317,9 +301,9 @@ id	thingpanel_i;
 	for (i = 0; i < max; i++)
 	{
 		t = [masterList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
-		[cell	setStringValue:t->name];
+		[matrix	insertRow:i];
+		cell = [matrix	cellAtRow:i	column:0];
+		[cell	setStringValue:@(t->name)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
@@ -330,16 +314,16 @@ id	thingpanel_i;
 //
 // sort the thing list
 //
-- sortThings
+- (void)sortThings
 {
 	id	cell, matrix;
 	int	max,i,j,flag, which;
 	thinglist_t		*t1, *t2, tt1, tt2;
-	char		name[32] = "\0";
+	NSString		*name = @"";
 	
 	cell = [thingBrowser_i	selectedCell];
 	if (cell)
-		strcpy(name,[cell	stringValue]);
+		name = [cell stringValue];
 	max = [masterList_i	count];
 	
 	do
@@ -364,21 +348,19 @@ id	thingpanel_i;
 		}
 	} while(flag);
 	
-	which = [self	findThing:name];
+	which = [self	findThing:name.UTF8String];
 	if (which >= 0)
 	{
 		matrix = [thingBrowser_i	matrixInColumn:0];
 		[matrix	selectCellAtRow:which column:0];
 		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}
-
-	return self;
 }
 
 //
 // update current thing with current data
 //
-- updateThingData:sender
+- (IBAction)updateThingData:sender
 {
 	id	cell;
 	int	which;
@@ -388,7 +370,7 @@ id	thingpanel_i;
 	if (!cell)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	which = [self	findThing:(char *)[cell	stringValue]];
 	t = [masterList_i	elementAt:which];
@@ -396,73 +378,61 @@ id	thingpanel_i;
 	[thingBrowser_i	reloadColumn:0];
 	[[thingBrowser_i	matrixInColumn:0]
 		selectCellAtRow:which column:0];
-	[doomproject_i	setDirtyProject:TRUE];
-	
-	return self;
+	[doomproject_i	setProjectDirty:TRUE];
 }
 
 //
 // take data from input fields and update thing data
 //
-- fillThingData:(thinglist_t *)thing
+- (void)fillThingData:(thinglist_t *)thing
 {
 	thing->angle = [fields_i		intValueAt:0];
 	thing->value = [fields_i		intValueAt:1];
 	[self	confirmCorrectNameEntry:NULL];
-	strcpy(thing->name,[nameField_i	stringValue]);
+	strncpy(thing->name, [nameField_i stringValue].UTF8String, sizeof(thing->name));
 	thing->option = [ambush_i	intValue]<<3;
 	thing->option |= ([network_i	intValue]&1)<<4;
-	thing->option |= [[difficulty_i cellAt:0 :0] intValue]&1;
-	thing->option |= ([[difficulty_i cellAt:1 :0] intValue]&1)<<1;
-	thing->option |= ([[difficulty_i cellAt:2 :0] intValue]&1)<<2;
+	thing->option |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
+	thing->option |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
+	thing->option |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
 	thing->color = [thingColor_i	color];
-	strcpy(thing->iconname,[iconField_i	stringValue]);
+	strncpy(thing->iconname,[iconField_i stringValue].UTF8String, sizeof(thing->iconname));
 	if (!thing->iconname[0])
 		strcpy(thing->iconname,"NOICON");
-	return self;
 }
 
 //
 // corrects any wrongness in namefield
 //
-- confirmCorrectNameEntry:sender
+- (IBAction)confirmCorrectNameEntry:sender
 {
-	char		name[32];
-	int	i;
+	NSString		*name = [nameField_i stringValue];
 
-	bzero(name,32);
-	if (strlen([nameField_i	stringValue]) > 31)
-		strncpy(name,[nameField_i	stringValue],31);
-	else
-		strcpy(name,[nameField_i	stringValue]);
-		
-	for (i = 0; i < strlen(name);i++)
-		if (name[i] == ' ')
-			name[i] = '_';
+	if (name.length > 31)
+		name = [name substringToIndex:31];
+	
+	name = [name stringByReplacingOccurrencesOfString:@" " withString:@"_"];
 	[nameField_i	setStringValue:name];
-	return self;
 }
 
 //
 // fill-in the information for a worldthing_t
 //
-- getThing:(worldthing_t	*)thing
+- (void)getThing:(worldthing_t	*)thing
 {
 	thing->angle = [fields_i	intValueAt:0];
 	thing->type = [fields_i	intValueAt:1];
 	thing->options = [ambush_i	intValue]<<3;
 	thing->options |= ([network_i	intValue]&1)<<4;
-	thing->options |= [[difficulty_i	cellAt:0 :0] intValue]&1;
-	thing->options |= ([[difficulty_i	cellAt:1 :0] intValue]&1)<<1;
-	thing->options |= ([[difficulty_i	cellAt:2 :0] intValue]&1)<<2;
-	
-	return self;
+	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
+	thing->options |= ([[difficulty_i	cellAtRow:1 column:0] intValue]&1)<<1;
+	thing->options |= ([[difficulty_i	cellAtRow:2 column:0] intValue]&1)<<2;
 }
 
 //
 // user selected a thing in the map; reflect the selection in the thingpanel
 //
-- setThing:(worldthing_t *)thing
+- (void)setThing:(worldthing_t *)thing
 {
 	int	which;
 	thinglist_t		*t;
@@ -478,8 +448,6 @@ id	thingpanel_i;
 		[self	scrollToItem:which];
 		[thingPalette_i	setCurrentIcon:[thingPalette_i	findIcon:t->iconname]];
 	}
-	
-	return self;
 }
 
 - (CompatibleStorage*)getThingList
@@ -536,9 +504,9 @@ id	thingpanel_i;
 - (void)fillDataFromThing:(thinglist_t *)thing
 {
 	[fields_i	setIntValue:thing->value	at:1];
-	[nameField_i	setStringValue:thing->name];
+	[nameField_i	setStringValue:@(thing->name)];
 	[thingColor_i	setColor:thing->color];
-	[iconField_i	setStringValue:thing->iconname];
+	[iconField_i	setStringValue:@(thing->iconname)];
 	
 	basething.type = thing->value;
 }
@@ -546,27 +514,25 @@ id	thingpanel_i;
 //
 // fill ALL data from thing
 //
-- fillAllDataFromThing:(thinglist_t *)thing
+- (void)fillAllDataFromThing:(thinglist_t *)thing
 {
 	[self	fillDataFromThing:thing];
 	
 	[fields_i	setIntValue:thing->angle	at:0];
 	[ambush_i	setIntValue:((thing->option)>>3)&1];
 	[network_i	setIntValue:((thing->option)>>4)&1];
-	[[difficulty_i cellAt:0 :0] setIntValue:(thing->option)&1];
-	[[difficulty_i cellAt:1 :0] setIntValue:((thing->option)>>1)&1];
-	[[difficulty_i cellAt:2 :0] setIntValue:((thing->option)>>2)&1];
+	[[difficulty_i cellAtRow:0 column:0] setIntValue:(thing->option)&1];
+	[[difficulty_i cellAtRow:1 column:0] setIntValue:((thing->option)>>1)&1];
+	[[difficulty_i cellAtRow:2 column:0] setIntValue:((thing->option)>>2)&1];
 	
 	basething.angle = thing->angle;
 	basething.options = thing->option;
-	
-	return self;
 }
 
 //
 // Add "type" to thing list
 //
-- addThing:sender
+- (IBAction)addThing:sender
 {
 	thinglist_t		t;
 	int	which;
@@ -583,7 +549,7 @@ id	thingpanel_i;
 		NSRunAlertPanel(@"Oops!",
 			@"You already have a THING by that name!",
 			@"OK", nil, nil, nil);
-		return self;
+		return;
 	}
 	
 	[masterList_i	addElement:&t];
@@ -592,9 +558,7 @@ id	thingpanel_i;
 	matrix = [thingBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:which column:0];
 	[matrix	scrollCellToVisibleAtRow:which column:0];
-	[doomproject_i	setDirtyProject:TRUE];
-	
-	return self;
+	[doomproject_i	setProjectDirty:TRUE];
 }
 
 #if 0
@@ -642,7 +606,7 @@ id	thingpanel_i;
 // user chose an item in the thingBrowser_i.
 // stick the info in the "name" and "type" fields.
 //
-- chooseThing:sender
+- (IBAction)chooseThing:sender
 {
 	id		cell;
 	int		which;
@@ -650,14 +614,14 @@ id	thingpanel_i;
 	
 	cell = [sender	selectedCell];
 	if (!cell)
-		return self;
+		return;
 		
-	which = [self	findThing:(char *)[cell	stringValue]];
+	which = [self	findThing:[cell	stringValue]];
 	if (which < 0)
 	{
 		NSBeep();
 		printf("Whoa! Can't find that thing!\n");
-		return self;
+		return;
 	}
 
 	t = [masterList_i	elementAt:which];
@@ -666,7 +630,6 @@ id	thingpanel_i;
 	which = [thingPalette_i	findIcon:t->iconname];
 	if (which >= 0)
 		[thingPalette_i	setCurrentIcon:which];
-	return self;
 }
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream
@@ -681,20 +644,19 @@ id	thingpanel_i;
 	return YES;
 }
 
-- writeThing:(thinglist_t *)thing	from:(FILE *)stream
+- (void)writeThing:(thinglist_t *)thing	from:(FILE *)stream
 {
 	float	r,g,b;
 	
 	NXConvertColorToRGB(thing->color,&r,&g,&b);
 	fprintf(stream,"%s = %d %d %d (%f %f %f) %s\n",thing->name,thing->angle,thing->value,
 			thing->option,r,g,b,thing->iconname);
-	return self;
 }
 
 //
 // update the things.dsp file (when project is saved/loaded)
 //
-- updateThingsDSP:(FILE *)stream
+- (void)updateThingsDSP:(FILE *)stream
 {
 	thinglist_t		t,*t2;
 	int	count, i, found;
@@ -711,7 +673,7 @@ id	thingpanel_i;
 			if (found < 0)
 			{
 				[masterList_i	addElement:&t];
-				[doomproject_i	setDirtyProject:TRUE];
+				[doomproject_i	setProjectDirty:TRUE];
 			}
 		}
 		[thingBrowser_i	reloadColumn:0];
@@ -730,8 +692,6 @@ id	thingpanel_i;
 	}
 	else
 		fprintf(stream,"numthings: %d\n",0);
-	
-	return self;
 }
 	
 /*
@@ -745,10 +705,10 @@ id	thingpanel_i;
 ==============
 */
 
-- updateInspector: (BOOL)force
+- (void)updateInspector: (BOOL)force
 {
 	if (!force && ![window_i isVisible])
-		return self;
+		return;
 
 	[window_i disableFlushWindow];
 	
@@ -756,14 +716,12 @@ id	thingpanel_i;
 	[fields_i setIntValue: basething.type at: 1];
 	[ambush_i	setIntValue:((basething.options)>>3)&1];
 	[network_i	setIntValue:((basething.options)>>4)&1];
-	[[difficulty_i	cellAt:0 :0] setIntValue:(basething.options)&1];
-	[[difficulty_i	cellAt:1 :0] setIntValue:((basething.options)>>1)&1];
-	[[difficulty_i	cellAt:2 :0] setIntValue:((basething.options)>>2)&1];
+	[[difficulty_i	cellAtRow:0 column:0] setIntValue:(basething.options)&1];
+	[[difficulty_i	cellAtRow:1 column:0] setIntValue:((basething.options)>>1)&1];
+	[[difficulty_i	cellAtRow:2 column:0] setIntValue:((basething.options)>>2)&1];
 	
-	[window_i reenableFlushWindow];
+	[window_i enableFlushWindow];
 	[window_i flushWindow];
-	
-	return self;
 }
 
 /*
@@ -776,7 +734,7 @@ id	thingpanel_i;
 ==============
 */
 
-- formTarget: sender
+- (IBAction)formTarget: sender
 {
 	int			i;
 	worldthing_t	*thing;
@@ -785,23 +743,21 @@ id	thingpanel_i;
 	basething.type = [fields_i intValueAt: 1];
 	basething.options = [ambush_i	intValue]<<3;
 	basething.options |= ([network_i	intValue]&1)<<4;
-	basething.options |= [[difficulty_i cellAt:0 :0] intValue]&1;
-	basething.options |= ([[difficulty_i cellAt:1 :0] intValue]&1)<<1;
-	basething.options |= ([[difficulty_i cellAt:2 :0] intValue]&1)<<2;
+	basething.options |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
+	basething.options |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
+	basething.options |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
 	
 	thing = &things[0];
-	for (i=0 ; i<numthings ; i++, thing++)
+	for (i=0 ; i<numthings ; i++, thing++) {
 		if (thing->selected > 0)
 		{
 			thing->angle = basething.angle;
 			thing->type = basething.type;
 			thing->options = basething.options;
 			[editworld_i changeThing: i to: thing];
-			[doomproject_i	setDirtyMap:TRUE];
+			[doomproject_i	setMapDirty:TRUE];
 		}
-		
-	
-	return self;
+	}
 }
 
 
@@ -813,7 +769,7 @@ id	thingpanel_i;
 ==============
 */
 
-- updateThingInspector
+- (void)updateThingInspector
 {
 	int			i;
 	worldthing_t	*thing;
@@ -831,9 +787,7 @@ id	thingpanel_i;
 		memcpy (&oldthing, &basething, sizeof(oldthing));
 		[self updateInspector: NO];
 	}
-			
-	return self;
-}	
+}
 
 
 /*
@@ -844,11 +798,9 @@ id	thingpanel_i;
 ===================
 */
 
-- windowDidUpdate:(NSNotification *)notification
+- (void)windowDidUpdate:(NSNotification *)notification
 {
 	[self updateInspector: YES];
-
-	return self;
 }
 
 

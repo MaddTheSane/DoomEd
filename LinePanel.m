@@ -37,45 +37,40 @@ SpecialList *lineSpecialPanel_i;
 	memcpy (&baseline.side[1], &baseline.side[0], sizeof(baseline.side[0]));
 
 	lineSpecialPanel_i = [[SpecialList alloc] init];
-	[lineSpecialPanel_i setSpecialTitle:"Line Inspector - Specials"];
-	[lineSpecialPanel_i setFrameName:"LineSpecialPanel"];
+	[lineSpecialPanel_i setSpecialTitle:@"Line Inspector - Specials"];
+	[lineSpecialPanel_i setFrameName:@"LineSpecialPanel"];
 	[lineSpecialPanel_i setDelegate:self];
 	return self;
 }
 
-- emptySpecialList
+- (void)emptySpecialList
 {
 	[lineSpecialPanel_i	empty];
-	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	[lineSpecialPanel_i	saveFrame];
 	if (firstColCalc_i)
 		[firstColCalc_i		saveFrameUsingName:@"FirstColCalc"];
 	if (window_i)
 		[window_i	saveFrameUsingName:@"LineInspector"];
-	return self;
 }
 
-- specialChosen:(int)value
+- (void)specialChosen:(int)value
 {
 	[special_i		setIntValue:value];
 	[self	specialChanged:NULL];
-	return self;
 }
 
-- updateLineSpecialsDSP:(FILE *)stream
+- (void)updateLineSpecialsDSP:(FILE *)stream
 {
 	[lineSpecialPanel_i	updateSpecialsDSP:stream];
-	return self;
 }
 
-- activateSpecialList:sender
+- (void)activateSpecialList:sender
 {
 	[lineSpecialPanel_i	displayPanel];
-	return self;
 }
 
 /*
@@ -86,20 +81,18 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- menuTarget:sender
+- (void)menuTarget:sender
 {
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"line.nib"
-			owner: self
-			options: nil];
+		[[NSBundle mainBundle] loadNibNamed: @"line"
+									  owner: self
+							topLevelObjects:nil];
 		[window_i	setFrameUsingName:@"LineInspector"];
 		[firstColCalc_i		setFrameUsingName:@"FirstColCalc"];
 	}
 
 	[window_i orderFront:self];
-
-	return self;
 }
 
 /*
@@ -110,10 +103,9 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- sideRadioTarget:sender
+- (void)sideRadioTarget:sender
 {
 	[self updateInspector: NO];
-	return self;
 }
 
 
@@ -127,7 +119,7 @@ SpecialList *lineSpecialPanel_i;
 ==================
 */
 
-- getSide: (worldside_t *)side
+- (void)getSide: (worldside_t *)side
 {
 	side->flags = [sideform_i intValueAt: 0];
 	side->firstcollumn = [sideform_i intValueAt: 1];
@@ -135,8 +127,6 @@ SpecialList *lineSpecialPanel_i;
 	strncpy (side->midtexture, [sideform_i stringValueAt: 3], 9);
 	strncpy (side->bottomtexture, [sideform_i stringValueAt: 4], 9);
 	memset (&side->ends,0,sizeof(side->ends));
-
-	return self;
 }
 
 /*
@@ -148,15 +138,13 @@ SpecialList *lineSpecialPanel_i;
 ==================
 */
 
-- setSide: (worldside_t *)side
+- (void)setSide: (worldside_t *)side
 {
 	[sideform_i setIntValue: side->flags at: 0] ;
 	[sideform_i setIntValue: side->firstcollumn at: 1];
 	[sideform_i setStringValue: side->toptexture at: 2];
 	[sideform_i setStringValue: side->midtexture at: 3];
 	[sideform_i setStringValue: side->bottomtexture at: 4];
-
-	return self;
 }
 
 
@@ -171,19 +159,19 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- updateInspector: (BOOL)force
+- (void)updateInspector: (BOOL)force
 {
-	int		side;
+	NSInteger		side;
 	worldline_t	*line;
 	int		xlen;
 	int		ylen;
 	int		dlen;
 
 	if (!window_i)
-		return self;
+		return;
 		
 	if (!force && ![window_i isVisible])
-		return self;
+		return;
 
 	[window_i disableFlushWindow];
 	
@@ -207,23 +195,21 @@ SpecialList *lineSpecialPanel_i;
 	[bottompeg_i setState:  (line->flags&ML_DONTPEGBOTTOM) > 0];
 	[twosided_i setState:  (line->flags&ML_TWOSIDED) > 0];
 
-	side = [sideradio_i selectedCol];	
+	side = [sideradio_i selectedColumn];
 	[self setSide: &line->side[side]];
 	
 	//
 	//	Calc line length
 	//
-	xlen = abs(points[line->p2].pt.x - points[line->p1].pt.x);
+	xlen = fabs(points[line->p2].pt.x - points[line->p1].pt.x);
 	xlen = xlen*xlen;
-	ylen = abs(points[line->p2].pt.y - points[line->p1].pt.y);
+	ylen = fabs(points[line->p2].pt.y - points[line->p1].pt.y);
 	ylen = ylen*ylen;
 	dlen = sqrt(xlen + ylen);
 	[linelength_i	setIntValue:dlen];
 
-	[window_i reenableFlushWindow];
+	[window_i enableFlushWindow];
 	[window_i flushWindow];
-	
-	return self;
 }
 
 //============================================================================
@@ -247,71 +233,63 @@ SpecialList *lineSpecialPanel_i;
 	return self;
 }
 
-- monsterblockChanged: sender
+- (void)monsterblockChanged: sender
 {
 	int	state;
 	state = [monsterblock_i state];	
 	[self changeLineFlag: ~ML_MONSTERBLOCK  to: ML_MONSTERBLOCK*state];
-	return self;
 }
 
-- blockChanged: sender
+- (void)blockChanged: sender
 {
 	int	state;
 	state = [pblock_i state];	
 	[self changeLineFlag: ~ML_BLOCKMOVE  to: ML_BLOCKMOVE*state];
-	return self;
 }
 
-- secretChanged:sender
+- (void)secretChanged:sender
 {
 	int	state;
 	state = [secret_i	state];
 	[self	changeLineFlag: ~ML_SECRET	to:ML_SECRET*state];
-	return self;
 }
 
-- dontDrawChanged:sender
+- (void)dontDrawChanged:sender
 {
 	int	state;
 	state = [dontdraw_i	state];
 	[self	changeLineFlag: ~ML_DONTDRAW	to:ML_DONTDRAW*state];
-	return self;
 }
 
-- soundBlkChanged:sender
+- (void)soundBlkChanged:sender
 {
 	int	state;
 	state = [soundblock_i	state];
 	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:ML_SOUNDBLOCK*state];
-	return self;
 }
 
-- twosideChanged: sender
+- (void)twosideChanged: sender
 {
 	int	state;
 	state = [twosided_i state];	
 	[self changeLineFlag: ~ML_TWOSIDED  to: ML_TWOSIDED*state];
-	return self;
 }
 
-- toppegChanged: sender
+- (void)toppegChanged: sender
 {
 	int	state;
 	state = [toppeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGTOP  to: ML_DONTPEGTOP*state];
-	return self;
 }
 
-- bottompegChanged: sender
+- (void)bottompegChanged: sender
 {
 	int	state;
 	state = [bottompeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: ML_DONTPEGBOTTOM*state];
-	return self;
 }
 
-- specialChanged: sender
+- (void)specialChanged: sender
 {
 	int		i,value;
 	
@@ -325,11 +303,10 @@ SpecialList *lineSpecialPanel_i;
 	
 	[lineSpecialPanel_i	setSpecial:[special_i	intValue]];
 	[editworld_i updateWindows];
-	return self;
 }
 
 
-- tagChanged: sender
+- (void)tagChanged: sender
 {
 	int		i,value;
 	
@@ -342,17 +319,16 @@ SpecialList *lineSpecialPanel_i;
 		}
 	
 	[editworld_i updateWindows];
-	return self;
 }
 
 
-- sideChanged: sender
+- (void)sideChanged: sender
 {
-	int		i,side;
+	NSInteger		i,side;
 	worldside_t	new;
 	worldline_t	*line;
 	
-	side = [sideradio_i selectedCol];
+	side = [sideradio_i selectedColumn];
 	[self getSide: &new];
 	for (i=0 ; i<numlines ; i++)
 		if (lines[i].selected > 0)
@@ -361,41 +337,37 @@ SpecialList *lineSpecialPanel_i;
 			new.ends = line->side[side].ends;
 			line->side[side] = new;
 			[editworld_i changeLine: i to: line];
-			[doomproject_i	setDirtyMap:TRUE];
+			[doomproject_i	setMapDirty:TRUE];
 		}
 	
 	[editworld_i updateWindows];
-	return self;
 }
 
-- getFromTP:sender
+- (void)getFromTP:sender
 {
-	int	tag;
+	NSInteger	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[[sideform_i	cellAt:2+tag :0]
+	[[sideform_i	cellAtRow:2+tag column:0]
 		setStringValue:[texturePalette_i getSelTextureName]];
 	[self	sideChanged:NULL];
-	return self;
 }
 
-- setTP:sender
+- (void)setTP:sender
 {
-	int	tag;
+	NSInteger	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
-	return self;
+	[texturePalette_i	setSelTexture:[[sideform_i cellAtRow:2+tag column:0] stringValue]];
 }
 
-- zeroEntry:sender
+- (void)zeroEntry:sender
 {
-	int	tag;
+	NSInteger	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[[sideform_i	cellAt:2+tag :0] setStringValue:@"-"];
+	[[sideform_i	cellAtRow:2+tag column:0] setStringValue:@"-"];
 	[self	sideChanged:NULL];
-	return self;
 }
 
 //==========================================================
@@ -403,7 +375,7 @@ SpecialList *lineSpecialPanel_i;
 // Suggest a new tag value for this map
 //
 //==========================================================
-- suggestTagValue:sender
+- (void)suggestTagValue:sender
 {
 	int	i, val, found;
 	
@@ -424,7 +396,6 @@ SpecialList *lineSpecialPanel_i;
 			break;
 		}
 	}
-	return self;
 }
 
 - (int)getTagValue
@@ -437,38 +408,34 @@ SpecialList *lineSpecialPanel_i;
 //	Firstcol Calculator code
 //
 //==========================================================
-- popUpCalc:sender
+- (void)popUpCalc:sender
 {
 	[firstColCalc_i		makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- setFCVal:sender
+- (void)setFCVal:sender
 {
-	[fc_currentVal_i  setIntValue:[[sideform_i  cellAt:1 :0]  intValue]];
-	return self;
+	[fc_currentVal_i  setIntValue:[[sideform_i  cellAtRow:1 column:0]  intValue]];
 }
 
-- incFirstCol:sender
+- (void)incFirstCol:sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
 	val += [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAt:1 :0]  setIntValue:val];
+	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
 	[self	sideChanged:NULL];
-	return self;
 }
 
-- decFirstCol:sender
+- (void)decFirstCol:sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
 	val -= [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAt:1 :0]  setIntValue:val];
+	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
 	[self	sideChanged:NULL];
-	return self;
 }
 
 
@@ -483,7 +450,7 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- updateLineInspector
+- (void)updateLineInspector
 {
 	int		i;
 	worldline_t	*line;
@@ -504,17 +471,14 @@ SpecialList *lineSpecialPanel_i;
 	}
 	
 	[self	updateLineSpecial];
-		
-	return self;
 }
 
-- updateLineSpecial
+- (void)updateLineSpecial
 {
 	int	which;
 	
 	which = [special_i	intValue];
 	[lineSpecialPanel_i	setSpecial:which];
-	return self;
 }
 
 
@@ -526,10 +490,9 @@ SpecialList *lineSpecialPanel_i;
 ===================
 */
 
-- windowDidUpdate:sender
+- (void)windowDidUpdate:(NSNotification *)notification
 {
 	[self updateInspector: YES];
-	return self;
 }
 
 
@@ -544,10 +507,9 @@ SpecialList *lineSpecialPanel_i;
 ===================
 */
 
-- baseLine: (worldline_t *)line
+- (void)baseLine: (worldline_t *)line
 {
 	*line = baseline;
-	return self;
 }
 
 @end

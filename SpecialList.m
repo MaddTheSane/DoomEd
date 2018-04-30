@@ -13,7 +13,7 @@
 {
 	if (self = [super init]) {
 	delegate = NULL;
-	frameString[0] = 0;
+	frameString = nil;
 	}
 	return self;
 }
@@ -30,40 +30,32 @@
 
 - (void)saveFrame
 {
-	if (frameString[0])
+	if (frameString != nil)
 		[specialPanel_i	saveFrameUsingName:frameString];
 }
 
-- (void)setFrameName:(const char *)string
-{
-	strncpy(frameString,string,31);
-}
-
-- (void)setSpecialTitle:(const char *)string
-{
-	strncpy(title,string,31);
-}
+@synthesize frameName=frameString;
+@synthesize specialTitle=title;
 
 //===================================================================
 //
 //	Load the .nib (if needed) and display the panel
 //
 //===================================================================
-- displayPanel
+- (void)displayPanel
 {
 	if (!specialPanel_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"SpecialList.nib"
-			owner: self
-			options: nil];
+		[[NSBundle mainBundle] loadNibNamed: @"SpecialList"
+									  owner: self
+							topLevelObjects:nil];
 		[specialPanel_i	setTitle:title];
-		if (frameString[0])
+		if (frameString != nil)
 			[specialPanel_i	setFrameUsingName:frameString];
 		[specialPanel_i	setParent:self];
 	}
 	[specialBrowser_i	reloadColumn:0];
 	[specialPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 //===================================================================
@@ -71,7 +63,7 @@
 //	Scroll the browser to the specified item
 //
 //===================================================================
-- scrollToItem:(int)i
+- (void)scrollToItem:(int)i
 {
 	id	matrix;
 	
@@ -79,7 +71,6 @@
 	matrix = [specialBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:i column:0];
 	[matrix	scrollCellToVisibleAtRow:i column:0];
-	return self;
 }
 			
 //===================================================================
@@ -116,7 +107,7 @@
 	int	i;
 	char		s[32];
 	
-	strncpy(s,(char *)[specialDesc_i	stringValue],32);
+	strncpy(s,[specialDesc_i	stringValue].UTF8String,32);
 	s[31] = 0;
 	for (i=0;i<strlen(s);i++)
 	{
@@ -130,7 +121,7 @@
 			s[i]='_';
 	}
 	
-	[specialDesc_i	setStringValue:s];
+	[specialDesc_i	setStringValue:@(s)];
 }
 
 //===================================================================
@@ -142,7 +133,7 @@
 {
 	special->value = [specialValue_i	intValue];
 	[self	validateSpecialString:NULL];
-	strcpy(special->desc,[specialDesc_i	stringValue]);
+	strcpy(special->desc,[specialDesc_i	stringValue].UTF8String);
 }
 
 //===================================================================
@@ -176,7 +167,7 @@
 	matrix = [specialBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:which column:0];
 	[matrix	scrollCellToVisibleAtRow:which column:0];
-	[doomproject_i	setDirtyProject:TRUE];
+	[doomproject_i	setProjectDirty:TRUE];
 }
 
 //===================================================================
@@ -207,7 +198,7 @@
 - (void)fillDataFromSpecial:(speciallist_t *)special
 {
 	[specialValue_i	setIntValue:special->value];
-	[specialDesc_i	setStringValue:special->desc];
+	[specialDesc_i	setStringValue:@(special->desc)];
 }
 
 //===================================================================
@@ -262,8 +253,8 @@
 			return;
 		}
 	}
-	[specialDesc_i	setStringValue:nil];
-	[specialValue_i	setStringValue:nil];
+	[specialDesc_i	setStringValue:@""];
+	[specialValue_i	setStringValue:@""];
 }
 
 //===================================================================
@@ -280,7 +271,7 @@
 	
 	cell = [specialBrowser_i	selectedCell];
 	if (cell)
-		strcpy(name,[cell	stringValue]);
+		strcpy(name,[cell	stringValue].UTF8String);
 	max = [specialList_i	count];
 	
 	do
@@ -335,7 +326,7 @@
 		t = [specialList_i	elementAt:i];
 		[matrix	insertRow:i];
 		cell = [matrix	cellAtRow:i	column:0];
-		[cell	setStringValue:t->desc];
+		[cell	setStringValue:@(t->desc)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
@@ -403,7 +394,7 @@
 			if (found < 0)
 			{
 				[specialList_i	addElement:&t];
-				[doomproject_i	setDirtyProject:TRUE];
+				[doomproject_i	setProjectDirty:TRUE];
 			}
 		}
 		[specialBrowser_i	reloadColumn:0];

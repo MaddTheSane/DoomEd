@@ -106,9 +106,8 @@ FlatRemapper *flatRemapper_i;
 	return linenum;
 }
 
-- finishUp
+- (void)finishUp
 {
-	return self;
 }
 
 @end

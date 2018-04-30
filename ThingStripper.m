@@ -13,13 +13,13 @@
 //	Load the .nib (if needed) and display the panel
 //
 //===================================================================
-- displayPanel:sender
+- (IBAction)displayPanel:sender
 {
 	if (!thingStripPanel_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"ThingStripper.nib"
-			owner: self
-			options: nil];
+		[[NSBundle mainBundle] loadNibNamed: @"ThingStripper"
+									  owner: self
+							topLevelObjects:nil];
 		[thingStripPanel_i	setFrameUsingName:THINGSTRIPNAME];
 		[thingStripPanel_i	setDelegate:self];
 
@@ -31,25 +31,22 @@
 	}
 	[thingBrowser_i	reloadColumn:0];
 	[thingStripPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- windowDidMiniaturize:(NSNotification *)notification
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
 	NSWindow *window = [notification object];
 	//[window setMiniwindowIcon:"DoomEd"];
 	[window setMiniwindowTitle:@"ThingStrip"];
-	return self;
 }
 
 //
 //	Empty list if window gets closed!
 //
-- windowWillClose:(NSNotification *)notification
+- (void)windowWillClose:(NSNotification *)notification
 {
 	[thingStripPanel_i	saveFrameUsingName:THINGSTRIPNAME];
 	[thingList_i	empty];
-	return self;
 }
 
 //===================================================================
@@ -57,7 +54,7 @@
 //	Do actual Thing stripping from all maps
 //
 //===================================================================
-- doStrippingOneMap:sender
+- (IBAction)doStrippingOneMap:sender
 {
 	int		k,j;
 	int		listMax;
@@ -65,7 +62,7 @@
 	
 	listMax = [thingList_i	count];
 	if (!listMax)
-		return self;
+		return;
 	
 	//
 	//	Strip all things in list
@@ -79,9 +76,7 @@
 		}
 
 	[editworld_i	redrawWindows];
-	[doomproject_i	setDirtyMap:TRUE];
-	
-	return self;
+	[doomproject_i	setMapDirty:TRUE];
 }
 
 //===================================================================
@@ -89,7 +84,7 @@
 //	Do actual Thing stripping from all maps
 //
 //===================================================================
-- doStrippingAllMaps:sender
+- (IBAction)doStrippingAllMaps:sender
 {
 	int		k,j;
 	int		listMax;
@@ -97,12 +92,12 @@
 	
 	listMax = [thingList_i	count];
 	if (!listMax)
-		return self;
+		return;
 	
 	[editworld_i	closeWorld];
 	[doomproject_i	beginOpenAllMaps];
 	
-	while ([doomproject_i	openNextMap] == YES);
+	while ([doomproject_i	openNextMap] == YES)
 	{
 		//
 		//	Strip all things in list
@@ -117,7 +112,6 @@
 
 		[doomproject_i	saveDoomEdMapBSP:NULL];
 	}
-	return self;
 }
 
 //===================================================================
@@ -125,23 +119,21 @@
 //	Delete thing from Thing Stripping Panel
 //
 //===================================================================
-- deleteThing:sender
+- (IBAction)deleteThing:sender
 {
 	id	matrix;
-	int	selRow;
+	NSInteger	selRow;
 	
 	matrix = [thingBrowser_i	matrixInColumn:0];
 	selRow = [matrix	selectedRow];
 	if (selRow >= 0)
 	{
-		[matrix	removeRowAt:selRow andFree:YES];
+		[matrix	removeRowAtIndex:selRow];
 		[thingList_i	removeElementAt:selRow];
 	}
 	[matrix	sizeToCells];
 	[matrix	selectCellAtRow:-1 column:-1];
 	[thingBrowser_i	reloadColumn:0];
-
-	return self;
 }
 
 //===================================================================
@@ -149,7 +141,7 @@
 //	Add thing in Thing Panel to this list
 //
 //===================================================================
-- addThing:sender
+- (IBAction)addThing:sender
 {
 	thinglist_t		*t;
 	thingstrip_t	ts;
@@ -158,13 +150,12 @@
 	if (t == NULL)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	ts.value = t->value;
 	strcpy(ts.desc,t->name);
 	[thingList_i	addElement:&ts];
 	[thingBrowser_i	reloadColumn:0];
-	return self;
 }
 
 //===================================================================
@@ -172,10 +163,10 @@
 //	Delegate method called by "thingBrowser_i" when reloadColumn is invoked
 //
 //===================================================================
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (NSInteger)browser:(NSBrowser*)sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
 {
 	int	max, i;
-	id	cell;
+	NSBrowserCell	*cell;
 	thingstrip_t	*t;
 	
 	if (column > 0)
@@ -185,9 +176,9 @@
 	for (i = 0; i < max; i++)
 	{
 		t = [thingList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
-		[cell	setStringValue:t->desc];
+		[matrix	insertRow:i];
+		cell = [matrix	cellAtRow:i	column:0];
+		[cell	setStringValue:@(t->desc)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];

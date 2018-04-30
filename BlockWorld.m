@@ -47,7 +47,7 @@ id		pan;
 		[editworld_i selectPoint: lines[line2].p2];
 	}
 	[editworld_i redrawWindows];
-	NSRunAlertPanel(@"Sector error", msg, nil, nil, nil);
+	NSRunAlertPanel(@"Sector error", @"%@", nil, nil, nil, msg);
 	return self;
 }
 
@@ -241,7 +241,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- drawBlockLine: (int) linenum
+- (void)drawBlockLine: (int) linenum
 {
 	worldline_t	*line;
 	int			x1, y1, x2, y2;
@@ -284,7 +284,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 			dest -= brow;
 			y1++;
 		}
-		return self;
+		return;
 	}
 	
 	if (y1 == y2)
@@ -311,7 +311,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 			dest += WLSIZE;
 			x1++;
 		}
-		return self;
+		return;
 	}
 	
 	// sloping line
@@ -361,7 +361,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		y+= ystep;
 	} while (--ilength > 0);
 
-	return self;
+	return;
 }
 
 
@@ -373,7 +373,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- displayBlockMap
+- (void)displayBlockMap
 {
 	NSRect	aRect;
 	id		window;
@@ -431,7 +431,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	NXPing();
 
 	free(planes[0]);
-	return self;
 }
 
 
@@ -443,7 +442,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- createBlockMap
+- (void)createBlockMap
 {
 	int	i, size;
 	
@@ -468,8 +467,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		if (lines[i].selected != -1)
 			[self drawBlockLine: i];
 	}
-
-	return self;
 }
 
 
@@ -481,7 +478,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- floodFillSector: (NSPoint *)pt
+- (void)floodFillSector: (NSPoint *)pt
 {
 	int	x1, y1;
 	
@@ -499,8 +496,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 #endif
 	[editworld_i redrawWindows];
 //	free(bmap);
-	
-	return self;
 }
 
 /*

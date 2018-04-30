@@ -22,15 +22,15 @@ typedef struct
 	CompatibleStorage *specialList_i;
 
 	id<SpecialListDelegate> delegate;
-	char		title[32];
-	char		frameString[32];
+	NSString *title;
+	NSWindowFrameAutosaveName frameString;
 }
 @property (assign) IBOutlet id<SpecialListDelegate> delegate;
 
 - (CompatibleStorage *) getSpecialList;
 - (void)scrollToItem:(int)i;
-- (void)setSpecialTitle:(const char *)string;
-- (void)setFrameName:(const char *)string;
+@property (copy) NSString *specialTitle;
+@property (copy) NSWindowFrameAutosaveName frameName;
 - (void)saveFrame;
 - (void)displayPanel;
 - (IBAction)addSpecial:sender;

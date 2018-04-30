@@ -116,7 +116,7 @@
 			[[[self superview] superview] display];	// redraw everything just once
 			oldpt = [event locationInWindow];
 			[self convertPoint: oldpt fromView: NULL];
-			[doomproject_i	setDirtyMap:TRUE];
+			[doomproject_i	setMapDirty:TRUE];
 		}
 	} while (1);
 
@@ -886,7 +886,7 @@
 	[thingpanel_i	getThing:&thing];
 	thing.selected = 0;
 	[editworld_i newThing: &thing];
-	[doomproject_i	setDirtyMap:TRUE];
+	[doomproject_i	setMapDirty:TRUE];
 	
 	return self;
 }
@@ -922,7 +922,7 @@
 		side = line->selected-1;
 		line->side[side].ends = *fillends;
 	}
-	[doomproject_i	setDirtyMap:TRUE];
+	[doomproject_i	setMapDirty:TRUE];
 	
 	return self;
 }

@@ -4,10 +4,9 @@
 
 @implementation ThermoView
 
-- setThermoWidth:(int)current max:(int)maximum
+- (void)setThermoWidth:(int)current max:(int)maximum
 {
 	thermoWidth = [self bounds].size.width*((float)current/(float)maximum);
-	return self;
 }
 
 - drawSelf:(const NSRect *)rects :(int)rectCount

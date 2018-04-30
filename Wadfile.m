@@ -109,10 +109,9 @@ typedef struct
 	return self;
 }
 
--close
+-(void)close
 {
 	close (handle);
-	return self;
 }
 
 - (void) dealloc
@@ -261,7 +260,7 @@ typedef struct
 ================
 */
 
-- writeDirectory
+- (void)writeDirectory
 {
 	wadinfo_t	wad;
 	int			i,count;
@@ -277,7 +276,7 @@ typedef struct
 		inf[i].filepos = LongSwap (inf[i].filepos);
 		inf[i].size = LongSwap (inf[i].size);
 	}
-	wad.infotableofs = LongSwap (lseek(handle,0, L_XTND));
+	wad.infotableofs = LongSwap ((unsigned int)lseek(handle,0, L_XTND));
 	write (handle, inf, count*sizeof(lumpinfo_t));
 	for (i=0 ; i<count ; i++)
 	{
@@ -292,8 +291,6 @@ typedef struct
 	wad.numlumps = LongSwap ([info count]);
 	lseek (handle, 0, L_SET);
 	write (handle, &wad, sizeof(wad));
-	
-	return self;
 }
 
 @end

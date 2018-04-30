@@ -30,7 +30,7 @@
 //	Add a Patch Palette divider (new set of patches)
 //
 //==============================================================
-- addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
 {
 	divider_t		d;
 	
@@ -38,8 +38,6 @@
 	d.y = y;
 	strcpy (d.string, string );
 	[dividers_i	addElement:&d ];
-	
-	return self;
 }
 
 //==============================================================
@@ -47,10 +45,9 @@
 //	Dump all the dividers (for resizing)
 //
 //==============================================================
-- dumpDividers
+- (void)dumpDividers
 {
 	[dividers_i	empty];
-	return self;
 }
 
 //==============================================================
@@ -69,7 +66,7 @@
 	patchnum = 0;
 	while ((patch = [textureEdit_i	getPatch:patchnum++]) != NULL)
 		if (NSIntersectsRect(patch->r, rects[0]))
-			[patch->image		composite:NSCompositeSourceOver toPoint:&patch->r.origin];
+			[patch->image drawAtPoint:patch->r.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 	
 	clipview = [self frame];
 	if (selectedPatch >= 0)
@@ -81,7 +78,7 @@
 		r.size.width += 10;
 		r.size.height += 10;
 		DE_DrawOutline(&r);
-		[patch->image		composite:NSCompositeSourceOver toPoint:&patch->r.origin];
+		[patch->image drawAtPoint:patch->r.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 	}
 
 	//

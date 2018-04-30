@@ -217,8 +217,8 @@ char	bsphost[32];		// bsp host machine
 	if (!window_i)
 	{
 		[[NSBundle mainBundle] loadNibNamed: @"Project"
-			owner: self
-			options: nil];
+									  owner: self
+							topLevelObjects: nil];
 		[window_i	setFrameUsingName:DOOMNAME];
 	}
 
@@ -226,10 +226,11 @@ char	bsphost[32];		// bsp host machine
 	[window_i orderFront:self];
 }
 
-- (void)saveFrame
+- (BOOL)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:DOOMNAME];
+	return YES;
 }
 
 
@@ -413,8 +414,8 @@ char	bsphost[32];		// bsp host machine
 	
 	[ wadfile_i	close ];
 	
-	[self	setDirtyMap:FALSE];
-	[self	setDirtyProject:FALSE];
+	[self	setMapDirty:FALSE];
+	[self	setProjectDirty:FALSE];
 	[self menuTarget: self];		// bring the panel to front
 }
 
@@ -449,7 +450,7 @@ char	bsphost[32];		// bsp host machine
 	[self	updateLineSpecials];
 	[texturePalette_i	finishInit];
 	[self	saveDoomLumps];
-	[self	setDirtyProject:FALSE];
+	[self	setProjectDirty:FALSE];
 }
 
 
@@ -470,7 +471,7 @@ char	bsphost[32];		// bsp host machine
 	[self	updateThings];
 	[self	updateSectorSpecials];
 	[self	updateLineSpecials];
-	[self	setDirtyProject:FALSE];
+	[self	setProjectDirty:FALSE];
 }
 
 
@@ -505,14 +506,13 @@ char	bsphost[32];		// bsp host machine
 	[maps_i reloadColumn: 0];
 }
 
-- changeWADfile:(char *)string
+- (IBAction)changeWADfile:(char *)string
 {
 	strcpy(wadfile,string);
 	[self	updatePanel];
 	NSRunAlertPanel(@"Note!", @"The WADfile will be changed when you\n"
 		"restart DoomEd.  Make sure you SAVE YOUR PROJECT!",
 		@"OK", nil, nil);
-	return self;
 }
 
 /*
@@ -609,8 +609,8 @@ char	bsphost[32];		// bsp host machine
 		
 	[wadfile_i close];
 	
-	[self	setDirtyMap:FALSE];
-	[self	setDirtyProject:FALSE];
+	[self	setMapDirty:FALSE];
+	[self	setProjectDirty:FALSE];
 	return YES;
 }
 
@@ -632,10 +632,9 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- removeMap:sender
+- (IBAction)removeMap:sender
 {
 
-	return self;
 }
 
 //============================================================
@@ -680,9 +679,9 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (NSInteger)browser:sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
 {
-	int	i;
+	NSInteger	i;
 	id	cell;
 
 	if (column != 0)
@@ -693,7 +692,7 @@ char	bsphost[32];		// bsp host machine
 	for (i=0 ; i<nummaps ; i++)
 	{
 		[matrix addRow];
-		cell = [matrix cellAt: i : 0];
+		cell = [matrix cellAtRow: i column: 0];
 		[cell setStringValue: mapnames[i]];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
@@ -713,7 +712,7 @@ char	bsphost[32];		// bsp host machine
 =====================
 */
 
-- newMap: sender
+- (IBAction)newMap: sender
 {
 	FILE *stream;
 	char pathname[1024];
@@ -730,7 +729,7 @@ char	bsphost[32];		// bsp host machine
 		NSRunAlertPanel(@"Error",
 			@"Map names must be 1 to 8 characters",
 			nil, nil, nil);
-		return nil;
+		return;
 	}
 
 	for (i=0 ; i<nummaps ; i++)
@@ -738,7 +737,7 @@ char	bsphost[32];		// bsp host machine
 		{
 			NSRunAlertPanel(@"Error", @"Map name in use",
 				nil, nil, nil);
-			return nil;
+			return;
 		}
 
 	//
@@ -746,14 +745,14 @@ char	bsphost[32];		// bsp host machine
 	//
 	strcpy (pathname, projectdirectory);
 	strcat (pathname, "/");
-	strcat (pathname, [title UTF8String]);
+	strcat (pathname, [title fileSystemRepresentation]);
 	strcat (pathname, ".dwd");
 	stream = fopen (pathname,"w");
 	if (!stream)
 	{
 		NSRunAlertPanel(@"Error", @"Could not open %s",
 			nil, nil, nil, pathname);
-		return nil;
+		return;
 	}
 	fprintf (stream, "WorldServer version 0\n");
 	fclose (stream);
@@ -766,8 +765,6 @@ char	bsphost[32];		// bsp host machine
 
 	[self updatePanel];
 	[self saveProject: self];
-	
-	return self;
 }
 
 /*
@@ -780,7 +777,7 @@ char	bsphost[32];		// bsp host machine
 =====================
 */
 
-- openMap:sender
+- (IBAction)openMap:sender
 {
 	id cell;
 	NSString *title;
@@ -801,8 +798,6 @@ char	bsphost[32];		// bsp host machine
 	sprintf(string, "\nLoading map %s\n", [title UTF8String]);
 	[ log_i	msg:string ];
 	[editworld_i loadWorldFile: fullpath];
-	
-	return self;
 }
 
 //===================================================================
@@ -810,16 +805,15 @@ char	bsphost[32];		// bsp host machine
 //	Load Map Functions
 //
 //===================================================================
-int	oldSelRow,curMap;
+static NSInteger	oldSelRow,curMap;
 id	openMatrix;
 
 //	Init to start opening all maps
-- beginOpenAllMaps
+- (void)beginOpenAllMaps
 {
 	openMatrix = [maps_i	matrixInColumn:0];
 	oldSelRow = [openMatrix	selectedRow];
 	curMap = 0;
-	return self;
 }
 
 //	Open next map, finish if needed
@@ -848,11 +842,11 @@ id	openMatrix;
 //	Print all the maps out!
 //
 //===================================================================
-- printAllMaps:sender
+- (IBAction)printAllMaps:sender
 {
-	id		openMatrix;
-	int		i;
-	int		selRow;
+	id			openMatrix;
+	NSInteger	i;
+	NSInteger	selRow;
 
 	[editworld_i	closeWorld];
 
@@ -871,8 +865,6 @@ id	openMatrix;
 		[openMatrix	selectCellAtRow:selRow column:0];
 		[self	openMap:openMatrix];
 	}
-	
-	return self;
 }
 
 //===================================================================
@@ -880,31 +872,26 @@ id	openMatrix;
 //	Map printing preferences
 //
 //===================================================================
-- printPrefs:sender
+- (IBAction)printPrefs:sender
 {
 	[printPrefWindow_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- togglePanel:sender
+- (IBAction)togglePanel:sender
 {
 	pp_panel = 1-pp_panel;
-	return self;
 }
-- toggleItems:sender
+- (IBAction)toggleItems:sender
 {
 	pp_items = 1-pp_items;
-	return self;
 }
-- toggleMonsters:sender
+- (IBAction)toggleMonsters:sender
 {
 	pp_monsters = 1-pp_monsters;
-	return self;
 }
-- toggleWeapons:sender
+- (IBAction)toggleWeapons:sender
 {
 	pp_weapons = 1-pp_weapons;
-	return self;
 }
 
 //===================================================================
@@ -912,7 +899,7 @@ id	openMatrix;
 //	Print the map out!
 //
 //===================================================================
-- printMap:sender
+- (IBAction)printMap:sender
 {
 	char	string[1024];
 	id		m;
@@ -928,7 +915,7 @@ id	openMatrix;
 	if (!cell)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	memset(prpanel,0,10);
@@ -963,8 +950,6 @@ id	openMatrix;
 	system(string);
 	[panel	orderOut:NULL];
 	NSReleaseAlertPanel(panel);
-
-	return self;
 }
 
 //===================================================================
@@ -972,11 +957,11 @@ id	openMatrix;
 // 				MAP MUNGE: LOAD AND SAVE ALL MAPS
 //
 //===================================================================
-- loadAndSaveAllMaps:sender
+- (IBAction)loadAndSaveAllMaps:sender
 {
-	id		openMatrix;
-	int		i;
-	int		selRow;
+	id			openMatrix;
+	NSInteger	i;
+	NSInteger	selRow;
 
 #if 0
 	rv = NSRunAlertPanel(@"Warning!",
@@ -1002,8 +987,6 @@ id	openMatrix;
 		[openMatrix	selectCellAtRow:selRow column:0];
 		[self	openMap:openMatrix];
 	}
-	
-	return self;
 }
 
 //===================================================================
@@ -1018,7 +1001,7 @@ typedef struct
 	char	name[32];
 } tc_t;
 
-- printSingleMapStatistics:sender
+- (IBAction)printSingleMapStatistics:sender
 {
 	int		i,nt,k;
 	int		tset;
@@ -1027,7 +1010,7 @@ typedef struct
 	NSString *filename = @"/tmp/tempstats.txt";
 	texpal_t	*t;
 	id		openMatrix;
-	int		selRow;
+	NSInteger		selRow;
 	char		string[80];
 	int		numth;
 	tc_t	*thingCount;
@@ -1037,7 +1020,7 @@ typedef struct
 		NSRunAlertPanel(@"Hey!",
 			@"You don't have a world loaded!",
 			@"Oops, what a dolt I am!", nil, nil);
-		return self;
+		return;
 	}
 	
 	[ log_i	msg:"Single map statistics\n" ];	
@@ -1122,7 +1105,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].bottomtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1146,7 +1129,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].midtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1170,7 +1153,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].toptexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		// SIDE 1
@@ -1196,7 +1179,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].bottomtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1220,7 +1203,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].midtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1244,7 +1227,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].toptexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 	}
 		
@@ -1254,9 +1237,9 @@ typedef struct
 	openMatrix = [maps_i matrixInColumn:0];
 	selRow = [openMatrix	selectedRow];
 
-	stream = fopen([filename UTF8String], "w");
+	stream = fopen([filename fileSystemRepresentation], "w");
 	fprintf(stream,"DoomEd Map Statistics for %s\n\n",
-		[[openMatrix cellAt:selRow :0] stringValue]);
+		[[openMatrix cellAtRow:selRow column:0] stringValue].UTF8String);
 	fprintf(stream,"Texture count:\n");
 	tset = -1;
 	for (i=0;i<nt;i++)
@@ -1290,8 +1273,6 @@ typedef struct
 	[[NSWorkspace sharedWorkspace] openFile:filename];
 
 	free(textureCount);
-
-	return self;
 }
 
 //===================================================================
@@ -1299,7 +1280,7 @@ typedef struct
 // 							PRINT ALL MAP STATISTICS
 //
 //===================================================================
-- printStatistics:sender
+- (IBAction)printStatistics:sender
 {
 	id		openMatrix;
 
@@ -1311,7 +1292,7 @@ typedef struct
 	int		k;
 	int		j;
 	int		nt;
-	int		selRow;
+	NSInteger	selRow;
 	int		nf;
 	int		flat;
 	int		errors;
@@ -1322,7 +1303,7 @@ typedef struct
 	texpal_t	*t;
 	int	numth;
 	tc_t	*thingCount;
-	id		thingList_i;
+	CompatibleStorage* thingList_i;
 	
 #if 0
 	rv = NSRunAlertPanel(@"Warning!",
@@ -1688,8 +1669,6 @@ typedef struct
 		[openMatrix	selectCellAtRow:selRow column:0];
 		[self	openMap:openMatrix];
 	}
-
-	return self;
 }
 
 //======================================================================
@@ -1697,7 +1676,7 @@ typedef struct
 //	THING METHODS
 //
 //======================================================================
-- updateThings
+- (BOOL)updateThings
 {
 	FILE		*stream;
 	char		filename[1024];
@@ -1711,7 +1690,7 @@ typedef struct
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't open %s",
 			nil, nil, nil, filename);
-		return self;
+		return NO;
 	}		
 
 	flock (handle, LOCK_EX);
@@ -1722,7 +1701,7 @@ typedef struct
 		fclose (stream);
 		NSRunAlertPanel(@"Error", @"Could not stream to %s",
 			nil, nil, nil, filename);
-		return self;
+		return NO;
 	}
 	
 	printf("Updating things file\n");
@@ -1730,7 +1709,7 @@ typedef struct
 	flock(handle,LOCK_UN);
 	fclose(stream);
 	
-	return self;
+	return YES;
 }
 
 //======================================================================
@@ -1738,7 +1717,7 @@ typedef struct
 //	SPECIAL METHODS
 //
 //======================================================================
-- updateSectorSpecials
+- (BOOL)updateSectorSpecials
 {
 	FILE		*stream;
 	char		filename[1024];
@@ -1752,7 +1731,7 @@ typedef struct
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't open %s",
 			nil, nil, nil, filename);
-		return self;
+		return NO;
 	}		
 
 	flock (handle, LOCK_EX);
@@ -1763,7 +1742,7 @@ typedef struct
 		fclose (stream);
 		NSRunAlertPanel(@"Error", @"Could not stream to %s",
 			nil, nil, nil, filename);
-		return self;
+		return NO;
 	}
 	
 	printf("Updating Sector Specials file\n");
@@ -1771,10 +1750,10 @@ typedef struct
 	flock(handle,LOCK_UN);
 	fclose(stream);
 	
-	return self;
+	return YES;
 }
 
-- updateLineSpecials
+- (BOOL)updateLineSpecials
 {
 	FILE		*stream;
 	char		filename[1024];
@@ -1788,7 +1767,7 @@ typedef struct
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't open %s",
 			nil, nil, nil, filename);
-		return self;
+		return NO;
 	}		
 
 	flock (handle, LOCK_EX);
@@ -1799,7 +1778,7 @@ typedef struct
 		fclose (stream);
 		NSRunAlertPanel(@"Error", @"Could not stream to %s",
 			nil, nil, nil, filename);
-		return self;
+		return NO;
 	}
 	
 	printf("Updating Line Specials file\n");
@@ -1807,7 +1786,7 @@ typedef struct
 	flock(handle,LOCK_UN);
 	fclose(stream);
 	
-	return self;
+	return YES;
 }
 
 /*
@@ -1935,7 +1914,7 @@ typedef struct
 	return YES;
 }
 
-- writeTexture: (worldtexture_t *)tex to: (FILE *)file
+- (void)writeTexture: (worldtexture_t *)tex to: (FILE *)file
 {
 	int	i;
 	worldpatch_t	*patch;
@@ -1950,8 +1929,6 @@ typedef struct
 			patch->originx, patch->originy,
 			patch->patchname, patch->stepdir, patch->colormap);
 	}
-
-	return self;
 }
 
 
@@ -1990,7 +1967,7 @@ typedef struct
 ===============
 */
 
-- updateTextures
+- (void)updateTextures
 {
 	FILE	*stream;
 	int		handle;
@@ -2031,7 +2008,7 @@ typedef struct
 				NXPing();
 				NSRunAlertPanel(@"Error", @"Couldn't open %s",
 					nil, nil, nil, filename);
-				return self;
+				return;
 			}
 			else
 			{
@@ -2056,7 +2033,7 @@ typedef struct
 			NXPing();
 			NSRunAlertPanel(@"Error", @"Could not stream to %s",
 				nil, nil, nil, filename);
-			return self;
+			return;
 		}
 
 		//
@@ -2076,7 +2053,7 @@ typedef struct
 						@"Could not parse %s",
 						nil, nil, nil,
 						filename);
-					return self;
+					return;
 				}
 
 				//
@@ -2154,7 +2131,7 @@ typedef struct
 				NSRunAlertPanel(@"Error",
 					@"Couldn't create %s",
 					nil, nil, nil, filename);
-				return self;
+				return;
 			}
 			else
 			{
@@ -2179,7 +2156,7 @@ typedef struct
 			NSRunAlertPanel(@"Error",
 				@"Could not stream to %s",
 				nil, nil, nil, filename);
-			return self;
+			return;
 		}
 		
 		//
@@ -2214,8 +2191,6 @@ typedef struct
 	
 	if (newtexture)
 		[texturePalette_i	initTextures ];
-
-	return self;
 }
 
 
@@ -2248,12 +2223,11 @@ typedef struct
 ===============
 */
 
-- changeTexture: (int)num to: (worldtexture_t *)tex
+- (void)changeTexture: (int)num to: (worldtexture_t *)tex
 {
 	texturesdirty = YES;
 	textures[num] = *tex;
 	textures[num].dirty = YES;
-	return self;
 }
 
 
@@ -2418,7 +2392,7 @@ static	byte		*buffer, *buf_p;
 			if (wtex->WADindex != windex )
 				continue;
 	
-			*list_p++ = LongSwap (buf_p-buffer);
+			*list_p++ = LongSwap ((unsigned)(buf_p-buffer));
 			tex = (maptexture_t *)buf_p;
 			buf_p += sizeof(*tex) - sizeof(tex->patches);
 			
@@ -2464,13 +2438,11 @@ static	byte		*buffer, *buf_p;
 ===============
 */
 
-- saveDoomLumps
+- (void)saveDoomLumps
 {
 	chdir (mapwads);
 	[self writePatchNames];
 	[self writeDoomTextures];
-	
-	return self;
 }
 
 //====================================================
@@ -2478,7 +2450,7 @@ static	byte		*buffer, *buf_p;
 //	Initialize and display the thermometer
 //
 //====================================================
-- initThermo:(NSString *)title message:(NSString *)msg
+- (void)initThermo:(NSString *)title message:(NSString *)msg
 {
 	[thermoTitle_i	setStringValue:title];
 	[thermoMsg_i	setStringValue:msg];
@@ -2486,7 +2458,6 @@ static	byte		*buffer, *buf_p;
 	[thermoView_i	display];
 	[thermoWindow_i	makeKeyAndOrderFront:NULL];
 	NXPing();
-	return self;
 }
 
 //====================================================
@@ -2494,12 +2465,10 @@ static	byte		*buffer, *buf_p;
 //	Update the thermometer
 //
 //====================================================
-- updateThermo:(int)current max:(int)maximum
+- (void)updateThermo:(int)current max:(int)maximum
 {
 	[thermoView_i	setThermoWidth:current	max:maximum];
-	[thermoView_i	display];
-	
-	return self;
+	[thermoView_i	setNeedsDisplay:YES];
 }
 
 //====================================================
@@ -2507,10 +2476,9 @@ static	byte		*buffer, *buf_p;
 //	Toast the thermometer
 //
 //====================================================
-- closeThermo
+- (void)closeThermo
 {
 	[thermoWindow_i	orderOut:self];
-	return self;
 }
 
 @end
@@ -2526,16 +2494,15 @@ static	byte		*buffer, *buf_p;
 void IO_Error (char *error, ...)
 {
 	va_list	argptr;
-	char	string[1024];
 	NSString *objcString;
 
 	va_start (argptr,error);
-	vsprintf (string,error,argptr);
+	objcString = [[NSString alloc] initWithFormat:@(error) arguments:argptr];
 	va_end (argptr);
 
-	objcString = [NSString stringWithUTF8String: string];
 
-	NSRunAlertPanel(@"Error", objcString, nil, nil, nil);
+	NSRunAlertPanel(@"Error", @"%@", nil, nil, nil, objcString);
+	[objcString release];
 	[[NSApplication sharedApplication] terminate: nil];
 }
 

@@ -15,19 +15,19 @@
 //	- (int)doRemap:(char *)oldname to:(char *)newname;
 //
 //===================================================================
-- setFrameName: (NSString *)fname
-  setPanelTitle: (NSString *)ptitle
-  setBrowserTitle: (NSString *)btitle
-  setRemapString: (NSString *)rstring
-  setDelegate: (id)delegate
+- (void)setFrameName: (NSString *)fname
+	   setPanelTitle: (NSString *)ptitle
+	 setBrowserTitle: (NSString *)btitle
+	  setRemapString: (NSString *)rstring
+		 setDelegate: (id)delegate
 {
 	frameName = fname;
 
 	if (! remapPanel_i )
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"Remapper.nib"
+		[[NSBundle mainBundle] loadNibNamed: @"Remapper"
 			owner: self
-			options: nil];
+			topLevelObjects:nil];
 
 		storage_i = [ [CompatibleStorage alloc]
 			initCount: 0
@@ -43,8 +43,6 @@
 	[browser_i		setTitle:btitle ofColumn:0];
 	[remapPanel_i	setTitle:ptitle];
 	delegate_i = delegate;
-	
-	return self;
 }
 
 //===================================================================
@@ -52,10 +50,9 @@
 //	Bring up panel
 //
 //===================================================================
-- showPanel
+- (void)showPanel
 {
 	[remapPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 //===================================================================
@@ -63,7 +60,7 @@
 //	Make delegate return string from source depending on which Get button was used
 //
 //===================================================================
-- remapGetButtons:sender
+- (IBAction)remapGetButtons:sender
 {
 	switch([sender	tag])
 	{
@@ -74,7 +71,6 @@
 			[new_i  setStringValue:[delegate_i  getNewName]];
 			break;
 	}
-	return self;
 }
 
 //===================================================================
@@ -82,19 +78,17 @@
 //	Add old & new texture names to list
 //
 //===================================================================
-- addToList: (NSString *) orgname to: (NSString *) newname
+- (void)addToList: (NSString *) orgname to: (NSString *) newname
 {
 	if (!storage_i)
-		return self;
+		return;
 
 	[original_i setStringValue:orgname];
 	[new_i setStringValue:newname];
 	[self addToList:NULL];
-
-	return self;
 }
 
-- addToList:sender
+- (IBAction)addToList:sender
 {
 	type_t	r,	*r2;
 	int		i, max;
@@ -116,14 +110,12 @@
 		 && [r2->newname compare: r.newname] == 0)
 		{
 			NSBeep ();
-			return self;
+			return;
 		}
 	}
 	
 	[storage_i	addElement:&r];
 	[browser_i	reloadColumn:0];
-	
-	return self;
 }
 
 //===================================================================
@@ -131,21 +123,19 @@
 //	Delete list entry
 //
 //===================================================================
-- deleteFromList:sender
+- (IBAction)deleteFromList:sender
 {
-	int	selRow;
+	NSInteger	selRow;
 	
 	matrix_i = [browser_i	matrixInColumn:0];
 	selRow = [matrix_i		selectedRow];
 	if (selRow < 0)
-		return self;
-	[matrix_i		removeRowAt:selRow andFree:YES ];
+		return;
+	[matrix_i		removeRowAtIndex:selRow];
 	[matrix_i		sizeToCells];
 	[matrix_i		selectCellAtRow:-1 column:-1];
 	[storage_i	removeElementAt:selRow];
 	[browser_i	reloadColumn:0];
-	
-	return self;
 }
 
 //===================================================================
@@ -153,21 +143,18 @@
 //	Clear out the entire list
 //
 //===================================================================
-- clearList:sender
+- (IBAction)clearList:sender
 {
 	if (NSRunAlertPanel(@"Warning!",
-		@"Are you sure you want\n"
-		"to clear the remapping list?",
+		@"Are you sure you want to clear the remapping list?",
 		@"OK", @"Cancel", nil) == NSAlertAlternateReturn)
-		return self;
+		return;
 
 	[remapPanel_i	saveFrameUsingName:frameName];
 	[storage_i		empty];
 	[original_i		setStringValue:@" "];
 	[new_i			setStringValue:@" "];
 	[browser_i	reloadColumn:0];
-	
-	return self;
 }
 
 //===================================================================
@@ -175,10 +162,10 @@
 //	Actually do the remapping for current map
 //
 //===================================================================
-- doRemappingOneMap:sender
+- (IBAction)doRemappingOneMap:sender
 {
 	type_t	*r;
-	int		index, max;
+	NSInteger		index, max;
 	unsigned int		linenum;
 	NSString *oldname, *newname;
 	NSString *string;
@@ -187,7 +174,7 @@
 	if (!max)
 	{
 		NSBeep ();
-		return self;
+		return;
 	}
 
 	linenum = 0;
@@ -204,9 +191,7 @@
 	                                     linenum];
 	[ status_i setStringValue: string ];
 	[ delegate_i finishUp ];
-	[ doomproject_i	setDirtyMap:TRUE];
-
-	return self;
+	[ doomproject_i	setMapDirty:TRUE];
 }
 
 //===================================================================
@@ -214,7 +199,7 @@
 //	Actually do the remapping for ALL MAPS
 //
 //===================================================================
-- doRemappingAllMaps:sender
+- (IBAction)doRemappingAllMaps:sender
 {
 	type_t	*r;
 	int		index, max;
@@ -228,7 +213,7 @@
 	if (!max)
 	{
 		NSBeep ();
-		return self;
+		return;
 	}
 	total = 0;
 	
@@ -258,8 +243,6 @@
 	                                     total];
 	[status_i setStringValue: string];
 	[delegate_i finishUp];
-
-	return self;
 }
 
 //===================================================================
@@ -276,16 +259,15 @@
 	return self;
 }
 
-- applicationWillTerminate: (NSNotification *)notification
+- (void)applicationWillTerminate:(NSNotification *)notification
 {
 	[self windowWillClose:NULL];
-	return self;
 }
 
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
+- (NSInteger)browser:(NSBrowser*)sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
 {
-	int	max, i;
-	id	cell;
+	NSInteger	max, i;
+	NSBrowserCell	*cell;
 	NSString *string;
 	type_t	*r;
 	
@@ -294,7 +276,7 @@
 	{
 		r = [storage_i	elementAt:i];
 		[matrix	addRow];
-		cell = [matrix	cellAt:i	:0];
+		cell = [matrix	cellAtRow:i	column:0];
 
 		string = [NSString stringWithFormat: @"%@ remaps to %@",
 		                                     r->orgname, r->newname];

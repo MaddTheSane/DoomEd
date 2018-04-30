@@ -31,16 +31,14 @@ id	lineSpecialRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (void)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
-- addToList: (NSString *) orgname to: (NSString *) newname
+- (void)addToList: (NSString *) orgname to: (NSString *) newname
 {
 	[remapper_i addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================
@@ -96,9 +94,8 @@ id	lineSpecialRemapper_i;
 	return linenum;
 }
 
-- finishUp
+- (void)finishUp
 {
-	return self;
 }
 
 

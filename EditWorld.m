@@ -78,7 +78,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	NSPoint	ptp,*pt;
 	int		l;
 	NSPoint	*p1, *p2;
-	float		frac, distance, bestdistance, xintercept;
+	CGFloat		frac, distance, bestdistance, xintercept;
 	int		bestline;
 	
 	ptp = *ptin;
@@ -117,7 +117,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 			xintercept = p2->x + frac*(p1->x - p2->x);
 		}
 		
-		distance = abs(xintercept - pt->x);
+		distance = fabs(xintercept - pt->x);
 		if (distance < bestdistance)
 		{
 			bestdistance = distance;
@@ -174,6 +174,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 
 - init
 {
+	if (self = [super init]) {
 	editworld_i = self;
 
 //
@@ -199,11 +200,12 @@ int LineByPoint (NSPoint *ptin, int *side)
 	];
 
 	saveSound = [NSSound soundNamed: @"DESave"];
-
+	}
+	
 	return self;
 }
 
-- applicationWillTerminate: (NSNotification *)notification
+- (void)applicationWillTerminate:(NSNotification *)notification
 {
 	// FIXME: prompt to save map if dirty
 	if ([windowlist_i count] > 0)
@@ -211,7 +213,6 @@ int LineByPoint (NSPoint *ptin, int *side)
 			saveFrameUsingName:WORLDNAME
 		];
 	//[self free];
-	return self;
 }
 
 
@@ -223,10 +224,10 @@ int LineByPoint (NSPoint *ptin, int *side)
 ==================
 */
 
-- loadWorldFile: (NSString *)path
+- (BOOL)loadWorldFile: (NSString *)path
 {
 	FILE		*stream;
-	id		ret;
+	BOOL		ret;
 	int		version;
 
 	pathname = path;
@@ -246,14 +247,14 @@ int LineByPoint (NSPoint *ptin, int *side)
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't open %@",
 		                nil, nil, nil, pathname);
-		return nil;
+		return NO;
 	}
 	version = -1;
 	fscanf (stream, "WorldServer version %d\n", &version);
 	if (version == 0)
 	{	// empty file -- clear stuf out
 		
-		ret = self;
+		ret = YES;
 	}
 	else if (version == 4)
 		ret = [self loadV4File: stream];
@@ -262,7 +263,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 		fclose (stream);
 		NSRunAlertPanel(@"Error", @"Unknown file version for %@",
 		                nil, nil, nil, pathname);
-		return nil;
+		return NO;
 	}
 
 	if (!ret)
@@ -270,7 +271,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 		fclose (stream);
 		NSRunAlertPanel(@"Error", @"Couldn't parse file %@",
 		                nil, nil, nil, pathname);
-		return nil;
+		return NO;
 	}
 	
 	fclose (stream);
@@ -283,7 +284,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	[self newWindow:self];
 	copyLoaded = 1;
 
-	return self;
+	return ret;
 }
 
 
@@ -297,18 +298,18 @@ int LineByPoint (NSPoint *ptin, int *side)
 ==================
 */
 
-- closeWorld
+- (void)closeWorld
 {
-	if ([doomproject_i	mapDirty])
+	if ([doomproject_i	isMapDirty])
 	{
-		int	val;
+		NSInteger	val;
 
 		val = NSRunAlertPanel(@"Hey!",
 			@"Your map has been modified! Save it?",
 			@"Yes", @"No", nil);
 		if (val == NSAlertDefaultReturn)
 			[self	saveWorld:NULL];
-		[doomproject_i	setDirtyMap:FALSE];
+		[doomproject_i	setMapDirty:FALSE];
 	}
 
 	[[windowlist_i objectAtIndex:0]
@@ -320,7 +321,6 @@ int LineByPoint (NSPoint *ptin, int *side)
 
 	numpoints = numlines = numthings = 0;
 	loaded = NO;
-	return self;
 }
 
 
@@ -340,19 +340,19 @@ int LineByPoint (NSPoint *ptin, int *side)
 =====================
 */
 
-- newWindow:sender
+- (void)newWindow:sender
 {
 	MapWindow *win;
 
 	if (!loaded)
 	{
 		NSRunAlertPanel(@"Error", @"No world open", nil, nil, nil);
-		return nil;
+		return;
 	}
 
 	win = [[MapWindow alloc] initFromEditWorld];
 	if (!win)
-		return NULL;
+		return;
 
 	[windowlist_i addObject: win];
 	[win setDelegate: self];
@@ -360,8 +360,6 @@ int LineByPoint (NSPoint *ptin, int *side)
 	[win setFrameUsingName:WORLDNAME];
 	[win display];
 	[win makeKeyAndOrderFront:self];
-
-	return self;
 }
 
 //===============================================================
@@ -369,7 +367,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 //	Save DoomEd map and run BSP program
 //
 //===============================================================
-- saveDoomEdMapBSP:sender
+- (void)saveDoomEdMapBSP:sender
 {
 	NSString *fromPath;
 	char string[1024];
@@ -380,7 +378,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	if (!loaded)
 	{
 		NSRunAlertPanel(@"Error", @"No world open", nil, nil, nil);
-		return nil;
+		return;
 	}
 
 	printf ("Saving DoomEd map\n");
@@ -418,10 +416,8 @@ int LineByPoint (NSPoint *ptin, int *side)
 
 	[panel	orderOut:NULL];
 	NSReleaseAlertPanel(panel);
-	[doomproject_i	setDirtyMap:FALSE];
+	[doomproject_i	setMapDirty:FALSE];
 	[saveSound	play];
-
-	return self;
 }
 
 
@@ -433,7 +429,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 =====================
 */
 
-- saveWorld:sender
+- (void)saveWorld:sender
 {
 	FILE			*stream;
 	id			pan;
@@ -441,7 +437,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	if (!loaded)
 	{
 		NSRunAlertPanel(@"Error", @"No world open", nil, nil, nil);
-		return nil;
+		return;
 	}
 
 	pan = NSGetAlertPanel(@"One moment", @"Saving", nil, nil, nil);
@@ -450,17 +446,15 @@ int LineByPoint (NSPoint *ptin, int *side)
 	NXPing ();
 
 	printf ("Saving DoomEd map\n");
-	BackupFile([pathname UTF8String]); 
-	stream = fopen([pathname UTF8String], "w");
+	BackupFile([pathname fileSystemRepresentation]);
+	stream = fopen([pathname fileSystemRepresentation], "w");
 	[self saveFile: stream];
 	fclose(stream);
 //	dirty = NO;
-	[doomproject_i	setDirtyMap:FALSE];
+	[doomproject_i	setMapDirty:FALSE];
 
 	[pan	orderOut:NULL];
 	NSReleaseAlertPanel(pan);
-
-	return self;
 }
 
 
@@ -472,14 +466,12 @@ int LineByPoint (NSPoint *ptin, int *side)
 =====================
 */
 
-- print: sender
+- (void)print: sender
 {
 	MapWindow *win;
 
 	win = (MapWindow *) [[NSApplication sharedApplication] mainWindow];
 	//[[win mapView] printPSCode: sender];
-
-	return self;
 }
 
 
@@ -501,7 +493,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 ====================
 */
 
-- updateLineNormal:(int) num
+- (void)updateLineNormal:(int) num
 {
 	worldline_t	*line;
 	NSPoint	*p1, *p2;
@@ -521,8 +513,6 @@ int LineByPoint (NSPoint *ptin, int *side)
 	line->mid.y = p1->y + dy/2;
 	line->norm.x = line->mid.x + dy/length;
 	line->norm.y = line->mid.y - dx/length;
-	
-	return self;
 }
 
 
@@ -555,11 +545,10 @@ int LineByPoint (NSPoint *ptin, int *side)
 ================
 */
 
-- addToDirtyRect: (int)p1 : (int)p2
+- (void)addToDirtyRect: (int)p1 : (int)p2
 {
 	[self addPointToDirtyRect: &points[p1].pt];
 	[self addPointToDirtyRect: &points[p2].pt];
-	return self;
 #if 0
 	NSRect	new;
 	NSPoint	*pt1, *pt2;
@@ -591,7 +580,6 @@ int LineByPoint (NSPoint *ptin, int *side)
 
 	dirtyrect = NSUnionRect(new, dirtyrect);
 #endif
-	return self;
 }
 
 
@@ -604,11 +592,11 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 ===============================================================================
 */
 
-- windowWillClose: sender
+- (void)windowWillClose:(NSNotification *)notification
 {
-	if ([doomproject_i	mapDirty])
+	if ([doomproject_i	isMapDirty])
 	{
-		int	val;
+		NSInteger	val;
 	
 		val = NSRunAlertPanel(@"Hey!",
 			@"Your map has been modified! Save it?",
@@ -620,16 +608,15 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 	[[windowlist_i objectAtIndex: 0]
 		saveFrameUsingName:WORLDNAME
 	];
-	[windowlist_i removeObject: sender];
+	[windowlist_i removeObject: notification.object];
 
 //	[self	closeWorld];
-	return self;
 }
 
 
 - (void) updateWindows
 {
-	int	count;
+	NSInteger	count;
 
 	if (!dirtyrect.size.width)
 		return;		// nothing to update
@@ -851,15 +838,13 @@ FIXME: make these scan for deleted entries
 =================
 */
 
-- dropPointRefCount: (int)p
+- (void)dropPointRefCount: (int)p
 {
 	if (--points[p].refcount)
-		return self;
+		return;
 		
 //	printf ("removing point %i\n",p);	// DEBUG
 	points[p].selected = -1;
-	
-	return self;
 }
 
 
@@ -882,14 +867,14 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- flipSelectedLines: sender
+- (void)flipSelectedLines: sender
 {
 	worldline_t	line;
 	int			i;
 	NSPoint		p1,p2;
 	
 	if (!loaded)
-		return self;
+		return;
 	
 // FIXME: much easier now
 	
@@ -906,8 +891,6 @@ FIXME: make these scan for deleted entries
 		}
 		
 	[self updateWindows];
-
-	return self;
 }
 
 /*
@@ -920,7 +903,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- fusePoints: sender
+- (void)fusePoints: sender
 {
 	int	i, j, k;
 	NSPoint	*p1, *p2;
@@ -964,8 +947,6 @@ FIXME: make these scan for deleted entries
 	}
 	
 	[self updateWindows];
-
-	return self;
 }
 
 
@@ -979,7 +960,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- seperatePoints: sender
+- (void)seperatePoints: sender
 {
 	int	i, k;
 	worldline_t	*line;
@@ -1013,8 +994,6 @@ FIXME: make these scan for deleted entries
 	}
 	
 	[self updateWindows];
-
-	return self;
 }
 
 /*
@@ -1028,7 +1007,7 @@ FIXME: make these scan for deleted entries
 //
 // store copies of all stuff to be copied!
 //
-- storeCopies
+- (void)storeCopies
 {
 
 	int	i;
@@ -1055,13 +1034,12 @@ FIXME: make these scan for deleted entries
 		}
 	
 	copyLoaded = 0;
-	return self;
 }
 
 //
 // deselect everything after copying
 //
-- copyDeselect
+- (void)copyDeselect
 {
 	int	i;
 
@@ -1074,8 +1052,6 @@ FIXME: make these scan for deleted entries
 	for (i=0;i<numpoints;i++)
 		if (points[i].selected == 1)
 			[self	deselectPoint:i];
-			
-	return self;
 }
 
 - (int)findMin:(int)num0	:(int)num1
@@ -1133,13 +1109,12 @@ FIXME: make these scan for deleted entries
 	return p;
 }
 
-- cut: sender
+- (void)cut: sender
 {
 	[self	storeCopies];
 	[self	delete:NULL];
 	[self	copyDeselect];
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1151,12 +1126,11 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- copy: sender
+- (void)copy: sender
 {
 	[self	storeCopies];
 	[self	copyDeselect];
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1168,7 +1142,7 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- paste: sender
+- (void)paste: sender
 {
 	NSWindow *mainWin;
 	int xadd,yadd,i,max, index;
@@ -1219,7 +1193,6 @@ FIXME: make these scan for deleted entries
 	}
 	
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1231,7 +1204,7 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- delete: sender
+- (void)delete: sender
 {
 	int	i;
 	worldline_t	line;
@@ -1259,7 +1232,6 @@ FIXME: make these scan for deleted entries
 		}
 
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1281,10 +1253,10 @@ Updates dirty rect based on old and new positions
 ====================
 */
 
-- changePoint: (int) num to: (worldpoint_t *) data
+- (void)changePoint: (int) num to: (worldpoint_t *) data
 {
 	int	i;
-	BOOL	moved;
+	BOOL	moved = NO;
 	
 	boundsdirty = YES;
 //printf ("changePoint: %i\n",num);
@@ -1325,10 +1297,6 @@ Updates dirty rect based on old and new positions
 				[self updateLineNormal: i];
 			}
 	}
-	
-				
-
-	return nil;
 }
 
 /*
@@ -1341,7 +1309,7 @@ Updates dirty rect based on old and new positions
 ====================
 */
 
-- changeLine: (int) num to: (worldline_t *)data
+- (void)changeLine: (int) num to: (worldline_t *)data
 {
 	boundsdirty = YES;
 //printf ("changeLine: %i\n",num);
@@ -1373,8 +1341,6 @@ Updates dirty rect based on old and new positions
 		[self dropPointRefCount: lines[num].p1];
 		[self dropPointRefCount: lines[num].p2];
 	}
-
-	return nil;
 }
 
 
@@ -1386,7 +1352,7 @@ Updates dirty rect based on old and new positions
 ====================
 */
 
-- changeThing: (int)num to: (worldthing_t *)data
+- (void)changeThing: (int)num to: (worldthing_t *)data
 {
 	NSRect	drect;
 
@@ -1422,8 +1388,6 @@ Updates dirty rect based on old and new positions
 		                   THINGDRAWSIZE);
 		dirtyrect = NSUnionRect(drect, dirtyrect);
 	}
-
-	return nil;
 }
 
 
@@ -1444,133 +1408,127 @@ Updates dirty rect based on old and new positions
 ================
 */
 
-- selectPoint: (int)num
+- (void)selectPoint: (int)num
 {
 	worldpoint_t	*data;
 	
 	if (num >= numpoints)
 	{
 		printf ("selectPoint: num >= numpoints\n");
-		return self;
+		return;
 	}
 	data = &points[num];
 	if (data->selected == -1)
 	{
 		printf ("selectPoint: deleted point\n");
-		return self;
+		return;
 	}
 	data->selected = 1;
 	[self changePoint: num to:data];
-	return self;
+	return;
 }
 
 
-- deselectPoint: (int)num
+- (void)deselectPoint: (int)num
 {
 	worldpoint_t	*data;
 	
 	if (num >= numpoints)
 	{
 		printf ("deselectPoint: num >= numpoints\n");
-		return self;
+		return;
 	}
 	data = &points[num];
 	if (data->selected == -1)
 	{
 		printf ("deselectPoint: deleted\n");
-		return self;
+		return;
 	}
 	data->selected = 0;
 	[self changePoint: num to:data];
-	return self;
 }
 
 
-- selectLine: (int)num
+- (void)selectLine: (int)num
 {
 	worldline_t	*data;
 	
 	if (num >= numlines)
 	{
 		printf ("selectLine: num >= numlines\n");
-		return self;
+		return;
 	}
 	data = &lines[num];
 	if (data->selected == -1)
 	{
 		printf ("selectLine: deleted\n");
-		return self;
+		return;
 	}
 	data->selected = 1;
 	[self changeLine: num to:data];
 	
 //	[ log_i	msg:"Selecting line!\n" ];
-	
-	return self;
 }
 
 
-- deselectLine: (int)num
+- (void)deselectLine: (int)num
 {
 	worldline_t	*data;
 	
 	if (num >= numlines)
 	{
 		printf ("deselectLines: num >= numliness\n");
-		return self;
+		return;
 	}
 	data = &lines[num];
 	if (data->selected == -1)
 	{
 		printf ("deselectLine: deleted point\n");
-		return self;
+		return;
 	}
 	data->selected = 0;
 	[self changeLine: num to:data];
-	return self;
 }
 
 
-- selectThing: (int)num
+- (void)selectThing: (int)num
 {
 	worldthing_t	*data;
 	
 	if (num >= numthings)
 	{
 		printf ("selectThing: num >= numthings\n");
-		return self;
+		return;
 	}
 	data = &things[num];
 	if (data->selected == -1)
 	{
 		printf ("selectThing: deleted\n");
-		return self;
+		return;
 	}
 	data->selected = 1;
 	[self changeThing: num to:data];
 	[thingpanel_i	setThing:data];
-	return self;
 }
 
 
-- deselectThing: (int)num
+- (void)deselectThing: (int)num
 {
 	worldthing_t	*data;
 	
 	if (num >= numthings)
 	{
 		printf ("deselectThing: num >= numthings\n");
-		return self;
+		return;
 	}
 	data = &things[num];
 	if (data->selected == -1)
 	{
 		printf ("deselectThing: deleted point\n");
-		return self;
+		return;
 	}
 	data->selected = 0;
 	[self changeThing: num to:data];
-	return self;
 }
 
 
@@ -1583,7 +1541,7 @@ Updates dirty rect based on old and new positions
 =====================
 */
 
-- deselectAllPoints
+- (void)deselectAllPoints
 {
 	int	p;	
 	for (p=0; p<numpoints ; p++)
@@ -1592,10 +1550,9 @@ Updates dirty rect based on old and new positions
 			points[p].selected = 0;
 			[self changePoint: p to: &points[p]];
 		}
-	return self;
 }
 
-- deselectAllLines
+- (void)deselectAllLines
 {
 	int	p;
 	for (p=0; p<numlines ; p++)
@@ -1604,10 +1561,9 @@ Updates dirty rect based on old and new positions
 			lines[p].selected = 0;
 			[self changeLine: p to: &lines[p]];
 		}
-	return self;
 }
 
-- deselectAllThings
+- (void)deselectAllThings
 {
 	int	p;
 	for (p=0; p<numthings ; p++)
@@ -1616,15 +1572,13 @@ Updates dirty rect based on old and new positions
 			things[p].selected = 0;
 			[self changeThing: p to: &things[p]];
 		}
-	return self;
 }
 
-- deselectAll
+- (void)deselectAll
 {
 	[self deselectAllPoints];
 	[self deselectAllLines];
 	[self deselectAllThings];
-	return self;
 }
 
 

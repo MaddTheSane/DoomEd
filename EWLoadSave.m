@@ -40,7 +40,7 @@
 	return YES;
 }
 
-- writeLine: (worldline_t *)line to: (FILE *)file
+- (void)writeLine: (worldline_t *)line to: (FILE *)file
 {
 	worldside_t	*s;
 	sectordef_t	*e;
@@ -72,8 +72,6 @@
 			,e->floorheight, e->floorflat, e->ceilingheight, e->ceilingflat
 			, e->lightlevel, e->special, e->tag);
 	}
-
-	return self;
 }
 
 /*
@@ -101,7 +99,7 @@
 	return YES;
 }
 
-- writeThing: (worldthing_t *)thing to: (FILE *)file
+- (void)writeThing: (worldthing_t *)thing to: (FILE *)file
 {
 	int		x,y;
 	
@@ -110,8 +108,6 @@
 	
 	fprintf (file,"(%d,%d, %d) :%d, %d\n"
 		,x, y, thing->angle,thing->type, thing->options);
-
-	return self;
 }
 
 
@@ -133,7 +129,7 @@
 ===================
 */
 
-- saveFile: (FILE *)file
+- (BOOL)saveFile: (FILE *)file
 {
 	int	i, count;
 	
@@ -165,8 +161,7 @@
 		if (things[i].selected != -1)
 			[self writeThing: &things[i] to: file];
 	
-
-	return self;
+	return YES;
 }
 
 

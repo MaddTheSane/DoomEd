@@ -17,14 +17,14 @@ typedef unsigned char byte;
 #endif
 
 // A mapvertex_t is a global map point
-typedef struct
+typedef struct mapvertex_s
 {
 	short	x,y;
 } mapvertex_t;
 
 // A mapthing_t is a point and some information from the map editor.  These are only processed
 // at map loading time, where they spawn visible thing_ts or other game objects
-typedef struct
+typedef struct mapthing_s
 {
 	mapvertex_t	origin;
 	short	angle;
@@ -34,7 +34,7 @@ typedef struct
 } mapthing_t;
 
 // mappatch_t orients a patch inside a maptexturedef_t
-typedef struct
+typedef struct mappatch_s
 {
 	short	originx;		// block origin (allways UL), which has allready accounted
 	short	originy;		// for the patch's internal origin
@@ -45,7 +45,7 @@ typedef struct
 
 // a maptexturedef_t describes a rectangular texture, which is composed of one or
 // more mappatch_t structures that arrange graphic patches
-typedef struct
+typedef struct maptexture_s
 {
 	char		name[8];				// JR 4/5/93
 	BOOL	masked;				// if not masked, the patch's post_ts need to be combined
@@ -58,7 +58,7 @@ typedef struct
 
 // A mapends_t defines what to draw on the floor and ceiling of an open area, as well as the
 // light level for all sprites and walls in the open area
-typedef struct
+typedef struct mapsector_s
 {
 	short		floorheight, ceilingheight;
 	short		floortexture, ceilingtexture;
@@ -71,7 +71,7 @@ typedef struct
 
 
 // The entire world is defined by maplines with various attributes.
-typedef struct
+typedef struct mapside_s
 {
 	short	flags;	
 	short	sector;					// on the viewer's side
@@ -83,7 +83,7 @@ typedef struct
 
 // if the line is not two sided, the midtexture must cover the entire space
 
-typedef struct
+typedef struct mapline_s
 {
 	short		p1, p2;				// point numbers
 	short		flags;

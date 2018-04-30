@@ -29,7 +29,7 @@
 //	Add a Texture Palette divider (new set of textures)
 //
 //==============================================================
-- addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
 {
 	divider_t		d;
 	
@@ -37,14 +37,11 @@
 	d.y = y;
 	strcpy (d.string, string );
 	[dividers_i	addElement:&d ];
-	
-	return self;
 }
 
-- dumpDividers
+- (void)dumpDividers
 {
 	[dividers_i	empty];
-	return self;
 }
 
 - drawSelf:(const NSRect *)rects :(int)rectCount
@@ -75,7 +72,7 @@
 	count = 0;
 	while ((t = [texturePalette_i	getNewTexture:count++]) != NULL)
 		if (NSIntersectsRect(rects[0], t->r))
-			[t->image	composite:NSCompositeCopy	toPoint:&t->r.origin];
+			[t->image drawAtPoint:t->r.origin fromRect:NSZeroRect operation:NSCompositeCopy fraction:1];
 	
 	//
 	//	Draw texture set divider text

@@ -3,6 +3,8 @@
 #import "TextLog.h"
 #import "Wadfile.h"
 
+@class ThermoView;
+
 //============================================================================
 #define	DOOMNAME		@"DoomEd"
 #define MAXPATCHES	100
@@ -66,7 +68,7 @@ typedef struct
 	
 	IBOutlet id		thermoTitle_i;
 	IBOutlet id		thermoMsg_i;
-	IBOutlet id		thermoView_i;
+	IBOutlet ThermoView		*thermoView_i;
 	IBOutlet id		thermoWindow_i;
 	
 	IBOutlet id		printPrefWindow_i;
@@ -107,10 +109,10 @@ typedef struct
 - (IBAction)loadAndSaveAllMaps:sender;
 - (IBAction)printStatistics:sender;
 - (IBAction)printSingleMapStatistics:sender;
-- (void)updateThings;
-- (void)updateSectorSpecials;
-- (void)updateLineSpecials;
-- (void)saveFrame;
+- (BOOL)updateThings;
+- (BOOL)updateSectorSpecials;
+- (BOOL)updateLineSpecials;
+- (BOOL)saveFrame;
 - (void)changeWADfile:(char *)string;
 - (void)quit;
 - (void)setDirtyProject:(BOOL)truth DEPRECATED_MSG_ATTRIBUTE("Use setProjectDirty: instead");

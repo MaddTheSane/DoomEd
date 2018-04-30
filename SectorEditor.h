@@ -3,11 +3,11 @@
 #import	"DoomProject.h"
 #import "SpecialList.h"
 #import	"idfunctions.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 typedef struct
 {
-	id		image;
+	NSImage	*image;
 	char	name[9];
 	NSRect	r;
 	int		WADindex;
@@ -16,20 +16,20 @@ typedef struct
 #define	SPACING		10
 #define	FLATSIZE	64
 
-@interface SectorEditor:NSObject<SpecialListDelegate>
+@interface SectorEditor:NSObject <SpecialListDelegate, NSWindowDelegate>
 {
-	IBOutlet id	window_i;
+	IBOutlet NSWindow	*window_i;
 	IBOutlet id	sectorEditView_i;
-	IBOutlet id	flatScrPalView_i;
+	IBOutlet NSScrollView	*flatScrPalView_i;
 	IBOutlet id	flatPalView_i;
 	
 	IBOutlet id	lightLevel_i;
 	IBOutlet id	lightSlider_i;
 	IBOutlet id	special_i;
 	IBOutlet id	tag_i;
-	IBOutlet id	floorAndCeiling_i;		// radio button matrix
-	IBOutlet id	ceiling_i;				// radio button
-	IBOutlet id	floor_i;				// radio button
+	IBOutlet NSMatrix	*floorAndCeiling_i;		// radio button matrix
+	IBOutlet NSButtonCell	*ceiling_i;				// radio button
+	IBOutlet NSButtonCell	*floor_i;				// radio button
 	IBOutlet id	cheightfield_i;
 	IBOutlet id	fheightfield_i;
 	IBOutlet id	cflatname_i;
@@ -94,5 +94,5 @@ typedef struct
 
 extern SectorEditor *sectorEdit_i;
 
-id	flatToImage(byte *rawData, unsigned short *shortpal);
+NSImage *flatToImage(byte *rawData, unsigned short *shortpal);
 

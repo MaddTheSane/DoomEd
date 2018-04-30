@@ -370,7 +370,7 @@ int		linecrunch[8192];
 
 	for (i=0 ; i<count ; i++)		
 	{
-		*list_p++ = LongSwap (buf_p-buffer);
+		*list_p++ = LongSwap ((unsigned)(buf_p-buffer));
 		wsector = [sectors elementAt: i];
 		lcount = [wsector->lines count];
 		
@@ -413,14 +413,14 @@ int		linecrunch[8192];
 */
 #define	MAXMAPSIZE	100000
 
-- saveDoomMap
+- (BOOL)saveDoomMap
 {
 	char		path[1025];
 
 	[editworld_i deselectAll];
 	
 	if (![blockworld_i connectSectors])
-		return self;		// don't continue if there were sector errors
+		return NO;		// don't continue if there were sector errors
 	
 //
 // have the project save out the latest textures
@@ -463,7 +463,7 @@ int		linecrunch[8192];
 	
 	[editworld_i updateWindows];
 	
-	return self;
+	return YES;
 }
 
 @end

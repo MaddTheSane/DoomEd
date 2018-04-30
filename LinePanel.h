@@ -3,7 +3,7 @@
 #import "EditWorld.h"
 #import "SpecialList.h"
 
-@interface LinePanel:NSObject<SpecialListDelegate>
+@interface LinePanel:NSObject<SpecialListDelegate, NSWindowDelegate>
 {
 	IBOutlet id	p1_i;
 	IBOutlet id	p2_i;
@@ -23,7 +23,7 @@
 	IBOutlet id	tagField_i;
 	IBOutlet id	linelength_i;
 	
-	IBOutlet id	window_i;
+	IBOutlet NSWindow	*window_i;
 	IBOutlet id	firstColCalc_i;
 	IBOutlet id	fc_currentVal_i;
 	IBOutlet id	fc_incDec_i;

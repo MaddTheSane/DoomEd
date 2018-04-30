@@ -165,4 +165,5 @@ extern TextureEdit *textureEdit_i;
 
 NSImage *patchToImage(patch_t *patchData, unsigned short *shortpal,
 					  NSSize *size,char *name);
-
+extern char *strupr(char *string);
+extern char *strlwr(char *string);

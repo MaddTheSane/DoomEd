@@ -85,7 +85,7 @@ BOOL	debugflag = NO;
 - (void) applicationDidFinishLaunching: (NSNotification *) notification
 {
 	if (![doomproject_i isLoaded])
-		[doomproject_i loadProject: [prefpanel_i  getProjectPath] ];
+		[doomproject_i loadProject: prefpanel_i.projectPath.fileSystemRepresentation ];
 	[doomproject_i	setProjectDirty:FALSE];
 	[toolPanel_i	setFrameUsingName:TOOLNAME];
 
