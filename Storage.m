@@ -25,10 +25,7 @@
 	[self insertElement: anElement at: elements];
 }
 
-- (unsigned int)count
-{
-	return elements;
-}
+@synthesize count=elements;
 
 - (const char *)description
 {

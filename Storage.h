@@ -10,7 +10,7 @@
 }
 
 - (void) addElement:(void *)anElement;
-- (unsigned int)count;
+@property (readonly) unsigned int count;
 - (const char *)description;
 - (void *)elementAt:(unsigned int)index;
 - (void) empty;
