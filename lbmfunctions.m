@@ -46,22 +46,19 @@ typedef short			WORD;
 typedef unsigned short	UWORD;
 typedef int				LONG;
 
-typedef NS_ENUM(UBYTE, mask_t)
-{
+typedef NS_ENUM(UBYTE, mask_t) {
 	ms_none,
 	ms_mask,
 	ms_transcolor,
 	ms_lasso
 };
 
-typedef NS_ENUM(UBYTE, compress_t)
-{
+typedef NS_ENUM(UBYTE, compress_t) {
 	cm_none,
 	cm_rle1
 };
 
-typedef struct
-{
+typedef struct bmhd_s {
 	UWORD		w,h;
 	WORD		x,y;
 	UBYTE		nPlanes;
@@ -165,8 +162,9 @@ static void DecompressRLEPBM (byte const *source, byte *dest, int width, int hei
 {
 	int		y;
 	
-	for (y=0 ; y<height ; y++, dest += width)
+	for (y=0 ; y<height ; y++, dest += width) {
 		source = LBMRLEDecompress (source, dest , width);
+	}
 }
 
 
@@ -186,8 +184,7 @@ static void ExtractUncompressedPBM (byte const *source, byte *dest, int width, i
 	
 	if (width & 1)
 	{
-		for (y=0 ; y<height ; y++, dest += width)
-		{
+		for (y=0 ; y<height ; y++, dest += width) {
 			memcpy (dest,source,width);
 			source += width+1;
 		}
@@ -215,8 +212,10 @@ BOOL	LoadRawLBM (char const *filename)
 {
 	byte	 	*LBM_P,  *LBMEND_P;
 	
-	int		formtype,formlength;
-	int		chunktype,chunklength;
+	OSType	formtype;
+	int		formlength;
+	OSType	chunktype;
+	int 	chunklength;
 
 	byte		*cmap;
 	byte	  	*body;
@@ -392,7 +391,7 @@ BOOL	LoadRawLBM (char const *filename)
 ==========================================================================
 */
 
-bmhd_t	basebmhd = {320,200,0,0,8,0,0,0,0,5,6,320,200};
+static bmhd_t	basebmhd = {320,200,0,0,8,0,0,0,0,5,6,320,200};
 
 static void saveType(byte ** data, OSType typ)
 {
@@ -411,14 +410,14 @@ BOOL SaveRawLBM ( char const *filename, byte const *data, int width, int height
 	int			handle;
 	
 	printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(void *)palette);
-	
+
 	lbm = lbmptr = malloc (width*height+2048);
 	if (!lbm)
 	{
 		NSLog (@"couldn't malloc %i bytes\n",width*height+2048);
 		return NO;
 	}
-	
+
 	if (!palette  || !data)
 	{
 		free(lbm);

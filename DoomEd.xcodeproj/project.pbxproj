@@ -34,7 +34,7 @@
 		27DA449619706396005CB000 /* FlatRemapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446819706396005CB000 /* FlatRemapper.m */; };
 		27DA449719706396005CB000 /* FlatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446919706396005CB000 /* FlatsView.m */; };
 		27DA449919706396005CB000 /* idfunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446B19706396005CB000 /* idfunctions.m */; };
-		27DA449A19706396005CB000 /* lbmfunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446C19706396005CB000 /* lbmfunctions.m */; };
+		27DA449A19706396005CB000 /* lbmfunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446C19706396005CB000 /* lbmfunctions.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		27DA449B19706396005CB000 /* LinePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446D19706396005CB000 /* LinePanel.m */; };
 		27DA449C19706396005CB000 /* LineSpecialRemapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446E19706396005CB000 /* LineSpecialRemapper.m */; };
 		27DA449D19706396005CB000 /* MapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA446F19706396005CB000 /* MapView.m */; };
