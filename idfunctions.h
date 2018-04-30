@@ -23,11 +23,11 @@ off_t tell (int handle);
 
 void BackupFile (char const *fname);
 
-void DefaultExtension (char *path, char *extension);
+void DefaultExtension (char *path, const char *extension);
 void DefaultPath (char *path, char *basepath);
 
 void StripExtension (char *path);
 void StripFilename (char *path);
-void ExtractFileName (char *path, char *dest);
+void ExtractFileName (const char *path, char *dest);
 
 void IdException (char const *format, ...) __printflike(1, 2);

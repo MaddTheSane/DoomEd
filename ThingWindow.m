@@ -4,10 +4,9 @@
 
 @implementation ThingWindow
 
-- setParent:(id)p
+- (void)setParent:(id)p
 {
 	parent_i = p;
-	return self;
 }
 
 //===================================================================
@@ -22,7 +21,7 @@
 	int		max;
 	int		i;
 	thinglist_t	*t;
-	id		thingList_i;
+	CompatibleStorage *thingList_i;
 	int		found;
 	int		size;
 	int		tries;

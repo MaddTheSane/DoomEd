@@ -204,9 +204,9 @@ void BackupFile (char const *fname)
 ==================
 */
 
-void DefaultExtension (char *path, char *extension)
+void DefaultExtension (char *path, const char *extension)
 {
-	char	*src;
+	const char	*src;
 //
 // if path doesn't have a .EXT, append extension
 // (extension should include the .)
@@ -243,9 +243,9 @@ void DefaultPath (char *path, char *basepath)
 ======================
 */
 
-void ExtractFileName (char *path, char *dest)
+void ExtractFileName (const char *path, char *dest)
 {
-	char		*src;
+	const char		*src;
 
 	src = path + strlen(path) - 1;
 

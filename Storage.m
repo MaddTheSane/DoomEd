@@ -61,11 +61,13 @@
                         elementSize: (unsigned int) sizeInBytes
                         description: (const char *) string
 {
+	if (self = [super init]) {
 	description = string;
 	elementSize = sizeInBytes;
 
 	elements = count;
 	data = calloc(count, sizeInBytes);
+	}
 
 	return self;
 }
