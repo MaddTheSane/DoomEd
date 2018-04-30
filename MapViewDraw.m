@@ -35,7 +35,7 @@
 - drawGrid: (const NSRect *)rect
 {
 	int	x,y, stopx, stopy;
-	float	top,bottom,right,left;
+	CGFloat	top,bottom,right,left;
 
 	left = rect->origin.x-1;
 	bottom = rect->origin.y-1;
@@ -192,15 +192,14 @@
 		else
 			color = ONESIDED_C;
 
-if (points[li->p1].pt.x != points[li->p2].pt.x
-|| points[li->p1].pt.y != points[li->p2].pt.y)
-{
-		AddLine (color, points[li->p1].pt.x,
-						points[li->p1].pt.y,
-						points[li->p2].pt.x,
-						points[li->p2].pt.y);
-		AddLine (color, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
-}
+		if (points[li->p1].pt.x != points[li->p2].pt.x
+			|| points[li->p1].pt.y != points[li->p2].pt.y) {
+			AddLine (color, points[li->p1].pt.x,
+					 points[li->p1].pt.y,
+					 points[li->p2].pt.x,
+					 points[li->p2].pt.y);
+			AddLine (color, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
+		}
 	}
 
 	FinishPath (ONESIDED_C);
@@ -347,7 +346,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 */
 #define SHOWDISP	1
 
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
 {
 	NSRect	newrect;
 //printf ("drawself\n");
@@ -366,20 +365,16 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	if (!debugflag)
 	{
 		NXSetColor ([prefpanel_i colorFor: BACK_C]);
-		NSRectFill(*rects);
+		NSRectFill(dirtyRect);
 	}
 	PSsetlinewidth (0.15);
 
-	[self drawGrid: rects];	
-	[self drawThings: rects];
+	[self drawGrid: &dirtyRect];
+	[self drawThings: &dirtyRect];
 
 // the draw size must be increased to cover any things that might have been overdrawn
 // past the edges
-	newrect = *rects;
-	newrect.origin.x -= THINGDRAWSIZE;
-	newrect.origin.y -= THINGDRAWSIZE;
-	newrect.size.width += THINGDRAWSIZE*2;
-	newrect.size.height += THINGDRAWSIZE*2;
+	newrect = NSInsetRect(dirtyRect, THINGDRAWSIZE, THINGDRAWSIZE);
 	[self drawLines: &newrect];
 	[self drawPoints: &newrect];
 		
@@ -387,11 +382,9 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	{
 		NXSetColor([NSColor colorWithRed:0.0 green:1.0 blue:0.1
 		                    alpha:1.0]);
-		PScompositerect (rects->origin.x, rects->origin.y, rects->size.width, rects->size.height, NSCompositeSourceOver);
-	printf ("Rects: %f, %f, %f, %f\n", rects->origin.x, rects->origin.y, rects->size.width, rects->size.height);
+		PScompositerect (dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height, NSCompositeSourceOver);
+		printf ("Rects: %f, %f, %f, %f\n", dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
 	}
-
-	return self;
 }
 
 @end
