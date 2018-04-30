@@ -72,6 +72,13 @@
 	return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+	CompatibleStorage *newStore = [[CompatibleStorage alloc] initCount:elements elementSize:elementSize description:description];
+	memcpy(newStore->data, data, elementSize * elements);
+	return newStore;
+}
+
 - (void) insertElement:(void *)anElement at:(unsigned int)index
 {
 	// Sanity check insert range; a maximum value of 'elements' is

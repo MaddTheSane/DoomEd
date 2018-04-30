@@ -1,7 +1,7 @@
 
 #import <Foundation/NSObject.h>
 
-@interface CompatibleStorage:NSObject
+@interface CompatibleStorage:NSObject <NSCopying>
 {
 	uint8_t *data;
 	unsigned int elements;
@@ -10,7 +10,6 @@
 }
 
 - (void) addElement:(void *)anElement;
-//- copyFromZone:(NXZone *)zone;
 - (unsigned int)count;
 - (const char *)description;
 - (void *)elementAt:(unsigned int)index;
