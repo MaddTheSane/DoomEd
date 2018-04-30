@@ -377,19 +377,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="60" height="15"/>
                         <size key="intercellSpacing" width="0.0" height="3"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="101">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="101">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Ceiling" imagePosition="leading" alignment="left" state="on" inset="2" id="17">
+                                <buttonCell type="radio" title="Ceiling" imagePosition="left" alignment="left" state="on" inset="2" id="17">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="12" name="Helvetica"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="radio" title="Floor" imagePosition="leading" alignment="left" inset="2" id="33">
+                                <buttonCell type="radio" title="Floor" imagePosition="left" alignment="left" inset="2" id="33">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="12" name="Helvetica"/>
                                 </buttonCell>
