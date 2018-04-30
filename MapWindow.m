@@ -36,13 +36,13 @@ static	int	cornerx = 128, cornery = 64;
 	cornerx += 32;
 	cornery += 32;
 #endif
-	[self initWithContentRect: wframe
+	if (self = [self initWithContentRect: wframe
 	      styleMask: NSResizableWindowMask
 	      backing: NSBackingStoreBuffered
 	      defer: NO
 	      screen: scrn
 	// buttonMask:		NX_CLOSEBUTTONMASK | NX_MINIATURIZEBUTTONMASK
-	];
+				]) {
 
 	[self	setMinSize:	minsize];
 
@@ -108,6 +108,7 @@ static	int	cornerx = 128, cornery = 64;
 	origin.x = mapbounds.origin.x + mapbounds.size.width / 2 - newsize.width /2;
 	origin.y = mapbounds.origin.y + mapbounds.size.height / 2 - newsize.width /2;
 	[mapview_i setOrigin: origin scale:1];
+	}
 
 	return self;
 }

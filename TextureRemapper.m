@@ -13,6 +13,7 @@ TextureRemapper *textureRemapper_i;
 //===================================================================
 - init
 {
+	if (self = [super init]) {
 	textureRemapper_i = self;
 
 	remapper_i = [[Remapper alloc] init];
@@ -23,6 +24,8 @@ TextureRemapper *textureRemapper_i;
 		setRemapString: @"Texture"
 		setDelegate: self
 	];
+	}
+	
 	return self;
 }
 

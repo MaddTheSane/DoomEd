@@ -58,18 +58,17 @@ BOOL	linecross[9][9];
 
 	// call -setOrigin after installing in clip view
 	aRect = NSMakeRect(0, 0, 100, 100);
-	if ([super initWithFrame: aRect]) {	// to set the proper rectangle
-	 if (![editworld_i loaded])
-	 {
-		NSRunAlertPanel(@"Error",
-			@"MapView inited with NULL world",
-			nil, nil, nil);
-		 [self release];
-		 return nil;
-	}
+	if (self = [super initWithFrame: aRect]) {	// to set the proper rectangle
+		if (![editworld_i loaded]) {
+			NSRunAlertPanel(@"Error",
+							@"MapView inited with NULL world",
+							nil, nil, nil);
+			[self release];
+			return nil;
+		}
 
-	gridsize = 8;		// these are changed by the pop up menus
-	scale = 1;
+		gridsize = 8;		// these are changed by the pop up menus
+		scale = 1;
 
 	}
 	return self;

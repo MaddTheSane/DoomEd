@@ -138,6 +138,13 @@ BOOL		openupValues[NUMOPENUP];
 	return self;
 }
 
+- (void)dealloc
+{
+	[projectPath release];
+	
+	[super dealloc];
+}
+
 
 /*
 =====================

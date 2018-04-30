@@ -18,6 +18,14 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	[frameString release];
+	[title release];
+	
+	[super dealloc];
+}
+
 - (CompatibleStorage *) getSpecialList
 {
 	return specialList_i;

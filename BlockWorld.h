@@ -3,8 +3,10 @@
 #import "EditWorld.h"
 #import "idfunctions.h"
 
+@class BlockWorld;
+
 extern	CompatibleStorage *sectors;
-extern	id	blockworld_i;
+extern	BlockWorld	*blockworld_i;
 extern	BOOL	fillerror;
 
 @interface BlockWorld : NSObject

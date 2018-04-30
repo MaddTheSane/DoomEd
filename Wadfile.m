@@ -30,50 +30,51 @@ typedef struct
 ============
 */
 
-- initFromFile: (char const *)path
+- (instancetype)initFromFile: (char const *)path
 {
-	wadinfo_t	wad;
-	lumpinfo_t	*lumps;
-	int			i;
-	
-	pathname = malloc(strlen(path)+1);
-	strcpy (pathname, path);
-	dirty = NO;
-	handle = open (pathname, O_RDWR, 0666);
-	if (handle== -1)
-	{
-		[self release];
-		return nil;
-	}
-//
-// read in the header
-//
-	read (handle, &wad, sizeof(wad));
-	if (strncmp(wad.identification,"IWAD",4))
-	{
-		close (handle);
-		[self release];
-		return nil;
-	}
-	wad.numlumps = LongSwap (wad.numlumps);
-	wad.infotableofs = LongSwap (wad.infotableofs);
-	
-//
-// read in the lumpinfo
-//
-	lseek (handle, wad.infotableofs, L_SET);
-	info = [[CompatibleStorage alloc]
-		initCount: wad.numlumps
-		elementSize: sizeof(lumpinfo_t)
-		description: ""
-	];
-	lumps = [info elementAt: 0];
-
-	read (handle, lumps, wad.numlumps*sizeof(lumpinfo_t));
-	for (i=0 ; i<wad.numlumps ; i++, lumps++)
-	{
-		lumps->filepos = LongSwap (lumps->filepos);
-		lumps->size = LongSwap (lumps->size);
+	if (self = [super init]) {
+		wadinfo_t	wad;
+		lumpinfo_t	*lumps;
+		int			i;
+		
+		pathname = malloc(strlen(path)+1);
+		strcpy (pathname, path);
+		dirty = NO;
+		handle = open (pathname, O_RDWR, 0666);
+		if (handle== -1)
+		{
+			[self release];
+			return nil;
+		}
+		//
+		// read in the header
+		//
+		read (handle, &wad, sizeof(wad));
+		if (strncmp(wad.identification,"IWAD",4)) {
+			close (handle);
+			[self release];
+			return nil;
+		}
+		wad.numlumps = LongSwap (wad.numlumps);
+		wad.infotableofs = LongSwap (wad.infotableofs);
+		
+		//
+		// read in the lumpinfo
+		//
+		lseek (handle, wad.infotableofs, L_SET);
+		info = [[CompatibleStorage alloc]
+				initCount: wad.numlumps
+				elementSize: sizeof(lumpinfo_t)
+				description: ""
+				];
+		lumps = [info elementAt: 0];
+		
+		read (handle, lumps, wad.numlumps*sizeof(lumpinfo_t));
+		for (i=0 ; i<wad.numlumps ; i++, lumps++)
+		{
+			lumps->filepos = LongSwap (lumps->filepos);
+			lumps->size = LongSwap (lumps->size);
+		}
 	}
 	
 	return self;
@@ -88,23 +89,25 @@ typedef struct
 ============
 */
 
-- initNew: (char const *)path
+- (instancetype)initNew: (char const *)path
 {
-	wadinfo_t	wad;
-
-	pathname = malloc(strlen(path)+1);
-	strcpy (pathname, path);
-	info = [[CompatibleStorage alloc]
-		initCount: 0
-		elementSize: sizeof(lumpinfo_t)
-		description: ""
-	];
-	dirty = YES;
-	handle = open (pathname, O_CREAT | O_TRUNC | O_RDWR, 0666);
-	if (handle== -1)
-		return nil;
-// leave space for wad header
-	write (handle, &wad, sizeof(wad));
+	if (self = [super init]) {
+		wadinfo_t	wad;
+		
+		pathname = malloc(strlen(path)+1);
+		strcpy (pathname, path);
+		info = [[CompatibleStorage alloc]
+				initCount: 0
+				elementSize: sizeof(lumpinfo_t)
+				description: ""
+				];
+		dirty = YES;
+		handle = open (pathname, O_CREAT | O_TRUNC | O_RDWR, 0666);
+		if (handle== -1)
+			return nil;
+		// leave space for wad header
+		write (handle, &wad, sizeof(wad));
+	}
 	
 	return self;
 }
@@ -229,7 +232,7 @@ typedef struct
 ================
 */
 
-- addName: (char const *)name data: (void *)data size: (int)size
+- (void)addName: (char const *)name data: (void *)data size: (int)size
 {
 	int		i;
 	lumpinfo_t	new;
@@ -244,8 +247,6 @@ typedef struct
 	[info addElement: &new];
 	
 	write (handle, data, size);
-	
-	return self;
 }
 
 

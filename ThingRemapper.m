@@ -12,6 +12,7 @@ id	thingRemapper_i;
 //===================================================================
 - init
 {
+	if (self = [super init]) {
 	thingRemapper_i = self;
 
 	remapper_i = [[Remapper alloc] init];
@@ -22,6 +23,7 @@ id	thingRemapper_i;
 		setRemapString: @"Thing"
 		setDelegate: self
 	];
+	}
 	return self;
 }
 

@@ -18,13 +18,13 @@
 
 - initWithFrame:(NSRect)frameRect
 {
-	[super initWithFrame:frameRect];
-	deltaTable = [[CompatibleStorage alloc]
-		initCount:0
-		elementSize:sizeof(delta_t)
-		description:NULL
-	];
-
+	if (self = [super initWithFrame:frameRect]) {
+		deltaTable = [[CompatibleStorage alloc]
+					  initCount:0
+					  elementSize:sizeof(delta_t)
+					  description:NULL];
+	}
+	
 	return self;
 }
 

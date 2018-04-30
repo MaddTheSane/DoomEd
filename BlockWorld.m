@@ -20,12 +20,14 @@ id		pan;
 
 - init
 {
+	if (self = [super init]) {
 	blockworld_i = self;
 	sectors = [[CompatibleStorage alloc] 
 				initCount: 	0 
 				elementSize: 	sizeof(worldsector_t)
 				description: 	NULL
 			];
+	}
 	return self;
 }
 

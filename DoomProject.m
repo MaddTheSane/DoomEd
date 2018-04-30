@@ -51,6 +51,7 @@ char	bsphost[32];		// bsp host machine
 
 - init
 {
+	if (self = [super init]) {
 	loaded = NO;
 	doomproject_i = self;
 	window_i = NULL;
@@ -59,6 +60,7 @@ char	bsphost[32];		// bsp host machine
 	textures = malloc (texturessize*sizeof(worldtexture_t));
 	log_i = [[TextLog alloc] initWithTitle: @"DoomEd Error Log"];
 	projectdirty = mapdirty = FALSE;
+	}
 	
 	return self;
 }
@@ -67,7 +69,7 @@ char	bsphost[32];		// bsp host machine
 {
 	NSInteger	val;
 	
-	if ([self	projectDirty] == FALSE)
+	if ([self	isProjectDirty] == FALSE)
 		return;
 		
 	val = NSRunAlertPanel(@"Important",

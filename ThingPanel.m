@@ -105,6 +105,23 @@ id	thingpanel_i;
 	return &thing;
 }
 
+- (thinglist_t)currentThingData
+{
+	thinglist_t		thing = {0};
+	
+	if (!fields_i)
+	{
+		NSBeep();
+		return thing;
+	}
+	
+	thing.value = [fields_i		intValueAt:1];
+	strcpy(thing.name,[nameField_i stringValue]);
+	strcpy(thing.iconname,[iconField_i	stringValue]);
+	
+	return thing;
+}
+
 //===================================================================
 //
 //	Report the difficulty of Things to view

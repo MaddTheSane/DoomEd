@@ -81,6 +81,7 @@ typedef struct
 - (void)selectThingWithIcon:(char *)name;
 
 - (thinglist_t *)getCurrentThingData;
+- (thinglist_t)currentThingData;
 - (void)currentThingCount;
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream;

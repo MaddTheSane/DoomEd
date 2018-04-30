@@ -49,12 +49,12 @@ CompatibleStorage *texturePatches;
 	{
 		NSSize	s;
 		NSRect	dvf;
-		NSPoint	startPoint;
+		NSPoint	startPoint = NSZeroPoint;
 		int		ns, i;
 
-		[[NSBundle mainBundle] loadNibNamed: @"TextureEdit.nib"
+		[[NSBundle mainBundle] loadNibNamed: @"TextureEdit"
 			owner: self
-			options: nil];
+			topLevelObjects:nil];
 		[window_i	setDelegate:self];
 		[self		computePatchDocView:&dvf];
 		[texturePatchView_i	sizeTo:dvf.size.width :dvf.size.height];

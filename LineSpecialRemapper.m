@@ -13,6 +13,7 @@ id	lineSpecialRemapper_i;
 //===================================================================
 - init
 {
+	if (self = [super init]) {
 	lineSpecialRemapper_i = self;
 
 	remapper_i = [[Remapper alloc] init];
@@ -23,6 +24,8 @@ id	lineSpecialRemapper_i;
 		setRemapString: @"Special"
 		setDelegate: self
 	];
+	}
+	
 	return self;
 }
 

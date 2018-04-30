@@ -20,6 +20,7 @@ SpecialList *lineSpecialPanel_i;
 
 - init
 {
+	if (self = [super init]) {
 	linepanel_i = self;
 	window_i = NULL;		// until nib is loaded
 
@@ -40,6 +41,8 @@ SpecialList *lineSpecialPanel_i;
 	[lineSpecialPanel_i setSpecialTitle:@"Line Inspector - Specials"];
 	[lineSpecialPanel_i setFrameName:@"LineSpecialPanel"];
 	[lineSpecialPanel_i setDelegate:self];
+	}
+	
 	return self;
 }
 

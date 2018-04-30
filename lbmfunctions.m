@@ -421,6 +421,7 @@ BOOL SaveRawLBM ( char const *filename, byte const *data, int width, int height
 	
 	if (!palette  || !data)
 	{
+		free(lbm);
 		NSLog (@"SaveLBM called with palette: %p  data: %p\n", palette, data);
 		return NO;
 	}
