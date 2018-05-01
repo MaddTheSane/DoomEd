@@ -44,8 +44,8 @@ typedef struct
 @interface DoomProject : NSObject <NSBrowserDelegate>
 {
 	BOOL	loaded;
-	char	projectdirectory[1024];
-	char	wadfile[1024];		// WADfile path
+	NSString	*projectdirectory;
+	NSString	*wadfile;		// WADfile path
 	int		nummaps;
 	NSString *mapnames[100];
 
@@ -78,8 +78,8 @@ typedef struct
 - (instancetype)init;
 - (IBAction)displayLog:sender;
 @property (readonly, getter=isLoaded) BOOL loaded;
-- (char *)wadfile;
-- (char const *)directory;
+@property (readonly, copy) NSString *wadFile;
+@property (readonly, copy) NSString *directory;
 
 - (IBAction)menuTarget: sender;
 - (IBAction)openProject: sender;
@@ -92,12 +92,13 @@ typedef struct
 - (IBAction)printMap:sender;
 - (IBAction)printAllMaps:sender;
 
-- (BOOL)loadProject: (char const *)path;
+- (BOOL)loadProject: (char const *)path DEPRECATED_ATTRIBUTE;
+- (BOOL)loadProjectAtPath: (NSString *)path error:(NSError**)error;
 - (void)updateTextures;
 
 - (void)updatePanel;
 
-- (int)textureNamed: (char const *)name;
+- (int)textureNamed: (NSString *)name;
 
 - (BOOL)readTexture: (worldtexture_t *)tex from: (FILE *)file;
 - (void)writeTexture: (worldtexture_t *)tex to: (FILE *)file;

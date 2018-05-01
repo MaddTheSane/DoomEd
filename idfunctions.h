@@ -21,7 +21,7 @@ unsigned LongSwap (unsigned dat);
 off_t filelength (int handle);
 off_t tell (int handle);
 
-void BackupFile (char const *fname);
+void BackupFile (NSString *fname);
 
 void DefaultExtension (char *path, const char *extension);
 void DefaultPath (char *path, char *basepath);

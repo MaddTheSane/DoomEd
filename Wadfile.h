@@ -5,14 +5,16 @@
 
 @interface Wadfile : NSObject
 {
-	int		handle;
-	char		*pathname;
-	CompatibleStorage *info;
-	BOOL	dirty;
+	int					handle;
+	NSString			*pathname;
+	CompatibleStorage 	*info;
+	BOOL				dirty;
 }
 
 - (instancetype)initFromFile: (char const *)path;
+- (instancetype)initWithFilePath: (NSString *)path;
 - (instancetype)initNew: (char const *)path;
+- (instancetype)initNewWithPath: (NSString *)path;
 - (void)close;
 
 - (int)numLumps;

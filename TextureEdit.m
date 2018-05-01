@@ -57,7 +57,7 @@ CompatibleStorage *texturePatches;
 			topLevelObjects:nil];
 		[window_i	setDelegate:self];
 		[self		computePatchDocView:&dvf];
-		[texturePatchView_i	sizeTo:dvf.size.width :dvf.size.height];
+		[texturePatchView_i setFrameSize:dvf.size];
 
 		//
 		// start patches at top
@@ -1113,7 +1113,7 @@ CompatibleStorage *texturePatches;
 //	Get rid of all patches and their images
 //
 //==========================================================
-- dumpAllPatches
+- (void)dumpAllPatches
 {
 	int			i, max;
 	apatch_t		*p;
@@ -1143,7 +1143,6 @@ CompatibleStorage *texturePatches;
 
 	[panel	orderOut:NULL];
 	NSReleaseAlertPanel(panel);
-	return self;
 }
 
 //==========================================================
@@ -1284,59 +1283,62 @@ CompatibleStorage *texturePatches;
 //
 //	Locate patch use in textures
 //
-- locatePatchInTextures:sender
+- (IBAction)locatePatchInTextures:sender
 {
 	int	i, j, max, cs;
 	char *pname;
 	
-	if (selectedPatch < 0)
-		return self;
+	if (selectedPatch < 0) {
+		return;
+	}
 		
 	pname = [self	getPatchName:selectedPatch];
 	
 	cs = [texturePalette_i	currentSelection];
 	max = [texturePalette_i	getNumTextures];
-	for (i = cs+1;i < max; i++)
-		for (j = 0; j < textures[i].patchcount; j++)
+	for (i = cs+1;i < max; i++) {
+		for (j = 0; j < textures[i].patchcount; j++) {
 			if (!strcasecmp(textures[i].patches[j].patchname,pname))
 			{
 				[texturePalette_i	selectTexture:i];
 				[texturePalette_i	setSelTexture:[texturePalette_i getSelTextureName]];
-				return self;
+				return;
 			}
+		}
+	}
 
-	for (i = 0;i <= cs; i++)
-		for (j = 0; j < textures[i].patchcount; j++)
+	for (i = 0;i <= cs; i++) {
+		for (j = 0; j < textures[i].patchcount; j++) {
 			if (!strcasecmp(textures[i].patches[j].patchname,pname))
 			{
 				[texturePalette_i	selectTexture:i];
 				[texturePalette_i	setSelTexture:[texturePalette_i getSelTextureName]];
-				return self;
+				return;
 			}
+		}
+	}
 			
 	NSBeep ();
-	return self;
 }
 
 //
 // user resized the Texture Edit window.
 // change the size of the patch palette.
 //
-- windowDidResize:(NSNotification *)notification
+- (void)windowDidResize:(NSNotification *)notification
 {
 	NSRect	r;
 	
 	[self		computePatchDocView:&r];
-	[texturePatchView_i	sizeTo:r.size.width :r.size.height];
+	[texturePatchView_i setFrameSize:r.size];
 	[window_i	display];
-	return self;
 }
 
 //
 // compute the size of the docView and set the origin of all the patches
 // within the docView.
 //
-- computePatchDocView: (NSRect *)theframe
+- (void)computePatchDocView: (NSRect *)theframe
 {
 	NSRect	curWindowRect;
 	int		x, y, patchnum, maxheight;
@@ -1426,8 +1428,6 @@ CompatibleStorage *texturePatches;
 		else
 			x += patch->r.size.width + SPACING;
 	}	
-
-	return self;
 }
 
 

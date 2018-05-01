@@ -4,7 +4,7 @@
 
 typedef struct
 {
-	char		identification[4];		// should be IWAD
+	char	identification[4];		// should be IWAD
 	int		numlumps;
 	int		infotableofs;
 } wadinfo_t;
@@ -14,7 +14,7 @@ typedef struct
 {
 	int		filepos;
 	int		size;
-	char		name[8];
+	char	name[8];
 } lumpinfo_t;
 
 
@@ -25,23 +25,22 @@ typedef struct
 /*
 ============
 =
-= initFromFile:
+= initWithFilePath:
 =
 ============
 */
 
-- (instancetype)initFromFile: (char const *)path
+- (instancetype)initWithFilePath: (NSString *)path
 {
 	if (self = [super init]) {
 		wadinfo_t	wad;
 		lumpinfo_t	*lumps;
 		int			i;
 		
-		pathname = malloc(strlen(path)+1);
-		strcpy (pathname, path);
+		pathname = [path copy];
 		dirty = NO;
-		handle = open (pathname, O_RDWR, 0666);
-		if (handle== -1)
+		handle = open (pathname.fileSystemRepresentation, O_RDWR, 0666);
+		if (handle == -1)
 		{
 			[self release];
 			return nil;
@@ -50,7 +49,7 @@ typedef struct
 		// read in the header
 		//
 		read (handle, &wad, sizeof(wad));
-		if (strncmp(wad.identification,"IWAD",4)) {
+		if (strncmp(wad.identification, "IWAD", 4)) {
 			close (handle);
 			[self release];
 			return nil;
@@ -76,8 +75,21 @@ typedef struct
 			lumps->size = LongSwap (lumps->size);
 		}
 	}
-	
 	return self;
+}
+
+/*
+============
+=
+= initFromFile:
+=
+============
+*/
+
+- (instancetype)initFromFile: (char const *)path
+{
+	NSString *ourPath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	return [self initWithFilePath:ourPath];
 }
 
 
@@ -91,18 +103,31 @@ typedef struct
 
 - (instancetype)initNew: (char const *)path
 {
+	NSString *ourPath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	return [self initNewWithPath:ourPath];
+}
+
+/*
+============
+=
+= initNewWithPath:
+=
+============
+*/
+
+- (instancetype)initNewWithPath: (NSString *)path
+{
 	if (self = [super init]) {
 		wadinfo_t	wad;
 		
-		pathname = malloc(strlen(path)+1);
-		strcpy (pathname, path);
+		pathname = [path copy];
 		info = [[CompatibleStorage alloc]
 				initCount: 0
 				elementSize: sizeof(lumpinfo_t)
 				description: ""
 				];
 		dirty = YES;
-		handle = open (pathname, O_CREAT | O_TRUNC | O_RDWR, 0666);
+		handle = open (pathname.fileSystemRepresentation, O_CREAT | O_TRUNC | O_RDWR, 0666);
 		if (handle== -1)
 			return nil;
 		// leave space for wad header
@@ -124,7 +149,7 @@ typedef struct
 	{
 		[info release];
 	}
-	free(pathname);
+	[pathname release];
 	[super dealloc];
 }
 

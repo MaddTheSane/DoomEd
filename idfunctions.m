@@ -185,15 +185,13 @@ off_t tell (int handle)
 ================
 */
 
-void BackupFile (char const *fname)
+void BackupFile (NSString *fname)
 {
-	char		backname[1025];
+	NSString *backname = [fname stringByAppendingString:@"~"];
 	
-	strcpy (backname, fname);
-	strcat (backname, "~");
-	unlink (backname);
-	link (fname, backname);
-	unlink (fname);
+	unlink (backname.fileSystemRepresentation);
+	link (fname.fileSystemRepresentation, backname.fileSystemRepresentation);
+	unlink (fname.fileSystemRepresentation);
 }
 
 /*

@@ -674,7 +674,7 @@
 		|| box1.top < box2. bottom || box1.bottom > box2.top)
 			continue;
 
-		if (LineInRect (p1, p2, &newframe))
+		if (EDLineInRect (*p1, *p2, newframe))
 		{
 		// hit a line
 			[editworld_i selectLine: i];

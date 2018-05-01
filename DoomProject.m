@@ -36,6 +36,10 @@ char	bsphost[32];		// bsp host machine
 
 #define BASELISTSIZE	32
 
+@interface DoomProject()
+@property (readwrite, copy) NSString *directory;
+@property (readwrite, copy) NSString *wadFile;
+@end
 
 @implementation DoomProject
 
@@ -123,17 +127,8 @@ char	bsphost[32];		// bsp host machine
 }
 
 @synthesize loaded;
-
-- (char *)wadfile
-{
-	return wadfile;
-}
-
-
-- (char const *)directory
-{
-	return projectdirectory;
-}
+@synthesize wadFile=wadfile;
+@synthesize directory=projectdirectory;
 
 /*
 ===============
@@ -146,9 +141,11 @@ char	bsphost[32];		// bsp host machine
 - (BOOL)loadPV1File: (FILE *)stream
 {
 	int		i;
+	char	wadDir[1024];
 	
-	if (fscanf (stream, "\nwadfile: %s\n",wadfile) != 1)
+	if (fscanf (stream, "\nwadfile: %s\n",wadDir) != 1)
 		return NO;
+	self.wadFile = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:wadDir length:strlen(wadDir)];
 	
 	if (fscanf (stream, "mapwads: %s\n",mapwads) != 1)
 		return NO;
@@ -169,7 +166,7 @@ char	bsphost[32];		// bsp host machine
 		if (fscanf(stream,"%9s\n", tmpbuf) != 1)
 			return NO;
 
-		mapnames[i] = [NSString stringWithUTF8String: tmpbuf];
+		mapnames[i] = [[NSString stringWithUTF8String: tmpbuf] retain];
 	}
 
 	return YES;
@@ -187,14 +184,14 @@ char	bsphost[32];		// bsp host machine
 {
 	int	i;
 
-	fprintf (stream, "\nwadfile: %s\n",wadfile);
+	fprintf (stream, "\nwadfile: %s\n",wadfile.fileSystemRepresentation);
 	fprintf (stream, "mapwads: %s\n",mapwads);
 	fprintf (stream, "BSPprogram: %s\n",bspprogram);
 	fprintf (stream, "BSPhost: %s\n",bsphost);
 	fprintf (stream,"nummaps: %d\n", nummaps);
 		
 	for (i=0 ; i<nummaps ; i++)
-		fprintf(stream,"%s\n", [mapnames[i] UTF8String]);
+		fprintf(stream,"%s\n", [mapnames[i] fileSystemRepresentation]);
 
 	return self;
 }
@@ -264,12 +261,13 @@ char	bsphost[32];		// bsp host machine
 
 	filename = [openpanel filename];
 
-	if (![self loadProject: [filename fileSystemRepresentation]])
+	NSError *err = nil;
+	if (![self loadProjectAtPath: filename error:&err])
 	{
 		NSRunAlertPanel(@"Uh oh!", @"Couldn't load your project!",
 		                @"OK", nil, nil);
 
-		[ wadfile_i initFromFile: wadfile ];
+		[ wadfile_i initWithFilePath: wadfile ];
 		[ textureEdit_i initPatches ];
 		[ sectorEdit_i loadFlats ];
 		[ thingPalette_i initIcons];
@@ -292,8 +290,8 @@ char	bsphost[32];		// bsp host machine
 	FILE *stream;
 	NSOpenPanel *panel;
 	NSString *filename;
-	char projpath[1024];
-	char texturepath[1024];
+	NSString *projpath;
+	NSString *texturepath;
 
 
 	[self checkDirtyProject];
@@ -316,7 +314,7 @@ char	bsphost[32];		// bsp host machine
 		return;
 	}
 
-	strcpy (projectdirectory, [filename UTF8String]);
+	projectdirectory = [filename copy];
 
 	//
 	// get wadfile
@@ -336,7 +334,7 @@ char	bsphost[32];		// bsp host machine
 		return;
 	}
 
-	strcpy(wadfile, [filename UTF8String]);
+	wadfile = [filename copy];
 
 	//
 	// create default data: project file
@@ -344,28 +342,28 @@ char	bsphost[32];		// bsp host machine
 	nummaps = 0;
 	numtextures = 0;
 
-	strcpy (projpath, projectdirectory);
-	strcat (projpath, "/project.dpr");
+	projpath = projectdirectory;
+	projpath = [projpath stringByAppendingPathComponent:@"project.dpr"];
 
-	printf("Creating a new project: %s\n", projectdirectory );
-	stream = fopen (projpath,"w+");
+	printf("Creating a new project: %s\n", projectdirectory.UTF8String );
+	stream = fopen (projpath.fileSystemRepresentation,"w+");
 	if (!stream)
 	{
-		NSRunAlertPanel(@"Error", @"Couldn't create %s.",
+		NSRunAlertPanel(@"Error", @"Couldn't create %@.",
 			nil, nil, nil, projpath);
 		return;
 	}
 	fprintf (stream, "Doom Project version 1\n\n");
-	fprintf (stream, "wadfile: %s\n\n",wadfile);
+	fprintf (stream, "wadfile: %s\n\n",wadfile.fileSystemRepresentation);
 	fprintf (stream,"nummaps: 0\n");
 	fclose (stream);
 
-	strcpy(texturepath,projectdirectory);
-	strcat(texturepath,"/texture1.dsp");
-	stream = fopen (texturepath,"w+");
+	texturepath = projectdirectory;
+	texturepath = [texturepath stringByAppendingPathComponent:@"texture1.dsp"];
+	stream = fopen (texturepath.fileSystemRepresentation,"w+");
 	if (!stream)
 	{
-		NSRunAlertPanel(@"Error", @"Couldn't create %s.",
+		NSRunAlertPanel(@"Error", @"Couldn't create %@.",
 			nil, nil, nil, texturepath);
 		return;
 	}
@@ -386,7 +384,7 @@ char	bsphost[32];		// bsp host machine
 	[linepanel_i	emptySpecialList];
 	[thingpanel_i	emptyThingList];
 
-	printf("Initializing WADfile %s\n",wadfile);
+	printf("Initializing WADfile %s\n",wadfile.UTF8String);
 	[ wadfile_i	initFromFile: wadfile ];
 	
 	printf("Purging existing texture patches.\n");
@@ -433,14 +431,13 @@ char	bsphost[32];		// bsp host machine
 - (IBAction)saveProject: sender
 {
 	FILE		*stream;
-	char		filename[1024];
+	NSString	*filename;
 
 	if (!loaded)
 		return;
-		
-	strcpy (filename, projectdirectory);
-	strcat (filename ,"/project.dpr");
-	stream = fopen (filename,"w");
+	
+	filename = [projectdirectory stringByAppendingPathComponent:@"project.dpr"];
+	stream = fopen (filename.fileSystemRepresentation,"w");
 	fprintf (stream, "Doom Project version 1\n");
 	[self savePV1File: stream];
 	fclose (stream);
@@ -496,9 +493,9 @@ char	bsphost[32];		// bsp host machine
 - (void)updatePanel
 {
 	[projectpath_i setStringValue:
-		[NSString stringWithUTF8String: projectdirectory]];
+		projectdirectory];
 	[wadpath_i setStringValue:
-		[NSString stringWithUTF8String: wadfile]];
+		wadfile];
 	[BSPprogram_i setStringValue:
 		[NSString stringWithUTF8String: bspprogram]];
 	[BSPhost_i setStringValue:
@@ -508,11 +505,11 @@ char	bsphost[32];		// bsp host machine
 	[maps_i reloadColumn: 0];
 }
 
-- (IBAction)changeWADfile:(char *)string
+- (void)changeWADfile:(char *)string
 {
-	strcpy(wadfile,string);
+	self.wadFile = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:string length:strlen(string)];
 	[self	updatePanel];
-	NSRunAlertPanel(@"Note!", @"The WADfile will be changed when you\n"
+	NSRunAlertPanel(@"Note!", @"The WADfile will be changed when you "
 		"restart DoomEd.  Make sure you SAVE YOUR PROJECT!",
 		@"OK", nil, nil);
 }
@@ -529,21 +526,26 @@ char	bsphost[32];		// bsp host machine
 
 - (BOOL)loadProject: (char const *)path
 {
-	FILE	*stream;
-	char	projpath[1024];
-	int		version, ret;
-	int		oldnumtextures;
+	NSString *aPath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:path length:strlen(path)];
+	return [self loadProjectAtPath:aPath error:NULL];
+}
+
+- (BOOL)loadProjectAtPath: (NSString *)path error:(NSError**)error
+{
+	FILE		*stream;
+	NSString	*projpath;
+	int			version, ret;
+	int			oldnumtextures;
 	
-	strcpy (projectdirectory, path);
-	StripFilename (projectdirectory);
+	self.directory = [path stringByDeletingLastPathComponent];
 	
-	strcpy (projpath, projectdirectory);
-	strcat (projpath, "/project.dpr");
+	projpath = projectdirectory;
+	projpath = [projpath stringByAppendingPathComponent:@"project.dpr"];
 	
-	stream = fopen (projpath,"r");
+	stream = fopen (projpath.fileSystemRepresentation,"r");
 	if (!stream)
 	{
-		NSRunAlertPanel(@"Error", @"Couldn't open %s",
+		NSRunAlertPanel(@"Error", @"Couldn't open %@",
 			nil, nil, nil, projpath);
 		return NO;
 	}
@@ -555,7 +557,7 @@ char	bsphost[32];		// bsp host machine
 	{
 		fclose (stream);
 		NSRunAlertPanel(@"Error",
-			@"Unknown file version for project %s",
+			@"Unknown file version for project %@",
 			nil, nil, nil, projpath);
 		return NO;
 	}
@@ -564,7 +566,7 @@ char	bsphost[32];		// bsp host machine
 	{
 		fclose (stream);
 		NSRunAlertPanel(@"Error",
-			@"Couldn't parse project file %s",
+			@"Couldn't parse project file %@",
 			nil, nil, nil, projpath);
 		return NO;
 	}
@@ -575,11 +577,11 @@ char	bsphost[32];		// bsp host machine
 	texturesdirty = NO;
 	loaded = YES;
 	oldnumtextures = numtextures;
-	wadfile_i = [[Wadfile alloc] initFromFile: wadfile];
+	wadfile_i = [[Wadfile alloc] initWithFilePath: wadfile];
 	if (!wadfile_i)
 	{
 		NSRunAlertPanel(@"Error",
-			@"Couldn't open wadfile %s",
+			@"Couldn't open wadfile %@",
 			nil, nil, nil, wadfile);
 		return NO;
 	}
@@ -717,7 +719,7 @@ char	bsphost[32];		// bsp host machine
 - (IBAction)newMap: sender
 {
 	FILE *stream;
-	char pathname[1024];
+	NSString *pathname;
 	NSString *title;
 	int  len, i;
 
@@ -745,14 +747,12 @@ char	bsphost[32];		// bsp host machine
 	//
 	// write an empty file
 	//
-	strcpy (pathname, projectdirectory);
-	strcat (pathname, "/");
-	strcat (pathname, [title fileSystemRepresentation]);
-	strcat (pathname, ".dwd");
-	stream = fopen (pathname,"w");
+	pathname = [projectdirectory stringByAppendingPathComponent:title];
+	pathname = [pathname stringByAppendingPathExtension:@"dwd"];
+	stream = fopen (pathname.fileSystemRepresentation,"w");
 	if (!stream)
 	{
-		NSRunAlertPanel(@"Error", @"Could not open %s",
+		NSRunAlertPanel(@"Error", @"Could not open %@",
 			nil, nil, nil, pathname);
 		return;
 	}
@@ -762,7 +762,7 @@ char	bsphost[32];		// bsp host machine
 //
 // add the map and update the browser
 //
-	mapnames[nummaps] = title;
+	mapnames[nummaps] = [title copy];
 	nummaps++;
 
 	[self updatePanel];
@@ -783,8 +783,8 @@ char	bsphost[32];		// bsp host machine
 {
 	id cell;
 	NSString *title;
-	char fullpath[1024];
-	char string[80];
+	NSString *fullpath;
+	NSString *string;
 
 	if ([editworld_i loaded])
 		[editworld_i closeWorld];
@@ -792,13 +792,11 @@ char	bsphost[32];		// bsp host machine
 	cell = [sender selectedCell];
 	title = [cell stringValue];
 	
-	strcpy(fullpath, projectdirectory);
-	strcat(fullpath, "/");
-	strcat(fullpath, [title UTF8String]);
-	strcat(fullpath, ".dwd");
+	fullpath = [projectdirectory stringByAppendingPathComponent:title];
+	fullpath = [fullpath stringByAppendingPathExtension:@"dwd"];
 	
-	sprintf(string, "\nLoading map %s\n", [title UTF8String]);
-	[ log_i	msg:string ];
+	string = [NSString stringWithFormat:@"\nLoading map %@\n", title];
+	[ log_i	addLogString:string ];
 	[editworld_i loadWorldFile: fullpath];
 }
 
@@ -939,7 +937,7 @@ id	openMatrix;
 		weapons,
 		items,
 		monsters,
-		projectdirectory,
+		projectdirectory.fileSystemRepresentation,
 		[[cell stringValue] UTF8String]);
 
 	panel = NSGetAlertPanel(@"Wait...",
@@ -1681,16 +1679,15 @@ typedef struct
 - (BOOL)updateThings
 {
 	FILE		*stream;
-	char		filename[1024];
-	int		handle;
+	NSString	*filename;
+	int			handle;
 
-	strcpy (filename, projectdirectory);
-	strcat (filename ,"/things.dsp");
+	filename = [projectdirectory stringByAppendingPathComponent:@"things.dsp"];
 	
-	handle = open (filename, O_CREAT | O_RDWR, 0666);
+	handle = open (filename.fileSystemRepresentation, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NSRunAlertPanel(@"Error", @"Couldn't open %s",
+		NSRunAlertPanel(@"Error", @"Couldn't open %@",
 			nil, nil, nil, filename);
 		return NO;
 	}		
@@ -1701,7 +1698,7 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NSRunAlertPanel(@"Error", @"Could not stream to %s",
+		NSRunAlertPanel(@"Error", @"Could not stream to %@",
 			nil, nil, nil, filename);
 		return NO;
 	}
@@ -1722,16 +1719,15 @@ typedef struct
 - (BOOL)updateSectorSpecials
 {
 	FILE		*stream;
-	char		filename[1024];
-	int		handle;
+	NSString	*filename;
+	int			handle;
 
-	strcpy (filename, projectdirectory);
-	strcat (filename ,"/sectorspecials.dsp");
+	filename = [projectdirectory stringByAppendingPathComponent:@"sectorspecials.dsp"];
 	
-	handle = open (filename, O_CREAT | O_RDWR, 0666);
+	handle = open (filename.fileSystemRepresentation, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NSRunAlertPanel(@"Error", @"Couldn't open %s",
+		NSRunAlertPanel(@"Error", @"Couldn't open %@",
 			nil, nil, nil, filename);
 		return NO;
 	}		
@@ -1742,7 +1738,7 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NSRunAlertPanel(@"Error", @"Could not stream to %s",
+		NSRunAlertPanel(@"Error", @"Could not stream to %@",
 			nil, nil, nil, filename);
 		return NO;
 	}
@@ -1758,16 +1754,15 @@ typedef struct
 - (BOOL)updateLineSpecials
 {
 	FILE		*stream;
-	char		filename[1024];
-	int		handle;
-
-	strcpy (filename, projectdirectory);
-	strcat (filename ,"/linespecials.dsp");
+	NSString	*filename;
+	int			handle;
 	
-	handle = open (filename, O_CREAT | O_RDWR, 0666);
+	filename = [projectdirectory stringByAppendingPathComponent:@"linespecials.dsp"];
+	
+	handle = open (filename.fileSystemRepresentation, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NSRunAlertPanel(@"Error", @"Couldn't open %s",
+		NSRunAlertPanel(@"Error", @"Couldn't open %@",
 			nil, nil, nil, filename);
 		return NO;
 	}		
@@ -1778,7 +1773,7 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NSRunAlertPanel(@"Error", @"Could not stream to %s",
+		NSRunAlertPanel(@"Error", @"Could not stream to %@",
 			nil, nil, nil, filename);
 		return NO;
 	}
@@ -1944,15 +1939,16 @@ typedef struct
 ================
 */
 
-- (int)textureNamed: (char const *)name
+- (int)textureNamed: (NSString *)name
 {
 	int	i;
 	
-	if (!strlen(name) || !strcmp (name, "-") )
+	if (name.length == 0 || [name isEqualToString:@"-"] )
 		return -1;		// no texture
-		
+	
+	const char *cName = [name UTF8String];
 	for (i=0 ; i<numtextures ; i++)
-		if (!strcasecmp(textures[i].name, name) )
+		if (!strcasecmp(textures[i].name, cName) )
 			return i;
 	return -2;	
 }
@@ -1973,7 +1969,7 @@ typedef struct
 {
 	FILE	*stream;
 	int		handle;
-	char	filename[1024];
+	NSString	*filename;
 	int		count;
 	int		i;
 	int		num;
@@ -1997,10 +1993,10 @@ typedef struct
 		[panel	orderFront:NULL];
 		NXPing();
 
-		sprintf (filename, "%s/texture%d.dsp",projectdirectory,windex+1 );
+		filename = [projectdirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"texture%d.dsp", windex+1]];
 
-		chmod (filename,0666);
-		handle = open (filename,O_RDWR, 0666);
+		chmod (filename.fileSystemRepresentation,0666);
+		handle = open (filename.fileSystemRepresentation,O_RDWR, 0666);
 		if (handle == -1)
 		{
 			if (!windex)
@@ -2008,7 +2004,7 @@ typedef struct
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
 				NXPing();
-				NSRunAlertPanel(@"Error", @"Couldn't open %s",
+				NSRunAlertPanel(@"Error", @"Couldn't open %@",
 					nil, nil, nil, filename);
 				return;
 			}
@@ -2033,7 +2029,7 @@ typedef struct
 			[panel	orderOut:NULL];
 			NSReleaseAlertPanel(panel);
 			NXPing();
-			NSRunAlertPanel(@"Error", @"Could not stream to %s",
+			NSRunAlertPanel(@"Error", @"Could not stream to %@",
 				nil, nil, nil, filename);
 			return;
 		}
@@ -2052,7 +2048,7 @@ typedef struct
 					NSReleaseAlertPanel(panel);
 					NXPing();
 					NSRunAlertPanel(@"Error",
-						@"Could not parse %s",
+						@"Could not parse %@",
 						nil, nil, nil,
 						filename);
 					return;
@@ -2064,11 +2060,11 @@ typedef struct
 				// if the name is present and modified, don't update it
 				// if the name is not present, add it
 				//
-				num = [self textureNamed:tex.name];
+				num = [self textureNamed:@(tex.name)];
 				if (num == -2)
 				{
 					[self newTexture: &tex];
-					num = [self	textureNamed:tex.name ];
+					num = [self	textureNamed:@(tex.name) ];
 					textures[num].WADindex = windex;
 					newtexture = 1;
 				}
@@ -2118,11 +2114,11 @@ typedef struct
 		[panel	orderFront:NULL];
 		NXPing();
 
-		sprintf (filename, "%s/texture%d.dsp",projectdirectory,windex+1 );
+		filename = [projectdirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"texture%d.dsp", windex+1]];
 
 		BackupFile(filename);
-		unlink(filename);
-		handle = open (filename,O_CREAT | O_RDWR, 0666);
+		unlink(filename.fileSystemRepresentation);
+		handle = open (filename.fileSystemRepresentation,O_CREAT | O_RDWR, 0666);
 		if (handle == -1)
 		{
 			if (!windex)
@@ -2131,7 +2127,7 @@ typedef struct
 				NSReleaseAlertPanel(panel);
 				NXPing();
 				NSRunAlertPanel(@"Error",
-					@"Couldn't create %s",
+					@"Couldn't create %@",
 					nil, nil, nil, filename);
 				return;
 			}
@@ -2156,7 +2152,7 @@ typedef struct
 			NSReleaseAlertPanel(panel);
 			NXPing();
 			NSRunAlertPanel(@"Error",
-				@"Could not stream to %s",
+				@"Could not stream to %@",
 				nil, nil, nil, filename);
 			return;
 		}
@@ -2259,34 +2255,32 @@ static	byte		*buffer, *buf_p;
 ================
 */
 
-- writeBuffer: (char const *)filename
+- (void)writeBuffer: (NSString *)filename
 {
-	int		size;
+	int			size;
 	FILE		*stream;
-	char		directory[1024];
+	NSString	*directory;
 	
-	strcpy (directory, wadfile);
-	StripFilename (directory);
-	chdir (directory);
+	//self.wadFile =
+	directory = [wadfile stringByDeletingLastPathComponent];
+	chdir (directory.fileSystemRepresentation);
 	
-	size = buf_p - buffer;
-	stream = fopen (filename,"w");
+	size = (int)(buf_p - buffer);
+	stream = fopen (filename.fileSystemRepresentation,"w");
 	if (!stream)
 	{
 		NSRunAlertPanel(@"ERROR!",
-			@"Can't open %s! Someone must be messing with it!",
+			@"Can't open %@! Someone must be messing with it!",
 			@"OK", nil, nil, filename);
 		free(buffer);
-		return self;
+		return;
 	}
 
 	fwrite (buffer, size, 1, stream);
 	fclose (stream);
-	printf ("%s:  %i bytes\n", filename, size);
+	printf ("%s:  %i bytes\n", filename.UTF8String, size);
 
 	free (buffer);
-			
-	return self;
 }
 
 
@@ -2331,7 +2325,7 @@ static	byte		*buffer, *buf_p;
 		
 	*(int *)buffer = LongSwap (count);
 	sprintf(string,"%s/pnames.lmp",mapwads);
-	[self writeBuffer: string];
+	[self writeBuffer: @(string)];
 
 	return self;
 }
@@ -2424,7 +2418,7 @@ static	byte		*buffer, *buf_p;
 		// write it out to disk
 		//
 		sprintf( txtrname, "%s/texture%d.lmp", mapwads,windex+1 );
-		[self writeBuffer: txtrname];
+		[self writeBuffer: @(txtrname)];
 	}
 
 	return self;
