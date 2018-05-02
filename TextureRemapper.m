@@ -16,8 +16,7 @@ TextureRemapper *textureRemapper_i;
 	if (self = [super init]) {
 	textureRemapper_i = self;
 
-	remapper_i = [[Remapper alloc] init];
-	[remapper_i
+	[self
 		setFrameName: @"TextureRemapper"
 		setPanelTitle: @"Texture Remapper"
 		setBrowserTitle: @"List of textures to be remapped"
@@ -34,15 +33,14 @@ TextureRemapper *textureRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
-	[remapper_i	showPanel];
-	return self;
+	[self	showPanel];
 }
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;
 {
-	[remapper_i addToList:orgname to:newname];
+	[super addToList:orgname to:newname];
 }
 
 //===================================================================

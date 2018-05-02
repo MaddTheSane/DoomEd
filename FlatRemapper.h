@@ -4,10 +4,7 @@
 @class FlatRemapper;
 extern FlatRemapper *flatRemapper_i;
 
-@interface FlatRemapper:NSObject <Remapper>
-{
-	IBOutlet Remapper	*remapper_i;
-}
+@interface FlatRemapper:Remapper <Remapper>
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;
 

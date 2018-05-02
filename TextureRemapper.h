@@ -1,9 +1,9 @@
 #import	"Remapper.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
-@interface TextureRemapper:NSObject <Remapper>
+@interface TextureRemapper:Remapper <Remapper>
 {
-	IBOutlet Remapper	*remapper_i;
+	
 }
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;

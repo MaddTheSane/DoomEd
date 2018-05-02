@@ -15,8 +15,7 @@ FlatRemapper *flatRemapper_i;
 	if (self = [super init]) {
 	flatRemapper_i = self;
 
-	remapper_i = [[Remapper alloc] init];
-	[remapper_i
+	[self
 		setFrameName: @"FlatRemapper"
 		setPanelTitle: @"Flat Remapper"
 		setBrowserTitle: @"List of flats to be remapped"
@@ -34,12 +33,12 @@ FlatRemapper *flatRemapper_i;
 //===================================================================
 - (IBAction)menuTarget:sender
 {
-	[remapper_i	showPanel];
+	[self	showPanel];
 }
 
 - (void)addToList: (NSString *)orgname to: (NSString *) newname;
 {
-	[remapper_i addToList:orgname to:newname];
+	[super addToList:orgname to:newname];
 }
 
 //===================================================================
