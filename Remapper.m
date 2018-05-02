@@ -250,13 +250,11 @@
 //	Delegate methods
 //
 //===================================================================
-- windowDidMiniaturize:(NSNotification *)notification
+- (void)windowDidMiniaturize:(NSNotification *)notification
 {
 	NSWindow *window = [notification object];
 	//[window setMiniwindowIcon:"DoomEd"];
 	[window setMiniwindowTitle:frameName];
-
-	return self;
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification
@@ -264,7 +262,7 @@
 	[self windowWillClose:NULL];
 }
 
-- (NSInteger)browser:(NSBrowser*)sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	NSInteger	max, i;
 	NSBrowserCell	*cell;
@@ -286,7 +284,12 @@
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-	return max;
+	//return max;
+}
+
+- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+{
+	return storage_i.count;
 }
 
 @end

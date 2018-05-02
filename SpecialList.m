@@ -318,14 +318,14 @@
 //	Delegate method called by "specialBrowser_i" when reloadColumn is invoked
 //
 //===================================================================
-- (NSInteger)browser:(NSBrowser*)sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	NSInteger	max, i;
 	NSBrowserCell	*cell;
 	speciallist_t		*t;
 	
 	if (column > 0)
-		return 0;
+		return;
 		
 	[self	sortSpecials];
 	max = [specialList_i	count];
@@ -339,7 +339,16 @@
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-	return max;
+	//return max;
+}
+
+- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+{
+	if (column > 0) {
+		return 0;
+	}
+	
+	return specialList_i.count;
 }
 
 //============================================================

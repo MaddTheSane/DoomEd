@@ -304,14 +304,14 @@ id	thingpanel_i;
 //
 // delegate method called by "thingBrowser_i"
 //
-- (NSInteger)browser:sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	NSInteger		max, i;
 	NSBrowserCell	*cell;
 	thinglist_t		*t;
 	
 	if (column > 0)
-		return 0;
+		return;
 		
 	[self	sortThings];
 	max = [masterList_i	count];
@@ -325,7 +325,16 @@ id	thingpanel_i;
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-	return max;
+	//return max;
+}
+
+- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+{
+	if (column > 0) {
+		return 0;
+	}
+	
+	return masterList_i.count;
 }
 
 //

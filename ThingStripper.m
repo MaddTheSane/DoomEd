@@ -163,14 +163,14 @@
 //	Delegate method called by "thingBrowser_i" when reloadColumn is invoked
 //
 //===================================================================
-- (NSInteger)browser:(NSBrowser*)sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	int	max, i;
 	NSBrowserCell	*cell;
 	thingstrip_t	*t;
 	
 	if (column > 0)
-		return 0;
+		return;
 		
 	max = [thingList_i	count];
 	for (i = 0; i < max; i++)
@@ -183,7 +183,12 @@
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-	return max;
+	//return max;
+}
+
+- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+{
+	return [thingList_i	count];
 }
 
 @end

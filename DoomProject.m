@@ -683,13 +683,13 @@ char	bsphost[32];		// bsp host machine
 ===============
 */
 
-- (NSInteger)browser:sender  fillMatrix:(NSMatrix*)matrix  inColumn:(NSInteger)column
+- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
 	NSInteger	i;
 	id	cell;
 
 	if (column != 0)
-		return 0;
+		return;
 
 	[self	sortMaps];
 		
@@ -701,6 +701,15 @@ char	bsphost[32];		// bsp host machine
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
+	}
+	
+	//return nummaps;
+}
+
+- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+{
+	if (column != 0) {
+		return 0;
 	}
 	
 	return nummaps;
