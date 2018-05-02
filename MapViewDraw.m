@@ -364,7 +364,7 @@
 
 	if (!debugflag)
 	{
-		NXSetColor ([prefpanel_i colorFor: BACK_C]);
+		[[prefpanel_i colorFor: BACK_C] set];
 		NSRectFill(dirtyRect);
 	}
 	PSsetlinewidth (0.15);
@@ -380,8 +380,8 @@
 		
 	if (debugflag)
 	{
-		NXSetColor([NSColor colorWithRed:0.0 green:1.0 blue:0.1
-		                    alpha:1.0]);
+		[[NSColor colorWithRed:0.0 green:1.0 blue:0.1
+						 alpha:1.0] set];
 		PScompositerect (dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height, NSCompositeSourceOver);
 		printf ("Rects: %f, %f, %f, %f\n", dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
 	}
