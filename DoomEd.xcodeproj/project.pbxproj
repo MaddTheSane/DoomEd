@@ -68,6 +68,8 @@
 		27DA44B919706396005CB000 /* Timing.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448B19706396005CB000 /* Timing.m */; };
 		27DA44BA19706396005CB000 /* ToolPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448C19706396005CB000 /* ToolPanel.m */; };
 		27DA44BB19706396005CB000 /* Wadfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448D19706396005CB000 /* Wadfile.m */; };
+		557CA99420993A8C003D39A4 /* thing.nib in Resources */ = {isa = PBXBuildFile; fileRef = 557CA99020993A8B003D39A4 /* thing.nib */; };
+		557CA99520993A8C003D39A4 /* line.nib in Resources */ = {isa = PBXBuildFile; fileRef = 557CA99220993A8C003D39A4 /* line.nib */; };
 		55CDCE24209668E3007FA890 /* TextLog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE26209668E3007FA890 /* TextLog.xib */; };
 		55CDCE2920966EAD007FA890 /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE2B20966EAD007FA890 /* preferences.xib */; };
 		55D5FD182095B0C300E54855 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD172095B0C300E54855 /* Media.xcassets */; };
@@ -194,6 +196,8 @@
 		27DA448C19706396005CB000 /* ToolPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPanel.m; sourceTree = "<group>"; };
 		27DA448D19706396005CB000 /* Wadfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wadfile.m; sourceTree = "<group>"; };
 		27DA44BC19706492005CB000 /* DoomEd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DoomEd-Info.plist"; sourceTree = "<group>"; };
+		557CA99120993A8B003D39A4 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/thing.nib; sourceTree = "<group>"; };
+		557CA99320993A8C003D39A4 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/line.nib; sourceTree = "<group>"; };
 		55CDCE25209668E3007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextLog.xib; sourceTree = "<group>"; };
 		55CDCE2E20966EBB007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/preferences.xib; sourceTree = "<group>"; };
 		55D5FD172095B0C300E54855 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -384,6 +388,8 @@
 				55D5FD1B2095B65000E54855 /* Drip.snd */,
 				55D5FD1E2095B65000E54855 /* Pop.snd */,
 				55D5FD172095B0C300E54855 /* Media.xcassets */,
+				557CA99220993A8C003D39A4 /* line.nib */,
+				557CA99020993A8B003D39A4 /* thing.nib */,
 				276AB5DD1970AE9D001718D1 /* DoomEd.xib */,
 				276AB5DF1970AE9D001718D1 /* FindLine.xib */,
 				276AB5E11970AE9D001718D1 /* FlatRemapper.xib */,
@@ -455,8 +461,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557CA99520993A8C003D39A4 /* line.nib in Resources */,
 				276AB5F01970AECA001718D1 /* Project.xib in Resources */,
 				276AB5E31970AE9D001718D1 /* DoomEd.xib in Resources */,
+				557CA99420993A8C003D39A4 /* thing.nib in Resources */,
 				55D5FD182095B0C300E54855 /* Media.xcassets in Resources */,
 				276AB5F41970AECA001718D1 /* SpecialList.xib in Resources */,
 				276AB6001970AEEE001718D1 /* ThingPalette.xib in Resources */,
@@ -643,6 +651,22 @@
 				276AB6021970AEF7001718D1 /* English */,
 			);
 			name = ThingStripper.xib;
+			sourceTree = "<group>";
+		};
+		557CA99020993A8B003D39A4 /* thing.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				557CA99120993A8B003D39A4 /* English */,
+			);
+			name = thing.nib;
+			sourceTree = "<group>";
+		};
+		557CA99220993A8C003D39A4 /* line.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				557CA99320993A8C003D39A4 /* English */,
+			);
+			name = line.nib;
 			sourceTree = "<group>";
 		};
 		55CDCE26209668E3007FA890 /* TextLog.xib */ = {
