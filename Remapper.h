@@ -18,7 +18,7 @@ typedef struct
 @end
 
 
-@interface Remapper:NSObject <NSApplicationDelegate, NSBrowserDelegate>
+@interface Remapper:NSObject <NSApplicationDelegate, NSBrowserDelegate, NSWindowDelegate>
 {
 	IBOutlet NSTextField	*original_i;
 	IBOutlet NSTextField	*new_i;
