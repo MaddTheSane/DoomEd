@@ -6,7 +6,7 @@
 
 @implementation SectorEditView
 
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)dirtyRect
 {
 	sectordef_t	*s;
 	flat_t	*f;
@@ -50,8 +50,6 @@
 		p.y = 31;
 		[f->image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositeCopy fraction:1];
 	}
-
-	return self;
 }
 
 - (void) mouseDown:(NSEvent *)theEvent

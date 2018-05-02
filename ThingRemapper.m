@@ -49,12 +49,11 @@ id	thingRemapper_i;
 //===================================================================
 - (NSString *)getOriginalName
 {
-	thinglist_t *t;
+	thinglist_t t;
 
-	t = [thingpanel_i getCurrentThingData];
-	if (t == NULL)
+	if ([thingpanel_i getCurrentThingData:&t])
 		return NULL;
-	return [NSString stringWithUTF8String: t->name];
+	return [NSString stringWithUTF8String: t.name];
 }
 
 - (NSString *)getNewName

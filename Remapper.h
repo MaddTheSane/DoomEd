@@ -10,7 +10,7 @@ typedef struct
 //
 //	Methods to be implemented by the delegate
 //
-@protocol Remapper
+@protocol Remapper <NSObject>
 - (NSString *) getOriginalName;
 - (NSString *) getNewName;
 - (int)doRemap: (NSString *) oldname to: (NSString *) newname;
