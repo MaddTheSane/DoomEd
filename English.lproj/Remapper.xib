@@ -70,7 +70,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="11">
-                        <rect key="frame" x="213" y="363" width="45" height="28"/>
+                        <rect key="frame" x="214" y="363" width="45" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="42">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -81,7 +81,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" misplaced="YES" tag="1" imageHugsTitle="YES" id="5">
-                        <rect key="frame" x="213" y="338" width="45" height="28"/>
+                        <rect key="frame" x="214" y="338" width="45" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Get" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" tag="1" inset="2" id="37">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -92,7 +92,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="2">
-                        <rect key="frame" x="13" y="39" width="138" height="23"/>
+                        <rect key="frame" x="12" y="29" width="154" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Remap in Current" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="35">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -110,7 +110,7 @@
                         </connections>
                     </browser>
                     <button verticalHuggingPriority="750" misplaced="YES" tag="1" imageHugsTitle="YES" id="4">
-                        <rect key="frame" x="260" y="346" width="93" height="43"/>
+                        <rect key="frame" x="252" y="346" width="109" height="43"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Add to List" bezelStyle="rounded" alignment="center" borderStyle="border" tag="1" inset="2" id="36">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -129,17 +129,6 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="14">
-                        <rect key="frame" x="13" y="10" width="144" height="23"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Remap in All Maps" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="44">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="doRemappingAllMaps:" target="-2" id="29"/>
-                        </connections>
-                    </button>
                     <button misplaced="YES" imageHugsTitle="YES" id="6">
                         <rect key="frame" x="288" y="2" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -160,6 +149,17 @@
                         </buttonCell>
                         <connections>
                             <action selector="deleteFromList:" target="-2" id="31"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="14">
+                        <rect key="frame" x="14" y="0.0" width="152" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <buttonCell key="cell" type="push" title="Remap in All Maps" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="44">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="doRemappingAllMaps:" target="-2" id="29"/>
                         </connections>
                     </button>
                 </subviews>

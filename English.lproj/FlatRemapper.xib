@@ -9,8 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FlatRemapper">
             <connections>
                 <outlet property="browser_i" destination="11" id="25"/>
-                <outlet property="newFlat_i" destination="4" id="19"/>
-                <outlet property="originalFlat_i" destination="5" id="18"/>
+                <outlet property="new_i" destination="4" id="3ls-ZV-NOf"/>
+                <outlet property="original_i" destination="5" id="epB-F6-u6X"/>
                 <outlet property="remapPanel_i" destination="3" id="16"/>
                 <outlet property="status_i" destination="8" id="17"/>
             </connections>
@@ -70,7 +70,7 @@
                             <font key="font" size="10" name="Helvetica-Bold"/>
                         </buttonCell>
                         <connections>
-                            <action selector="remapGetFromSE:" target="-2" id="20"/>
+                            <action selector="remapGetButtons:" target="-2" id="LCB-ap-OsB"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" id="7">
@@ -81,7 +81,7 @@
                             <font key="font" size="10" name="Helvetica-Bold"/>
                         </buttonCell>
                         <connections>
-                            <action selector="remapGetFromSE:" target="-2" id="21"/>
+                            <action selector="remapGetButtons:" target="-2" id="rxE-Jh-QbC"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" imageHugsTitle="YES" id="14">
@@ -92,7 +92,7 @@
                             <font key="font" size="18" name="Times-Bold"/>
                         </buttonCell>
                         <connections>
-                            <action selector="doRemapping:" target="-2" id="24"/>
+                            <action selector="doRemappingAllMaps:" target="-2" id="XYW-wT-QOR"/>
                         </connections>
                     </button>
                     <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" id="11">

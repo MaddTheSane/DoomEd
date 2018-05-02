@@ -218,7 +218,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" autoresizesSubviews="NO" id="xDb-gY-0ws">
                                         <rect key="frame" x="1" y="1" width="650" height="185"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView id="48" customClass="TextureView">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>
@@ -352,7 +352,7 @@ Texture</string>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" autoresizesSubviews="NO" copiesOnScroll="NO" id="tDH-dI-Iro">
                                         <rect key="frame" x="1" y="1" width="650" height="202"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <customView id="61" customClass="TexturePatchView">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="100"/>

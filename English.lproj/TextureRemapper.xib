@@ -9,8 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TextureRemapper">
             <connections>
                 <outlet property="browser_i" destination="3" id="22"/>
-                <outlet property="newTexture_i" destination="11" id="16"/>
-                <outlet property="originalTexture_i" destination="5" id="15"/>
+                <outlet property="new_i" destination="11" id="Hr5-kF-2Wf"/>
+                <outlet property="original_i" destination="5" id="DGQ-Wf-B6w"/>
                 <outlet property="remapPanel_i" destination="4" id="17"/>
                 <outlet property="status_i" destination="14" id="26"/>
             </connections>
@@ -70,7 +70,7 @@
                             <font key="font" size="10" name="Helvetica-Bold"/>
                         </buttonCell>
                         <connections>
-                            <action selector="remapGetFromTP:" target="-2" id="24"/>
+                            <action selector="remapGetButtons:" target="-2" id="1bF-BZ-eOz"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" tag="1" imageHugsTitle="YES" id="8">
@@ -81,7 +81,7 @@
                             <font key="font" size="10" name="Helvetica-Bold"/>
                         </buttonCell>
                         <connections>
-                            <action selector="remapGetFromTP:" target="-2" id="25"/>
+                            <action selector="remapGetButtons:" target="-2" id="pBT-Sc-Csx"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" imageHugsTitle="YES" id="9">
@@ -92,7 +92,7 @@
                             <font key="font" size="18" name="Times-Bold"/>
                         </buttonCell>
                         <connections>
-                            <action selector="doRemapping:" target="-2" id="21"/>
+                            <action selector="doRemappingAllMaps:" target="-2" id="qVq-44-M0f"/>
                         </connections>
                     </button>
                     <browser verticalHuggingPriority="750" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" id="3">

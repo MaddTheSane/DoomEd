@@ -181,7 +181,7 @@
                         <rect key="frame" x="7" y="3" width="180" height="63"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <view key="contentView" id="boD-T8-lvx">
-                            <rect key="frame" x="7" y="7" width="166" height="40"/>
+                            <rect key="frame" x="7" y="7" width="166" height="41"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField verticalHuggingPriority="750" id="7">
@@ -263,7 +263,6 @@
                             </subviews>
                         </view>
                         <size key="contentViewMargins" width="5" height="5"/>
-                        <font key="titleFont" size="12" name="Helvetica"/>
                     </box>
                 </subviews>
             </view>
