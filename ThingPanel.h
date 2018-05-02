@@ -24,23 +24,23 @@ typedef struct
 #define DIFF_HARD	2
 #define DIFF_ALL	3
 
-@interface ThingPanel:NSObject <NSWindowDelegate>
+@interface ThingPanel:NSObject <NSWindowDelegate, NSBrowserDelegate>
 {
-	IBOutlet id	fields_i;
+	IBOutlet NSForm			*fields_i;
  	IBOutlet ThingWindow	*window_i;
-	IBOutlet NSButton	*addButton_i;
-	IBOutlet NSButton	*updateButton_i;
+	IBOutlet NSButton		*addButton_i;
+	IBOutlet NSButton		*updateButton_i;
 	IBOutlet NSTextField	*nameField_i;
-	IBOutlet id	thingBrowser_i;
+	IBOutlet NSBrowser		*thingBrowser_i;
 	IBOutlet NSColorWell	*thingColor_i;
-	IBOutlet id	thingAngle_i;
-	CompatibleStorage *masterList_i;
-	IBOutlet id	iconField_i;
-	IBOutlet id	ambush_i;		// switch
-	IBOutlet id	network_i;		// switch
-	IBOutlet NSMatrix	*difficulty_i;	// switch matrix
-	IBOutlet NSMatrix	*diffDisplay_i;	// radio matrix
-	IBOutlet id	count_i;		// display count
+	IBOutlet NSMatrix		*thingAngle_i;
+	CompatibleStorage 		*masterList_i;
+	IBOutlet NSTextField	*iconField_i;
+	IBOutlet NSButton		*ambush_i;		// switch
+	IBOutlet NSButton		*network_i;		// switch
+	IBOutlet NSMatrix		*difficulty_i;	// switch matrix
+	IBOutlet NSMatrix		*diffDisplay_i;	// radio matrix
+	IBOutlet NSTextField	*count_i;		// display count
 	
 	int	diffDisplay;
 	

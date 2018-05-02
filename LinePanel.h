@@ -5,28 +5,28 @@
 
 @interface LinePanel:NSObject<SpecialListDelegate, NSWindowDelegate>
 {
-	IBOutlet id	p1_i;
-	IBOutlet id	p2_i;
-	IBOutlet id	special_i;
+	IBOutlet NSTextField	*p1_i;
+	IBOutlet NSTextField	*p2_i;
+	IBOutlet NSTextField	*special_i;
 	
-	IBOutlet id	pblock_i;
-	IBOutlet id	toppeg_i;
-	IBOutlet id	bottompeg_i;
-	IBOutlet id	twosided_i;
-	IBOutlet id	secret_i;
-	IBOutlet id	soundblock_i;
-	IBOutlet id	dontdraw_i;
-	IBOutlet id	monsterblock_i;
+	IBOutlet NSButton 	*pblock_i;
+	IBOutlet NSButton 	*toppeg_i;
+	IBOutlet NSButton 	*bottompeg_i;
+	IBOutlet NSButton 	*twosided_i;
+	IBOutlet NSButton 	*secret_i;
+	IBOutlet NSButton 	*soundblock_i;
+	IBOutlet NSButton 	*dontdraw_i;
+	IBOutlet NSButton 	*monsterblock_i;
 	
-	IBOutlet id	sideradio_i;
-	IBOutlet id	sideform_i;
-	IBOutlet id	tagField_i;
-	IBOutlet id	linelength_i;
+	IBOutlet NSMatrix		*sideradio_i;
+	IBOutlet NSForm			*sideform_i;
+	IBOutlet NSTextField	*tagField_i;
+	IBOutlet NSTextField	*linelength_i;
 	
-	IBOutlet NSWindow	*window_i;
-	IBOutlet id	firstColCalc_i;
-	IBOutlet id	fc_currentVal_i;
-	IBOutlet id	fc_incDec_i;
+	IBOutlet NSWindow		*window_i;
+	IBOutlet NSPanel		*firstColCalc_i;
+	IBOutlet NSTextField	*fc_currentVal_i;
+	IBOutlet NSTextField	*fc_incDec_i;
 	worldline_t	baseline, oldline;
 }
 
