@@ -74,7 +74,7 @@
 ===============
 */
 
-- slideView:(NSEvent *)event
+- (void)slideView:(NSEvent *)event
 {
 	int 		oldMask;
 	NSPoint	oldpt, pt, origin;
@@ -121,8 +121,6 @@
 	} while (1);
 
 	//[[self window] setEventMask:oldMask];
-
-	return self;
 }
 
 
@@ -134,7 +132,7 @@
 ================
 */
 
-- zoomIn:(NSEvent *)event
+- (void)zoomIn:(NSEvent *)event
 {
 	NSString *item;
 	float			nscale;
@@ -142,12 +140,12 @@
 	NSInteger			selected, numrows, numcollumns;
 	NSPoint		origin;
 	
-	itemlist = [[(MapWindow*)[self window] scalemenu] itemList];
+	itemlist = [[(MapWindow*)[self window] scalemenu] itemMatrix];
 	[itemlist getNumberOfRows:&numrows columns:&numcollumns];
 	
 	selected = [itemlist selectedRow] + 1;
 	if (selected >= numrows)
-		return NULL;
+		return;
 		
 	[itemlist selectCellAtRow: selected column: 0];
 	[[(MapWindow*)[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
@@ -168,8 +166,6 @@
 // allow a drag while the mouse is still down
 //
 	[self slideView: event];
-	
-	return self;
 }
 
 /*
@@ -188,7 +184,7 @@
 	NSInteger	selected;
 	NSPoint		origin;
 
-	itemlist = [[(MapWindow*)[self window] scalemenu] itemList];
+	itemlist = [[(MapWindow*)[self window] scalemenu] itemMatrix];
 	selected = [itemlist selectedRow] - 1;
 	
 	if (selected < 0)
@@ -434,7 +430,7 @@
 		else if (side2 && !side1)
 			IDEnclosePoint (&fixedrect, &points[line_p->p1].pt); // p1 is fixed
 	}
-	linecount = linelist_p - linelist;
+	linecount = (int)(linelist_p - linelist);
 	
 //
 // the dragrect encloses all selected points

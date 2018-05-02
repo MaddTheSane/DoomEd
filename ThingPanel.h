@@ -80,8 +80,8 @@ typedef struct
 - (IBAction)unlinkIcon:sender;
 - (void)selectThingWithIcon:(char *)name;
 
-- (thinglist_t *)getCurrentThingData;
-- (thinglist_t)currentThingData;
+- (thinglist_t *)getCurrentThingData DEPRECATED_MSG_ATTRIBUTE("Use getCurrentThingData: instead: It's safer");
+- (BOOL)getCurrentThingData:(thinglist_t *)inData;
 - (void)currentThingCount;
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream;

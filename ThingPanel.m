@@ -98,28 +98,30 @@ id	thingpanel_i;
 		return NULL;
 	}
 		
-	thing.value = [fields_i		intValueAt:1];
-	strcpy(thing.name,[nameField_i stringValue]);
-	strcpy(thing.iconname,[iconField_i	stringValue]);
+	thing.value = [[fields_i cellAtIndex:1] intValue];
+	strcpy(thing.name,[nameField_i stringValue].UTF8String);
+	strncpy(thing.iconname,[iconField_i stringValue].UTF8String, sizeof(thing.iconname));
 
 	return &thing;
 }
 
-- (thinglist_t)currentThingData
+- (BOOL)getCurrentThingData:(thinglist_t *)thing;
 {
-	thinglist_t		thing = {0};
+	if (!thing) {
+		return NO;
+	}
 	
 	if (!fields_i)
 	{
 		NSBeep();
-		return thing;
+		return NO;
 	}
 	
-	thing.value = [fields_i		intValueAt:1];
-	strcpy(thing.name,[nameField_i stringValue]);
-	strcpy(thing.iconname,[iconField_i	stringValue]);
+	thing->value = [[fields_i cellAtIndex:1] intValue];
+	strcpy(thing->name,[nameField_i stringValue].UTF8String);
+	strncpy(thing->iconname,[iconField_i stringValue].UTF8String, sizeof(thing->iconname));
 	
-	return thing;
+	return YES;
 }
 
 //===================================================================
@@ -157,9 +159,9 @@ id	thingpanel_i;
 //===================================================================
 - (void)currentThingCount
 {
-	int				max;
+	NSInteger		max;
 	int				j;
-	thinglist_t		*t;
+	thinglist_t		t;
 	worldthing_t	*thing;
 	int				count;
 
@@ -173,12 +175,12 @@ id	thingpanel_i;
 	}
 		
 	max = [masterList_i	count];
-	t = [self	getCurrentThingData];
+	[self	getCurrentThingData:&t];
 	count = 0;
 	thing = &things[0];
 
 	for (j = 0;j < numthings; j++,thing++)
-		if (t->value == thing->type)
+		if (t.value == thing->type)
 		{
 			if ((thing->options&1)-1 == diffDisplay)
 				count++;
@@ -248,7 +250,7 @@ id	thingpanel_i;
 		return;
 	}
 	icon = [thingPalette_i	getIcon:iconnum];
-	[iconField_i	setStringValue:icon->name];
+	[iconField_i	setStringValue:@(icon->name)];
 	[updateButton_i	performClick:self];
 }
 
@@ -281,7 +283,7 @@ id	thingpanel_i;
 //===================================================================
 - (IBAction)suggestNewType:sender
 {
-	int	num,i,found,max;
+	NSInteger	num,i,found,max;
 	
 	max = [masterList_i	count];
 	for (num = 1;num < 10000;num++)
@@ -295,7 +297,7 @@ id	thingpanel_i;
 			}
 		if (!found)
 		{
-			[fields_i	setIntValue:num	at:1];
+			[[fields_i cellAtIndex:1] setIntegerValue:num];
 			return;
 		}
 	}
@@ -320,7 +322,7 @@ id	thingpanel_i;
 		t = [masterList_i	elementAt:i];
 		[matrix	insertRow:i];
 		cell = [matrix	cellAtRow:i	column:0];
-		[cell	setStringValue:@(t->name)];
+		[cell setStringValue:@(t->name)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
@@ -412,8 +414,8 @@ id	thingpanel_i;
 //
 - (void)fillThingData:(thinglist_t *)thing
 {
-	thing->angle = [fields_i		intValueAt:0];
-	thing->value = [fields_i		intValueAt:1];
+	thing->angle = [[fields_i cellAtIndex:0] intValue];
+	thing->value = [[fields_i cellAtIndex:1] intValue];
 	[self	confirmCorrectNameEntry:NULL];
 	strncpy(thing->name, [nameField_i stringValue].UTF8String, sizeof(thing->name));
 	thing->option = [ambush_i	intValue]<<3;
@@ -446,8 +448,8 @@ id	thingpanel_i;
 //
 - (void)getThing:(worldthing_t	*)thing
 {
-	thing->angle = [fields_i	intValueAt:0];
-	thing->type = [fields_i	intValueAt:1];
+	thing->angle = [[fields_i cellAtIndex:0] intValue];
+	thing->type = [[fields_i cellAtIndex:1] intValue];
 	thing->options = [ambush_i	intValue]<<3;
 	thing->options |= ([network_i	intValue]&1)<<4;
 	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
@@ -483,7 +485,7 @@ id	thingpanel_i;
 
 - (void)scrollToItem:(int)which
 {
-	id	matrix;
+	NSMatrix	*matrix;
 	
 	matrix = [thingBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:which column:0];
@@ -492,7 +494,7 @@ id	thingpanel_i;
 
 - (IBAction)setAngle:sender
 {
-	[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
+	[[fields_i cellAtIndex:0] setIntegerValue:[[sender selectedCell] tag]];
 	[self		formTarget:NULL];
 }
 
@@ -529,7 +531,7 @@ id	thingpanel_i;
 //
 - (void)fillDataFromThing:(thinglist_t *)thing
 {
-	[fields_i	setIntValue:thing->value	at:1];
+	[[fields_i cellAtIndex:1] setIntValue:thing->value];
 	[nameField_i	setStringValue:@(thing->name)];
 	[thingColor_i	setColor:thing->color];
 	[iconField_i	setStringValue:@(thing->iconname)];
@@ -544,7 +546,7 @@ id	thingpanel_i;
 {
 	[self	fillDataFromThing:thing];
 	
-	[fields_i	setIntValue:thing->angle	at:0];
+	[[fields_i cellAtIndex:0] setIntValue:thing->angle];
 	[ambush_i	setIntValue:((thing->option)>>3)&1];
 	[network_i	setIntValue:((thing->option)>>4)&1];
 	[[difficulty_i cellAtRow:0 column:0] setIntValue:(thing->option)&1];
@@ -642,7 +644,7 @@ id	thingpanel_i;
 	if (!cell)
 		return;
 		
-	which = [self	findThing:[cell	stringValue]];
+	which = [self	findThing:[cell	stringValue].UTF8String];
 	if (which < 0)
 	{
 		NSBeep();
@@ -672,9 +674,9 @@ id	thingpanel_i;
 
 - (void)writeThing:(thinglist_t *)thing	from:(FILE *)stream
 {
-	float	r,g,b;
+	CGFloat	r,g,b;
 	
-	NXConvertColorToRGB(thing->color,&r,&g,&b);
+	[[thing->color colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&r green:&g blue:&b alpha:NULL];
 	fprintf(stream,"%s = %d %d %d (%f %f %f) %s\n",thing->name,thing->angle,thing->value,
 			thing->option,r,g,b,thing->iconname);
 }
@@ -738,8 +740,8 @@ id	thingpanel_i;
 
 	[window_i disableFlushWindow];
 	
-	[fields_i setIntValue: basething.angle at: 0];
-	[fields_i setIntValue: basething.type at: 1];
+	[[fields_i cellAtIndex:0] setIntValue:basething.angle];
+	[[fields_i cellAtIndex:1] setIntValue:basething.type];
 	[ambush_i	setIntValue:((basething.options)>>3)&1];
 	[network_i	setIntValue:((basething.options)>>4)&1];
 	[[difficulty_i	cellAtRow:0 column:0] setIntValue:(basething.options)&1];
@@ -765,8 +767,8 @@ id	thingpanel_i;
 	int			i;
 	worldthing_t	*thing;
 	
-	basething.angle = [fields_i intValueAt: 0];
-	basething.type = [fields_i intValueAt: 1];
+	basething.angle = [[fields_i cellAtIndex: 0] intValue];
+	basething.type = [[fields_i cellAtIndex: 1] intValue];
 	basething.options = [ambush_i	intValue]<<3;
 	basething.options |= ([network_i	intValue]&1)<<4;
 	basething.options |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;

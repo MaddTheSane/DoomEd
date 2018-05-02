@@ -20,9 +20,20 @@
 
 	memset (line, 0, sizeof(*line));
 
+	{
+		float n1x;
+		float n1y;
+		float n2x;
+		float n2y;
 	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
-		,&p1->x, &p1->y,&p2->x, &p2->y,&line->flags, &line->special, &line->tag) != 7)
+		,&n1x, &n1y,&n2x, &n2y,&line->flags, &line->special, &line->tag) != 7)
 		return NO;
+		p1->x = n1x;
+		p1->y = n1y;
+		p2->x = n2x;
+		p2->y = n2y;
+
+	}
 	
 	for (i=0 ; i<=  ( (line->flags&ML_TWOSIDED) != 0) ; i++)
 	{

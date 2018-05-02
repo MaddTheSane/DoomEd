@@ -4,22 +4,22 @@
 @interface CompatibleStorage:NSObject <NSCopying>
 {
 	uint8_t *data;
-	unsigned int elements;
-	unsigned int elementSize;
+	NSUInteger elements;
+	NSUInteger elementSize;
 	const char *description;
 }
 
 - (void) addElement:(void *)anElement;
-@property (readonly) unsigned int count;
+@property (readonly) NSUInteger count;
 - (const char *)description;
-- (void *)elementAt:(unsigned int)index;
+- (void *)elementAt:(NSUInteger)index;
 - (void) empty;
-- (instancetype) initCount:(unsigned int)count
-			   elementSize: (unsigned int) sizeInBytes
+- (instancetype) initCount:(NSUInteger)count
+			   elementSize: (NSUInteger) sizeInBytes
 			   description: (const char *) string;
-- (void) insertElement:(void *)anElement at:(unsigned int)index;
-- (void) removeElementAt:(unsigned int)index;
-- (void) replaceElementAt:(unsigned int)index with:(void *)anElement;
+- (void) insertElement:(void *)anElement at:(NSUInteger)index;
+- (void) removeElementAt:(NSUInteger)index;
+- (void) replaceElementAt:(NSUInteger)index with:(void *)anElement;
 
 @end
 

@@ -143,17 +143,16 @@
 //===================================================================
 - (IBAction)addThing:sender
 {
-	thinglist_t		*t;
+	thinglist_t		t;
 	thingstrip_t	ts;
 
-	t =[thingpanel_i	getCurrentThingData];
-	if (t == NULL)
+	if (![thingpanel_i getCurrentThingData:&t])
 	{
 		NSBeep();
 		return;
 	}
-	ts.value = t->value;
-	strcpy(ts.desc,t->name);
+	ts.value = t.value;
+	strcpy(ts.desc,t.name);
 	[thingList_i	addElement:&ts];
 	[thingBrowser_i	reloadColumn:0];
 }
@@ -165,7 +164,7 @@
 //===================================================================
 - (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
 {
-	int	max, i;
+	NSInteger		max, i;
 	NSBrowserCell	*cell;
 	thingstrip_t	*t;
 	
@@ -178,7 +177,7 @@
 		t = [thingList_i	elementAt:i];
 		[matrix	insertRow:i];
 		cell = [matrix	cellAtRow:i	column:0];
-		[cell	setStringValue:@(t->desc)];
+		[cell setStringValue:@(t->desc)];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
@@ -188,6 +187,9 @@
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
+	if (column > 0)
+		return 0;
+
 	return [thingList_i	count];
 }
 

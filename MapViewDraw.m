@@ -253,9 +253,9 @@
 				continue;
 			
 		if (wp->selected == 1)
-			NXSetColor ([prefpanel_i colorFor: SELECTED_C]);
+			[[prefpanel_i colorFor: SELECTED_C] set];
 		else
-			NXSetColor([thingpanel_i	getThingColor:wp->type]);
+			[[thingpanel_i getThingColor:wp->type] set];
 		r.origin.x = wp->origin.x - offset/2;
 		r.origin.y = wp->origin.y - offset/2;
 		r.size.width = r.size.height = offset;
@@ -316,16 +316,16 @@
 //
 // draw the rects
 //
-	count = unsel_p - unselected;
+	count = (int)(unsel_p - unselected);
 	if (count)
 	{
-		NXSetColor ([prefpanel_i colorFor: POINT_C]);
+		[[prefpanel_i colorFor: POINT_C] set];
 		NSRectFillList (unselected, count);
 	}
-	count = sel_p - selected;
+	count = (int)(sel_p - selected);
 	if (count)
 	{
-		NXSetColor ([prefpanel_i colorFor: SELECTED_C]);
+		[[prefpanel_i colorFor: SELECTED_C] set];
 		NSRectFillList (selected, count);
 	}
 	

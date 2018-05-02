@@ -727,10 +727,10 @@ char	bsphost[32];		// bsp host machine
 
 - (IBAction)newMap: sender
 {
-	FILE *stream;
-	NSString *pathname;
-	NSString *title;
-	int  len, i;
+	FILE		*stream;
+	NSString	*pathname;
+	NSString 	*title;
+	NSInteger	len, i;
 
 	//
 	// get filename for map

@@ -106,14 +106,14 @@ void floodline (int startx, int y)
 	int		line;
 	unsigned short *dest;
 	
-if (startx<0 || startx>=bwidth || y < 0 || y>=bheight)
-{
-	NSRunAlertPanel(@"error", @"bad fill point", nil, nil, nil);
-	return;
-}
-//
-// scan east until a wall is hit
-//
+	if (startx<0 || startx>=bwidth || y < 0 || y>=bheight)
+	{
+		NSRunAlertPanel(@"error", @"bad fill point", nil, nil, nil);
+		return;
+	}
+	//
+	// scan east until a wall is hit
+	//
 	x = startx-1;
 	while (x<bwidth-1)
 	{
@@ -121,13 +121,13 @@ if (startx<0 || startx>=bwidth || y < 0 || y>=bheight)
 		dest = bmap + y*brow + x*WLSIZE;
 		*(dest+WL_MARK) = 1;
 #if SHOWFILL
-{
-NSRect	r;
-r.origin.x = x+0.15;
-r.origin.y = (bheight-1-y)+0.15;
-r.size.width = r.size.height = 0.5;
-NXEraseRect (&r);
-}
+		{
+			NSRect	r;
+			r.origin.x = x+0.15;
+			r.origin.y = (bheight-1-y)+0.15;
+			r.size.width = r.size.height = 0.5;
+			NXEraseRect (&r);
+		}
 #endif
 
 		if ((line = *(dest+WL_EAST)) != 0)
@@ -151,22 +151,22 @@ NXEraseRect (&r);
 	}
 	lastx = x;
 
-//
-// scan west until a wall is hit
-//
+	//
+	// scan west until a wall is hit
+	//
 	x = startx;
 	while (x>0)
 	{
 		dest = bmap + y*brow + x*WLSIZE;
 		*(dest+WL_MARK) = 1;
 #if SHOWFILL
-{
-NSRect	r;
-r.origin.x = x+0.15;
-r.origin.y = (bheight-1-y)+0.15;
-r.size.width = r.size.height = 0.5;
-NXEraseRect (&r);
-}
+		{
+			NSRect	r;
+			r.origin.x = x+0.15;
+			r.origin.y = (bheight-1-y)+0.15;
+			r.size.width = r.size.height = 0.5;
+			NXEraseRect (&r);
+		}
 #endif
 
 		if ((line = *(dest+WL_WEST)) != 0)
@@ -188,16 +188,16 @@ NXEraseRect (&r);
 			}
 		}
 		x--;
-	} 
+	}
 	firstx = x;
-//
-// check the top and bottom pixels
-//
-if (firstx<0 || lastx>=bwidth || firstx>lastx)
-{
-	NSRunAlertPanel(@"ERROR", @"bad fill span", nil, nil, nil);
-	return;
-}
+	//
+	// check the top and bottom pixels
+	//
+	if (firstx<0 || lastx>=bwidth || firstx>lastx)
+	{
+		NSRunAlertPanel(@"ERROR", @"bad fill span", nil, nil, nil);
+		return;
+	}
 
 	for (x=firstx ; x<=lastx ; x++)
 	{
@@ -252,7 +252,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	unsigned short	*dest;
 	int			temp, offset;
 	int			dx, dy,ilength;
-	float			length, x, y, xstep, ystep;
+	CGFloat		length, x, y, xstep, ystep;
 	
 	line = &lines[linenum];
 	pt = &points[line->p1].pt;
@@ -586,10 +586,10 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 
 - (BOOL)connectSectors
 {
-	int		i,x,y;
-	worldline_t	*line;
+	NSInteger		i,x,y;
+	worldline_t		*line;
 	unsigned short	*test;
-	int		count;
+	NSInteger		count;
 	worldsector_t	*sector;
 
 //
@@ -614,7 +614,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 //
 	[self createBlockMap];
 #if SHOWFILL
-[self displayBlockMap];
+	[self displayBlockMap];
 #endif
 
 	pan = NSGetAlertPanel(@"One moment",
@@ -631,11 +631,11 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 			{
 				[editworld_i deselectAll];
 #if SHOWFILL
-[blockview lockFocus];
+				[blockview lockFocus];
 #endif
 				floodline (x, y);
 #if SHOWFILL
-[blockview unlockFocus];
+				[blockview unlockFocus];
 #endif
 				if (![self makeSector])
 				{

@@ -32,7 +32,7 @@
 	return description;
 }
 
-- (void *)elementAt:(unsigned int)index
+- (void *)elementAt:(NSUInteger)index
 {
 	if (index >= elements)
 	{
@@ -54,8 +54,8 @@
 	[super dealloc];
 }
 
-- (CompatibleStorage *) initCount:(unsigned int)count
-                        elementSize: (unsigned int) sizeInBytes
+- (CompatibleStorage *) initCount:(NSUInteger)count
+					  elementSize: (NSUInteger) sizeInBytes
                         description: (const char *) string
 {
 	if (self = [super init]) {
@@ -76,7 +76,7 @@
 	return newStore;
 }
 
-- (void) insertElement:(void *)anElement at:(unsigned int)index
+- (void) insertElement:(void *)anElement at:(NSUInteger)index
 {
 	// Sanity check insert range; a maximum value of 'elements' is
 	// okay to insert at the end of the array.
@@ -97,7 +97,7 @@
 	++elements;
 }
 
-- (void) removeElementAt:(unsigned int)index
+- (void) removeElementAt:(NSUInteger)index
 {
 	if (index >= elements)
 	{
@@ -112,7 +112,7 @@
 	--elements;
 }
 
-- (void) replaceElementAt:(unsigned int)index with:(void *)anElement
+- (void) replaceElementAt:(NSUInteger)index with:(void *)anElement
 {
 	if (index >= elements)
 	{

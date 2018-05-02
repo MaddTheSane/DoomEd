@@ -382,8 +382,8 @@ int LineByPoint (NSPoint *ptin, int *side)
 	}
 
 	printf ("Saving DoomEd map\n");
-	BackupFile([pathname UTF8String]);
-	stream = fopen([pathname UTF8String], "w");
+	BackupFile(pathname);
+	stream = fopen([pathname fileSystemRepresentation], "w");
 	[self saveFile: stream];
 	fclose (stream);
 
@@ -446,7 +446,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	NXPing ();
 
 	printf ("Saving DoomEd map\n");
-	BackupFile([pathname fileSystemRepresentation]);
+	BackupFile(pathname);
 	stream = fopen([pathname fileSystemRepresentation], "w");
 	[self saveFile: stream];
 	fclose(stream);

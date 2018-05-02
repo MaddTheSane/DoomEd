@@ -67,25 +67,14 @@ BOOL	debugflag = NO;
 {
 	if ([doomproject_i isLoaded])
 		return NO;
-	[doomproject_i loadProject: filename.fileSystemRepresentation];
+	[doomproject_i loadProjectAtPath: filename error:NULL];
 	return YES;
 }
-
-- (int)app:			sender 
-	openFile:		(const char *)filename 
-	type:		(const char *)aType
-{
-	if ([doomproject_i isLoaded])
-		return NO;
-	[doomproject_i loadProject: filename];
-	return YES;
-}
-
 
 - (void) applicationDidFinishLaunching: (NSNotification *) notification
 {
 	if (![doomproject_i isLoaded])
-		[doomproject_i loadProject: prefpanel_i.projectPath.fileSystemRepresentation ];
+		[doomproject_i loadProjectAtPath: prefpanel_i.projectPath error:NULL];
 	[doomproject_i	setProjectDirty:FALSE];
 	[toolPanel_i	setFrameUsingName:TOOLNAME];
 

@@ -90,8 +90,8 @@
 
 - (IBAction)addToList:sender
 {
-	type_t	r,	*r2;
-	int		i, max;
+	type_t		r,	*r2;
+	NSInteger	i, max;
 
 	r.orgname = [[original_i stringValue] uppercaseString];
 	r.newname = [[new_i stringValue] uppercaseString];
