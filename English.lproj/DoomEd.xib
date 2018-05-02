@@ -150,19 +150,39 @@
                 <menuItem title="Info" id="28">
                     <menu key="submenu" title="Info" id="4">
                         <items>
-                            <menuItem title="Info Panel..." id="44">
+                            <menuItem title="About DoomEd..." id="44">
                                 <connections>
                                     <action selector="makeKeyAndOrderFront:" target="135" id="175"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Preferences..." id="21">
+                            <menuItem isSeparatorItem="YES" id="MNa-qO-0lb"/>
+                            <menuItem title="Preferences..." keyEquivalent="," id="21">
                                 <connections>
                                     <action selector="menuTarget:" target="81" id="176"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Help..." keyEquivalent="?" id="75">
+                            <menuItem isSeparatorItem="YES" id="k36-b0-7WB"/>
+                            <menuItem title="Hide DoomEd" keyEquivalent="h" id="125">
                                 <connections>
-                                    <action selector="showHelp:" target="-1" id="174"/>
+                                    <action selector="hide:" target="-2" id="144"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Others" keyEquivalent="h" id="NwI-Br-Dag">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="K24-Fs-Ift"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show All" id="ExD-Q4-FoB">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="Zzh-Pz-9ea"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="FKB-yF-uCE"/>
+                            <menuItem title="Quit" keyEquivalent="q" id="108">
+                                <connections>
+                                    <action selector="terminate:" target="-2" id="145"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -216,6 +236,11 @@
                                         </menuItem>
                                     </items>
                                 </menu>
+                            </menuItem>
+                            <menuItem title="Print..." id="143">
+                                <connections>
+                                    <action selector="print:" target="-1" id="172"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -405,20 +430,17 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Print..." id="143">
-                    <connections>
-                        <action selector="print:" target="-1" id="172"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Hide" keyEquivalent="h" id="125">
-                    <connections>
-                        <action selector="hide:" target="-2" id="144"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Quit" keyEquivalent="q" id="108">
-                    <connections>
-                        <action selector="terminate:" target="-2" id="145"/>
-                    </connections>
+                <menuItem title="Help" id="HNj-9s-Jt4">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Help" systemMenu="help" id="z3X-Yq-mfT">
+                        <items>
+                            <menuItem title="DoomEd Help" keyEquivalent="?" id="atg-b2-RG3">
+                                <connections>
+                                    <action selector="showHelp:" target="-1" id="WIc-cC-h3N"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
             </items>
         </menu>
