@@ -347,17 +347,6 @@
 	
 }
 
-#if 0
-- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
-{
-	if (column > 0) {
-		return 0;
-	}
-	
-	return specialList_i.count;
-}
-#endif
-
 //============================================================
 //
 // Handling .DSP file

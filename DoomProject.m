@@ -711,17 +711,6 @@ char	bsphost[32];		// bsp host machine
 	
 }
 
-#if 0
-- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
-{
-	if (column != 0) {
-		return 0;
-	}
-	
-	return nummaps;
-}
-#endif
-
 /*
 =====================
 =

@@ -93,7 +93,7 @@
 		276AB5DE1970AE9D001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DoomEd.xib; sourceTree = "<group>"; };
 		276AB5E01970AE9D001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FindLine.xib; sourceTree = "<group>"; };
 		276AB5E21970AE9D001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FlatRemapper.xib; sourceTree = "<group>"; };
-		276AB5E71970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/Project.xib; sourceTree = "<group>"; };
+		276AB5E71970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Project.xib; sourceTree = "<group>"; };
 		276AB5E91970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectInfo.xib; sourceTree = "<group>"; };
 		276AB5EB1970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Remapper.xib; sourceTree = "<group>"; };
 		276AB5ED1970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SectorEditor.xib; sourceTree = "<group>"; };
@@ -575,7 +575,7 @@
 		276AB5E61970AECA001718D1 /* Project.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5E71970AECA001718D1 /* English */,
+				276AB5E71970AECA001718D1 /* en */,
 			);
 			name = Project.xib;
 			sourceTree = "<group>";
