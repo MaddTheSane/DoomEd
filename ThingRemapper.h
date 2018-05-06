@@ -1,12 +1,10 @@
 #import	"Remapper.h"
 #import <AppKit/AppKit.h>
 
-extern	id	thingRemapper_i;
+@class ThingRemapper;
+extern ThingRemapper *thingRemapper_i;
 
-@interface ThingRemapper:NSObject <Remapper>
-{
-	IBOutlet Remapper	*remapper_i;
-}
+@interface ThingRemapper:Remapper <Remapper>
 
 - (IBAction)menuTarget:sender;
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;

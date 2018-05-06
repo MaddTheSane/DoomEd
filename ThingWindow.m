@@ -3,11 +3,7 @@
 #import	"TextureEdit.h"
 
 @implementation ThingWindow
-
-- (void)setParent:(id)p
-{
-	parent_i = p;
-}
+@synthesize parent=parent_i;
 
 //===================================================================
 //
@@ -18,12 +14,12 @@
 {
 	char	key[2] = {0};
 	char	string2[32];
-	int		max;
+	NSInteger	max;
 	int		i;
 	thinglist_t	*t;
 	CompatibleStorage *thingList_i;
 	int		found;
-	int		size;
+	size_t	size;
 	int		tries;
 	
 	key[0] = [event keyCode];

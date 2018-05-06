@@ -1,6 +1,6 @@
 
 #import "Storage.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 #if 0
 typedef struct

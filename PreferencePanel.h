@@ -1,5 +1,5 @@
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 #define	APPDEFAULTS	"ID_doomed"
 //	#define NUMCOLORS	9

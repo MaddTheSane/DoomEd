@@ -6,8 +6,7 @@
 	__unsafe_unretained id	parent_i;
 	char	string[32];
 }
-
-- (void)setParent:(id)p;
+@property (assign) id parent;
 
 
 @end

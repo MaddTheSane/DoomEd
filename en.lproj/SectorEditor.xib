@@ -40,10 +40,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="2">
-                        <rect key="frame" x="145" y="20" width="256" height="362"/>
+                        <rect key="frame" x="145" y="20" width="256" height="351"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" autoresizesSubviews="NO" id="MFl-aw-oRk">
-                            <rect key="frame" x="1" y="1" width="254" height="360"/>
+                            <rect key="frame" x="1" y="1" width="254" height="349"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView id="9" customClass="FlatsView">
@@ -57,23 +57,23 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="107">
-                            <rect key="frame" x="239" y="1" width="16" height="360"/>
+                            <rect key="frame" x="239" y="1" width="16" height="349"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <box misplaced="YES" title="Sector Edit" id="28">
-                        <rect key="frame" x="140" y="417" width="256" height="276"/>
+                        <rect key="frame" x="140" y="417" width="330" height="282"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="A6t-t6-AaH">
-                            <rect key="frame" x="7" y="7" width="242" height="244"/>
+                            <rect key="frame" x="7" y="7" width="316" height="260"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <customView id="15" customClass="SectorEditView">
-                                    <rect key="frame" x="117" y="49" width="128" height="200"/>
+                                <customView misplaced="YES" id="15" customClass="SectorEditView">
+                                    <rect key="frame" x="188" y="54" width="128" height="195"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </customView>
                                 <textField verticalHuggingPriority="750" id="11">
-                                    <rect key="frame" x="36" y="76" width="40" height="21"/>
+                                    <rect key="frame" x="49" y="92" width="40" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="82">
                                         <font key="font" size="12" name="Helvetica"/>
@@ -85,7 +85,7 @@
                                     </connections>
                                 </textField>
                                 <slider verticalHuggingPriority="750" id="31">
-                                    <rect key="frame" x="14" y="58" width="89" height="16"/>
+                                    <rect key="frame" x="22" y="74" width="89" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" continuous="YES" alignment="left" maxValue="255" tickMarkPosition="below" sliderType="linear" id="83">
                                         <font key="font" size="12" name="Helvetica"/>
@@ -95,16 +95,16 @@
                                     </connections>
                                 </slider>
                                 <textField verticalHuggingPriority="750" id="23">
-                                    <rect key="frame" x="21" y="97" width="77" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <rect key="frame" x="22" y="107" width="77" height="17"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" alignment="left" title="Light level" id="84">
-                                        <font key="font" size="14" name="Helvetica-Bold"/>
+                                        <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="21">
-                                    <rect key="frame" x="7" y="20" width="48" height="21"/>
+                                    <rect key="frame" x="12" y="36" width="48" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="85">
                                         <font key="font" size="12" name="Helvetica"/>
@@ -115,11 +115,11 @@
                                         <outlet property="nextKeyView" destination="29" id="76"/>
                                     </connections>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="20">
-                                    <rect key="frame" x="5" y="41" width="55" height="18"/>
+                                <textField verticalHuggingPriority="750" misplaced="YES" id="20">
+                                    <rect key="frame" x="9" y="59" width="55" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" alignment="center" title="Special" id="86">
-                                        <font key="font" size="14" name="Charcoal"/>
+                                    <textFieldCell key="cell" controlSize="small" alignment="center" title="Special" id="86">
+                                        <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -169,8 +169,8 @@
                                 <textField verticalHuggingPriority="750" id="35">
                                     <rect key="frame" x="5" y="199" width="82" height="13"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="None" id="91">
-                                        <font key="font" size="10" name="Charcoal"/>
+                                    <textFieldCell key="cell" controlSize="small" alignment="center" title="None" id="91">
+                                        <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -178,14 +178,14 @@
                                 <textField verticalHuggingPriority="750" id="3">
                                     <rect key="frame" x="5" y="148" width="82" height="13"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="None" id="92">
-                                        <font key="font" size="10" name="Charcoal"/>
+                                    <textFieldCell key="cell" controlSize="small" alignment="center" title="None" id="92">
+                                        <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="29">
-                                    <rect key="frame" x="62" y="20" width="46" height="21"/>
+                                <textField verticalHuggingPriority="750" misplaced="YES" id="29">
+                                    <rect key="frame" x="116" y="35" width="46" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" title="0" drawsBackground="YES" id="93">
                                         <font key="font" size="12" name="Helvetica"/>
@@ -196,34 +196,25 @@
                                         <outlet property="nextKeyView" destination="21" id="77"/>
                                     </connections>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="16">
-                                    <rect key="frame" x="59" y="41" width="51" height="18"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" alignment="center" title="Tag" id="94">
-                                        <font key="font" size="14" name="Charcoal"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
                                 <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" id="36">
-                                    <rect key="frame" x="83" y="206" width="19" height="36"/>
+                                    <rect key="frame" x="83" y="194" width="36" height="48"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="cellSize" width="19" height="18"/>
+                                    <size key="cellSize" width="36" height="24"/>
                                     <size key="intercellSpacing" width="4" height="0.0"/>
-                                    <buttonCell key="prototype" type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="102">
+                                    <buttonCell key="prototype" type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" controlSize="small" borderStyle="border" inset="2" id="102">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="12" name="Helvetica"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <cells>
                                         <column>
-                                            <buttonCell type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" borderStyle="border" tag="8" inset="2" id="18">
+                                            <buttonCell type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" tag="8" imageScaling="proportionallyDown" inset="2" id="18">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="12" name="Helvetica"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
-                                            <buttonCell type="push" bezelStyle="rounded" image="DownArrow" imagePosition="above" alignment="center" borderStyle="border" tag="-8" inset="2" id="37">
+                                            <buttonCell type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" tag="-8" imageScaling="proportionallyDown" inset="2" id="37">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="12" name="Helvetica"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                         </column>
                                     </cells>
@@ -232,24 +223,24 @@
                                     </connections>
                                 </matrix>
                                 <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" id="32">
-                                    <rect key="frame" x="83" y="156" width="19" height="36"/>
+                                    <rect key="frame" x="83" y="148" width="36" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="cellSize" width="19" height="18"/>
+                                    <size key="cellSize" width="36" height="22"/>
                                     <size key="intercellSpacing" width="4" height="0.0"/>
-                                    <buttonCell key="prototype" type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="103">
+                                    <buttonCell key="prototype" type="push" bezelStyle="rounded" image="UpArrow" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="103">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="12" name="Helvetica"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <cells>
                                         <column>
-                                            <buttonCell type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" borderStyle="border" tag="8" inset="2" id="43">
+                                            <buttonCell type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" tag="8" imageScaling="proportionallyDown" inset="2" id="43">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="12" name="Helvetica"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
-                                            <buttonCell type="push" bezelStyle="rounded" image="DownArrow" imagePosition="above" alignment="center" borderStyle="border" tag="-8" inset="2" id="38">
+                                            <buttonCell type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" tag="-8" imageScaling="proportionallyDown" inset="2" id="38">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="12" name="Helvetica"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                         </column>
                                     </cells>
@@ -257,67 +248,23 @@
                                         <action selector="floorAdjust:" target="-2" id="64"/>
                                     </connections>
                                 </matrix>
-                                <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" id="41">
-                                    <rect key="frame" x="16" y="82" width="19" height="18"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="cellSize" width="19" height="18"/>
-                                    <size key="intercellSpacing" width="4" height="0.0"/>
-                                    <buttonCell key="prototype" type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="104">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="12" name="Helvetica"/>
-                                    </buttonCell>
-                                    <cells>
-                                        <column>
-                                            <buttonCell type="push" bezelStyle="rounded" image="LeftArrow" imagePosition="above" alignment="center" borderStyle="border" tag="8" inset="2" id="22">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="12" name="Helvetica"/>
-                                            </buttonCell>
-                                        </column>
-                                    </cells>
-                                    <connections>
-                                        <action selector="lightLevelDown:" target="-2" id="65"/>
-                                    </connections>
-                                </matrix>
-                                <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" id="34">
-                                    <rect key="frame" x="82" y="82" width="19" height="18"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="cellSize" width="19" height="18"/>
-                                    <size key="intercellSpacing" width="4" height="0.0"/>
-                                    <buttonCell key="prototype" type="push" bezelStyle="rounded" image="UpArrow" imagePosition="above" alignment="center" borderStyle="border" inset="2" id="105">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="12" name="Helvetica"/>
-                                    </buttonCell>
-                                    <cells>
-                                        <column>
-                                            <buttonCell type="push" bezelStyle="rounded" image="RightArrow" imagePosition="above" alignment="center" borderStyle="border" tag="8" inset="2" id="27">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" size="12" name="Helvetica"/>
-                                            </buttonCell>
-                                        </column>
-                                    </cells>
-                                    <connections>
-                                        <action selector="lightLevelUp:" target="-2" id="66"/>
-                                    </connections>
-                                </matrix>
-                                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="7">
-                                    <rect key="frame" x="5" y="5" width="70" height="18"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="7">
+                                    <rect key="frame" x="-5" y="5" width="110" height="32"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <buttonCell key="cell" type="push" title="Special List" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="95">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="10" name="Helvetica-Bold"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="activateSpecialList:" target="-2" id="67"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="10">
-                                    <rect key="frame" x="77" y="5" width="52" height="18"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="10">
+                                    <rect key="frame" x="98" y="5" width="87" height="32"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <buttonCell key="cell" type="push" title="Get Tag" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="96">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="10" name="Helvetica-Bold"/>
+                                        <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="getTagValue:" target="-2" id="69"/>
@@ -336,46 +283,76 @@
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" id="26">
-                                    <rect key="frame" x="1" y="128" width="69" height="13"/>
+                                    <rect key="frame" x="1" y="128" width="70" height="14"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <textFieldCell key="cell" alignment="center" title="Total height" id="98">
-                                        <font key="font" size="10" name="Helvetica-Bold"/>
+                                    <textFieldCell key="cell" controlSize="small" alignment="center" title="Total height" id="98">
+                                        <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="14">
-                                    <rect key="frame" x="133" y="5" width="114" height="18"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="14">
+                                    <rect key="frame" x="185" y="-6" width="135" height="28"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <buttonCell key="cell" type="push" title="Tag SECTOR search" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="99">
+                                    <buttonCell key="cell" type="push" title="Tag SECTOR search" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="99">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="10" name="Helvetica-Bold"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="searchForTaggedSector:" target="-2" id="74"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="4">
-                                    <rect key="frame" x="133" y="24" width="114" height="18"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="4">
+                                    <rect key="frame" x="204" y="22" width="116" height="28"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <buttonCell key="cell" type="push" title="Tag LINE search" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="100">
+                                    <buttonCell key="cell" type="push" title="Tag LINE search" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="100">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="10" name="Helvetica-Bold"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="searchForTaggedLine:" target="-2" id="75"/>
                                     </connections>
                                 </button>
+                                <button verticalHuggingPriority="750" misplaced="YES" tag="8" id="RYp-Di-a82">
+                                    <rect key="frame" x="87" y="86" width="33" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="K1u-1W-l4i">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="lightLevelUp:" target="-2" id="NJo-Mu-qBy"/>
+                                    </connections>
+                                </button>
+                                <button verticalHuggingPriority="750" misplaced="YES" tag="8" id="Bg4-Po-qo9">
+                                    <rect key="frame" x="10" y="86" width="33" height="28"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bi8-kj-NVO">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="smallSystem"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="lightLevelDown:" target="-2" id="sLj-xq-gyv"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" misplaced="YES" id="16">
+                                    <rect key="frame" x="118" y="59" width="42" height="14"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" controlSize="small" alignment="center" title="Tag" id="94">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                             </subviews>
                         </view>
                         <size key="contentViewMargins" width="5" height="5"/>
-                        <font key="titleFont" size="18" name="Helvetica-BoldOblique"/>
                     </box>
                     <matrix verticalHuggingPriority="750" misplaced="YES" allowsEmptySelection="NO" autosizesCells="NO" id="12">
-                        <rect key="frame" x="36" y="384" width="120" height="15"/>
+                        <rect key="frame" x="36" y="379" width="120" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <size key="cellSize" width="60" height="15"/>
+                        <size key="cellSize" width="60" height="20"/>
                         <size key="intercellSpacing" width="0.0" height="3"/>
                         <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="101">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -405,15 +382,6 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" misplaced="YES" id="25">
-                        <rect key="frame" x="425" y="384" width="73" height="19"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" borderStyle="bezel" alignment="left" title="None" id="80">
-                            <font key="font" size="10" name="Charcoal"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="39">
                         <rect key="frame" x="353" y="379" width="69" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -425,6 +393,15 @@
                             <action selector="locateFlat:" target="-2" id="70"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" misplaced="YES" id="25">
+                        <rect key="frame" x="425" y="384" width="73" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" controlSize="small" borderStyle="bezel" alignment="left" title="None" id="80">
+                            <font key="font" metaFont="smallSystem"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
@@ -434,9 +411,8 @@
         </window>
     </objects>
     <resources>
-        <image name="DownArrow" width="12" height="12"/>
-        <image name="LeftArrow" width="12" height="13"/>
-        <image name="RightArrow" width="11" height="11"/>
+        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="UpArrow" width="12" height="14"/>
     </resources>
 </document>

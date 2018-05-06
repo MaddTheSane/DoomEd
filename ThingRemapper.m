@@ -2,7 +2,7 @@
 #import	"ThingPanel.h"
 #import	"ThingRemapper.h"
 
-id	thingRemapper_i;
+ThingRemapper *thingRemapper_i;
 
 @implementation ThingRemapper
 //===================================================================
@@ -15,8 +15,7 @@ id	thingRemapper_i;
 	if (self = [super init]) {
 	thingRemapper_i = self;
 
-	remapper_i = [[Remapper alloc] init];
-	[remapper_i
+	[self
 		setFrameName: @"ThingRemapper"
 		setPanelTitle: @"Thing Remapper"
 		setBrowserTitle: @"List of things to be remapped"
@@ -34,12 +33,12 @@ id	thingRemapper_i;
 //===================================================================
 - (IBAction)menuTarget:sender
 {
-	[remapper_i	showPanel];
+	[self showPanel];
 }
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;
 {
-	[remapper_i addToList:orgname to:newname];
+	[super addToList:orgname to:newname];
 }
 
 //===================================================================

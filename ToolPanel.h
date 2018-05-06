@@ -1,5 +1,5 @@
 
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 
 typedef enum
 {

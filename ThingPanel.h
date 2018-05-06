@@ -1,8 +1,8 @@
 #import "Storage.h"
 
 #import <AppKit/AppKit.h>
-#import 	"DoomProject.h"
-#import		"EditWorld.h"
+#import "DoomProject.h"
+#import "EditWorld.h"
 
 @class ThingPanel;
 @class ThingWindow;

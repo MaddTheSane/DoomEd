@@ -1,7 +1,7 @@
 #import "Storage.h"
 
 #import "idfunctions.h"
-#import <appkit/appkit.h>
+#import <AppKit/AppKit.h>
 #import "EditWorld.h"
 #import	"TexturePatchView.h"
 

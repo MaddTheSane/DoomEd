@@ -1,6 +1,6 @@
 #import "Storage.h"
 
-#import <appkit/appkit.h>
+#import <Foundation/Foundation.h>
 
 
 @interface Wadfile : NSObject

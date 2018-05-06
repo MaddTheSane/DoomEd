@@ -5,7 +5,10 @@
 #import	"idfunctions.h"
 #import <AppKit/AppKit.h>
 
-typedef struct
+@class SectorEditView;
+@class FlatsView;
+
+typedef struct flat_s
 {
 	NSImage	*image;
 	char	name[9];
@@ -18,24 +21,24 @@ typedef struct
 
 @interface SectorEditor:NSObject <SpecialListDelegate, NSWindowDelegate>
 {
-	IBOutlet NSWindow	*window_i;
-	IBOutlet id	sectorEditView_i;
+	IBOutlet NSWindow		*window_i;
+	IBOutlet SectorEditView	*sectorEditView_i;
 	IBOutlet NSScrollView	*flatScrPalView_i;
-	IBOutlet id	flatPalView_i;
+	IBOutlet FlatsView		*flatPalView_i;
 	
-	IBOutlet id	lightLevel_i;
-	IBOutlet id	lightSlider_i;
-	IBOutlet id	special_i;
-	IBOutlet id	tag_i;
-	IBOutlet NSMatrix	*floorAndCeiling_i;		// radio button matrix
+	IBOutlet NSTextField	*lightLevel_i;
+	IBOutlet NSSlider		*lightSlider_i;
+	IBOutlet NSTextField	*special_i;
+	IBOutlet NSTextField	*tag_i;
+	IBOutlet NSMatrix		*floorAndCeiling_i;		// radio button matrix
 	IBOutlet NSButtonCell	*ceiling_i;				// radio button
 	IBOutlet NSButtonCell	*floor_i;				// radio button
-	IBOutlet id	cheightfield_i;
-	IBOutlet id	fheightfield_i;
-	IBOutlet id	cflatname_i;
-	IBOutlet id	fflatname_i;
-	IBOutlet id	totalHeight_i;
-	IBOutlet id	curFlat_i;
+	IBOutlet NSTextField	*cheightfield_i;
+	IBOutlet NSTextField	*fheightfield_i;
+	IBOutlet NSTextField	*cflatname_i;
+	IBOutlet NSTextField	*fflatname_i;
+	IBOutlet NSTextField	*totalHeight_i;
+	IBOutlet NSTextField	*curFlat_i;
 	
 	int	ceiling_flat,floor_flat;
 	sectordef_t	sector;
