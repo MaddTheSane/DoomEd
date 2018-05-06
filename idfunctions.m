@@ -2,6 +2,9 @@
 
 #import "idfunctions.h"
 
+#undef LongSwap
+#undef ShortSwap
+
 /*
 ============
 =
@@ -10,12 +13,23 @@
 ============
 */
 
-void BoxFromRect (box_t *box, NSRect *rect)
+void BoxFromRect (box_t *box, const NSRect *rect)
 {
 	box->left = rect->origin.x;
 	box->right = box->left + rect->size.width;
 	box->bottom= rect->origin.y;
 	box->top = box->bottom + rect->size.height;	
+}
+
+box_t DEBoxFromRect (const NSRect rect)
+{
+	box_t box;
+	box.left = rect.origin.x;
+	box.right = box.left + rect.size.width;
+	box.bottom= rect.origin.y;
+	box.top = box.bottom + rect.size.height;
+
+	return box;
 }
 
 
@@ -27,7 +41,9 @@ void BoxFromRect (box_t *box, NSRect *rect)
 ============
 */
 
-void BoxFromPoints (box_t *box, NSPoint *p1, NSPoint *p2)
+
+
+void BoxFromPoints (box_t *box, const NSPoint *p1, const NSPoint *p2)
 {
 	if (p1->x < p2->x)
 	{
@@ -51,6 +67,27 @@ void BoxFromPoints (box_t *box, NSPoint *p1, NSPoint *p2)
 	}
 }
 
+box_t DEBoxFromPoints (const NSPoint p1, const NSPoint p2)
+{
+	box_t box;
+	if (p1.x < p2.x) {
+		box.left = p1.x;
+		box.right = p2.x;
+	} else {
+		box.right = p1.x;
+		box.left = p2.x;
+	}
+	
+	if (p1.y < p2.y) {
+		box.bottom = p1.y;
+		box.top = p2.y;
+	} else {
+		box.top = p1.y;
+		box.bottom = p2.y;
+	}
+	
+	return box;
+}
 
 /*
 ================
