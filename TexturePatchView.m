@@ -129,7 +129,7 @@
 				[textureEdit_i	addPatch:selectedPatch];
 
 			[textureEdit_i	setSelectedPatch:patchnum - 1];
-			[[self superview] display];
+			[[self superview] setNeedsDisplay:YES];
 			break;
 		}
 	}

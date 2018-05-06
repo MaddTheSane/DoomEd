@@ -117,7 +117,7 @@
 - (void) rightMouseDown:(NSEvent *)theEvent
 {
 	[[textureEdit_i	getSTP]	empty];
-	[self display];
+	[self setNeedsDisplay:YES];
 }
 
 - (void) mouseDown:(NSEvent *)theEvent
@@ -220,7 +220,7 @@
 								((l.y / 2) + (d->p->r.size.height / 2));
 
 		}
-		[ self		display ];
+		[self setNeedsDisplay:YES];
 		[textureEdit_i	updateTexPatchInfo];
 		[textureEdit_i	setWarning:warn];
 	} while ([event type] != NSLeftMouseUp);

@@ -111,9 +111,9 @@
 			origin.x += dx;
 			origin.y += dy;
 			[self setOrigin: origin];
-			[[self enclosingScrollView] display];	// redraw everything just once
+			[[self enclosingScrollView] setNeedsDisplay:YES];	// redraw everything just once
 			oldpt = [event locationInWindow];
-			[self convertPoint: oldpt fromView: NULL];
+			oldpt = [self convertPoint: oldpt fromView: NULL];
 			[doomproject_i	setMapDirty:TRUE];
 		}
 	} while (1);

@@ -200,7 +200,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 		description: NULL
 	];
 
-	saveSound = [NSSound soundNamed: @"DESave"];
+	saveSound = [[NSSound soundNamed: @"DESave"] retain];
 	}
 	
 	return self;
@@ -359,7 +359,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	[win setDelegate: self];
 	[win setTitleWithRepresentedFilename: pathname];
 	[win setFrameUsingName:WORLDNAME];
-	[win display];
+	[win setViewsNeedDisplay:YES];
 	[win makeKeyAndOrderFront:self];
 }
 
@@ -442,7 +442,6 @@ int LineByPoint (NSPoint *ptin, int *side)
 	}
 
 	pan = NSGetAlertPanel(@"One moment", @"Saving", nil, nil, nil);
-	[pan display];
 	[pan orderFront: NULL];
 	PSwait ();
 
@@ -633,7 +632,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - (void)redrawWindows
 {
-	[windowlist_i makeObjectsPerformSelector: @selector(display)];
+	[windowlist_i makeObjectsPerformSelector: @selector(setViewsNeedDisplay:) withObject:@YES];
 
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];

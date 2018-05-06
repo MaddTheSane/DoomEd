@@ -322,7 +322,7 @@ SectorEditor *sectorEdit_i;
 		val = [cheightfield_i	intValue];
 	[fheightfield_i		setIntValue:val];
 	sector.floorheight = val;
-	[sectorEditView_i	display];
+	[sectorEditView_i	setNeedsDisplay:YES];
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[self	setKey:NULL];
 }
@@ -357,7 +357,7 @@ SectorEditor *sectorEdit_i;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
 	[flatPalView_i		scrollRectToVisible:r];
-	[flatPalView_i		display];
+	[flatPalView_i		setNeedsDisplay:YES];
 	[self	setKey:NULL];
 }
 
@@ -637,8 +637,8 @@ SectorEditor *sectorEdit_i;
 	}
 	
 	[flatPalView_i	scrollRectToVisible:f->r];
-	[flatScrPalView_i	display];
-	[sectorEditView_i	display];
+	[flatScrPalView_i	setNeedsDisplay:YES];
+	[sectorEditView_i	setNeedsDisplay:YES];
 	[self	setKey:NULL];
 }
 
@@ -656,7 +656,7 @@ SectorEditor *sectorEdit_i;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
 	[flatPalView_i		scrollRectToVisible:r];
-	[flatScrPalView_i	display];
+	//[flatScrPalView_i	setNeedsDisplay:YES];
 }
 
 - (int) getCurrentFlat
@@ -742,7 +742,7 @@ SectorEditor *sectorEdit_i;
 - (void)windowDidResize:(NSNotification *)notification
 {
 	[self		computeFlatDocView];
-	[window_i	display];
+	[window_i	setViewsNeedDisplay:YES];
 }
 
 - (void)specialChosen:(int)value

@@ -116,7 +116,7 @@ ThingPalette *thingPalette_i;
 	r.origin.y -= SPACING;
 	r.size.height += SPACING*2;
 	[thingPalView_i		scrollRectToVisible:r];
-	[thingPalScrView_i	display];
+	//[thingPalScrView_i	display];
 }
 
 //============================================================

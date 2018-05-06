@@ -1,5 +1,6 @@
 #import "BlockWorld.h"
 #import	"DoomProject.h"
+#import "ps_quartz.h"
 
 id		blockworld_i;
 CompatibleStorage *sectors=nil;	// storage object of sectors
@@ -378,7 +379,7 @@ void floodline (int startx, int y)
 - (void)displayBlockMap
 {
 	NSRect	aRect;
-	id		window;
+	NSWindow *window;
 	unsigned char		*planes[5];
 	int		i,size;
 	unsigned short	*src, *dest;
@@ -390,7 +391,7 @@ void floodline (int startx, int y)
 	//buttonMask:	NX_MINIATURIZEBUTTONMASK|NX_CLOSEBUTTONMASK
 				   defer: NO];
 
-	[window display];
+	//[window setViewsNeedDisplay:YES];
 	[window orderFront:nil];
 
 	blockview = [window contentView];
@@ -620,7 +621,7 @@ void floodline (int startx, int y)
 	pan = NSGetAlertPanel(@"One moment",
 		@"Filling block map",
 		nil, nil, nil);
-	[pan display];
+	//[pan display];
 	[pan orderFront: NULL];
 	PSwait ();
 

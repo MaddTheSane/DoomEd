@@ -323,7 +323,7 @@ TexturePalette *texturePalette_i;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
 	[texturePalView_i	scrollRectToVisible:r];
-	[texturePalScrView_i	display];
+	//[texturePalScrView_i setNeedsDisplay:YES];
 	return i;
 }
 
@@ -346,7 +346,7 @@ TexturePalette *texturePalette_i;
 		r.size.width += SPACING*2;
 		r.size.height += SPACING*2;
 		[texturePalView_i		scrollRectToVisible:r];
-		[texturePalScrView_i	display];
+		//[texturePalScrView_i	display];
 	}
 }
 
@@ -376,7 +376,7 @@ TexturePalette *texturePalette_i;
 			r.size.width += SPACING*2;
 			r.size.height += SPACING*2;
 			[texturePalView_i	scrollRectToVisible:r];
-			[texturePalScrView_i	display];
+			//[texturePalScrView_i	display];
 			break;
 		}
 }

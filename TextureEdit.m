@@ -149,7 +149,7 @@ CompatibleStorage *texturePatches;
 //
 // sort the "selected patches" list so pasting looks correct
 //
-- sortSelectedList
+- (void)sortSelectedList
 {
 	int	i,max,found,*e1,*e2,temp;
 	
@@ -170,13 +170,12 @@ CompatibleStorage *texturePatches;
 			}
 		}
 	} while(found);
-	return self;
 }
 
 //
 // copy patches
 //
-- copy:sender
+- (IBAction)copy:sender
 {
 	int	i,max;
 
@@ -196,14 +195,13 @@ CompatibleStorage *texturePatches;
 			*(int *)[selectedTexturePatches elementAt:i]]];
 
 	[selectedTexturePatches	empty];
-	[textureView_i		display];
-	return self;
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
 // paste patches
 //
-- paste:sender
+- (IBAction)paste:sender
 {
 	texpatch_t	p;
 	int	i,max = [copyList	count], val, xoff, yoff;
@@ -212,7 +210,7 @@ CompatibleStorage *texturePatches;
 	if (!max)
 	{
 		NSBeep();
-		return self;
+		return;
 	}
 	
 	dvr = [scrollView_i documentVisibleRect];
@@ -229,8 +227,7 @@ CompatibleStorage *texturePatches;
 		val = [texturePatches count] - 1;
 		[selectedTexturePatches	addElement:&val];
 	}
-	[textureView_i		display];
-	return self;
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
@@ -276,7 +273,7 @@ CompatibleStorage *texturePatches;
 	[texturePatches	insertElement:&t1	at:newpatch];
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
@@ -321,7 +318,7 @@ CompatibleStorage *texturePatches;
 	[texturePatches	insertElement:&t2	at:[self getCurrentEditPatch]];
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -344,7 +341,7 @@ CompatibleStorage *texturePatches;
 	tp->r.origin.x += delta;
 	tp->patchInfo.originx += delta/2;
 	
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -367,7 +364,7 @@ CompatibleStorage *texturePatches;
 	tp->r.origin.y += delta;
 	tp->patchInfo.originy -= delta/2;
 	
-	[textureView_i		setNeedsDisplay:YES];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -389,7 +386,7 @@ CompatibleStorage *texturePatches;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
 	[texturePatchView_i	scrollRectToVisible:r];
-	[texturePatchScrollView_i	display];
+	//[texturePatchScrollView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -445,7 +442,7 @@ CompatibleStorage *texturePatches;
 {
 	apatch_t	*patch;
 	texpatch_t	*tp;
-	int		pnum, c, max;
+	NSInteger	pnum, c, max;
 	
 	c =[selectedTexturePatches	count];
 	if (!c || c > 1)
@@ -454,8 +451,8 @@ CompatibleStorage *texturePatches;
 		return;
 	}
 	
-	tp = [texturePatches	elementAt:*(int *)[selectedTexturePatches  elementAt:0]];
-	max = [patchImages	count ];
+	tp = [texturePatches elementAt:*(int *)[selectedTexturePatches  elementAt:0]];
+	max = [patchImages count];
 	for (pnum = 0; pnum < max; pnum++)
 	{
 		patch = [patchImages	elementAt:pnum ];
@@ -491,7 +488,7 @@ CompatibleStorage *texturePatches;
 //
 - (IBAction)deleteCurrentPatch:sender
 {
-	int	count, i;
+	NSInteger	count, i;
 	
 	count = [selectedTexturePatches	count];
 	if (!count)
@@ -504,7 +501,7 @@ CompatibleStorage *texturePatches;
 		[texturePatches	removeElementAt:[self findHighestNumberedPatch]];
 	[selectedTexturePatches	empty];
 	
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
@@ -512,7 +509,7 @@ CompatibleStorage *texturePatches;
 //
 - (int)getCurrentEditPatch
 {
-	int	amount;
+	NSInteger	amount;
 	
 	amount = [selectedTexturePatches	count];
 	if (!amount || amount > 1)
@@ -532,9 +529,9 @@ CompatibleStorage *texturePatches;
 
 - (void)updateTexPatchInfo
 {
-	NSString *patchname;
+	NSString	*patchname;
 	texpatch_t	*t;
-	int	c = [selectedTexturePatches	count];
+	NSInteger	c = [selectedTexturePatches	count];
 
 	if (!c || c > 1)
 	{
@@ -629,7 +626,7 @@ CompatibleStorage *texturePatches;
 //
 - (IBAction)outlineWasSet:sender
 {
-	[window_i	display];
+	[window_i setViewsNeedDisplay:YES];
 }
 
 //
@@ -660,10 +657,10 @@ CompatibleStorage *texturePatches;
 //
 - (IBAction)changedWidthOrHeight:sender
 {
-	worldtexture_t		tex;
+	worldtexture_t	tex;
 	texpatch_t		*p;
-	int		count, deltay;
-	NSRect	tr, nr;
+	int				count, deltay;
+	NSRect			tr, nr;
 	
 	//
 	// save texture first!
@@ -673,7 +670,7 @@ CompatibleStorage *texturePatches;
 	//
 	// was width or height reduced?
 	//
-	if (	[textureWidthField_i	intValue] < textures[currentTexture].width ||
+	if ([textureWidthField_i	intValue] < textures[currentTexture].width ||
 		[textureHeightField_i	intValue] < textures[currentTexture].height)
 	{
 		tr = NSMakeRect(0, 0,
@@ -740,8 +737,8 @@ CompatibleStorage *texturePatches;
 	strlcat(tex.name, [[createName_i stringValue] UTF8String],
 	        sizeof(tex.name));
 
-	cell = [setMatrix_i	selectedCell ];
-	tex.WADindex = [cell	tag];
+	cell = [setMatrix_i	selectedCell];
+	tex.WADindex = [cell tag];
 	
 	//
 	// add it to the world and edit it
@@ -848,7 +845,7 @@ CompatibleStorage *texturePatches;
 	[cell		setTag: nr-1 ];
 	[setMatrix_i	sizeToCells ];
 	[setMatrix_i	selectCell:cell ];
-	[setMatrix_i	display ];
+	[setMatrix_i setNeedsDisplay:YES];
 }
 
 //======================================================
@@ -1053,7 +1050,7 @@ CompatibleStorage *texturePatches;
 	//
 	p.r.origin.x += p.r.size.width * 1.5;
 	[textureView_i		scrollRectToVisible:p.r];
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 - (IBAction)fillWithPatch:sender
@@ -1106,7 +1103,7 @@ CompatibleStorage *texturePatches;
 	r.size.width += SPACING*2;
 	r.size.height += SPACING*2;
 	[texturePatchView_i			scrollRectToVisible:r];
-	[texturePatchScrollView_i	display];
+	//[texturePatchScrollView_i setNeedsDisplay:YES];
 }
 
 //==========================================================
@@ -1116,9 +1113,9 @@ CompatibleStorage *texturePatches;
 //==========================================================
 - (void)dumpAllPatches
 {
-	int			i, max;
+	NSInteger		i, max;
 	apatch_t		*p;
-	id			panel;
+	id				panel;
 	
 	panel = NSGetAlertPanel(@"Wait...",
 		@"Dumping texture patches.",
@@ -1332,7 +1329,7 @@ CompatibleStorage *texturePatches;
 	
 	[self		computePatchDocView:&r];
 	[texturePatchView_i setFrameSize:r.size];
-	[window_i	display];
+	[window_i setViewsNeedDisplay:YES];
 }
 
 //
