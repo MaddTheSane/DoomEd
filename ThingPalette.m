@@ -111,7 +111,7 @@ ThingPalette *thingPalette_i;
 		
 	currentIcon = which;
 	icon = [thingImages	elementAt:which];
-	[nameField_i		setStringValue:icon->name];
+	[nameField_i		setStringValue:@(icon->name)];
 	r = icon->r;
 	r.origin.y -= SPACING;
 	r.size.height += SPACING*2;

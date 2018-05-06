@@ -116,7 +116,6 @@ typedef struct
 //
 // dealing with map windows
 //
-- (void)windowWillClose:(NSNotification *)notification;
 - (void) updateWindows;
 - (void)addToDirtyRect: (int)p1 : (int)p2;
 - (void)updateLineNormal:(int) num;

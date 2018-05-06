@@ -124,11 +124,11 @@ SpecialList *lineSpecialPanel_i;
 
 - (void)getSide: (worldside_t *)side
 {
-	side->flags = [sideform_i intValueAt: 0];
-	side->firstcollumn = [sideform_i intValueAt: 1];
-	strncpy (side->toptexture, [sideform_i stringValueAt: 2], 9);
-	strncpy (side->midtexture, [sideform_i stringValueAt: 3], 9);
-	strncpy (side->bottomtexture, [sideform_i stringValueAt: 4], 9);
+	side->flags = [[sideform_i cellAtIndex:0] intValue];
+	side->firstcollumn = [[sideform_i cellAtIndex:1] intValue];
+	strncpy (side->toptexture, [[sideform_i cellAtIndex:2] stringValue].UTF8String, 9);
+	strncpy (side->midtexture, [[sideform_i cellAtIndex:3] stringValue].UTF8String, 9);
+	strncpy (side->bottomtexture, [[sideform_i cellAtIndex:4] stringValue].UTF8String, 9);
 	memset (&side->ends,0,sizeof(side->ends));
 }
 
@@ -143,11 +143,11 @@ SpecialList *lineSpecialPanel_i;
 
 - (void)setSide: (worldside_t *)side
 {
-	[sideform_i setIntValue: side->flags at: 0] ;
-	[sideform_i setIntValue: side->firstcollumn at: 1];
-	[sideform_i setStringValue: side->toptexture at: 2];
-	[sideform_i setStringValue: side->midtexture at: 3];
-	[sideform_i setStringValue: side->bottomtexture at: 4];
+	[[sideform_i cellAtIndex:0] setIntValue:side->flags];
+	[[sideform_i cellAtIndex:1] setIntValue:side->firstcollumn];
+	[[sideform_i cellAtIndex:2] setStringValue:@(side->toptexture)];
+	[[sideform_i cellAtIndex:3] setStringValue:@(side->midtexture)];
+	[[sideform_i cellAtIndex:4] setStringValue:@(side->bottomtexture)];
 }
 
 
@@ -238,58 +238,58 @@ SpecialList *lineSpecialPanel_i;
 
 - (void)monsterblockChanged: sender
 {
-	int	state;
+	NSInteger	state;
 	state = [monsterblock_i state];	
-	[self changeLineFlag: ~ML_MONSTERBLOCK  to: ML_MONSTERBLOCK*state];
+	[self changeLineFlag: ~ML_MONSTERBLOCK  to: (int)(ML_MONSTERBLOCK*state)];
 }
 
 - (void)blockChanged: sender
 {
-	int	state;
+	NSInteger	state;
 	state = [pblock_i state];	
-	[self changeLineFlag: ~ML_BLOCKMOVE  to: ML_BLOCKMOVE*state];
+	[self changeLineFlag: ~ML_BLOCKMOVE  to: (int)(ML_BLOCKMOVE*state)];
 }
 
 - (void)secretChanged:sender
 {
-	int	state;
+	NSInteger	state;
 	state = [secret_i	state];
-	[self	changeLineFlag: ~ML_SECRET	to:ML_SECRET*state];
+	[self	changeLineFlag: ~ML_SECRET	to:(int)(ML_SECRET*state)];
 }
 
 - (void)dontDrawChanged:sender
 {
-	int	state;
+	NSInteger	state;
 	state = [dontdraw_i	state];
-	[self	changeLineFlag: ~ML_DONTDRAW	to:ML_DONTDRAW*state];
+	[self	changeLineFlag: ~ML_DONTDRAW	to:(int)(ML_DONTDRAW*state)];
 }
 
 - (void)soundBlkChanged:sender
 {
-	int	state;
+	NSInteger	state;
 	state = [soundblock_i	state];
-	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:ML_SOUNDBLOCK*state];
+	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:(int)(ML_SOUNDBLOCK*state)];
 }
 
 - (void)twosideChanged: sender
 {
-	int	state;
+	NSInteger	state;
 	state = [twosided_i state];	
-	[self changeLineFlag: ~ML_TWOSIDED  to: ML_TWOSIDED*state];
+	[self changeLineFlag: ~ML_TWOSIDED  to: (int)(ML_TWOSIDED*state)];
 }
 
 - (void)toppegChanged: sender
 {
-	int	state;
+	NSInteger	state;
 	state = [toppeg_i state];	
-	[self changeLineFlag: ~ML_DONTPEGTOP  to: ML_DONTPEGTOP*state];
+	[self changeLineFlag: ~ML_DONTPEGTOP  to: (int)(ML_DONTPEGTOP*state)];
 }
 
 - (void)bottompegChanged: sender
 {
-	int	state;
+	NSInteger	state;
 	state = [bottompeg_i state];	
-	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: ML_DONTPEGBOTTOM*state];
+	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: (int)(ML_DONTPEGBOTTOM*state)];
 }
 
 - (void)specialChanged: sender
@@ -352,7 +352,7 @@ SpecialList *lineSpecialPanel_i;
 	
 	tag = [[sender selectedCell] tag];
 	[[sideform_i	cellAtRow:2+tag column:0]
-		setStringValue:[texturePalette_i getSelTextureName]];
+		setStringValue:@([texturePalette_i getSelTextureName])];
 	[self	sideChanged:NULL];
 }
 
@@ -361,7 +361,7 @@ SpecialList *lineSpecialPanel_i;
 	NSInteger	tag;
 	
 	tag = [[sender selectedCell] tag];
-	[texturePalette_i	setSelTexture:[[sideform_i cellAtRow:2+tag column:0] stringValue]];
+	[texturePalette_i	setSelTexture:[[sideform_i cellAtRow:2+tag column:0] stringValue].UTF8String];
 }
 
 - (void)zeroEntry:sender

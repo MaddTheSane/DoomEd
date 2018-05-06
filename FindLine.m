@@ -2,6 +2,15 @@
 #import "FindLine.h"
 
 @implementation FindLine
+#if 0
++ (void)initialize
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[[[NSSound alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForSoundResource:@"D_EPain"] byReference:YES] setName:@"D_EPain"];
+	});
+}
+#endif
 
 //=============================================================
 //

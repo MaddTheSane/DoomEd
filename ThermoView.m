@@ -6,10 +6,10 @@
 
 - (void)setThermoWidth:(int)current max:(int)maximum
 {
-	thermoWidth = [self bounds].size.width*((float)current/(float)maximum);
+	thermoWidth = [self bounds].size.width*((CGFloat)current/(CGFloat)maximum);
 }
 
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)rects
 {
 	PSsetlinewidth([self bounds].size.height);
 
@@ -22,8 +22,6 @@
 	PSmoveto(thermoWidth+1,[self bounds].size.height/2);
 	PSlineto([self bounds].size.width,[self bounds].size.height/2);
 	PSstroke();
-
-	return self;
 }
 
 @end

@@ -489,12 +489,12 @@ void floodline (int startx, int y)
 	x1 = (pt->x - wbounds.origin.x)/8;
 	y1 = (pt->y - wbounds.origin.y)/8;
 #if SHOWFILL
-[self displayBlockMap];
-[blockview lockFocus];
+	[self displayBlockMap];
+	[blockview lockFocus];
 #endif
 	floodline (x1, bheight-1-y1);
 #if SHOWFILL
-[blockview unlockFocus];
+	[blockview unlockFocus];
 #endif
 	[editworld_i redrawWindows];
 //	free(bmap);
@@ -654,7 +654,7 @@ void floodline (int startx, int y)
 		if (line->side[0].sector == -1 || 
 		((line->flags&ML_TWOSIDED) && line->side[1].sector == -1) )
 		{
-			[self sectorError:@"Line side not grouped" : i : -1];
+			[self sectorError:@"Line side not grouped" : (int)i : -1];
 			return NO;
 		}
 	}

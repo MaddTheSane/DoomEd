@@ -1,13 +1,15 @@
 #import	"ThingPanel.h"
 #import "ToolPanel.h"
 
-id	toolpanel_i;
+ToolPanel *toolpanel_i;
 
 @implementation ToolPanel
 
 - init
 {
+	if (self = [super init]) {
 	toolpanel_i = self;
+	}
 	return self;
 }
 
@@ -24,7 +26,7 @@ id	toolpanel_i;
 
 - (tool_t)currentTool
 {
-	return [toolmatrix_i selectedRow];
+	return (tool_t)[toolmatrix_i selectedRow];
 }
 
 - (void)changeTool:(int)which

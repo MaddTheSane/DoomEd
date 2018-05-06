@@ -92,14 +92,11 @@
                             <action selector="decFirstCol:" target="-2" id="84"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="39">
-                        <rect key="frame" x="30" y="7" width="85" height="14"/>
-                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" alignment="right" title="Inc/Decrement:" id="99">
-                            <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YE3-TJ-Ua5">
+                        <rect key="frame" x="8" y="18" width="19" height="27"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="wJ2-ub-L8Z"/>
+                    </stepper>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="24" secondAttribute="trailing" constant="8" id="2UD-eD-ga0"/>
@@ -110,16 +107,13 @@
                     <constraint firstItem="25" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="16" secondAttribute="leading" constant="20" symbolic="YES" id="RhN-VI-cB9"/>
                     <constraint firstItem="53" firstAttribute="top" secondItem="16" secondAttribute="top" constant="4" id="RpQ-ce-YUF"/>
                     <constraint firstItem="24" firstAttribute="centerY" secondItem="53" secondAttribute="centerY" id="X1X-sM-kEG"/>
-                    <constraint firstItem="39" firstAttribute="trailing" secondItem="25" secondAttribute="trailing" id="ZE2-Vi-o4k"/>
                     <constraint firstItem="25" firstAttribute="firstBaseline" secondItem="53" secondAttribute="firstBaseline" id="bcU-av-rvF"/>
                     <constraint firstAttribute="bottom" secondItem="51" secondAttribute="bottom" constant="4" id="cLg-xD-tXJ"/>
                     <constraint firstItem="52" firstAttribute="top" secondItem="24" secondAttribute="bottom" constant="8" symbolic="YES" id="dNH-VG-0Iu"/>
                     <constraint firstItem="24" firstAttribute="leading" secondItem="52" secondAttribute="leading" id="env-tE-ewf"/>
                     <constraint firstItem="24" firstAttribute="trailing" secondItem="52" secondAttribute="trailing" id="hKV-XU-EMP"/>
-                    <constraint firstItem="51" firstAttribute="baseline" secondItem="39" secondAttribute="baseline" id="l0d-Lu-O2D"/>
                     <constraint firstItem="24" firstAttribute="leading" secondItem="53" secondAttribute="trailing" constant="8" symbolic="YES" id="mnH-6U-9tP"/>
                     <constraint firstItem="51" firstAttribute="leading" secondItem="53" secondAttribute="leading" id="vq9-UE-ks8"/>
-                    <constraint firstItem="39" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="16" secondAttribute="leading" constant="15" id="zB7-YA-Pdv"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="159" y="162"/>

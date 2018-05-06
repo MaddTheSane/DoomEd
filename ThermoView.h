@@ -3,7 +3,7 @@
 
 @interface ThermoView:NSView
 {
-	float		thermoWidth;
+	CGFloat		thermoWidth;
 }
 
 - (void)setThermoWidth:(int)current max:(int)maximum;

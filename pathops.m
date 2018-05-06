@@ -56,7 +56,6 @@ void		FinishPath (int path)
 	
 	[[prefpanel_i colorFor: path] set];
 	[mainPath stroke];
-	[mainPath release];
 	paths[path] = nil;
 }
 

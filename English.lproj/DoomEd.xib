@@ -147,8 +147,8 @@
         </window>
         <menu title="DoomEd" systemMenu="main" id="41" userLabel="MainMenu">
             <items>
-                <menuItem title="Info" id="28">
-                    <menu key="submenu" title="Info" id="4">
+                <menuItem title="DoomEd" id="28">
+                    <menu key="submenu" title="DoomEd" id="4">
                         <items>
                             <menuItem title="About DoomEd..." id="44">
                                 <connections>
@@ -162,6 +162,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="k36-b0-7WB"/>
+                            <menuItem title="Services" id="FD0-OK-p8O">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Services" systemMenu="services" id="tTt-u5-bcf"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="U7L-QQ-lgU"/>
                             <menuItem title="Hide DoomEd" keyEquivalent="h" id="125">
                                 <connections>
                                     <action selector="hide:" target="-2" id="144"/>
@@ -240,6 +245,11 @@
                             <menuItem title="Print..." id="143">
                                 <connections>
                                     <action selector="print:" target="-1" id="172"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Close Window" keyEquivalent="w" id="5">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="195"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -412,19 +422,14 @@
                 <menuItem title="Windows" id="115">
                     <menu key="submenu" title="Windows" systemMenu="window" id="101">
                         <items>
-                            <menuItem title="Arrange in Front" id="53">
+                            <menuItem title="Bring All to Front" id="53">
                                 <connections>
                                     <action selector="arrangeInFront:" target="-1" id="196"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Miniaturize Window" keyEquivalent="m" id="26">
+                            <menuItem title="Minimize" keyEquivalent="m" id="26">
                                 <connections>
                                     <action selector="performMiniaturize:" target="-1" id="194"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Close Window" keyEquivalent="w" id="5">
-                                <connections>
-                                    <action selector="performClose:" target="-1" id="195"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -467,7 +472,7 @@
                     <button imageHugsTitle="YES" id="46">
                         <rect key="frame" x="8" y="74" width="80" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="trailing" alignment="right" inset="2" id="Ma7-7t-sTq">
+                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="right" alignment="right" inset="2" id="Ma7-7t-sTq">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -478,7 +483,7 @@
                     <button imageHugsTitle="YES" id="72">
                         <rect key="frame" x="30" y="56" width="58" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Items" imagePosition="trailing" alignment="right" inset="2" id="F9h-TH-qI5">
+                        <buttonCell key="cell" type="check" title="Items" imagePosition="right" alignment="right" inset="2" id="F9h-TH-qI5">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -489,7 +494,7 @@
                     <button misplaced="YES" imageHugsTitle="YES" id="99">
                         <rect key="frame" x="15" y="37" width="73" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="trailing" alignment="right" inset="2" id="eHM-gB-rKM">
+                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="right" alignment="right" inset="2" id="eHM-gB-rKM">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
@@ -500,7 +505,7 @@
                     <button imageHugsTitle="YES" id="111">
                         <rect key="frame" x="15" y="7" width="73" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Panel" imagePosition="trailing" alignment="right" inset="2" id="l4X-3X-sFL">
+                        <buttonCell key="cell" type="check" title="Panel" imagePosition="right" alignment="right" inset="2" id="l4X-3X-sFL">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>

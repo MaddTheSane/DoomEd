@@ -41,7 +41,7 @@
 		27DA449E19706396005CB000 /* MapViewDraw.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447019706396005CB000 /* MapViewDraw.m */; };
 		27DA449F19706396005CB000 /* MapViewResp.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447119706396005CB000 /* MapViewResp.m */; };
 		27DA44A019706396005CB000 /* MapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447219706396005CB000 /* MapWindow.m */; };
-		27DA44A119706396005CB000 /* pathops.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447319706396005CB000 /* pathops.m */; };
+		27DA44A119706396005CB000 /* pathops.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447319706396005CB000 /* pathops.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		27DA44A219706396005CB000 /* PopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447419706396005CB000 /* PopScrollView.m */; };
 		27DA44A319706396005CB000 /* PreferencePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447519706396005CB000 /* PreferencePanel.m */; };
 		27DA44A419706396005CB000 /* Remapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447619706396005CB000 /* Remapper.m */; };
