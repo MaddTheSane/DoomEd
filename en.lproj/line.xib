@@ -92,11 +92,6 @@
                             <action selector="decFirstCol:" target="-2" id="84"/>
                         </connections>
                     </button>
-                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YE3-TJ-Ua5">
-                        <rect key="frame" x="8" y="18" width="19" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="wJ2-ub-L8Z"/>
-                    </stepper>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="24" secondAttribute="trailing" constant="8" id="2UD-eD-ga0"/>
