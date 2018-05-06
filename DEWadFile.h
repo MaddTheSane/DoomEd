@@ -2,6 +2,8 @@
 
 #import <AppKit/AppKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class DELumpInfo;
 
 @interface DEWadFile : NSObject
@@ -12,8 +14,8 @@
 	BOOL				dirty;
 }
 
-- (instancetype)initWithFilePath: (NSString *)path;
-- (instancetype)initNewWithPath: (NSString *)path;
+- (nullable instancetype)initWithFilePath: (NSString *)path;
+- (nullable instancetype)initNewWithPath: (NSString *)path;
 - (void)close;
 
 @property (readonly) NSInteger countOfLumps;
@@ -22,7 +24,7 @@
 - (NSString *)nameOfLumpAtIndex: (NSInteger)lump;
 - (NSInteger)indexOfLumpNamed: (NSString *)name;
 - (NSData *)dataOfLumpAtIndex: (NSInteger)lump;
-- (NSData *)dataOfLumpNamed: (NSString *)name;
+- (nullable NSData *)dataOfLumpNamed: (NSString *)name;
 
 - (void)addIndexWithName: (NSString *)name data: (NSData *)data;
 - (void)writeDirectory;
@@ -32,5 +34,7 @@
 @interface DELumpInfo: NSObject
 @property int filePosition;
 @property int dataSize;
-@property (copy) NSString *name;
+@property (copy, nullable) NSString *name;
 @end
+
+NS_ASSUME_NONNULL_END
