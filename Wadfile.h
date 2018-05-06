@@ -17,10 +17,11 @@
 - (instancetype)initNewWithPath: (NSString *)path;
 - (void)close;
 
-- (int)numLumps;
+@property (readonly) NSInteger countOfLumps;
 - (int)lumpsize: (int)lump;
 - (int)lumpstart: (int)lump;
 - (char const *)lumpname: (int)lump;
+- (NSInteger)indexOfLumpNamed: (char const *)name;
 - (int)lumpNamed: (char const *)name;
 - (void *)loadLump: (int)lump;
 - (void *)loadLumpNamed: (char const *)name;

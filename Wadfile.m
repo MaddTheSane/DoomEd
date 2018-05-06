@@ -2,7 +2,7 @@
 #import "idfunctions.h"
 #import <ctype.h>
 
-typedef struct
+typedef struct wadinfo_s
 {
 	char	identification[4];		// should be IWAD
 	int		numlumps;
@@ -10,7 +10,7 @@ typedef struct
 } wadinfo_t;
 
 
-typedef struct
+typedef struct lumpinfo_s
 {
 	int		filepos;
 	int		size;
@@ -155,7 +155,7 @@ typedef struct
 
 //=============================================================================
 
-- (int)numLumps
+- (NSInteger)countOfLumps
 {
 	return [info count];
 }
@@ -218,6 +218,37 @@ typedef struct
 			return i;
 	}
 	return  -1;
+}
+
+- (NSInteger)indexOfLumpNamed: (char const *)name
+{
+	lumpinfo_t	*inf;
+	NSInteger	i, count;
+	char		name8[9];
+	int			v1,v2;
+	
+	// make the name into two integers for easy compares
+	
+	memset(name8,0,9);
+	if (strlen(name) < 9)
+		strncpy (name8,name,9);
+	for (i=0 ; i<9 ; i++)
+		name8[i] = toupper(name8[i]);	// case insensitive
+	
+	v1 = *(int *)name8;
+	v2 = *(int *)&name8[4];
+	
+	
+	// scan backwards so patch lump files take precedence
+	
+	count = [info count];
+	for (i=count-1 ; i>=0 ; i--)
+	{
+		inf = [info elementAt: i];
+		if ( *(int *)inf->name == v1 && *(int *)&inf->name[4] == v2)
+			return i;
+	}
+	return  NSNotFound;
 }
 
 /*
@@ -314,7 +345,7 @@ typedef struct
 // write the header
 //
 	strncpy (wad.identification, "IWAD",4);
-	wad.numlumps = LongSwap ([info count]);
+	wad.numlumps = LongSwap ((unsigned)[info count]);
 	lseek (handle, 0, L_SET);
 	write (handle, &wad, sizeof(wad));
 }
