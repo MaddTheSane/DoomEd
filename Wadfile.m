@@ -144,7 +144,7 @@ typedef struct lumpinfo_s
 
 - (void) dealloc
 {
-	close(handle);
+	[self close];
 	if (info != nil)
 	{
 		[info release];
