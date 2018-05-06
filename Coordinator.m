@@ -95,14 +95,12 @@ BOOL	debugflag = NO;
 	if ([prefpanel_i	openUponLaunch:textureEditor] == TRUE)
 		[textureEdit_i	menuTarget:NULL];
 
-	startupSound_i = [NSSound soundNamed: @"D_Dbite"];
+	NSSound *startupSound_i = [NSSound soundNamed: @"D_Dbite"];
 	[startupSound_i	play];
 }
 
 - (void)applicationWillTerminate: (NSNotification *)notification
 {
-	[startupSound_i release];
-
 	[doomproject_i	quit];
 	[prefpanel_i applicationWillTerminate: notification];
 	[editworld_i applicationWillTerminate: notification];

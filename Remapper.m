@@ -203,7 +203,7 @@
 - (IBAction)doRemappingAllMaps:sender
 {
 	type_t	*r;
-	int		index, max;
+	NSInteger		index, max;
 	unsigned int		linenum, total;
 	NSString *oldname, *newname;
 	NSString *string;
@@ -263,29 +263,20 @@
 	[self windowWillClose:NULL];
 }
 
-- (void)browser:(NSBrowser *)sender createRowsForColumn:(NSInteger)column inMatrix:(NSMatrix *)matrix
+- (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
 {
-	NSInteger	max, i;
-	NSBrowserCell	*cell;
 	NSString *string;
 	type_t	*r;
+	r = [storage_i	elementAt:row];
+
 	
-	max = [storage_i	count];
-	for (i = 0; i < max; i++)
-	{
-		r = [storage_i	elementAt:i];
-		[matrix	addRow];
-		cell = [matrix	cellAtRow:i	column:0];
-
-		string = [NSString stringWithFormat: @"%@ remaps to %@",
-		                                     r->orgname, r->newname];
-
-		[cell setStringValue:string];
-		[cell setLeaf: YES];
-		[cell setLoaded: YES];
-		[cell setEnabled: YES];
-	}
-	//return max;
+	string = [NSString stringWithFormat: @"%@ remaps to %@",
+			  r->orgname, r->newname];
+	
+	[cell setStringValue:string];
+	[cell setLeaf: YES];
+	[cell setLoaded: YES];
+	[cell setEnabled: YES];
 }
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column

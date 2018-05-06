@@ -267,7 +267,7 @@ typedef struct
 	strncpy (new.name, name, 8);
 	for (i=0 ; i<8 ; i++)
 		new.name[i] = toupper(new.name[i]);
-	new.filepos = lseek(handle,0, L_XTND);
+	new.filepos = lseek(handle,0, SEEK_END);
 	new.size = size;
 	[info addElement: &new];
 	

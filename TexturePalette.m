@@ -720,7 +720,7 @@ void createVgaTexture(char *dest, int which,int width, int height)
 	int		patchw;
 	int		patchh;
 	
-	[ wadfile_i	initFromFile: [doomproject_i wadfile] ];
+	[ wadfile_i	initFromFile: [[doomproject_i wadFile] fileSystemRepresentation] ];
 	
 	for (i = 0; i < textures[which].patchcount; i++)
 	{

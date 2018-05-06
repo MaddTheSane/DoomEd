@@ -385,7 +385,7 @@ char	bsphost[32];		// bsp host machine
 	[thingpanel_i	emptyThingList];
 
 	printf("Initializing WADfile %s\n",wadfile.UTF8String);
-	[ wadfile_i	initFromFile: wadfile ];
+	[ wadfile_i	initFromFile: [wadfile fileSystemRepresentation] ];
 	
 	printf("Purging existing texture patches.\n");
 	[ textureEdit_i	dumpAllPatches ];	
@@ -706,6 +706,12 @@ char	bsphost[32];		// bsp host machine
 	//return nummaps;
 }
 
+- (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
+{
+	
+}
+
+#if 0
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
 	if (column != 0) {
@@ -714,6 +720,7 @@ char	bsphost[32];		// bsp host machine
 	
 	return nummaps;
 }
+#endif
 
 /*
 =====================

@@ -342,6 +342,12 @@
 	//return max;
 }
 
+- (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
+{
+	
+}
+
+#if 0
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
 	if (column > 0) {
@@ -350,6 +356,7 @@
 	
 	return specialList_i.count;
 }
+#endif
 
 //============================================================
 //

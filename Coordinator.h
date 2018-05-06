@@ -12,7 +12,6 @@ extern	BOOL	debugflag;
 {
 	IBOutlet NSPanel	*toolPanel_i;
 	IBOutlet NSPanel	*infoPanel_i;
-	NSSound *startupSound_i;
 }
 
 - (IBAction)toggleDebug: sender;

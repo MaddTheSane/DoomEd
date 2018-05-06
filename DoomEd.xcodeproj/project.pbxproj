@@ -90,19 +90,19 @@
 		27044F72197042D7003F6DB6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		27044F8C197042D7003F6DB6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		270484A01970652100AD2F6E /* DoomEd-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DoomEd-Prefix.pch"; sourceTree = "<group>"; };
-		276AB5DE1970AE9D001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/DoomEd.xib; sourceTree = "<group>"; };
-		276AB5E01970AE9D001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FindLine.xib; sourceTree = "<group>"; };
-		276AB5E21970AE9D001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FlatRemapper.xib; sourceTree = "<group>"; };
-		276AB5E71970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Project.xib; sourceTree = "<group>"; };
-		276AB5E91970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ProjectInfo.xib; sourceTree = "<group>"; };
-		276AB5EB1970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Remapper.xib; sourceTree = "<group>"; };
-		276AB5ED1970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SectorEditor.xib; sourceTree = "<group>"; };
-		276AB5EF1970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SpecialList.xib; sourceTree = "<group>"; };
-		276AB5F61970AEE0001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TextureEdit.xib; sourceTree = "<group>"; };
-		276AB5F81970AEE0001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TexturePalette.xib; sourceTree = "<group>"; };
-		276AB5FA1970AEE0001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/TextureRemapper.xib; sourceTree = "<group>"; };
-		276AB5FF1970AEEE001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ThingPalette.xib; sourceTree = "<group>"; };
-		276AB6021970AEF7001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ThingStripper.xib; sourceTree = "<group>"; };
+		276AB5DE1970AE9D001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DoomEd.xib; sourceTree = "<group>"; };
+		276AB5E01970AE9D001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FindLine.xib; sourceTree = "<group>"; };
+		276AB5E21970AE9D001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FlatRemapper.xib; sourceTree = "<group>"; };
+		276AB5E71970AECA001718D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = en.lproj/Project.xib; sourceTree = "<group>"; };
+		276AB5E91970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ProjectInfo.xib; sourceTree = "<group>"; };
+		276AB5EB1970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Remapper.xib; sourceTree = "<group>"; };
+		276AB5ED1970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SectorEditor.xib; sourceTree = "<group>"; };
+		276AB5EF1970AECA001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SpecialList.xib; sourceTree = "<group>"; };
+		276AB5F61970AEE0001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextureEdit.xib; sourceTree = "<group>"; };
+		276AB5F81970AEE0001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TexturePalette.xib; sourceTree = "<group>"; };
+		276AB5FA1970AEE0001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextureRemapper.xib; sourceTree = "<group>"; };
+		276AB5FF1970AEEE001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ThingPalette.xib; sourceTree = "<group>"; };
+		276AB6021970AEF7001718D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ThingStripper.xib; sourceTree = "<group>"; };
 		277B09E11973147800177745 /* ps_quartz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ps_quartz.h; sourceTree = "<group>"; };
 		277B09E21973147800177745 /* ps_quartz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ps_quartz.m; sourceTree = "<group>"; };
 		277B09E4197340EE00177745 /* Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Storage.h; sourceTree = "<group>"; };
@@ -196,8 +196,8 @@
 		27DA448C19706396005CB000 /* ToolPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPanel.m; sourceTree = "<group>"; };
 		27DA448D19706396005CB000 /* Wadfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wadfile.m; sourceTree = "<group>"; };
 		27DA44BC19706492005CB000 /* DoomEd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DoomEd-Info.plist"; sourceTree = "<group>"; };
-		557CA99120993A8B003D39A4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/thing.xib; sourceTree = "<group>"; };
-		557CA99320993A8C003D39A4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/line.xib; sourceTree = "<group>"; };
+		557CA99120993A8B003D39A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/thing.xib; sourceTree = "<group>"; };
+		557CA99320993A8C003D39A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/line.xib; sourceTree = "<group>"; };
 		55CDCE25209668E3007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextLog.xib; sourceTree = "<group>"; };
 		55CDCE2E20966EBB007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/preferences.xib; sourceTree = "<group>"; };
 		55D5FD172095B0C300E54855 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -444,7 +444,6 @@
 			knownRegions = (
 				en,
 				Base,
-				English,
 			);
 			mainGroup = 27044F61197042D7003F6DB6;
 			productRefGroup = 27044F6B197042D7003F6DB6 /* Products */;
@@ -552,7 +551,7 @@
 		276AB5DD1970AE9D001718D1 /* DoomEd.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5DE1970AE9D001718D1 /* English */,
+				276AB5DE1970AE9D001718D1 /* en */,
 			);
 			name = DoomEd.xib;
 			sourceTree = "<group>";
@@ -560,7 +559,7 @@
 		276AB5DF1970AE9D001718D1 /* FindLine.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5E01970AE9D001718D1 /* English */,
+				276AB5E01970AE9D001718D1 /* en */,
 			);
 			name = FindLine.xib;
 			sourceTree = "<group>";
@@ -568,7 +567,7 @@
 		276AB5E11970AE9D001718D1 /* FlatRemapper.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5E21970AE9D001718D1 /* English */,
+				276AB5E21970AE9D001718D1 /* en */,
 			);
 			name = FlatRemapper.xib;
 			sourceTree = "<group>";
@@ -584,7 +583,7 @@
 		276AB5E81970AECA001718D1 /* ProjectInfo.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5E91970AECA001718D1 /* English */,
+				276AB5E91970AECA001718D1 /* en */,
 			);
 			name = ProjectInfo.xib;
 			sourceTree = "<group>";
@@ -592,7 +591,7 @@
 		276AB5EA1970AECA001718D1 /* Remapper.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5EB1970AECA001718D1 /* English */,
+				276AB5EB1970AECA001718D1 /* en */,
 			);
 			name = Remapper.xib;
 			sourceTree = "<group>";
@@ -600,7 +599,7 @@
 		276AB5EC1970AECA001718D1 /* SectorEditor.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5ED1970AECA001718D1 /* English */,
+				276AB5ED1970AECA001718D1 /* en */,
 			);
 			name = SectorEditor.xib;
 			sourceTree = "<group>";
@@ -608,7 +607,7 @@
 		276AB5EE1970AECA001718D1 /* SpecialList.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5EF1970AECA001718D1 /* English */,
+				276AB5EF1970AECA001718D1 /* en */,
 			);
 			name = SpecialList.xib;
 			sourceTree = "<group>";
@@ -616,7 +615,7 @@
 		276AB5F51970AEE0001718D1 /* TextureEdit.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5F61970AEE0001718D1 /* English */,
+				276AB5F61970AEE0001718D1 /* en */,
 			);
 			name = TextureEdit.xib;
 			sourceTree = "<group>";
@@ -624,7 +623,7 @@
 		276AB5F71970AEE0001718D1 /* TexturePalette.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5F81970AEE0001718D1 /* English */,
+				276AB5F81970AEE0001718D1 /* en */,
 			);
 			name = TexturePalette.xib;
 			sourceTree = "<group>";
@@ -632,7 +631,7 @@
 		276AB5F91970AEE0001718D1 /* TextureRemapper.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5FA1970AEE0001718D1 /* English */,
+				276AB5FA1970AEE0001718D1 /* en */,
 			);
 			name = TextureRemapper.xib;
 			sourceTree = "<group>";
@@ -640,7 +639,7 @@
 		276AB5FE1970AEEE001718D1 /* ThingPalette.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB5FF1970AEEE001718D1 /* English */,
+				276AB5FF1970AEEE001718D1 /* en */,
 			);
 			name = ThingPalette.xib;
 			sourceTree = "<group>";
@@ -648,7 +647,7 @@
 		276AB6011970AEF7001718D1 /* ThingStripper.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				276AB6021970AEF7001718D1 /* English */,
+				276AB6021970AEF7001718D1 /* en */,
 			);
 			name = ThingStripper.xib;
 			sourceTree = "<group>";
@@ -656,7 +655,7 @@
 		557CA99020993A8B003D39A4 /* thing.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				557CA99120993A8B003D39A4 /* English */,
+				557CA99120993A8B003D39A4 /* en */,
 			);
 			name = thing.xib;
 			sourceTree = "<group>";
@@ -664,7 +663,7 @@
 		557CA99220993A8C003D39A4 /* line.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				557CA99320993A8C003D39A4 /* English */,
+				557CA99320993A8C003D39A4 /* en */,
 			);
 			name = line.xib;
 			sourceTree = "<group>";

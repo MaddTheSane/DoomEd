@@ -169,7 +169,7 @@
                             <menuItem isSeparatorItem="YES" id="U7L-QQ-lgU"/>
                             <menuItem title="Hide DoomEd" keyEquivalent="h" id="125">
                                 <connections>
-                                    <action selector="hide:" target="-2" id="144"/>
+                                    <action selector="hide:" target="-1" id="ISh-sz-9gY"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Hide Others" keyEquivalent="h" id="NwI-Br-Dag">
@@ -187,7 +187,7 @@
                             <menuItem isSeparatorItem="YES" id="FKB-yF-uCE"/>
                             <menuItem title="Quit" keyEquivalent="q" id="108">
                                 <connections>
-                                    <action selector="terminate:" target="-2" id="145"/>
+                                    <action selector="terminate:" target="-1" id="84b-fn-6tv"/>
                                 </connections>
                             </menuItem>
                         </items>

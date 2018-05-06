@@ -185,12 +185,9 @@
 	//return max;
 }
 
-- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+- (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
 {
-	if (column > 0)
-		return 0;
-
-	return [thingList_i	count];
+	
 }
 
 @end

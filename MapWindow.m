@@ -188,9 +188,9 @@ static	int	cornerx = 128, cornery = 64;
 	                    styleMask: NSResizableWindowMask];
 
 	scrollcont.size = [NSScrollView contentSizeForFrameSize: wincont.size
-	                                hasHorizontalScroller: YES
-					hasVerticalScroller: YES
-					borderType: NSNoBorder];
+									  hasHorizontalScroller: YES
+										hasVerticalScroller: YES
+												 borderType: NSNoBorder];
 }
 
 

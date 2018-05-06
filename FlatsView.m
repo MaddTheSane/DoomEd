@@ -52,7 +52,7 @@
 		DE_DrawOutline(&r);
 	}
 	
-	max = [sectorEdit_i	getNumFlats];
+	max = [sectorEdit_i	countOfFlats];
 	for (i = 0; i < max; i++)
 	{
 		f = [sectorEdit_i	getFlat:i];
@@ -96,7 +96,7 @@
 	loc = [theEvent locationInWindow];
 	[self convertPoint:loc	fromView:NULL];
 
-	max = [sectorEdit_i	getNumFlats];
+	max = [sectorEdit_i	countOfFlats];
 	for (i = 0;i < max; i++)
 	{
 		f = [sectorEdit_i		getFlat:i];

@@ -14,9 +14,8 @@ SettingsPanel *settingspanel_i;
 }
 
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
-    return self;
 }
 
 - (int) segmentType

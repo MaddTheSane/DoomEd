@@ -214,7 +214,7 @@ int		linecrunch[8192];
 				side->flags = ShortSwap (wside->flags);
 				side->firstcollumn = ShortSwap (wside->firstcollumn);
 				
-				ttex =  [doomproject_i textureNamed: wside->toptexture];
+				ttex =  [doomproject_i textureNamed: @(wside->toptexture)];
 				if (ttex == -2)
 				{
 					[editworld_i selectLine: i];
@@ -223,7 +223,7 @@ int		linecrunch[8192];
 					[log_i	msg:string ];
 				}
 				side->toptexture = ShortSwap (ttex);
-				btex =  [doomproject_i textureNamed: wside->bottomtexture];
+				btex =  [doomproject_i textureNamed: @(wside->bottomtexture)];
 				if (btex == -2)
 				{
 					[editworld_i selectLine: i];
@@ -232,7 +232,7 @@ int		linecrunch[8192];
 					[log_i	msg:string ];
 				}
 				side->bottomtexture = ShortSwap (btex);
-				mtex =  [doomproject_i textureNamed: wside->midtexture];
+				mtex =  [doomproject_i textureNamed: @(wside->midtexture)];
 				if (mtex == -2)
 				{
 					[editworld_i selectLine: i];
@@ -415,7 +415,7 @@ int		linecrunch[8192];
 
 - (BOOL)saveDoomMap
 {
-	char		path[1025];
+	NSString *path;
 
 	[editworld_i deselectAll];
 	
@@ -430,21 +430,19 @@ int		linecrunch[8192];
 //
 // make a wad file for everything in this map
 //
-	strcpy (path, [doomproject_i wadfile]);
-	StripFilename (path);
-	strcat (path,"/");
-	ExtractFileName ( pathname, path+strlen (path));
-	StripExtension (path);
-	strcat (path,".wad");
+	path = [doomproject_i wadFile];
+	path = [path stringByDeletingLastPathComponent];
+	path = [path stringByAppendingPathComponent:[pathname lastPathComponent]];
+	path = [path stringByDeletingPathExtension];
+	path = [path stringByAppendingPathExtension:@"wad"];
 	
-	mapwad_i = [[Wadfile alloc] initNew: path];
+	mapwad_i = [[Wadfile alloc] initNewWithPath:path];
 	
 //
 // write a label at the start
 //
-	ExtractFileName (pathname, path);
-	StripExtension (path);
-	[mapwad_i addName: path data: path size: 0];
+	NSString *lastPath = path.lastPathComponent.stringByDeletingPathExtension;
+	[mapwad_i addName: lastPath.UTF8String data: lastPath.UTF8String size: 0];
 		
 	worldsize = 0;
 	buffer = buf_p = malloc (MAXMAPSIZE);
