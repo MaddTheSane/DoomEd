@@ -67,7 +67,7 @@ typedef struct
 - (void)setFloor:(int) what;
 - (IBAction)CorFheightChanged:sender;
 - (IBAction)locateFlat:sender;
-- (int) getNumFlats;
+@property (readonly) NSInteger countOfFlats;
 - (NSString *) flatName: (int) flat;
 - (flat_t *) getFlat:(int) which;
 - (void)selectFlat:(int) which;

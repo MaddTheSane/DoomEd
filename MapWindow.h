@@ -20,9 +20,9 @@
 @property (assign) NSView *mapView;
 
 @property (assign) NSMenu *scalemenu;
-@property (assign) NSButton *scalebutton;
+@property (assign) NSPopUpButton *scalebutton;
 @property (assign) NSMenu *gridmenu;
-@property (assign) NSButton *gridbutton;
+@property (assign) NSPopUpButton *gridbutton;
 
 - (void)reDisplay: (NSRect *)dirty;
 

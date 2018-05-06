@@ -193,7 +193,7 @@ printf ("Done\n");
 		return;
 
 	gridsize = grid;
-	[self display];
+	[self setNeedsDisplay:YES];
 }
 
 /*
@@ -253,7 +253,6 @@ printf ("Done\n");
 - (NSPoint) getCurrentOrigin
 {
 	NSRect	global;
-	NSRect pt;
 
 	global = [[self superview] bounds];
 
@@ -297,7 +296,7 @@ printf ("Done\n");
 
 	rect = NSIntegralRect(rect);
 
-	[self display: &rect : 1];
+	[self setNeedsDisplayInRect:rect];
 }
 
 
@@ -471,7 +470,7 @@ printf ("Done\n");
 // redraw
 // 
 	[[self window] enableFlushWindow];
-	[[[self superview] superview] setNeedsDisplay:YES];  // redraw everything just once
+	//[[[self superview] superview] setNeedsDisplay:YES];  // redraw everything just once
 }
 
 

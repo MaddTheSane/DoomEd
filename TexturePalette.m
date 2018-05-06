@@ -267,7 +267,7 @@ TexturePalette *texturePalette_i;
 
 		t->r.origin.x = x;
 		t->r.origin.y = y;
-		[t->image	getSize:&imagesize];
+		imagesize = t->image.size;
 		if (imagesize.width > maxwidth)
 			maxwidth = imagesize.width;
 
@@ -312,7 +312,7 @@ TexturePalette *texturePalette_i;
 	
 	selectedTexture = i;
 	t = [self	getTexture:i];
-	[titleField_i	setStringValue:t->name];
+	[titleField_i	setStringValue:@(t->name)];
 	[widthField_i	setIntValue:t->r.size.width];
 	[heightField_i	setIntValue:t->r.size.height];
 	[patchField_i	setIntValue:t->patchamount];
@@ -335,7 +335,7 @@ TexturePalette *texturePalette_i;
 	if (val >= 0)
 	{
 		t = [self	getTexture:val];
-		[titleField_i	setStringValue:t->name];
+		[titleField_i	setStringValue:@(t->name)];
 		[widthField_i	setIntValue:t->r.size.width];
 		[heightField_i	setIntValue:t->r.size.height];
 		[patchField_i	setIntValue:t->patchamount];
@@ -655,7 +655,7 @@ TexturePalette *texturePalette_i;
 		sprintf(status,"Making %s.LBM...",textures[j].name);
 
 		[lsStatus_i	setStringValue:status];
-		NXPing();
+		PSwait();
 		strlwr(lbmname);
 		createAndSaveLBM(lbmname, j, fp);
 	}

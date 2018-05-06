@@ -397,7 +397,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 		fromPath, mapwads, bspprogram, bsphost);
 
 	[panel	orderFront:NULL];
-	NXPing();
+	PSwait();
 
 	sprintf(string, "rsh %s %s %s %s", bsphost, bspprogram,
 	        [fromPath UTF8String], mapwads);
@@ -411,7 +411,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 			nil, nil, nil,
 			err);
 		[panel  orderFront:NULL];
-		NXPing();
+		PSwait();
 	}
 
 	[panel	orderOut:NULL];
@@ -443,7 +443,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	pan = NSGetAlertPanel(@"One moment", @"Saving", nil, nil, nil);
 	[pan display];
 	[pan orderFront: NULL];
-	NXPing ();
+	PSwait ();
 
 	printf ("Saving DoomEd map\n");
 	BackupFile(pathname);

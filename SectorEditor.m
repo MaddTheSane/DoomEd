@@ -7,6 +7,7 @@
 #import	"LinePanel.h"
 #import	"FlatsView.h"
 #import	"DoomProject.h"
+#import "ps_quartz.h"
 
 @implementation SectorEditor
 
@@ -120,14 +121,14 @@ SectorEditor *sectorEdit_i;
 //============================================================
 - (void)ceilingAdjust:sender
 {
-	[cheightfield_i	setIntValue:[cheightfield_i	intValue] +
+	[cheightfield_i	setIntegerValue:[cheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
 }
 
 - (void)floorAdjust:sender
 {
-	[fheightfield_i	setIntValue:[fheightfield_i	intValue] +
+	[fheightfield_i	setIntegerValue:[fheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
 }
@@ -385,7 +386,7 @@ SectorEditor *sectorEdit_i;
 //==========================================================
 - (void)dumpAllFlats
 {
-	int			i, max;
+	NSInteger	i, max;
 	flat_t		*p;
 	id			panel;
 
@@ -393,7 +394,7 @@ SectorEditor *sectorEdit_i;
 		@"Dumping texture patches.",
 		nil, nil, nil);
 	[panel	orderFront:NULL];
-	NXPing();
+	PSwait();
 
 	max = [ flatImages	count ];
 	for (i = 0; i < max; i++)
@@ -505,13 +506,13 @@ SectorEditor *sectorEdit_i;
 //============================================================
 - (void)computeFlatDocView
 {
-	NSRect	dvr;
-	int		i,x,y,max;
-	flat_t	*f;
-	int		maxwidth;
-	NSPoint	p;
-	int		maxwindex;
-	char	string[32];
+	NSRect		dvr;
+	NSInteger	i,x,y,max;
+	flat_t		*f;
+	int			maxwidth;
+	NSPoint		p;
+	int			maxwindex;
+	char		string[32];
 	
 	[flatPalView_i	dumpDividers];
 	dvr = [flatScrPalView_i	documentVisibleRect];
@@ -590,8 +591,8 @@ SectorEditor *sectorEdit_i;
 
 - (int) findFlat:(const char *)name
 {
-	int	max,i;
-	flat_t	*f;
+	NSInteger	max,i;
+	flat_t		*f;
 	
 	max = [flatImages	count];
 	for (i = 0;i < max; i++)
@@ -663,7 +664,7 @@ SectorEditor *sectorEdit_i;
 	return	currentFlat;
 }
 
-- (int) getNumFlats
+- (NSInteger) countOfCountOfFlats
 {
 	return	[flatImages	count];
 }
@@ -678,7 +679,7 @@ SectorEditor *sectorEdit_i;
 //	Search for sector that matches TAG field
 //
 //=================================================================
-- (void)searchForTaggedSector:sender
+- (IBAction)searchForTaggedSector:sender
 {
 	int		tag, i, found;
 	
@@ -706,7 +707,7 @@ SectorEditor *sectorEdit_i;
 //	Search for line that matches TAG field
 //
 //=================================================================
-- (void)searchForTaggedLine:sender
+- (IBAction)searchForTaggedLine:sender
 {
 	int		tag, i, found;
 	
@@ -821,5 +822,6 @@ id flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 
 	fastImage_i = [[NSImage	alloc] initWithSize: size];
 	[fastImage_i addRepresentation: image_i];
-	return fastImage_i;
+	[image_i release];
+	return [fastImage_i autorelease];
 }

@@ -955,7 +955,7 @@ id	openMatrix;
 		[cell stringValue]);
 
 	[panel	orderFront:NULL];
-	NXPing();
+	PSwait();
 	system(string);
 	[panel	orderOut:NULL];
 	NSReleaseAlertPanel(panel);
@@ -2000,7 +2000,7 @@ typedef struct
 			@"Reading textures from texture%d.dsp.",
 			nil, nil, nil, windex+1);
 		[panel	orderFront:NULL];
-		NXPing();
+		PSwait();
 
 		filename = [projectdirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"texture%d.dsp", windex+1]];
 
@@ -2012,7 +2012,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
-				NXPing();
+				PSwait();
 				NSRunAlertPanel(@"Error", @"Couldn't open %@",
 					nil, nil, nil, filename);
 				return;
@@ -2021,7 +2021,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
-				NXPing();
+				PSwait();
 				close(handle);
 				windex = -1;
 				continue;
@@ -2037,7 +2037,7 @@ typedef struct
 			close (handle);
 			[panel	orderOut:NULL];
 			NSReleaseAlertPanel(panel);
-			NXPing();
+			PSwait();
 			NSRunAlertPanel(@"Error", @"Could not stream to %@",
 				nil, nil, nil, filename);
 			return;
@@ -2055,7 +2055,7 @@ typedef struct
 					fclose (stream);
 					[panel	orderOut:NULL];
 					NSReleaseAlertPanel(panel);
-					NXPing();
+					PSwait();
 					NSRunAlertPanel(@"Error",
 						@"Could not parse %@",
 						nil, nil, nil,
@@ -2095,7 +2095,7 @@ typedef struct
 
 		[panel	orderOut:NULL];
 		NSReleaseAlertPanel(panel);
-		NXPing();
+		PSwait();
 
 	} while (windex >= 0);
 
@@ -2121,7 +2121,7 @@ typedef struct
 			@"Writing textures to texture%d.dsp.",
 			nil, nil, nil, windex+1);
 		[panel	orderFront:NULL];
-		NXPing();
+		PSwait();
 
 		filename = [projectdirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"texture%d.dsp", windex+1]];
 
@@ -2134,7 +2134,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
-				NXPing();
+				PSwait();
 				NSRunAlertPanel(@"Error",
 					@"Couldn't create %@",
 					nil, nil, nil, filename);
@@ -2144,7 +2144,7 @@ typedef struct
 			{
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
-				NXPing();
+				PSwait();
 				close(handle);
 				break;
 			}
@@ -2159,7 +2159,7 @@ typedef struct
 			fclose (stream);
 			[panel	orderOut:NULL];
 			NSReleaseAlertPanel(panel);
-			NXPing();
+			PSwait();
 			NSRunAlertPanel(@"Error",
 				@"Could not stream to %@",
 				nil, nil, nil, filename);
@@ -2193,7 +2193,7 @@ typedef struct
 
 		[panel	orderOut:NULL];
 		NSReleaseAlertPanel(panel);
-		NXPing();
+		PSwait();
 	}		
 	
 	if (newtexture)
@@ -2462,7 +2462,7 @@ static	byte		*buffer, *buf_p;
 	[thermoView_i	setThermoWidth:0 max:1000];
 	[thermoView_i	setNeedsDisplay:YES];
 	[thermoWindow_i	makeKeyAndOrderFront:NULL];
-	NXPing();
+	PSwait();
 }
 
 //====================================================

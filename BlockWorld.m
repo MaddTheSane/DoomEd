@@ -430,7 +430,7 @@ void floodline (int startx, int y)
 	*/
 	[blockview unlockFocus]; 
 	
-	NXPing();
+	PSwait();
 
 	free(planes[0]);
 }
@@ -622,7 +622,7 @@ void floodline (int startx, int y)
 		nil, nil, nil);
 	[pan display];
 	[pan orderFront: NULL];
-	NXPing ();
+	PSwait ();
 
 	test = bmap;
 	for (y=0 ; y<bheight; y++)
@@ -663,7 +663,7 @@ void floodline (int startx, int y)
 	
 	[pan	orderOut:NULL];
 	NSReleaseAlertPanel(pan);
-	NXPing ();
+	PSwait ();
 	return YES;
 }
 

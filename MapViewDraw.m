@@ -32,15 +32,15 @@
 ============
 */
 
-- drawGrid: (const NSRect *)rect
+- (void)drawGrid: (NSRect)rect
 {
 	int	x,y, stopx, stopy;
 	CGFloat	top,bottom,right,left;
 
-	left = rect->origin.x-1;
-	bottom = rect->origin.y-1;
-	right = rect->origin.x+rect->size.width+2;
-	top = rect->origin.y+rect->size.height+2;
+	left = rect.origin.x-1;
+	bottom = rect.origin.y-1;
+	right = rect.origin.x+rect.size.width+2;
+	top = rect.origin.y+rect.size.height+2;
 
 //
 // grid
@@ -113,8 +113,6 @@
 	
 		FinishPath (TILE_C);
 	}
-
-	return self;
 }
 
 
@@ -128,7 +126,7 @@
 ============
 */
 
-- drawLines: (const NSRect *)rect
+- (void)drawLines: (NSRect)rect
 {
 	int		i,xc,yc;
 	float		left,bottom,right, top;
@@ -140,10 +138,10 @@
 // classify all points on the currently displayed levels into 9 clipping regions
 	clippoint = alloca (numpoints);
 
-	left = rect->origin.x-1;
-	bottom = rect->origin.y-1;
-	right = rect->origin.x + rect->size.width+2;
-	top = rect->origin.y + rect->size.height+2;
+	left = rect.origin.x-1;
+	bottom = rect.origin.y-1;
+	right = rect.origin.x + rect.size.width+2;
+	top = rect.origin.y + rect.size.height+2;
 	
 	wp = points;
 	for (i=0 ; i<numpoints ; i++, wp++)
@@ -206,8 +204,6 @@
 	FinishPath (TWOSIDED_C);
 	FinishPath (SELECTED_C);
 	FinishPath (SPECIAL_C);
-	
-	return self;
 }
 
 /*
@@ -219,21 +215,21 @@
 ============
 */
 
-- drawThings: (const NSRect *)rect
+- (void)drawThings: (NSRect)rect
 {
-	NSRect	r;
-	float		offset;
-	float		left, right, top, bottom;
+	NSRect			r;
+	CGFloat			offset;
+	CGFloat			left, right, top, bottom;
 	worldthing_t	*wp, *stop;
-	int			diff;
+	int				diff;
 	
 	diff = [thingpanel_i	getDifficultyDisplay];
 	offset = THINGDRAWSIZE;
 	
-	left = rect->origin.x - offset;
-	right = rect->origin.x + rect->size.width + offset;
-	bottom = rect->origin.y  - offset;
-	top = rect->origin.y+ rect->size.height + offset;
+	left = rect.origin.x - offset;
+	right = rect.origin.x + rect.size.width + offset;
+	bottom = rect.origin.y  - offset;
+	top = rect.origin.y+ rect.size.height + offset;
 	
 	stop = things+numthings;
 	
@@ -261,8 +257,6 @@
 		r.size.width = r.size.height = offset;
 		NSRectFill(r);
 	}
-
-	return self;
 }
 
 
@@ -276,23 +270,23 @@
 ============
 */
 
-- drawPoints: (const NSRect *)rect
+- (void)drawPoints: (NSRect)rect
 {
-	NSRect	*unselected, *selected, *unsel_p, *sel_p, *use;
-	int		count;
-	float		offset;
-	float		left, right, top, bottom;
-	worldpoint_t	const	*wp, *stop;
+	NSRect			*unselected, *selected, *unsel_p, *sel_p, *use;
+	int				count;
+	CGFloat			offset;
+	CGFloat			left, right, top, bottom;
+	worldpoint_t	const *wp, *stop;
 	
 	unselected = unsel_p = alloca (numpoints*sizeof(NSRect));
 	selected = sel_p = alloca (numpoints*sizeof(NSRect));
 	
 	offset = CPOINTDRAW/scale;
 	
-	left = rect->origin.x - offset;
-	right = rect->origin.x + rect->size.width + offset;
-	bottom = rect->origin.y  - offset;
-	top = rect->origin.y+ rect->size.height + offset;
+	left = rect.origin.x - offset;
+	right = rect.origin.x + rect.size.width + offset;
+	bottom = rect.origin.y  - offset;
+	top = rect.origin.y+ rect.size.height + offset;
 	
 	stop = points+numpoints;
 	
@@ -328,24 +322,14 @@
 		[[prefpanel_i colorFor: SELECTED_C] set];
 		NSRectFillList (selected, count);
 	}
-	
-	return self;
 }
 
 
-/*
-====================
-=
-= drawSelf::
-=
-= Most of the time the rect will only be a small portion of the world
-= The rect is in screen pixels, and should be divided by scale to get global
-= world coordinates.  The translation of the origin is handled by postscript.
-=
-====================
-*/
 #define SHOWDISP	1
 
+/// Most of the time the rect will only be a small portion of the world
+/// The rect is in screen pixels, and should be divided by scale to get global
+/// world coordinates.  The translation of the origin is handled by postscript.
 - (void)drawRect:(NSRect)dirtyRect
 {
 	NSRect	newrect;
@@ -367,23 +351,23 @@
 		[[prefpanel_i colorFor: BACK_C] set];
 		NSRectFill(dirtyRect);
 	}
-	PSsetlinewidth (0.15);
+	CGContextSetLineWidth(NSGraphicsContext.currentContext.CGContext, 0.15);
 
-	[self drawGrid: &dirtyRect];
-	[self drawThings: &dirtyRect];
+	[self drawGrid: dirtyRect];
+	[self drawThings: dirtyRect];
 
-// the draw size must be increased to cover any things that might have been overdrawn
-// past the edges
+	// the draw size must be increased to cover any things that might have been overdrawn
+	// past the edges
 	newrect = NSInsetRect(dirtyRect, THINGDRAWSIZE, THINGDRAWSIZE);
-	[self drawLines: &newrect];
-	[self drawPoints: &newrect];
+	[self drawLines: newrect];
+	[self drawPoints: newrect];
 		
 	if (debugflag)
 	{
 		[[NSColor colorWithRed:0.0 green:1.0 blue:0.1
 						 alpha:1.0] set];
-		PScompositerect (dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height, NSCompositeSourceOver);
-		printf ("Rects: %f, %f, %f, %f\n", dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
+		NSRectFillUsingOperation(dirtyRect, NSCompositeSourceOver);
+		printf ("Rect: %f, %f, %f, %f\n", dirtyRect.origin.x, dirtyRect.origin.y, dirtyRect.size.width, dirtyRect.size.height);
 	}
 }
 

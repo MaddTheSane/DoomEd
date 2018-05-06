@@ -250,7 +250,7 @@ ThingPalette *thingPalette_i;
 			nil, nil, nil);
 	[panel	orderFront:NULL];
 	[panel	flushWindow];
-	NXPing();
+	PSwait();
 #endif
 	
 	//

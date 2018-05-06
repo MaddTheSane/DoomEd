@@ -29,7 +29,7 @@
 -wallEnter
 {
     cumTimesEntered++;
-    NXPing();
+    PSwait();
     gettimeofday(&realtime,&tzone);
     synctime = realtime.tv_sec + realtime.tv_usec/1000000.0;
     return self;
@@ -40,9 +40,9 @@
     struct timezone tzone1;
     struct timeval realtime1;
     struct timeval realtime2;
-    NXPing();
+    PSwait();
     gettimeofday(&realtime1,&tzone1);
-    NXPing();
+    PSwait();
     gettimeofday(&realtime2,&tzone1);
     tare = (-realtime1.tv_sec + realtime2.tv_sec)+ 
             (-realtime1.tv_usec+realtime2.tv_usec)/1000000.0;
@@ -62,7 +62,7 @@
 -wallLeave
 {
     double eTime;
-    NXPing();
+    PSwait();
     gettimeofday(&realtime,&tzone);
     eTime = (- synctime + realtime.tv_sec + realtime.tv_usec/1000000.0) 
                 -tare;

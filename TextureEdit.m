@@ -5,6 +5,7 @@
 #import	<ctype.h>
 #import	"lbmfunctions.h"
 #import "TextureView.h"
+#import "ps_quartz.h"
 
 TextureEdit *textureEdit_i;
 CompatibleStorage *texturePatches;
@@ -1123,7 +1124,7 @@ CompatibleStorage *texturePatches;
 		@"Dumping texture patches.",
 		nil, nil, nil);
 	[panel	orderFront:NULL];
-	NXPing();
+	PSwait();
 	
 	max = [patchImages	count];
 	for (i = 0; i < max; i++)

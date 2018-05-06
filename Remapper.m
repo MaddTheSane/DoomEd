@@ -2,6 +2,7 @@
 #import	"DoomProject.h"
 #import	"EditWorld.h"
 #import	"TextureEdit.h"
+#import "ps_quartz.h"
 
 @implementation Remapper
 //===================================================================
@@ -234,7 +235,7 @@
 		total += linenum;
 		[status_i setStringValue:string];
 		[remapPanel_i makeKeyAndOrderFront:NULL];
-		NXPing ();
+		PSwait ();
 		if (linenum)
 			[ editworld_i	saveDoomEdMapBSP:NULL ];
 	}

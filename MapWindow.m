@@ -174,7 +174,7 @@ static	int	cornerx = 128, cornery = 64;
 // change frame if needed
 //	
 	newscreenorg.x = newscreenorg.y = 0;
-	[self convertBaseToScreen: newscreenorg];
+	newscreenorg = [self convertBaseToScreen: newscreenorg];
 
 	scale = [mapview_i currentScale];
 	presizeorigin.x += (newscreenorg.x - oldscreenorg.x)/scale;

@@ -15,6 +15,7 @@
 #import "SettingsPanel.h"
 #import "BlockWorld.h"
 #import "ThingPanel.h"
+#import "ps_quartz.h"
 
 #define FRAMEWIDTH		4
 #define SELECTIONGRAY	0.5
@@ -76,7 +77,6 @@
 
 - (void)slideView:(NSEvent *)event
 {
-	int 		oldMask;
 	NSPoint	oldpt, pt, origin;
 	float		dx, dy;
 			
@@ -110,10 +110,8 @@
 			origin = [self getCurrentOrigin];
 			origin.x += dx;
 			origin.y += dy;
-			[[self window] disableDisplay];
 			[self setOrigin: origin];
-			[[self window] reenableDisplay];
-			[[[self superview] superview] display];	// redraw everything just once
+			[[self enclosingScrollView] display];	// redraw everything just once
 			oldpt = [event locationInWindow];
 			[self convertPoint: oldpt fromView: NULL];
 			[doomproject_i	setMapDirty:TRUE];
@@ -143,7 +141,7 @@
 	itemlist = [[(MapWindow*)[self window] scalemenu] itemMatrix];
 	[itemlist getNumberOfRows:&numrows columns:&numcollumns];
 	
-	selected = [itemlist selectedRow] + 1;
+	selected = [[(MapWindow*)[self window] scalemenu] selectedRow] + 1;
 	if (selected >= numrows)
 		return;
 		
@@ -176,21 +174,21 @@
 ================
 */
 
-- zoomOut:(NSEvent *)event
+- (void)zoomOut:(NSEvent *)event
 {
-	NSString *item;
-	float		nscale;
-	id			itemlist;
-	NSInteger	selected;
-	NSPoint		origin;
+	NSString 		*item;
+	float			nscale;
+	NSPopUpButton	*itemlist;
+	NSInteger		selected;
+	NSPoint			origin;
 
-	itemlist = [[(MapWindow*)[self window] scalemenu] itemMatrix];
-	selected = [itemlist selectedRow] - 1;
+	itemlist = [(MapWindow*)[self window] scalebutton];
+	selected = [itemlist indexOfSelectedItem] - 1;
 	
 	if (selected < 0)
-		return NULL;
-		
-	[itemlist selectCellAtRow: selected column: 0];
+		return;
+	
+	[itemlist selectItemAtIndex:selected];
 	[[(MapWindow*)[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
 	
 // parse the scale from the title
@@ -210,8 +208,6 @@
 // allow a drag while the mouse is still down
 //
 	[self slideView: event];
-
-	return self;
 }
 
 
@@ -228,7 +224,7 @@
 ================
 */
 
-- lineDrag:(NSEvent *)event
+- (void)lineDrag:(NSEvent *)event
 {
 	int 		oldMask;
 	NSPoint	fixedpoint, dragpoint;	// endpoints of the line
@@ -251,7 +247,7 @@
 		[path moveToPoint:fixedpoint];
 		[path lineToPoint:dragpoint];
 		[path stroke];
-		NXPing ();
+		PSwait ();
 
 		event = [[self window]
 			nextEventMatchingMask:
@@ -269,14 +265,12 @@
 	[self unlockFocus];
 	
 	if ( dragpoint.x == fixedpoint.x && dragpoint.y == fixedpoint.y )
-		return NULL;			// outside world or same point
+		return;			// outside world or same point
 	
 	[editworld_i deselectAll];
 	[self addLineFrom: &fixedpoint  to: &dragpoint];
 	[editworld_i updateWindows];	
 	[doomproject_i	setMapDirty:TRUE];
-
-	return self;
 }
 
 //=============================================================================
@@ -338,7 +332,7 @@
 			PSmoveto (fixedpoint.x, fixedpoint.y);
 			PSlineto (dragpoint.x, dragpoint.y);
 			PSstroke ();
-			NXPing ();
+			PSwait ();
 		} while (1);
 
 //
@@ -625,7 +619,7 @@
 		//
 		PSnewinstance ();
 		NSFrameRectWithWidth(newframe, FRAMEWIDTH);
-		NXPing ();
+		PSwait ();
 
 		event = [[self window]
 			nextEventMatchingMask:
@@ -982,7 +976,7 @@
 			[editworld_i	saveDoomEdMapBSP:NULL];
 			[editworld_i	changeThing:i		to:&oldthing];
 			[editworld_i	redrawWindows];
-			NXPing();
+			PSwait();
 			[toolpanel_i	changeTool:SELECT_TOOL];
 			if ([self	scanForErrors])
 				NSRunAlertPanel(@"Errors!",
