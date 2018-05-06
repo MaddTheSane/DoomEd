@@ -134,18 +134,18 @@
 {
 	NSString *item;
 	float			nscale;
-	id			itemlist;
-	NSInteger			selected, numrows, numcollumns;
-	NSPoint		origin;
+	NSPopUpButton	*itemlist;
+	NSInteger		selected, numrows, numcollumns;
+	NSPoint			origin;
 	
-	itemlist = [[(MapWindow*)[self window] scalemenu] itemMatrix];
-	[itemlist getNumberOfRows:&numrows columns:&numcollumns];
+	itemlist = [(MapWindow*)[self window] scalebutton];
+	numrows =  [itemlist numberOfItems];
 	
-	selected = [[(MapWindow*)[self window] scalemenu] selectedRow] + 1;
+	selected = [[(MapWindow*)[self window] scalebutton] indexOfSelectedItem] + 1;
 	if (selected >= numrows)
 		return;
 		
-	[itemlist selectCellAtRow: selected column: 0];
+	[itemlist selectItemAtIndex: selected];
 	[[(MapWindow*)[self window] scalebutton] setTitle: [[itemlist selectedCell] title]];
 
 // parse the scale from the title

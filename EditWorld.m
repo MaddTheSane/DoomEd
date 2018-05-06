@@ -8,6 +8,7 @@
 #import "LinePanel.h"
 #import "TextureEdit.h"
 #import	"DoomProject.h"
+#import "ps_quartz.h"
 
 //=============================================================================
 

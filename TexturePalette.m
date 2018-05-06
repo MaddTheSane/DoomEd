@@ -5,6 +5,7 @@
 #import	"lbmfunctions.h"
 #import	"Wadfile.h"
 #import	"TextLog.h"
+#import "ps_quartz.h"
 
 TexturePalette *texturePalette_i;
 
