@@ -16,7 +16,7 @@
 //===================================================================
 - (void) keyDown:(NSEvent *)event
 {
-	char	key[2];
+	char	key[2] = {0};
 	char	string2[32];
 	int		max;
 	int		i;

@@ -341,7 +341,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 =====================
 */
 
-- (void)newWindow:sender
+- (IBAction)newWindow:sender
 {
 	MapWindow *win;
 
@@ -368,7 +368,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 //	Save DoomEd map and run BSP program
 //
 //===============================================================
-- (void)saveDoomEdMapBSP:sender
+- (IBAction)saveDoomEdMapBSP:sender
 {
 	NSString *fromPath;
 	char string[1024];

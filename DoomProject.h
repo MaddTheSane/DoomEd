@@ -9,37 +9,39 @@
 #define	DOOMNAME		@"DoomEd"
 #define MAXPATCHES	100
 // mappatch_t orients a patch inside a maptexturedef_t
-typedef struct
+typedef struct worldpatch_s
 {
-	int		originx;		// block origin (allways UL), which has allready accounted
-	int		originy;		// for the patch's internal origin
-	char		patchname[9];
-	int		stepdir;		// allow flipping of the texture DEBUG: make this a char?
+	int		originx;		//!< block origin (allways UL), which has allready accounted
+	int		originy;		//!< for the patch's internal origin
+	char	patchname[9];
+	int		stepdir;		//!< allow flipping of the texture DEBUG: make this a char?
 	int		colormap;
 } worldpatch_t;
 
-typedef struct
+typedef struct worldtexture_s
 {
-	int		WADindex;	// which WAD it's from!  (JR 5/28/93 )
-	char		name[9];
-	BOOL	dirty;		// true if changed since last texture file load
+	int		WADindex;	//!< which WAD it's from!  (JR 5/28/93 )
+	char	name[9];
+	BOOL	dirty;		//!< true if changed since last texture file load
 	
 	int	width;
 	int	height;
 	int	patchcount;
-	worldpatch_t	patches[MAXPATCHES]; // [patchcount] drawn back to front into the
+	worldpatch_t	patches[MAXPATCHES]; //!< [patchcount] drawn back to front into the
 } worldtexture_t;
 
-// a sectordef_t describes the features of a sector without listing the lines
-typedef struct
+/// a sectordef_t describes the features of a sector without listing the lines
+typedef struct sectordef_s
 {
 	int	floorheight, ceilingheight;
-	char 	floorflat[9], ceilingflat[9];
+	char floorflat[9], ceilingflat[9];
 	int	lightlevel;
 	int	special, tag;	
 } sectordef_t;
 
 //============================================================================
+
+@class ThingPanel;
 
 @interface DoomProject : NSObject <NSBrowserDelegate>
 {
@@ -55,7 +57,7 @@ typedef struct
 	IBOutlet NSTextField	*projectpath_i;
 	IBOutlet NSTextField	*wadpath_i;
 	IBOutlet NSBrowser		*maps_i;
-	IBOutlet id		thingPanel_i;
+	IBOutlet ThingPanel		*thingPanel_i;
 	IBOutlet id		findPanel_i;
 	IBOutlet NSTextField	*mapNameField_i;
 	IBOutlet NSTextField	*BSPprogram_i;
@@ -66,12 +68,12 @@ typedef struct
 	BOOL	texturesdirty;
 	BOOL	mapdirty;
 	
-	IBOutlet id		thermoTitle_i;
-	IBOutlet id		thermoMsg_i;
+	IBOutlet NSTextField	*thermoTitle_i;
+	IBOutlet NSTextField	*thermoMsg_i;
 	IBOutlet ThermoView		*thermoView_i;
-	IBOutlet id		thermoWindow_i;
+	IBOutlet NSPanel		*thermoWindow_i;
 	
-	IBOutlet id		printPrefWindow_i;
+	IBOutlet NSPanel		*printPrefWindow_i;
 }
 
 

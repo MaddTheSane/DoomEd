@@ -575,7 +575,7 @@ TexturePalette *texturePalette_i;
 		return;
 	}
 
-	strcpy(waddir,[doomproject_i wadfile]);
+	strcpy(waddir,[doomproject_i wadFile]);
 	for (i = strlen(waddir);i > 0;i--)
 		if (waddir[i] == '/')
 		{
@@ -629,7 +629,7 @@ TexturePalette *texturePalette_i;
 		return;
 	}
 	
-	strcpy(waddir,[doomproject_i wadfile]);
+	strcpy(waddir,[doomproject_i wadFile]);
 	for (i = strlen(waddir);i > 0;i--)
 		if (waddir[i] == '/')
 		{
@@ -685,7 +685,7 @@ void createAndSaveLBM(char *name, int cs, FILE *fp)
 	int		tw;
 	int		th;
 	
-	[ wadfile_i	initFromFile: [doomproject_i wadfile] ];
+	[ wadfile_i	initFromFile: [doomproject_i wadFile] ];
 	palette = [wadfile_i	loadLumpNamed:"playpal"];
 	[ wadfile_i	close ];
 	

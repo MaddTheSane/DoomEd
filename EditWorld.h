@@ -4,28 +4,28 @@
 
 #define	WORLDNAME	@"EditWorld"
 
-typedef struct
+typedef struct worldpoint_s
 {
-	int	selected;		// context that owns the point, 0 if unselected, or -1 if deleted
-	int	refcount;		// when 0, remove it 
+	int	selected;		//!< context that owns the point, 0 if unselected, or -1 if deleted
+	int	refcount;		//!< when 0, remove it
 
 	NSPoint	pt;
 } worldpoint_t;
 
-typedef struct
+typedef struct worldside_s
 {
 	int		flags;	
 	int		firstcollumn;
 	char		toptexture[9];
 	char		bottomtexture[9];
 	char		midtexture[9];
-	sectordef_t	ends;				// on the viewer's side
-	int		sector;					// only used when saving doom map
+	sectordef_t	ends;				//!< on the viewer's side
+	int		sector;					//!< only used when saving doom map
 } worldside_t;
 
-typedef struct
+typedef struct worldline_s
 {
-	int	selected;			// 0 if unselected, -1 if deleted, 1 if selected, 2 if back side selected
+	int	selected;			//!< 0 if unselected, -1 if deleted, 1 if selected, 2 if back side selected
 	
 	int	p1, p2;
 	int	special, tag;
@@ -40,9 +40,9 @@ typedef struct
 #define	ML_BLOCKMOVE			1
 #define	ML_TWOSIDED			4	// backside will not be present at all if not two sided
 
-typedef struct
+typedef struct worldthing_s
 {
-	int	selected;		// 0 if unselected, -1 if deleted, 1 if selected
+	int	selected;		//!< 0 if unselected, -1 if deleted, 1 if selected
 
 	NSPoint	origin;
 	int	angle;
@@ -51,13 +51,13 @@ typedef struct
 	int	area;
 } worldthing_t;
 
-typedef struct
+typedef struct worldsector_s
 {
 	sectordef_t	s;
-	CompatibleStorage *lines;	// storage object of line numbers
+	CompatibleStorage *lines;	//!< storage object of line numbers
 } worldsector_t;
 
-typedef struct
+typedef struct copyline_s
 {
 	worldline_t	l;
 	NSPoint		p1,p2;

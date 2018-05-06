@@ -41,8 +41,6 @@ box_t DEBoxFromRect (const NSRect rect)
 ============
 */
 
-
-
 void BoxFromPoints (box_t *box, const NSPoint *p1, const NSPoint *p2)
 {
 	if (p1->x < p2->x)

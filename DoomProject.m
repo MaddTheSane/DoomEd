@@ -1326,7 +1326,7 @@ typedef struct
 	textureCount = malloc(sizeof(int) * nt);
 	bzero(textureCount,sizeof(int)*nt);
 	
-	nf = [sectorEdit_i	getNumFlats];
+	nf = [sectorEdit_i	countOfFlats];
 	flatCount = malloc ( sizeof(*flatCount) * nf );
 	bzero (flatCount, sizeof (*flatCount) * nf );
 
