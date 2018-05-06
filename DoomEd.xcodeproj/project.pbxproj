@@ -75,6 +75,7 @@
 		555A6B34209F8CE100D0BB5B /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2D209F8CE100D0BB5B /* Pop.aiff */; };
 		555A6B35209F8CE100D0BB5B /* Drip.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2E209F8CE100D0BB5B /* Drip.aiff */; };
 		555A6B36209F8CE100D0BB5B /* DESave.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2F209F8CE100D0BB5B /* DESave.aiff */; };
+		555A6B39209F946500D0BB5B /* DEWadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 555A6B37209F946500D0BB5B /* DEWadFile.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		557CA99420993A8C003D39A4 /* thing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557CA99020993A8B003D39A4 /* thing.xib */; };
 		557CA99520993A8C003D39A4 /* line.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557CA99220993A8C003D39A4 /* line.xib */; };
 		55CDCE24209668E3007FA890 /* TextLog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE26209668E3007FA890 /* TextLog.xib */; };
@@ -203,6 +204,8 @@
 		555A6B2D209F8CE100D0BB5B /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
 		555A6B2E209F8CE100D0BB5B /* Drip.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Drip.aiff; sourceTree = "<group>"; };
 		555A6B2F209F8CE100D0BB5B /* DESave.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = DESave.aiff; sourceTree = "<group>"; };
+		555A6B37209F946500D0BB5B /* DEWadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEWadFile.m; sourceTree = "<group>"; };
+		555A6B38209F946500D0BB5B /* DEWadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEWadFile.h; sourceTree = "<group>"; };
 		557CA99120993A8B003D39A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/thing.xib; sourceTree = "<group>"; };
 		557CA99320993A8C003D39A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/line.xib; sourceTree = "<group>"; };
 		55CDCE25209668E3007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextLog.xib; sourceTree = "<group>"; };
@@ -370,6 +373,8 @@
 				27DA448B19706396005CB000 /* Timing.m */,
 				27DA445E19706385005CB000 /* ToolPanel.h */,
 				27DA448C19706396005CB000 /* ToolPanel.m */,
+				555A6B38209F946500D0BB5B /* DEWadFile.h */,
+				555A6B37209F946500D0BB5B /* DEWadFile.m */,
 				27DA445F19706385005CB000 /* Wadfile.h */,
 				27DA448D19706396005CB000 /* Wadfile.m */,
 			);
@@ -514,6 +519,7 @@
 				27DA44A519706396005CB000 /* SectorEditor.m in Sources */,
 				27DA44AE19706396005CB000 /* TexturePatchView.m in Sources */,
 				27DA44B619706396005CB000 /* ThingRemapper.m in Sources */,
+				555A6B39209F946500D0BB5B /* DEWadFile.m in Sources */,
 				27DA44AF19706396005CB000 /* TextureRemapper.m in Sources */,
 				27DA449119706396005CB000 /* DoomProject.m in Sources */,
 				27DA44B919706396005CB000 /* Timing.m in Sources */,
