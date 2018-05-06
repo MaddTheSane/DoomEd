@@ -68,18 +68,18 @@
 		27DA44B919706396005CB000 /* Timing.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448B19706396005CB000 /* Timing.m */; };
 		27DA44BA19706396005CB000 /* ToolPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448C19706396005CB000 /* ToolPanel.m */; };
 		27DA44BB19706396005CB000 /* Wadfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA448D19706396005CB000 /* Wadfile.m */; };
+		555A6B30209F8CE100D0BB5B /* DEStart.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B29209F8CE000D0BB5B /* DEStart.aiff */; };
+		555A6B31209F8CE100D0BB5B /* D_Dbite.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2A209F8CE000D0BB5B /* D_Dbite.aiff */; };
+		555A6B32209F8CE100D0BB5B /* D_Ratdie.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2B209F8CE000D0BB5B /* D_Ratdie.aiff */; };
+		555A6B33209F8CE100D0BB5B /* D_EPain.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2C209F8CE100D0BB5B /* D_EPain.aiff */; };
+		555A6B34209F8CE100D0BB5B /* Pop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2D209F8CE100D0BB5B /* Pop.aiff */; };
+		555A6B35209F8CE100D0BB5B /* Drip.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2E209F8CE100D0BB5B /* Drip.aiff */; };
+		555A6B36209F8CE100D0BB5B /* DESave.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 555A6B2F209F8CE100D0BB5B /* DESave.aiff */; };
 		557CA99420993A8C003D39A4 /* thing.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557CA99020993A8B003D39A4 /* thing.xib */; };
 		557CA99520993A8C003D39A4 /* line.xib in Resources */ = {isa = PBXBuildFile; fileRef = 557CA99220993A8C003D39A4 /* line.xib */; };
 		55CDCE24209668E3007FA890 /* TextLog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE26209668E3007FA890 /* TextLog.xib */; };
 		55CDCE2920966EAD007FA890 /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55CDCE2B20966EAD007FA890 /* preferences.xib */; };
 		55D5FD182095B0C300E54855 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD172095B0C300E54855 /* Media.xcassets */; };
-		55D5FD202095B65000E54855 /* DEStart.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD192095B65000E54855 /* DEStart.snd */; };
-		55D5FD212095B65000E54855 /* D_Ratdie.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1A2095B65000E54855 /* D_Ratdie.snd */; };
-		55D5FD222095B65000E54855 /* Drip.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1B2095B65000E54855 /* Drip.snd */; };
-		55D5FD232095B65000E54855 /* D_EPain.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1C2095B65000E54855 /* D_EPain.snd */; };
-		55D5FD242095B65000E54855 /* DESave.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1D2095B65000E54855 /* DESave.snd */; };
-		55D5FD252095B65000E54855 /* Pop.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1E2095B65000E54855 /* Pop.snd */; };
-		55D5FD262095B65000E54855 /* D_Dbite.snd in Resources */ = {isa = PBXBuildFile; fileRef = 55D5FD1F2095B65000E54855 /* D_Dbite.snd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,18 +196,18 @@
 		27DA448C19706396005CB000 /* ToolPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolPanel.m; sourceTree = "<group>"; };
 		27DA448D19706396005CB000 /* Wadfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wadfile.m; sourceTree = "<group>"; };
 		27DA44BC19706492005CB000 /* DoomEd-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DoomEd-Info.plist"; sourceTree = "<group>"; };
+		555A6B29209F8CE000D0BB5B /* DEStart.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = DEStart.aiff; sourceTree = "<group>"; };
+		555A6B2A209F8CE000D0BB5B /* D_Dbite.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = D_Dbite.aiff; sourceTree = "<group>"; };
+		555A6B2B209F8CE000D0BB5B /* D_Ratdie.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = D_Ratdie.aiff; sourceTree = "<group>"; };
+		555A6B2C209F8CE100D0BB5B /* D_EPain.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = D_EPain.aiff; sourceTree = "<group>"; };
+		555A6B2D209F8CE100D0BB5B /* Pop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Pop.aiff; sourceTree = "<group>"; };
+		555A6B2E209F8CE100D0BB5B /* Drip.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = Drip.aiff; sourceTree = "<group>"; };
+		555A6B2F209F8CE100D0BB5B /* DESave.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = DESave.aiff; sourceTree = "<group>"; };
 		557CA99120993A8B003D39A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/thing.xib; sourceTree = "<group>"; };
 		557CA99320993A8C003D39A4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/line.xib; sourceTree = "<group>"; };
 		55CDCE25209668E3007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextLog.xib; sourceTree = "<group>"; };
 		55CDCE2E20966EBB007FA890 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/preferences.xib; sourceTree = "<group>"; };
 		55D5FD172095B0C300E54855 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		55D5FD192095B65000E54855 /* DEStart.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = DEStart.snd; sourceTree = "<group>"; };
-		55D5FD1A2095B65000E54855 /* D_Ratdie.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_Ratdie.snd; sourceTree = "<group>"; };
-		55D5FD1B2095B65000E54855 /* Drip.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Drip.snd; sourceTree = "<group>"; };
-		55D5FD1C2095B65000E54855 /* D_EPain.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_EPain.snd; sourceTree = "<group>"; };
-		55D5FD1D2095B65000E54855 /* DESave.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = DESave.snd; sourceTree = "<group>"; };
-		55D5FD1E2095B65000E54855 /* Pop.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pop.snd; sourceTree = "<group>"; };
-		55D5FD1F2095B65000E54855 /* D_Dbite.snd */ = {isa = PBXFileReference; lastKnownFileType = file; path = D_Dbite.snd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,13 +380,13 @@
 			isa = PBXGroup;
 			children = (
 				27DA44BC19706492005CB000 /* DoomEd-Info.plist */,
-				55D5FD1F2095B65000E54855 /* D_Dbite.snd */,
-				55D5FD1C2095B65000E54855 /* D_EPain.snd */,
-				55D5FD1A2095B65000E54855 /* D_Ratdie.snd */,
-				55D5FD1D2095B65000E54855 /* DESave.snd */,
-				55D5FD192095B65000E54855 /* DEStart.snd */,
-				55D5FD1B2095B65000E54855 /* Drip.snd */,
-				55D5FD1E2095B65000E54855 /* Pop.snd */,
+				555A6B2A209F8CE000D0BB5B /* D_Dbite.aiff */,
+				555A6B2C209F8CE100D0BB5B /* D_EPain.aiff */,
+				555A6B2B209F8CE000D0BB5B /* D_Ratdie.aiff */,
+				555A6B2F209F8CE100D0BB5B /* DESave.aiff */,
+				555A6B29209F8CE000D0BB5B /* DEStart.aiff */,
+				555A6B2E209F8CE100D0BB5B /* Drip.aiff */,
+				555A6B2D209F8CE100D0BB5B /* Pop.aiff */,
 				55D5FD172095B0C300E54855 /* Media.xcassets */,
 				276AB5DD1970AE9D001718D1 /* DoomEd.xib */,
 				276AB5DF1970AE9D001718D1 /* FindLine.xib */,
@@ -460,31 +460,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				555A6B33209F8CE100D0BB5B /* D_EPain.aiff in Resources */,
+				555A6B35209F8CE100D0BB5B /* Drip.aiff in Resources */,
 				557CA99520993A8C003D39A4 /* line.xib in Resources */,
 				276AB5F01970AECA001718D1 /* Project.xib in Resources */,
+				555A6B34209F8CE100D0BB5B /* Pop.aiff in Resources */,
 				276AB5E31970AE9D001718D1 /* DoomEd.xib in Resources */,
 				557CA99420993A8C003D39A4 /* thing.xib in Resources */,
+				555A6B36209F8CE100D0BB5B /* DESave.aiff in Resources */,
 				55D5FD182095B0C300E54855 /* Media.xcassets in Resources */,
 				276AB5F41970AECA001718D1 /* SpecialList.xib in Resources */,
 				276AB6001970AEEE001718D1 /* ThingPalette.xib in Resources */,
 				276AB5F21970AECA001718D1 /* Remapper.xib in Resources */,
-				55D5FD232095B65000E54855 /* D_EPain.snd in Resources */,
 				55CDCE24209668E3007FA890 /* TextLog.xib in Resources */,
 				276AB5F11970AECA001718D1 /* ProjectInfo.xib in Resources */,
 				276AB6031970AEF7001718D1 /* ThingStripper.xib in Resources */,
-				55D5FD262095B65000E54855 /* D_Dbite.snd in Resources */,
-				55D5FD242095B65000E54855 /* DESave.snd in Resources */,
+				555A6B32209F8CE100D0BB5B /* D_Ratdie.aiff in Resources */,
 				276AB5E51970AE9D001718D1 /* FlatRemapper.xib in Resources */,
+				555A6B30209F8CE100D0BB5B /* DEStart.aiff in Resources */,
 				55CDCE2920966EAD007FA890 /* preferences.xib in Resources */,
 				276AB5FB1970AEE0001718D1 /* TextureEdit.xib in Resources */,
 				276AB5FC1970AEE0001718D1 /* TexturePalette.xib in Resources */,
-				55D5FD252095B65000E54855 /* Pop.snd in Resources */,
-				55D5FD212095B65000E54855 /* D_Ratdie.snd in Resources */,
-				55D5FD222095B65000E54855 /* Drip.snd in Resources */,
+				555A6B31209F8CE100D0BB5B /* D_Dbite.aiff in Resources */,
 				276AB5F31970AECA001718D1 /* SectorEditor.xib in Resources */,
 				276AB5E41970AE9D001718D1 /* FindLine.xib in Resources */,
 				276AB5FD1970AEE0001718D1 /* TextureRemapper.xib in Resources */,
-				55D5FD202095B65000E54855 /* DEStart.snd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

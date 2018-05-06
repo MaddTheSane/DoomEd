@@ -54,9 +54,9 @@
 	[super dealloc];
 }
 
-- (CompatibleStorage *) initCount:(NSUInteger)count
+- (CompatibleStorage *) initCount: (NSUInteger)count
 					  elementSize: (NSUInteger) sizeInBytes
-                        description: (const char *) string
+					  description: (const char *) string
 {
 	if (self = [super init]) {
 	description = string;

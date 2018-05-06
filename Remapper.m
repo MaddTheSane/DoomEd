@@ -260,7 +260,9 @@
 
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
-	[self windowWillClose:NULL];
+	if ([self respondsToSelector:@selector(windowWillClose:)]) {
+		[self windowWillClose:notification];
+	}
 }
 
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column

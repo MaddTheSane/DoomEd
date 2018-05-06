@@ -14,7 +14,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="zeC-xv-PYv" customClass="NSPanel">
+        <window title="Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="zeC-xv-PYv" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="81" width="276" height="378"/>
@@ -24,31 +24,26 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qkr-EC-BTc">
-                        <rect key="frame" x="106" y="20" width="64" height="64"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="64" id="Yhs-iw-T8W"/>
-                            <constraint firstAttribute="height" constant="64" id="ewx-ay-aVw"/>
-                        </constraints>
-                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="Delete" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="GC3-y6-EB7">
+                        <rect key="frame" x="102" y="13" width="72" height="32"/>
+                        <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GC3-y6-EB7">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
-                        <accessibility description="Clear"/>
                         <connections>
                             <action selector="clear:" target="-2" id="DK3-zA-etW"/>
                         </connections>
                     </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-xj-aQ4">
-                        <rect key="frame" x="-1" y="92" width="278" height="287"/>
+                        <rect key="frame" x="-1" y="61" width="278" height="318"/>
                         <clipView key="contentView" id="DAi-Ij-ml6">
-                            <rect key="frame" x="1" y="1" width="276" height="285"/>
+                            <rect key="frame" x="1" y="1" width="276" height="316"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Ysc-De-bEW">
-                                    <rect key="frame" x="0.0" y="0.0" width="276" height="285"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="276" height="316"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="276" height="285"/>
+                                    <size key="minSize" width="276" height="316"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </textView>
@@ -60,23 +55,21 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="icq-WO-0Fr">
-                            <rect key="frame" x="261" y="1" width="16" height="285"/>
+                            <rect key="frame" x="261" y="1" width="16" height="316"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="vK1-xj-aQ4" secondAttribute="trailing" constant="-1" id="AQq-hr-cJB"/>
+                    <constraint firstItem="qkr-EC-BTc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YDK-5i-t30" secondAttribute="leading" constant="20" symbolic="YES" id="BYd-A8-rmB"/>
                     <constraint firstAttribute="bottom" secondItem="qkr-EC-BTc" secondAttribute="bottom" constant="20" symbolic="YES" id="Zmc-8G-EbL"/>
                     <constraint firstItem="vK1-xj-aQ4" firstAttribute="leading" secondItem="YDK-5i-t30" secondAttribute="leading" constant="-1" id="cbB-Iz-00U"/>
                     <constraint firstItem="qkr-EC-BTc" firstAttribute="centerX" secondItem="YDK-5i-t30" secondAttribute="centerX" id="sCc-1Q-Yu1"/>
-                    <constraint firstItem="qkr-EC-BTc" firstAttribute="top" secondItem="vK1-xj-aQ4" secondAttribute="bottom" constant="8" symbolic="YES" id="uOs-oB-0wj"/>
+                    <constraint firstItem="qkr-EC-BTc" firstAttribute="top" secondItem="vK1-xj-aQ4" secondAttribute="bottom" constant="20" symbolic="YES" id="uOs-oB-0wj"/>
                     <constraint firstItem="vK1-xj-aQ4" firstAttribute="top" secondItem="YDK-5i-t30" secondAttribute="top" constant="-1" id="v5d-jG-UDi"/>
                 </constraints>
             </view>
         </window>
     </objects>
-    <resources>
-        <image name="Delete" width="64" height="64"/>
-    </resources>
 </document>

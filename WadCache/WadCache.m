@@ -43,6 +43,7 @@ typedef struct
 
 
 	
+@interface WadCache
 /*
 =========================
 =
@@ -444,7 +445,7 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size)
 	
 }
 
-
+@end
 
 
 
