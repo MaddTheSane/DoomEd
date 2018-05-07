@@ -1,11 +1,12 @@
+#include <tgmath.h>
 #import "BlockWorld.h"
 #import	"DoomProject.h"
 #import "ps_quartz.h"
 
-id		blockworld_i;
+BlockWorld	*blockworld_i;
 CompatibleStorage *sectors=nil;	// storage object of sectors
 int		numsectors;
-id		pan;
+static id		pan;
 
 //define SHOWFILL
 
@@ -22,17 +23,16 @@ id		pan;
 - init
 {
 	if (self = [super init]) {
-	blockworld_i = self;
-	sectors = [[CompatibleStorage alloc] 
-				initCount: 	0 
-				elementSize: 	sizeof(worldsector_t)
-				description: 	NULL
-			];
+		blockworld_i = self;
+		sectors = [[CompatibleStorage alloc]
+				   initCount: 0
+				   elementSize: sizeof(worldsector_t)
+				   description: NULL];
 	}
 	return self;
 }
 
-- sectorError: (NSString *)msg : (int)line1 : (int)line2
+- (void)sectorError: (NSString *)msg : (int)line1 : (int)line2
 {
 	[pan	orderOut:NULL];
 	NSReleaseAlertPanel(pan);
@@ -51,7 +51,6 @@ id		pan;
 	}
 	[editworld_i redrawWindows];
 	NSRunAlertPanel(@"Sector error", @"%@", nil, nil, nil, msg);
-	return self;
 }
 
 
@@ -378,18 +377,17 @@ void floodline (int startx, int y)
 
 - (void)displayBlockMap
 {
-	NSRect	aRect;
-	NSWindow *window;
-	unsigned char		*planes[5];
-	int		i,size;
+	NSRect			aRect;
+	NSWindow 		*window;
+	unsigned char	*planes[5];
+	NSInteger		i,size;
 	unsigned short	*src, *dest;
 
 	aRect = NSMakeRect(100, 100, brow / WLSIZE, bheight);
 	window = [[NSWindow alloc] initWithContentRect: aRect
-	                           styleMask: NSTitledWindowMask
-				   backing: NSBackingStoreRetained
-	//buttonMask:	NX_MINIATURIZEBUTTONMASK|NX_CLOSEBUTTONMASK
-				   defer: NO];
+										 styleMask: NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable
+										   backing: NSBackingStoreRetained
+											 defer: NO];
 
 	//[window setViewsNeedDisplay:YES];
 	[window orderFront:nil];
@@ -413,7 +411,8 @@ void floodline (int startx, int y)
 
 	aRect.origin.x = aRect.origin.y = 0;
 
-	[blockview lockFocus]; 
+	[blockview lockFocus];
+	NSDrawBitmap(aRect, bwidth, bheight, 4, 3, 16, bwidth*2, NO, NO, NSDeviceRGBColorSpace, planes);
 	/* TODO
 	NXDrawBitmap(
 		&aRect,  
@@ -634,7 +633,7 @@ void floodline (int startx, int y)
 #if SHOWFILL
 				[blockview lockFocus];
 #endif
-				floodline (x, y);
+				floodline ((int)x, (int)y);
 #if SHOWFILL
 				[blockview unlockFocus];
 #endif

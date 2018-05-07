@@ -3,8 +3,13 @@
 #import "SpecialListWindow.h"
 #import	"TextureEdit.h"
 
+@interface SpecialListWindow()
+@property (copy) NSString *string;
+@end
+
 @implementation SpecialListWindow
 @synthesize parent = parent_i;
+@synthesize string;
 
 //===================================================================
 //
@@ -20,7 +25,7 @@
 	int tries;
 	int i;
 
-	string = [string stringByAppendingString: [event characters]];
+	self.string = [string stringByAppendingString: [event characters]];
 
 	specialList_i = [parent_i  getSpecialList];
 	tries = 2;
@@ -48,7 +53,7 @@
 
 		if (!found)
 		{
-			string = [event characters];
+			self.string = [event characters];
 			tries--;
 		}
 	}

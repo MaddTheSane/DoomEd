@@ -8,8 +8,11 @@ SettingsPanel *settingspanel_i;
 
 - init
 {
+	if (self = [super init]) {
 	settingspanel_i = self;
 	segmenttype = ONESIDED_C;
+	}
+	
 	return self;
 }
 
@@ -18,9 +21,6 @@ SettingsPanel *settingspanel_i;
 {
 }
 
-- (int) segmentType
-{
-	return segmenttype;
-}
+@synthesize segmentType=segmenttype;
 
 @end

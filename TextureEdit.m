@@ -40,7 +40,7 @@ CompatibleStorage *texturePatches;
 	if (![doomproject_i isLoaded])
 	{
 		NSRunAlertPanel(@"Oops!",
-			@"There must be a project loaded before you even\n"
+			@"There must be a project loaded before you even "
 			"THINK about editing textures!",
 			@"OK", nil, nil, nil);
 		return;
@@ -53,9 +53,8 @@ CompatibleStorage *texturePatches;
 		NSPoint	startPoint = NSZeroPoint;
 		int		ns, i;
 
-		[[NSBundle mainBundle] loadNibNamed: @"TextureEdit"
-			owner: self
-			topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"TextureEdit"
+						 owner: self];
 		[window_i	setDelegate:self];
 		[self		computePatchDocView:&dvf];
 		[texturePatchView_i setFrameSize:dvf.size];
@@ -82,8 +81,7 @@ CompatibleStorage *texturePatches;
 		selectedTexturePatches = [[CompatibleStorage alloc]
 			initCount: 0
 			elementSize: sizeof(int)
-			description: NULL
-		];
+			description: NULL];
 
 		[window_i	setFrameUsingName:@"TextureEditor"];
 		[createTexture_i	setFrameUsingName:@"CTexturePanel"];
@@ -105,19 +103,20 @@ CompatibleStorage *texturePatches;
 }
 
 //
-//	Delegate method called by NXSplitView (splitView_i)
+//	Delegate methods called by NXSplitView (splitView_i)
 //
-- splitView:sender 
-	getMinY:(NXCoord *)minY 
-	maxY:(NXCoord *)maxY 
-	ofSubviewAt:(int)offset
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex
 {
-	if (*minY < 100)
-		*minY = 100;
-	if (*maxY > 350)
-		*maxY = 350;
-	[sender	adjustSubviews];
-	return self;
+	if (proposedMaximumPosition > 350)
+		proposedMaximumPosition = 350;
+	return proposedMaximumPosition;
+}
+
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex
+{
+	if (proposedMinimumPosition < 100)
+		proposedMinimumPosition = 100;
+	return proposedMinimumPosition;
 }
 
 - (int)numSets
@@ -712,8 +711,8 @@ CompatibleStorage *texturePatches;
 //
 - (IBAction)makeNewTexture:sender
 {
-	NSModalResponse rcode;
 	int	textureNum;
+	NSModalResponse rcode;
 	worldtexture_t		tex;
 	id	cell;
 
@@ -755,8 +754,7 @@ CompatibleStorage *texturePatches;
 	texturePatches = [[CompatibleStorage alloc]
 		initCount: 0
 		elementSize: sizeof(texpatch_t)
-		description: NULL
-	];
+		description: NULL];
 
 	[texturePalette_i	selectTexture:currentTexture];
 	oldx = oldy = 0;
@@ -823,11 +821,10 @@ CompatibleStorage *texturePatches;
 //======================================================
 - (IBAction)createNewSet:sender
 {
-	NSString *string;
-	NSInteger nr, nc;
-	id cell;
+	NSInteger 	nr, nc;
+	id			cell;
+	NSString 	*string;
 
-	
 	[setMatrix_i	getNumberOfRows:&nr columns:&nc];
 	if (nr == 5)
 	{
@@ -901,8 +898,7 @@ CompatibleStorage *texturePatches;
 	texturePatches = [[CompatibleStorage alloc]
 		initCount: 0
 		elementSize: sizeof(texpatch_t)
-		description: NULL
-	];
+		description: NULL];
 
 	//
 	// copy textures from textures array to texturePatches
@@ -926,8 +922,8 @@ CompatibleStorage *texturePatches;
 	
 	[selectedTexturePatches	empty];
 	
-	[textureView_i		sizeTo:textures[currentTexture].width * 2
-					:textures[currentTexture].height * 2];
+	[textureView_i		setFrameSize:NSMakeSize(textures[currentTexture].width * 2,
+					textures[currentTexture].height * 2)];
 	[textureView_i		setNeedsDisplay:YES];
 
 	[textureWidthField_i	setIntValue:textures[currentTexture].width];
@@ -981,7 +977,7 @@ CompatibleStorage *texturePatches;
 		return;
 	}
 	
-	if ([texturePatches	count] == MAXPATCHES)
+	if ([texturePatches	count] >= MAXPATCHES)
 	{
 		NSRunAlertPanel(@"Um!",
 			@"A maximum of 100 patches is in force!",
@@ -1336,8 +1332,9 @@ CompatibleStorage *texturePatches;
 // compute the size of the docView and set the origin of all the patches
 // within the docView.
 //
-- (void)computePatchDocView: (NSRect *)theframe
+- (NSRect)computePatchDocumentView
 {
+	NSRect theframe;
 	NSRect	curWindowRect;
 	int		x, y, patchnum, maxheight;
 	apatch_t	*patch;
@@ -1378,7 +1375,7 @@ CompatibleStorage *texturePatches;
 			x += patch->r.size.width + SPACING;
 	}
 	y += maxheight + SPACING;
-	*theframe = NSMakeRect(0, 0, curWindowRect.size.width + SPACING, y);
+	theframe = NSMakeRect(0, 0, curWindowRect.size.width + SPACING, y);
 
 	//
 	// now go through all the patches and reassign the coords so they
@@ -1386,8 +1383,8 @@ CompatibleStorage *texturePatches;
 	//
 	[texturePatchView_i	dumpDividers];
 	maxheight = patchnum = maxwindex = 0;
-	x = theframe->origin.x + SPACING;
-	y = theframe->origin.y + theframe->size.height - SPACING;
+	x = theframe.origin.x + SPACING;
+	y = theframe.origin.y + theframe.size.height - SPACING;
 	while ((patch = [patchImages	elementAt:patchnum++]) != NULL)
 	{
 		//
@@ -1425,9 +1422,18 @@ CompatibleStorage *texturePatches;
 		}			
 		else
 			x += patch->r.size.width + SPACING;
-	}	
+	}
+	return theframe;
 }
 
+//
+// compute the size of the docView and set the origin of all the patches
+// within the docView.
+//
+- (void)computePatchDocView: (NSRect *)theframe
+{
+	*theframe = [self computePatchDocumentView];
+}
 
 @end
 

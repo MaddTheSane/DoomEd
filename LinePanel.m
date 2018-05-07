@@ -18,7 +18,7 @@ SpecialList *lineSpecialPanel_i;
 =====================
 */
 
-- init
+- (id)init
 {
 	if (self = [super init]) {
 	linepanel_i = self;
@@ -71,7 +71,7 @@ SpecialList *lineSpecialPanel_i;
 	[lineSpecialPanel_i	updateSpecialsDSP:stream];
 }
 
-- (void)activateSpecialList:sender
+- (IBAction)activateSpecialList:(id)sender
 {
 	[lineSpecialPanel_i	displayPanel];
 }
@@ -84,7 +84,7 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- (void)menuTarget:sender
+- (IBAction)menuTarget:(id)sender
 {
 	if (!window_i)
 	{
@@ -106,7 +106,7 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- (void)sideRadioTarget:sender
+- (IBAction)sideRadioTarget:(id)sender
 {
 	[self updateInspector: NO];
 }
@@ -218,7 +218,7 @@ SpecialList *lineSpecialPanel_i;
 //============================================================================
 
 
-- changeLineFlag: (int)mask to: (int)set
+- (void)changeLineFlag: (int)mask to: (int)set
 {
 	int	i;
 	worldline_t	*line;
@@ -233,66 +233,65 @@ SpecialList *lineSpecialPanel_i;
 		}
 		
 	[editworld_i updateWindows];
-	return self;
 }
 
-- (void)monsterblockChanged: sender
+- (IBAction)monsterblockChanged:(id)sender
 {
 	NSInteger	state;
 	state = [monsterblock_i state];	
 	[self changeLineFlag: ~ML_MONSTERBLOCK  to: (int)(ML_MONSTERBLOCK*state)];
 }
 
-- (void)blockChanged: sender
+- (IBAction)blockChanged:(id)sender
 {
 	NSInteger	state;
 	state = [pblock_i state];	
 	[self changeLineFlag: ~ML_BLOCKMOVE  to: (int)(ML_BLOCKMOVE*state)];
 }
 
-- (void)secretChanged:sender
+- (IBAction)secretChanged:(id)sender
 {
 	NSInteger	state;
 	state = [secret_i	state];
 	[self	changeLineFlag: ~ML_SECRET	to:(int)(ML_SECRET*state)];
 }
 
-- (void)dontDrawChanged:sender
+- (IBAction)dontDrawChanged:(id)sender
 {
 	NSInteger	state;
 	state = [dontdraw_i	state];
 	[self	changeLineFlag: ~ML_DONTDRAW	to:(int)(ML_DONTDRAW*state)];
 }
 
-- (void)soundBlkChanged:sender
+- (IBAction)soundBlkChanged:(id)sender
 {
 	NSInteger	state;
 	state = [soundblock_i	state];
 	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:(int)(ML_SOUNDBLOCK*state)];
 }
 
-- (void)twosideChanged: sender
+- (IBAction)twosideChanged:(id)sender
 {
 	NSInteger	state;
 	state = [twosided_i state];	
 	[self changeLineFlag: ~ML_TWOSIDED  to: (int)(ML_TWOSIDED*state)];
 }
 
-- (void)toppegChanged: sender
+- (IBAction)toppegChanged: sender
 {
 	NSInteger	state;
 	state = [toppeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGTOP  to: (int)(ML_DONTPEGTOP*state)];
 }
 
-- (void)bottompegChanged: sender
+- (IBAction)bottompegChanged:(id)sender
 {
 	NSInteger	state;
 	state = [bottompeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: (int)(ML_DONTPEGBOTTOM*state)];
 }
 
-- (void)specialChanged: sender
+- (IBAction)specialChanged:(id)sender
 {
 	int		i,value;
 	
@@ -309,7 +308,7 @@ SpecialList *lineSpecialPanel_i;
 }
 
 
-- (void)tagChanged: sender
+- (IBAction)tagChanged:(id)sender
 {
 	int		i,value;
 	
@@ -325,7 +324,7 @@ SpecialList *lineSpecialPanel_i;
 }
 
 
-- (void)sideChanged: sender
+- (IBAction)sideChanged:(id)sender
 {
 	NSInteger		i,side;
 	worldside_t	new;
@@ -346,7 +345,7 @@ SpecialList *lineSpecialPanel_i;
 	[editworld_i updateWindows];
 }
 
-- (void)getFromTP:sender
+- (IBAction)getFromTP:(id)sender
 {
 	NSInteger	tag;
 	
@@ -356,7 +355,7 @@ SpecialList *lineSpecialPanel_i;
 	[self	sideChanged:NULL];
 }
 
-- (void)setTP:sender
+- (IBAction)setTP:(id)sender
 {
 	NSInteger	tag;
 	
@@ -364,7 +363,7 @@ SpecialList *lineSpecialPanel_i;
 	[texturePalette_i	setSelTexture:[[sideform_i cellAtRow:2+tag column:0] stringValue].UTF8String];
 }
 
-- (void)zeroEntry:sender
+- (IBAction)zeroEntry:(id)sender
 {
 	NSInteger	tag;
 	
@@ -378,7 +377,7 @@ SpecialList *lineSpecialPanel_i;
 // Suggest a new tag value for this map
 //
 //==========================================================
-- (void)suggestTagValue:sender
+- (IBAction)suggestTagValue:(id)sender
 {
 	int	i, val, found;
 	
@@ -411,17 +410,17 @@ SpecialList *lineSpecialPanel_i;
 //	Firstcol Calculator code
 //
 //==========================================================
-- (void)popUpCalc:sender
+- (IBAction)popUpCalc:(id)sender
 {
 	[firstColCalc_i		makeKeyAndOrderFront:NULL];
 }
 
-- (void)setFCVal:sender
+- (IBAction)setFCVal:(id)sender
 {
 	[fc_currentVal_i  setIntValue:[[sideform_i  cellAtRow:1 column:0]  intValue]];
 }
 
-- (void)incFirstCol:sender
+- (IBAction)incFirstCol:(id)sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
@@ -431,7 +430,7 @@ SpecialList *lineSpecialPanel_i;
 	[self	sideChanged:NULL];
 }
 
-- (void)decFirstCol:sender
+- (IBAction)decFirstCol:(id)sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];

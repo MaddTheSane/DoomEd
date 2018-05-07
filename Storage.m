@@ -1,16 +1,4 @@
 
-// NeXTStep included a class called 'Storage' that implemented an array
-// able to store arbitrary C types and structs. It seems that it was
-// removed or otherwise ditched during the evolution towards Cocoa and
-// OS X. There is some documentation about it here:
-//
-// http://www.cilinder.be/docs/next/NeXTStep/3.3/nd/GeneralRef/03_Common/Classes/Storage.htmld/index.html
-//
-// The DoomEd code makes heavy use of this class all over the place, and
-// it's easier as a stopgap to just reimplement it as 'CompatibleStorage'
-// rather than converting all the code to use something like NSArray. In
-// the longterm the code probably should be converted or migrated to
-// something sane though.
 
 #include <stdlib.h>
 #include <string.h>

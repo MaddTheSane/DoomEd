@@ -1,4 +1,3 @@
-
 #import "EditWorld.h"
 #import "idfunctions.h"
 #import "MapWindow.h"
@@ -231,7 +230,8 @@ int LineByPoint (NSPoint *ptin, int *side)
 	BOOL		ret;
 	int		version;
 
-	pathname = path;
+	[pathname release];
+	pathname = [path copy];
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	boundsdirty = YES;
 	
@@ -243,7 +243,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 //
 // identify which map version the file is
 //
-	stream = fopen([pathname UTF8String], "r");
+	stream = fopen([pathname fileSystemRepresentation], "r");
 	if (!stream)
 	{
 		NSRunAlertPanel(@"Error", @"Couldn't open %@",
@@ -317,7 +317,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 		saveFrameUsingName:WORLDNAME
 	];
 	//[windowlist_i makeObjectsPerformSelector: @selector(free)];
-	//[windowlist_i release];
+	[windowlist_i release];
 	windowlist_i = [[NSMutableArray alloc] init];
 
 	numpoints = numlines = numthings = 0;
@@ -401,7 +401,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 	PSwait();
 
 	sprintf(string, "rsh %s %s %s %s", bsphost, bspprogram,
-	        [fromPath UTF8String], mapwads);
+	        [fromPath fileSystemRepresentation], mapwads);
 	err = system(string);
 	if (err)
 	{
@@ -430,7 +430,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 =====================
 */
 
-- (void)saveWorld:sender
+- (IBAction)saveWorld:sender
 {
 	FILE			*stream;
 	id			pan;
@@ -466,7 +466,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 =====================
 */
 
-- (void)print: sender
+- (IBAction)print: sender
 {
 	MapWindow *win;
 
@@ -525,10 +525,9 @@ int LineByPoint (NSPoint *ptin, int *side)
 ================
 */
 
-- addPointToDirtyRect: (NSPoint *)pt
+- (void)addPointToDirtyRect: (NSPoint *)pt
 {
 	IDEnclosePoint (&dirtyrect, pt);
-	return self;
 }
 
 
@@ -623,7 +622,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 	count = [windowlist_i count];
 	while (--count > -1)
-		[[windowlist_i objectAtIndex: count] reDisplay: &dirtyrect];
+		[[windowlist_i objectAtIndex: count] reDisplay: dirtyrect];
 
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
@@ -867,7 +866,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- (void)flipSelectedLines: sender
+- (IBAction)flipSelectedLines: sender
 {
 	worldline_t	line;
 	int			i;
@@ -903,7 +902,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- (void)fusePoints: sender
+- (IBAction)fusePoints: sender
 {
 	int	i, j, k;
 	NSPoint	*p1, *p2;
@@ -960,7 +959,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- (void)seperatePoints: sender
+- (IBAction)seperatePoints: sender
 {
 	int	i, k;
 	worldline_t	*line;
@@ -1109,7 +1108,7 @@ FIXME: make these scan for deleted entries
 	return p;
 }
 
-- (void)cut: sender
+- (IBAction)cut: sender
 {
 	[self	storeCopies];
 	[self	delete:NULL];
@@ -1126,7 +1125,7 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- (void)copy: sender
+- (IBAction)copy: sender
 {
 	[self	storeCopies];
 	[self	copyDeselect];
@@ -1204,7 +1203,7 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- (void)delete: sender
+- (IBAction)delete: sender
 {
 	int	i;
 	worldline_t	line;
@@ -1580,7 +1579,5 @@ Updates dirty rect based on old and new positions
 	[self deselectAllLines];
 	[self deselectAllThings];
 }
-
-
 
 @end

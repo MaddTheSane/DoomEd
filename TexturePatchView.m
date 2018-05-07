@@ -55,7 +55,7 @@
 //	Draw the Patch Palette in the Texture Editor
 //
 //==============================================================
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)rects
 {
 	int 		i, max, patchnum,selectedPatch;
 	apatch_t	*patch;
@@ -65,7 +65,7 @@
 	selectedPatch = [textureEdit_i	getCurrentPatch];
 	patchnum = 0;
 	while ((patch = [textureEdit_i	getPatch:patchnum++]) != NULL)
-		if (NSIntersectsRect(patch->r, rects[0]))
+		if (NSIntersectsRect(patch->r, rects))
 			[patch->image drawAtPoint:patch->r.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 	
 	clipview = [self frame];
@@ -103,8 +103,6 @@
 		PSlineto ( [self bounds].size.width - SPACING*2, d->y - 2 );
 		PSstroke ();
 	}
-	
-	return self;
 }
 
 - (void) mouseDown:(NSEvent *)theEvent

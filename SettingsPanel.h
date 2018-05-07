@@ -7,7 +7,7 @@
 }
 
 - (IBAction)menuTarget:sender;
-- (int) segmentType;
+@property (readonly) int segmentType;
 
 @end
 

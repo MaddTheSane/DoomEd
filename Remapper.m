@@ -26,9 +26,8 @@
 
 	if (! remapPanel_i )
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"Remapper"
-			owner: self
-			topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"Remapper"
+						 owner: self];
 
 		storage_i = [ [CompatibleStorage alloc]
 			initCount: 0

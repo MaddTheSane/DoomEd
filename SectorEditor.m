@@ -18,7 +18,7 @@ SectorEditor *sectorEdit_i;
 	window_i = NULL;
 	sectorEdit_i = self;
 	currentFlat = -1;
-	specialPanel_i = [SpecialList alloc];
+	specialPanel_i = [[SpecialList alloc] init];
 	[specialPanel_i setSpecialTitle:@"Sector Editor - Specials"];
 	[specialPanel_i setFrameName:@"SectorSpecialPanel"];
 	[specialPanel_i setDelegate:self];
@@ -32,7 +32,7 @@ SectorEditor *sectorEdit_i;
 		[window_i	saveFrameUsingName:@"SectorEditor"];
 }
 
-- (void)setKey:sender
+- (IBAction)setKey:sender
 {
 	[[editworld_i	getMainWindow] makeKeyAndOrderFront:NULL];
 }
@@ -85,7 +85,7 @@ SectorEditor *sectorEdit_i;
 	if (![doomproject_i isLoaded])
 	{
 		NSRunAlertPanel(@"Oops!",
-			@"There must be a project loaded before you even\n"
+			@"There must be a project loaded before you even "
 			"THINK about editing sectors!",
 			@"OK", nil, nil, nil);
 		return;
@@ -93,9 +93,8 @@ SectorEditor *sectorEdit_i;
 
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"SectorEditor"
-									  owner: self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"SectorEditor"
+						 owner: self];
 		[self	setupEditor];
 		//[window_i	setAvoidsActivation:YES];
 	}
@@ -119,14 +118,14 @@ SectorEditor *sectorEdit_i;
 //	Clicked on little arrow adjusters
 //
 //============================================================
-- (void)ceilingAdjust:sender
+- (IBAction)ceilingAdjust:sender
 {
 	[cheightfield_i	setIntegerValue:[cheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
 }
 
-- (void)floorAdjust:sender
+- (IBAction)floorAdjust:sender
 {
 	[fheightfield_i	setIntegerValue:[fheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
@@ -138,7 +137,7 @@ SectorEditor *sectorEdit_i;
 //	Get tag value from line panel tag field
 //
 //============================================================
-- (void)getTagValue:sender
+- (IBAction)getTagValue:sender
 {
 	[tag_i	setIntValue:[linepanel_i	getTagValue]];
 	[self	setKey:NULL];
@@ -149,7 +148,7 @@ SectorEditor *sectorEdit_i;
 //	Light level arrow clicks
 //
 //============================================================
-- (void)lightLevelDown:sender
+- (IBAction)lightLevelDown:sender
 {
 	int	level;
 	
@@ -164,7 +163,7 @@ SectorEditor *sectorEdit_i;
 	[self	setKey:NULL];
 }
 
-- (void)lightLevelUp:sender
+- (IBAction)lightLevelUp:sender
 {
 	int	level;
 	
@@ -236,7 +235,7 @@ SectorEditor *sectorEdit_i;
 	[sectorEditView_i	setNeedsDisplay:YES];
 }
 
-- (void)lightChanged:sender
+- (IBAction)lightChanged:sender
 {
 	int	val;
 	val = [lightLevel_i	intValue];
@@ -247,7 +246,7 @@ SectorEditor *sectorEdit_i;
 	[self	setKey:NULL];
 }
 
-- (void)lightSliderChanged:sender
+- (IBAction)lightSliderChanged:sender
 {
 	int	val;
 	val = [lightSlider_i	intValue];
@@ -288,7 +287,7 @@ SectorEditor *sectorEdit_i;
 //	Floor height remains the same; adjust ceilingheight.
 //
 //============================================================
-- (void)totalHeightAdjust:sender
+- (IBAction)totalHeightAdjust:sender
 {
 	int	val;
 	val = [fheightfield_i		intValue];
@@ -305,7 +304,7 @@ SectorEditor *sectorEdit_i;
 //	Ceiling or Floor height changed -- clip and modify totalHeight
 //
 //============================================================
-- (void)CorFheightChanged:sender
+- (IBAction)CorFheightChanged:sender
 {
 	int	val;
 	
@@ -332,7 +331,7 @@ SectorEditor *sectorEdit_i;
 //	Find the flat in the palette designated by floor/ceiling radio button
 //
 //============================================================
-- (void)locateFlat:sender
+- (IBAction)locateFlat:sender
 {
 	int	flat;
 	flat_t	*f;
@@ -542,7 +541,7 @@ SectorEditor *sectorEdit_i;
 		x += FLATSIZE + SPACING;
 	}
 	
-	[flatPalView_i setSize:NSMakeSize(dvr.size.width, y + FLATSIZE + SPACING)];
+	[flatPalView_i setFrameSize:NSMakeSize(dvr.size.width, y + FLATSIZE + SPACING)];
 	p.x = 0;
 	p.y = y + FLATSIZE*2 + SPACING*2;
 	x = SPACING;
@@ -664,7 +663,7 @@ SectorEditor *sectorEdit_i;
 	return	currentFlat;
 }
 
-- (NSInteger) countOfCountOfFlats
+- (NSInteger) countOfFlats
 {
 	return	[flatImages	count];
 }

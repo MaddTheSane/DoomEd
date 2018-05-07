@@ -55,7 +55,7 @@ BOOL		openupValues[NUMOPENUP];
 								   @"special_c":@"0.5:1:0.5",
 								   
 								   //		{"launchType":@"1"},
-								   launchTypeName:@"1",
+								   launchTypeName:@1,
 #if 1
 								   //		{"projectPath":@"/aardwolf/DoomMaps/project.dpr"},
 								   projectPathName:@"/aardwolf/DoomMaps/project.dpr",
@@ -196,9 +196,8 @@ BOOL		openupValues[NUMOPENUP];
 	
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"preferences.nib"
-			owner: self
-			topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"preferences"
+						 owner: self];
 
 		[window_i	setFrameUsingName:PREFNAME];
 
@@ -225,7 +224,6 @@ BOOL		openupValues[NUMOPENUP];
 	[projectDefaultPath_i	setStringValue:projectPath];
 
 	[window_i orderFront:self];
-
 }
 
 /*

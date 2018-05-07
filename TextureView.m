@@ -57,7 +57,7 @@
 	}
 }
 
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)rects
 {
 	int		ct,i,outlineflag;
 	int		patchCount;
@@ -65,10 +65,10 @@
 	
 	ct = [textureEdit_i	getCurrentTexture];
 	if (ct < 0)
-		return self;
+		return;
 
 	[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0] set];
-	NSRectFill(rects[0]);
+	NSRectFill(rects);
 
 	outlineflag = [textureEdit_i	getOutlineFlag];
 	[[NSColor darkGrayColor] set];
@@ -91,7 +91,7 @@
 		for (i = patchCount - 1;i >= 0;i--)
 		{
 			tpatch = [texturePatches	elementAt:i];
-//			if (NSIntersectsRect(tpatch->r, rects[0]))
+//			if (NSIntersectsRect(tpatch->r, rects))
 				NSFrameRectWithWidth(tpatch->r,5);
 		}
 
@@ -110,8 +110,6 @@
 			NSFrameRectWithWidth(tpatch->r, 5);
 		}
 	}
-	
-	return self;
 }
 
 - (void) rightMouseDown:(NSEvent *)theEvent

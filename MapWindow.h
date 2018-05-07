@@ -24,6 +24,6 @@
 @property (assign) NSMenu *gridmenu;
 @property (assign) NSPopUpButton *gridbutton;
 
-- (void)reDisplay: (NSRect *)dirty;
+- (void)reDisplay: (NSRect)dirty;
 
 @end

@@ -148,7 +148,8 @@ typedef	struct texpatch_s
 - (void)dumpAllPatches;
 - (void)initPatches;
 - (void)createPatchX2:(apatch_t *)p;
-- (void)computePatchDocView: (NSRect *)theframe;
+- (void)computePatchDocView: (NSRect *)theframe DEPRECATED_ATTRIBUTE;
+- (NSRect)computePatchDocumentView;
 - (void)setWarning:(BOOL)state;
 - (void)saveFrame;
 

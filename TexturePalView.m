@@ -44,12 +44,12 @@
 	[dividers_i	empty];
 }
 
-- drawSelf:(const NSRect *)rects :(int)rectCount
+- (void)drawRect:(NSRect)rects
 {
-	int		count;
+	int			count;
 	texpal_t	*t;
-	NSRect	r;
-	int		max, i;
+	NSRect		r;
+	int			max, i;
 	divider_t	*d;
 	
 	//
@@ -71,7 +71,7 @@
 	//
 	count = 0;
 	while ((t = [texturePalette_i	getNewTexture:count++]) != NULL)
-		if (NSIntersectsRect(rects[0], t->r))
+		if (NSIntersectsRect(rects, t->r))
 			[t->image drawAtPoint:t->r.origin fromRect:NSZeroRect operation:NSCompositeCopy fraction:1];
 	
 	//
@@ -96,8 +96,6 @@
 		PSlineto ( [self bounds].size.width - SPACING, d->y - 2 );
 		PSstroke ();
 	}
-	
-	return self;
 }
 
 - (void) mouseDown:(NSEvent *)theEvent

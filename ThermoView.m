@@ -11,17 +11,20 @@
 
 - (void)drawRect:(NSRect)rects
 {
-	PSsetlinewidth([self bounds].size.height);
+	NSBezierPath *path = [NSBezierPath bezierPath];
+	path.lineWidth = self.bounds.size.height;
 
-	PSsetrgbcolor(0.5,1.0,1.0);
-	PSmoveto(0,[self bounds].size.height/2);
-	PSlineto(thermoWidth,[self bounds].size.height/2);
-	PSstroke();
+	[[NSColor colorWithRed:0.5 green:1 blue:1 alpha:1] set];
+	[path moveToPoint:NSMakePoint(0, [self bounds].size.height/2)];
+	[path lineToPoint:NSMakePoint(thermoWidth, [self bounds].size.height/2)];
+	[path stroke];
 	
-	PSsetgray(0.5);
-	PSmoveto(thermoWidth+1,[self bounds].size.height/2);
-	PSlineto([self bounds].size.width,[self bounds].size.height/2);
-	PSstroke();
+	[path removeAllPoints];
+	
+	[[NSColor greenColor] set];
+	[path moveToPoint:NSMakePoint(thermoWidth+1, [self bounds].size.height/2)];
+	[path lineToPoint:NSMakePoint([self bounds].size.width, [self bounds].size.height/2)];
+	[path stroke];
 }
 
 @end

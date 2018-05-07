@@ -10,7 +10,7 @@ static	int	cornerx = 128, cornery = 64;
 
 @implementation MapWindow
 
-- initFromEditWorld
+- (id)initFromEditWorld
 {
 	id		oldobj_i;
 	NSRect	screensize;
@@ -37,11 +37,10 @@ static	int	cornerx = 128, cornery = 64;
 	cornery += 32;
 #endif
 	if (self = [self initWithContentRect: wframe
-	      styleMask: NSResizableWindowMask
+	      styleMask: NSWindowStyleMaskResizable | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable
 	      backing: NSBackingStoreBuffered
 	      defer: NO
 	      screen: scrn
-	// buttonMask:		NX_CLOSEBUTTONMASK | NX_MINIATURIZEBUTTONMASK
 				]) {
 
 	[self	setMinSize:	minsize];
@@ -119,9 +118,9 @@ static	int	cornerx = 128, cornery = 64;
 @synthesize gridmenu=gridmenu_i;
 @synthesize gridbutton=gridbutton_i;
 
-- (void)reDisplay: (NSRect *)dirty
+- (void)reDisplay: (NSRect)dirty
 {
-	[mapview_i displayDirty: *dirty];
+	[mapview_i displayDirty: dirty];
 }
 
 /*

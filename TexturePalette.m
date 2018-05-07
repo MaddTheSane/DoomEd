@@ -75,9 +75,8 @@ TexturePalette *texturePalette_i;
 		
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"TexturePalette.nib"
-									  owner: self
-							topLevelObjects: nil];
+		[NSBundle loadNibNamed: @"TexturePalette"
+						 owner: self];
 
 		[self setupPalette];
 		[window_i	setDelegate:self];
@@ -134,8 +133,8 @@ TexturePalette *texturePalette_i;
 	//[t.image	 useCacheWithDepth:NX_TwelveBitRGBDepth];
 	//[t.image	lockFocusOn:[t.image lastRepresentation]];
 
-	//NXSetColor([NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0]);
-	//NSRectFill(t.r);
+	[[NSColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0] set];
+	NSRectFill(t.r);
 
 	for (i = 0; i < textures[which].patchcount; i++)
 	{
@@ -202,11 +201,11 @@ TexturePalette *texturePalette_i;
 
 - (void)computePalViewSize
 {
-	texpal_t *t, *t2;
-	int count,maxwidth,x,y;
-	NSSize s,imagesize;
-	int maxwindex, i, j;
-	char string[32];
+	texpal_t	*t, *t2;
+	int			count,maxwidth,x,y;
+	NSSize		s,imagesize;
+	int			maxwindex, i, j;
+	char		string[32];
 
 	if (newTextures == nil )
 		newTextures = [[CompatibleStorage alloc ]
@@ -283,8 +282,6 @@ TexturePalette *texturePalette_i;
 
 	s.width = maxwidth + SPACING*2;
 	s.height = y;
-	// TODO: Check this is the right replacement method:
-	//[texturePalView_i sizeTo:s.width :s.height];
 	[texturePalView_i setFrameSize:s];
 }
 
@@ -346,7 +343,7 @@ TexturePalette *texturePalette_i;
 		r.size.width += SPACING*2;
 		r.size.height += SPACING*2;
 		[texturePalView_i		scrollRectToVisible:r];
-		//[texturePalScrView_i	display];
+		//[texturePalScrView_i	setNeedsDisplay:YES];
 	}
 }
 
@@ -357,8 +354,8 @@ TexturePalette *texturePalette_i;
 
 - (void)setSelTexture:(const char *)name
 {
-	int	i, max;
-	NSRect	r;
+	int	i,		max;
+	NSRect		r;
 	texpal_t	*t;
 	
 	max = [allTextures	count];
@@ -384,7 +381,7 @@ TexturePalette *texturePalette_i;
 - (IBAction)searchForTexture:sender
 {
 	int	i, max, slen,j;
-	const char *string;
+	NSString *string;
 	texpal_t	*t;
 	
 	string = [searchField_i	stringValue];

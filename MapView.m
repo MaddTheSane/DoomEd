@@ -20,7 +20,6 @@ BOOL	linecross[9][9];
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		
 	int x1, y1, x2, y2;
 
 	for (x1 = 0; x1 < 3 ; x1++)
@@ -69,7 +68,6 @@ BOOL	linecross[9][9];
 
 		gridsize = 8;		// these are changed by the pop up menus
 		scale = 1;
-
 	}
 	return self;
 }
@@ -81,7 +79,7 @@ BOOL	linecross[9][9];
 
 #define TESTOPS	1000
 
-- testSpeed: sender
+- (IBAction)testSpeed:(id)sender
 {
 #if 0
         id 		t4;
@@ -117,8 +115,6 @@ printf ("No flush\n");
 	NXClose (stream);
 printf ("Done\n");
 #endif
-
-	return self;
 }
 
 /*
@@ -131,9 +127,9 @@ printf ("Done\n");
 =====================
 */
 
-- worldBoundsChanged
+- (void)worldBoundsChanged
 {
-	return self;
+	
 }
 
 
@@ -150,9 +146,9 @@ printf ("Done\n");
 
 - (IBAction)scaleMenuTarget: sender
 {
-	NSString *item;
-	float nscale;
-	NSRect visrect;
+	NSString	*item;
+	float		nscale;
+	NSRect		visrect;
 
 	item = [sender titleOfSelectedItem];
 	sscanf([item UTF8String], "%f", &nscale);
@@ -204,22 +200,22 @@ printf ("Done\n");
 ===============================================================================
 */
 
-- (void) cut: sender
+- (IBAction) cut:(id)sender
 {
 	[editworld_i cut:sender];
 }
 
-- (void) copy: sender
+- (IBAction) copy:(id)sender
 {
 	[editworld_i copy:sender];
 }
 
-- (void) paste: sender
+- (IBAction) paste:(id)sender
 {
 	[editworld_i paste:sender];
 }
 
-- (void) delete: sender
+- (IBAction) delete:(id)sender
 {
 	[editworld_i delete:sender];
 }
@@ -259,14 +255,12 @@ printf ("Done\n");
 	return [self convertPoint: global.origin fromView: [self superview]];
 }
 
-- printInfo: sender
+- (IBAction)printInfo: sender
 {
 	NSPoint	wrld;
 
 	wrld = [self getCurrentOrigin];
 	printf ("getCurrentOrigin: %f, %f\n",wrld.x,wrld.y);
-
-	return self;
 }
 
 
@@ -373,7 +367,7 @@ printf ("Done\n");
 	if (scl != scale)
 	{
 //printf ("changed scale\n");
-		[self setFrameSize:NSMakeSize([self frame].size.width/scl, [self frame].size.height/scl)];
+		[self setBoundsSize:NSMakeSize([self frame].size.width/scl, [self frame].size.height/scl)];
 		scale = scl;
 	}
 	
@@ -395,7 +389,7 @@ printf ("Done\n");
 	    newbounds.size.height != viewbounds.size.height)
 	{
 //printf ("changed size\n");
-		[self setBoundsSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
+		[self setFrameSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
 	}
 
 	if (newbounds.origin.x != viewbounds.origin.x ||
@@ -453,8 +447,7 @@ printf ("Done\n");
 //
 // change scale
 //
-	
-	[self setFrameSize:NSMakeSize([self frame].size.width/newscale, [self frame].size.height/newscale)];
+	[self setBoundsSize:NSMakeSize([self frame].size.width/newscale, [self frame].size.height/newscale)];
 	scale = newscale;
 
 //

@@ -80,7 +80,7 @@
 	// TODO: Needed?
 	//oldwindowmask = [[self window] addToEventMask:NX_LMOUSEDRAGGEDMASK];
 	loc = [theEvent locationInWindow];
-	[self convertPoint:loc	fromView:NULL];
+	loc = [self convertPoint:loc	fromView:NULL];
 
 	max = [thingPalette_i	getNumIcons];
 	for (i = 0;i < max; i++)

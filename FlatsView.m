@@ -5,7 +5,7 @@
 #import "FlatsView.h"
 
 @implementation FlatsView
-- initWithFrame:(NSRect)frameRect
+- (id)initWithFrame:(NSRect)frameRect
 {
 	if (self = [super initWithFrame:frameRect]) {
 		dividers_i = [[CompatibleStorage alloc]

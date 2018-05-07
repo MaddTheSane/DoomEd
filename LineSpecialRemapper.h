@@ -1,7 +1,8 @@
 #import	"Remapper.h"
 #import <AppKit/AppKit.h>
 
-extern	id	lineSpecialRemapper_i;
+@class LineSpecialRemapper;
+extern LineSpecialRemapper *lineSpecialRemapper_i;
 
 @interface LineSpecialRemapper:NSObject <Remapper>
 {

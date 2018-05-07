@@ -4,6 +4,7 @@
 
 @implementation SpecialList
 @synthesize delegate;
+
 //=====================================================================
 //
 //	Special List
@@ -54,9 +55,8 @@
 {
 	if (!specialPanel_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"SpecialList"
-									  owner: self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"SpecialList"
+						 owner: self];
 		[specialPanel_i	setTitle:title];
 		if (frameString != nil)
 			[specialPanel_i	setFrameUsingName:frameString];
@@ -73,7 +73,7 @@
 //===================================================================
 - (void)scrollToItem:(int)i
 {
-	id	matrix;
+	NSMatrix	*matrix;
 	
 	[specialBrowser_i	reloadColumn:0];
 	matrix = [specialBrowser_i	matrixInColumn:0];
@@ -88,18 +88,18 @@
 //===================================================================
 - (IBAction)suggestValue:sender
 {
-	int	max,i,num,found;
+	NSInteger	max,i,num,found;
 	
-	max = [specialList_i	count];
+	max = [specialList_i count];
 	for (num=1;num<10000;num++)
 	{
 		found = 0;
 		for (i=0;i<max;i++)
-			if (((speciallist_t *)[specialList_i	elementAt:i])->value == num)
+			if (((speciallist_t *)[specialList_i elementAt:i])->value == num)
 				found = 1;
 		if (!found)
 		{
-			[specialValue_i	setIntValue:num];
+			[specialValue_i	setIntegerValue:num];
 			break;
 		}
 	}
@@ -115,7 +115,7 @@
 	int	i;
 	char		s[32];
 	
-	strncpy(s,[specialDesc_i	stringValue].UTF8String,32);
+	strncpy(s, [specialDesc_i stringValue].UTF8String, 32);
 	s[31] = 0;
 	for (i=0;i<strlen(s);i++)
 	{
@@ -129,7 +129,7 @@
 			s[i]='_';
 	}
 	
-	[specialDesc_i	setStringValue:@(s)];
+	[specialDesc_i setStringValue:@(s)];
 }
 
 //===================================================================
@@ -139,9 +139,9 @@
 //===================================================================
 - (void)fillSpecialData:(speciallist_t *)special
 {
-	special->value = [specialValue_i	intValue];
-	[self	validateSpecialString:NULL];
-	strcpy(special->desc,[specialDesc_i	stringValue].UTF8String);
+	special->value = [specialValue_i intValue];
+	[self validateSpecialString:NULL];
+	strcpy(special->desc, [specialDesc_i stringValue].UTF8String);
 }
 
 //===================================================================
@@ -151,9 +151,9 @@
 //===================================================================
 - (IBAction)addSpecial:sender
 {
-	speciallist_t		t;
-	int	which;
-	id	matrix;
+	speciallist_t	t;
+	int				which;
+	NSMatrix		*matrix;
 
 	[self	fillSpecialData:&t];
 	
@@ -175,7 +175,7 @@
 	matrix = [specialBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:which column:0];
 	[matrix	scrollCellToVisibleAtRow:which column:0];
-	[doomproject_i	setProjectDirty:TRUE];
+	[doomproject_i	setProjectDirty:YES];
 }
 
 //===================================================================
@@ -185,15 +185,15 @@
 //===================================================================
 - (int)findSpecialString:(char *)string
 {
-	int	max, i;
-	speciallist_t		*t;
+	NSInteger		max, i;
+	speciallist_t	*t;
 	
 	max = [specialList_i	count];
 	for (i = 0;i < max; i++)
 	{
 		t = [specialList_i	elementAt:i];
 		if (!strcmp(string,t->desc))
-			return i;
+			return (int)i;
 	}
 	return -1;
 }
@@ -216,15 +216,15 @@
 //===================================================================
 - (IBAction)chooseSpecial:sender
 {
-	id	cell;
-	int	which;
-	speciallist_t		*t;
+	NSCell			*cell;
+	int				which;
+	speciallist_t	*t;
 	
 	cell = [sender	selectedCell];
 	if (!cell)
 		return;
 		
-	which = [self	findSpecialString:(char *)[cell  stringValue]];
+	which = [self findSpecialString:[cell  stringValue]];
 	if (which < 0)
 	{
 		NSBeep();
@@ -244,11 +244,11 @@
 //===================================================================
 - (void)setSpecial:(int)which
 {
-	int	i,max;
+	NSInteger		i,max;
 	speciallist_t	*s;
-	id	matrix;
+	NSMatrix		*matrix;
 	
-	max = [specialList_i	count];
+	max = [specialList_i count];
 	matrix = [specialBrowser_i	matrixInColumn:0];
 	for (i=0;i<max;i++)
 	{
@@ -272,15 +272,16 @@
 //===================================================================
 - (void)sortSpecials
 {
-	id	cell, matrix;
-	int	max,i,j,flag, which;
-	speciallist_t		*t1, *t2, tt1, tt2;
-	char		name[32] = "\0";
+	NSCell 			*cell;
+	NSMatrix		*matrix;
+	NSInteger		max,i,j,flag, which;
+	speciallist_t	*t1, *t2, tt1, tt2;
+	char			name[32] = "\0";
 	
-	cell = [specialBrowser_i	selectedCell];
+	cell = [specialBrowser_i selectedCell];
 	if (cell)
-		strcpy(name,[cell	stringValue].UTF8String);
-	max = [specialList_i	count];
+		strcpy(name, [cell stringValue].UTF8String);
+	max = [specialList_i count];
 	
 	do
 	{
@@ -352,17 +353,16 @@
 // Handling .DSP file
 //
 //============================================================
-- (BOOL) readSpecial:(speciallist_t *)special	from:(FILE *)stream
+- (BOOL) readSpecial:(speciallist_t *)special from:(FILE *)stream
 {
 	if (fscanf(stream,"%d:%s\n",&special->value,special->desc) != 2)
 		return NO;
 	return YES;
 }
 
-- writeSpecial:(speciallist_t *)special	from:(FILE *)stream
+- (void)writeSpecial:(speciallist_t *)special	from:(FILE *)stream
 {
 	fprintf(stream,"%d:%s\n",special->value,special->desc);
-	return self;
 }
 
 //
@@ -370,10 +370,10 @@
 //
 - (int)findSpecial:(int)value
 {
-	int	max, i;
-	speciallist_t		*t;
+	NSInteger		max, i;
+	speciallist_t	*t;
 	
-	max = [specialList_i	count];
+	max = [specialList_i count];
 	for (i = 0;i < max; i++)
 	{
 		t = [specialList_i	elementAt:i];
@@ -385,8 +385,9 @@
 
 - (void)updateSpecialsDSP:(FILE *)stream
 {
-	speciallist_t		t,*t2;
-	int	count, i, found;
+	speciallist_t	t,*t2;
+	int				icount;
+	NSInteger 		count, i, found;
 	
 	//
 	// read specials out of the file, only adding new specials to the current list
@@ -395,19 +396,18 @@
 		specialList_i = [[CompatibleStorage alloc]
 			initCount: 0
 			elementSize: sizeof(speciallist_t)
-			description: NULL
-		];
+			description: NULL];
 
-	if (fscanf (stream, "numspecials: %d\n", &count) == 1)
+	if (fscanf (stream, "numspecials: %d\n", &icount) == 1)
 	{
-		for (i = 0; i < count; i++)
+		for (i = 0; i < icount; i++)
 		{
 			[self	readSpecial:&t	from:stream];
 			found = [self	findSpecial:t.value];
 			if (found < 0)
 			{
 				[specialList_i	addElement:&t];
-				[doomproject_i	setProjectDirty:TRUE];
+				[doomproject_i	setProjectDirty:YES];
 			}
 		}
 		[specialBrowser_i	reloadColumn:0];
@@ -417,7 +417,7 @@
 		//
 		count = [specialList_i	count];
 		fseek (stream, 0, SEEK_SET);
-		fprintf (stream, "numspecials: %d\n",count);
+		fprintf (stream, "numspecials: %ld\n", (long)count);
 		for (i = 0; i < count; i++)
 		{
 			t2 = [specialList_i	elementAt:i];

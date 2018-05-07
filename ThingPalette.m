@@ -17,10 +17,12 @@ ThingPalette *thingPalette_i;
 //============================================================
 - init
 {
+	if (self = [super init]) {
 	thingPalette_i = self;
 	window_i = nil;
 	thingImages = NULL;
 	currentIcon = -1;
+	}
 	return self;
 }
 
@@ -41,9 +43,8 @@ ThingPalette *thingPalette_i;
 
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"ThingPalette"
-			owner: self
-			topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"ThingPalette"
+						 owner: self];
 
 		[window_i	setDelegate:self];
 		[self		computeThingDocView];
@@ -193,7 +194,7 @@ ThingPalette *thingPalette_i;
 		x += ICONSIZE + SPACING;
 	}
 	
-	[thingPalView_i	sizeTo:dvr.size.width	:y];
+	[thingPalView_i	setFrameSize:NSMakeSize(dvr.size.width, y)];
 	p.x = 0;
 	p.y = y + ICONSIZE + SPACING;
 	x = SPACING;
