@@ -27,17 +27,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="356" height="394"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" id="16">
-                        <rect key="frame" x="6" y="370" width="56" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" alignment="right" title="FROM$:" id="46">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <textField verticalHuggingPriority="750" id="8">
-                        <rect key="frame" x="8" y="346" width="54" height="15"/>
+                        <rect key="frame" x="8" y="346" width="54" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="right" title="Map to:" id="40">
                             <font key="font" metaFont="system"/>
@@ -46,7 +37,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" misplaced="YES" id="10">
-                        <rect key="frame" x="64" y="368" width="146" height="21"/>
+                        <rect key="frame" x="68" y="368" width="142" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="41">
                             <font key="font" metaFont="system"/>
@@ -58,7 +49,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" misplaced="YES" id="15">
-                        <rect key="frame" x="64" y="342" width="146" height="21"/>
+                        <rect key="frame" x="68" y="342" width="142" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="45">
                             <font key="font" metaFont="system"/>
@@ -129,24 +120,26 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button misplaced="YES" imageHugsTitle="YES" id="6">
+                    <button misplaced="YES" imageHugsTitle="YES" id="6" userLabel="Recycle Button">
                         <rect key="frame" x="288" y="2" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="bevel" image="Recycle" imagePosition="above" alignment="center" inset="2" id="38">
+                        <buttonCell key="cell" type="bevel" image="Recycle" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="38">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
                         </buttonCell>
+                        <accessibility description="Recycle"/>
                         <connections>
                             <action selector="clearList:" target="-2" id="30"/>
                         </connections>
                     </button>
-                    <button misplaced="YES" imageHugsTitle="YES" id="12">
+                    <button misplaced="YES" imageHugsTitle="YES" id="12" userLabel="Delete Button">
                         <rect key="frame" x="224" y="2" width="64" height="64"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="bevel" image="Delete" imagePosition="above" alignment="center" inset="2" id="43">
+                        <buttonCell key="cell" type="bevel" image="Delete" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="43">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
                         </buttonCell>
+                        <accessibility description="Delete"/>
                         <connections>
                             <action selector="deleteFromList:" target="-2" id="31"/>
                         </connections>
@@ -162,6 +155,15 @@
                             <action selector="doRemappingAllMaps:" target="-2" id="29"/>
                         </connections>
                     </button>
+                    <textField verticalHuggingPriority="750" misplaced="YES" id="16">
+                        <rect key="frame" x="6" y="369" width="56" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" alignment="right" title="FROM$:" id="46">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <connections>
