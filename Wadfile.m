@@ -288,7 +288,7 @@ typedef struct lumpinfo_s
 ================
 */
 
-- (void)addName: (char const *)name data: (void *)data size: (int)size
+- (void)addName: (char const *)name data: (const void *)data size: (int)size
 {
 	int		i;
 	lumpinfo_t	new;

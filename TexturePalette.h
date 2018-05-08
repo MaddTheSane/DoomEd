@@ -79,5 +79,5 @@ void moveVgaPatch(byte *raw, byte *dest, int x, int y,
 	int	width, int height,
 	int clipwidth, int clipheight);
 void createVgaTexture(char *dest, int which,int width, int height);
-void createAndSaveLBM(char *name, int cs, FILE *fp);
+void createAndSaveLBM(const char *name, int cs, FILE *fp);
 

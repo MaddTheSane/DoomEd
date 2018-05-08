@@ -385,14 +385,14 @@ TexturePalette *texturePalette_i;
 	texpal_t	*t;
 	
 	string = [searchField_i	stringValue];
-	slen = strlen(string);
+	slen = [string lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 	max = [allTextures	count];
 	
 	for (i = selectedTexture+1;i < max;i++)
 	{
 		t = [allTextures	elementAt:i];
 		for (j=0;j<strlen(t->name);j++)
-			if (!strncasecmp(string,t->name+j,slen))
+			if (!strncasecmp(string.UTF8String,t->name+j,slen))
 			{
 				[self	setSelTexture:t->name];
 				return;
@@ -403,7 +403,7 @@ TexturePalette *texturePalette_i;
 	{
 		t = [allTextures	elementAt:i];
 		for (j=0;j<strlen(t->name);j++)
-			if (!strncasecmp(string,t->name+j,slen))
+			if (!strncasecmp(string.UTF8String,t->name+j,slen))
 			{
 				[self	setSelTexture:t->name];
 				return;
@@ -425,7 +425,7 @@ TexturePalette *texturePalette_i;
 
 - (int) getTextureIndex:(char *)name
 {
-	int	i,max;
+	NSInteger	i,max;
 	texpal_t	*t;
 	
 	if ((name[0]=='-') || (!name[0] ))
@@ -435,7 +435,7 @@ TexturePalette *texturePalette_i;
 	{
 		t = [allTextures	elementAt:i];
 		if (!strcasecmp(name,t->name))
-			return i;
+			return (int)i;
 	}
 	
 	return -2;
@@ -523,7 +523,7 @@ TexturePalette *texturePalette_i;
 	char	 name[32];
 	char	string[64];
 	
-	strcpy(name,[searchField_i	stringValue]);
+	strlcpy(name,[searchField_i stringValue].UTF8String, sizeof(name));
 	strupr(name);
 	found = 0;
 	[log_i addLogString:@"Searching for texture in lines...\n"];
@@ -558,12 +558,11 @@ TexturePalette *texturePalette_i;
 //========================================================
 - (IBAction)saveTextureLBM:sender
 {
-	int		cs;
-	char	lbmname[1024];
-	char	lsname[1024];
-	char	waddir[1024];
-	int		i;
-	FILE	*fp;
+	int			cs;
+	NSString	*lbmname;
+	NSString	*lsname;
+	NSString	*waddir;
+	FILE		*fp;
 	
 	cs = [self	currentSelection];
 	if (cs < 0)
@@ -572,27 +571,19 @@ TexturePalette *texturePalette_i;
 		return;
 	}
 
-	strcpy(waddir,[doomproject_i wadFile]);
-	for (i = strlen(waddir);i > 0;i--)
-		if (waddir[i] == '/')
-		{
-			waddir[i] = 0;
-			break;
-		}
-		
-	sprintf(lbmname,"%s/%s.LBM",waddir,textures[cs].name);
-	sprintf(lsname,"%s/%s.LS",waddir,textures[cs].name);
+	waddir = doomproject_i.wadFile.stringByDeletingLastPathComponent;
 	
-	strlwr(lsname);
-	fp = fopen (lsname,"w+");
+	lbmname = [waddir stringByAppendingPathComponent:[[NSString stringWithFormat:@"%s.LBM", textures[cs].name] lowercaseString]];
+	lsname = [waddir stringByAppendingPathComponent:[[NSString stringWithFormat:@"%s.LS", textures[cs].name] lowercaseString]];
+	
+	fp = fopen (lsname.fileSystemRepresentation,"w+");
 	if (fp == NULL)
 	{
-		printf ("Error creating %s file!\n",lsname);
+		printf ("Error creating %s file!\n",lsname.UTF8String);
 		return;
 	}
 
-	strlwr(lbmname);
-	createAndSaveLBM(lbmname, cs, fp);	
+	createAndSaveLBM(lbmname.fileSystemRepresentation, cs, fp);
 	fclose (fp);
 }
 
@@ -609,53 +600,46 @@ TexturePalette *texturePalette_i;
 
 - (IBAction)doSaveAllTexturesAsLBM:sender
 {
-	char	lbmname[1024];
-	char	lsEnteredName[24];
-	char	waddir[1024];
+	NSString	*lbmname;
+	NSString	*lsEnteredName;
+	NSString	*waddir;
 	int		i;
 	int		j;
 	FILE	*fp;
-	char	lsname[1024];
+	NSString	*lsname;
 	char	status[32];
 	
 	
-	strcpy(lsEnteredName,[lsTextField_i	stringValue]);
-	if ((!lsEnteredName[0]) || strlen(lsEnteredName)>12)
+	lsEnteredName = [lsTextField_i stringValue];
+	if (lsEnteredName.length == 0 || lsEnteredName.length>12)
 	{
 		NSBeep();
 		return;
 	}
 	
-	strcpy(waddir,[doomproject_i wadFile]);
-	for (i = strlen(waddir);i > 0;i--)
-		if (waddir[i] == '/')
-		{
-			waddir[i] = 0;
-			break;
-		}
+	waddir = [[doomproject_i wadFile] stringByDeletingLastPathComponent];
 	
-	if (strcmp(strupr(lsEnteredName + strlen(lsEnteredName)-3),".LS"))
-		strcat(lsEnteredName,".LS");
+	if ([[lsEnteredName pathExtension] caseInsensitiveCompare:@"LS"] != NSOrderedSame) {
+		lsEnteredName = [lsEnteredName stringByAppendingPathExtension:@"ls"];
+	}
 	
-	sprintf(lsname,"%s/%s",waddir,lsEnteredName);
-	strlwr(lsname);	
+	lsname = [waddir stringByAppendingPathComponent:lsEnteredName.lowercaseString];
 	
-	fp = fopen (lsname,"w+");
+	fp = fopen (lsname.fileSystemRepresentation,"w+");
 	if (fp == NULL)
 	{
-		printf ("Error creating %s file!\n",lsname);
+		printf ("Error creating %s file!\n",lsname.UTF8String);
 		return;
 	}
 	
 	for (j = 0; j < numtextures; j++)
 	{
-		sprintf(lbmname,"%s/%s.LBM",waddir,textures[j].name);
+		lbmname = [waddir stringByAppendingPathComponent:[[NSString stringWithFormat:@"%s.LBM", textures[j].name] lowercaseString]];
 		sprintf(status,"Making %s.LBM...",textures[j].name);
 
-		[lsStatus_i	setStringValue:status];
+		[lsStatus_i	setStringValue:@(status)];
 		PSwait();
-		strlwr(lbmname);
-		createAndSaveLBM(lbmname, j, fp);
+		createAndSaveLBM(lbmname.fileSystemRepresentation, j, fp);
 	}
 
 	fclose (fp);
@@ -675,14 +659,15 @@ TexturePalette *texturePalette_i;
 //	fp   = FILE * for .LS script
 //
 //========================================================
-void createAndSaveLBM(char *name, int cs, FILE *fp)
+void createAndSaveLBM(const char *name, int cs, FILE *fp)
 {
 	byte	*texturedata;
 	byte	*palette;
 	int		tw;
 	int		th;
 	
-	[ wadfile_i	initFromFile: [doomproject_i wadFile] ];
+	[wadfile_i release];
+	wadfile_i = [[Wadfile alloc] initWithFilePath:[doomproject_i wadFile]];
 	palette = [wadfile_i	loadLumpNamed:"playpal"];
 	[ wadfile_i	close ];
 	

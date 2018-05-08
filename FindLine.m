@@ -27,9 +27,8 @@
 	if (!window_i)
 	{
 		
-		[[NSBundle mainBundle] loadNibNamed: @"FindLine"
-			owner: self
-			topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"FindLine"
+						 owner: self];
 
 		[status_i	setStringValue:@" "];
 		[window_i	setFrameUsingName:PREFNAME];

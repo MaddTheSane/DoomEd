@@ -14,9 +14,8 @@
 - initWithTitle: (NSString *) title
 {
 	if (self = [super init]) {
-		[[NSBundle mainBundle] loadNibNamed: @"TextLog"
-									  owner: self
-							topLevelObjects: nil];
+		[NSBundle loadNibNamed: @"TextLog"
+						 owner: self];
 		[window_i setTitle: title];
 	}
 	return self;

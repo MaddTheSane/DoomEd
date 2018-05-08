@@ -52,9 +52,8 @@ id	thingpanel_i;
 {
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"thing"
-									  owner: self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"thing"
+						 owner: self];
 		[window_i	setFrameUsingName:THINGNAME];
 		[window_i	setDelegate:self];
 		[thingBrowser_i	reloadColumn:0];
@@ -86,23 +85,6 @@ id	thingpanel_i;
 		[self	menuTarget:NULL];
 	else
 		[window_i	orderFront:NULL];
-}
-
-- (thinglist_t *)getCurrentThingData
-{
-	thinglist_t		thing;
-	
-	if (!fields_i)
-	{
-		NSBeep();
-		return NULL;
-	}
-		
-	thing.value = [[fields_i cellAtIndex:1] intValue];
-	strcpy(thing.name,[nameField_i stringValue].UTF8String);
-	strncpy(thing.iconname,[iconField_i stringValue].UTF8String, sizeof(thing.iconname));
-
-	return &thing;
 }
 
 - (BOOL)getCurrentThingData:(thinglist_t *)thing;

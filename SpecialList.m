@@ -183,7 +183,7 @@
 //	Based on a string, find the value that represents it
 //
 //===================================================================
-- (int)findSpecialString:(char *)string
+- (int)findSpecialString:(const char *)string
 {
 	NSInteger		max, i;
 	speciallist_t	*t;
@@ -224,7 +224,7 @@
 	if (!cell)
 		return;
 		
-	which = [self findSpecialString:[cell  stringValue]];
+	which = [self findSpecialString:[cell stringValue].UTF8String];
 	if (which < 0)
 	{
 		NSBeep();

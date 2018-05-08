@@ -26,7 +26,7 @@
 - (void *)loadLump: (int)lump;
 - (void *)loadLumpNamed: (char const *)name;
 
-- (void)addName: (char const *)name data: (void *)data size: (int)size;
+- (void)addName: (char const *)name data: (const void *)data size: (int)size;
 - (void)writeDirectory;
 
 @end

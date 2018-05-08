@@ -215,9 +215,8 @@ char	bsphost[32];		// bsp host machine
 
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"Project"
-									  owner: self
-							topLevelObjects: nil];
+		[NSBundle loadNibNamed: @"Project"
+						 owner: self];
 		[window_i	setFrameUsingName:DOOMNAME];
 	}
 

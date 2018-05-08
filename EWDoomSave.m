@@ -6,7 +6,7 @@
 #import "BlockWorld.h"
 #import "TextLog.h"
 
-typedef struct
+typedef struct wadinfo_s
 {
 	char	identification[4];		// should be IWAD
 	int		numlumps;
@@ -19,7 +19,7 @@ typedef struct
 char		*buffer, *buf_p;
 int		worldsize;
 
-id		mapwad_i;
+Wadfile		*mapwad_i;
 
 // the writeplanenames / writepatchnames methods build these translation tables
 int		lumptoflatnum[4096];
@@ -43,16 +43,14 @@ int		linecrunch[8192];
 ================
 */
 
-- writeBuffer: (char const *)filename
+- (void)writeBuffer: (char const *)filename
 {
 	int		size;
 	
-	size = buf_p - buffer;
+	size = (int)(buf_p - buffer);
 	[mapwad_i addName: filename data: buffer size: size];
 	printf ("%s:  %i bytes\n", filename, size);
 	worldsize += size;
-		
-	return self;
 }
 
 
@@ -65,7 +63,7 @@ int		linecrunch[8192];
 ================
 */
 
-- writeFlatNames
+- (void)writeFlatNames
 {
 	int	lump, count, i,j;
 	worldline_t	*line;
@@ -105,8 +103,6 @@ int		linecrunch[8192];
 			
 	*(int *)buffer = LongSwap (count);
 	[self writeBuffer: "flatname"];
-			
-	return self;
 }
 
 /*
@@ -353,7 +349,7 @@ int		linecrunch[8192];
 ================
 */
 
-- writeSectors
+- (void)writeSectors
 {
 	int			i,j;
 	int			*linenum;
@@ -366,7 +362,7 @@ int		linecrunch[8192];
 		
 	*(int *)buffer = LongSwap (count);
 	list_p = (int *)(buffer + 4);
-	buf_p = (byte *)(list_p+count);
+	buf_p = (char *)(list_p+count);
 
 	for (i=0 ; i<count ; i++)		
 	{
@@ -396,9 +392,6 @@ int		linecrunch[8192];
 	}
 		
 	[self writeBuffer: "sectors"];
-
-			
-	return self;
 }
 
 

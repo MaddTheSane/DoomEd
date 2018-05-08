@@ -88,9 +88,8 @@ SpecialList *lineSpecialPanel_i;
 {
 	if (!window_i)
 	{
-		[[NSBundle mainBundle] loadNibNamed: @"line"
-									  owner: self
-							topLevelObjects:nil];
+		[NSBundle loadNibNamed: @"line"
+						 owner: self];
 		[window_i	setFrameUsingName:@"LineInspector"];
 		[firstColCalc_i		setFrameUsingName:@"FirstColCalc"];
 	}
