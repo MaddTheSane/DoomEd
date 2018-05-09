@@ -56,7 +56,7 @@ CompatibleStorage *texturePatches;
 		[NSBundle loadNibNamed: @"TextureEdit"
 						 owner: self];
 		[window_i	setDelegate:self];
-		[self		computePatchDocView:&dvf];
+		dvf = [self computePatchDocumentView];
 		[texturePatchView_i setFrameSize:dvf.size];
 
 		//
@@ -749,8 +749,10 @@ CompatibleStorage *texturePatches;
 	//
 	// load in all the texture patches
 	//
-	if (texturePatches)
+	if (texturePatches) {
 		[texturePatches	release];
+		texturePatches = nil;
+	}
 	texturePatches = [[CompatibleStorage alloc]
 		initCount: 0
 		elementSize: sizeof(texpatch_t)
@@ -1321,9 +1323,8 @@ CompatibleStorage *texturePatches;
 //
 - (void)windowDidResize:(NSNotification *)notification
 {
-	NSRect	r;
+	NSRect	r = [self computePatchDocumentView];
 	
-	[self		computePatchDocView:&r];
 	[texturePatchView_i setFrameSize:r.size];
 	[window_i setViewsNeedDisplay:YES];
 }

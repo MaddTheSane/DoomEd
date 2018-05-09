@@ -25,7 +25,7 @@
 		float n1y;
 		float n2x;
 		float n2y;
-	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
+	if (fscanf (file,"(%f,%f) to (%f,%f) : %hd : %d : %d\n"
 		,&n1x, &n1y,&n2x, &n2y,&line->flags, &line->special, &line->tag) != 7)
 		return NO;
 		p1->x = n1x;

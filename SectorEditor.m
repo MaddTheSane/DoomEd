@@ -7,6 +7,7 @@
 #import	"LinePanel.h"
 #import	"FlatsView.h"
 #import	"DoomProject.h"
+#import "SectorEditView.h"
 #import "ps_quartz.h"
 
 @implementation SectorEditor

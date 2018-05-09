@@ -666,7 +666,7 @@ void createAndSaveLBM(const char *name, int cs, FILE *fp)
 	int		tw;
 	int		th;
 	
-	[wadfile_i release];
+	[wadfile_i release]; wadfile_i = nil;
 	wadfile_i = [[Wadfile alloc] initWithFilePath:[doomproject_i wadFile]];
 	palette = [wadfile_i	loadLumpNamed:"playpal"];
 	[ wadfile_i	close ];

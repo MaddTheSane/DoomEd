@@ -145,8 +145,10 @@ ThingPalette *thingPalette_i;
 	for (i = 0; i < max; i++)
 	{
 		icon = [thingImages	elementAt:i];
-		if (icon->image != NULL)
-			free(icon->image);
+		if (icon->image != NULL) {
+			[icon->image release];
+			icon->image = nil;
+		}
 	}
 	[thingImages	empty];
 }
