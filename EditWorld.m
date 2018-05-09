@@ -313,7 +313,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 		[doomproject_i	setMapDirty:FALSE];
 	}
 
-	[[windowlist_i objectAtIndex:0]
+	[[windowlist_i firstObject]
 		saveFrameUsingName:WORLDNAME
 	];
 	//[windowlist_i makeObjectsPerformSelector: @selector(free)];

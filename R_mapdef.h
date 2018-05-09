@@ -3,11 +3,16 @@
 
 // in the map file, all pointers are offsets from the start of file
 
+#ifndef __R_MAPDEFS_H__
+#define __R_MAPDEFS_H__
+
+#include <CoreFoundation/CFBase.h>
+
 #ifndef __FRAC__
 #define __FRAC__
 #define	FRACBITS		16
 #define	FRACUNIT		(1<<FRACBITS)
-// A fixed_t has 16 bits of unit and 16 bits of fraction
+/// A fixed_t has 16 bits of unit and 16 bits of fraction
 typedef int	fixed_t;
 #endif
 
@@ -16,79 +21,93 @@ typedef int	fixed_t;
 typedef unsigned char byte;
 #endif
 
-// A mapvertex_t is a global map point
+/// A mapvertex_t is a global map point
 typedef struct mapvertex_s
 {
 	short	x,y;
 } mapvertex_t;
 
-// A mapthing_t is a point and some information from the map editor.  These are only processed
-// at map loading time, where they spawn visible thing_ts or other game objects
+/// A mapthing_t is a point and some information from the map editor.  These are only processed
+/// at map loading time, where they spawn visible thing_ts or other game objects
 typedef struct mapthing_s
 {
 	mapvertex_t	origin;
 	short	angle;
 	short	type;
 	short	options;
-	short	sector;		// the sector it should be placed in at the start
+	short	sector;		//!< the sector it should be placed in at the start
 } mapthing_t;
 
-// mappatch_t orients a patch inside a maptexturedef_t
+/// mappatch_t orients a patch inside a \c maptexturedef_t
 typedef struct mappatch_s
 {
-	short	originx;		// block origin (allways UL), which has allready accounted
-	short	originy;		// for the patch's internal origin
+	short	originx;		//!< block origin (always UL), which has allready accounted
+	short	originy;		//!< for the patch's internal origin
 	short	patch;
-	short	stepdir;		// allow flipping of the texture DEBUG: make this a char?
+	short	stepdir;		//!< allow flipping of the texture DEBUG: make this a char?
 	short	colormap;
 } mappatch_t;
 
-// a maptexturedef_t describes a rectangular texture, which is composed of one or
-// more mappatch_t structures that arrange graphic patches
+/// A maptexturedef_t describes a rectangular texture, which is composed of one or
+/// more mappatch_t structures that arrange graphic patches
 typedef struct maptexture_s
 {
-	char		name[8];				// JR 4/5/93
-	BOOL	masked;				// if not masked, the patch's post_ts need to be combined
-	short	width;
-	short	height;
-	void		**collumndirectory;		// [width] pointers to collumn_ts to draw the texture
-	short	patchcount;
-	mappatch_t	patches[1];		// [patchcount] drawn back to front into the cached texture
+	char		name[8];			// JR 4/5/93
+	BOOL		masked;				//!< if not masked, the patch's post_ts need to be combined
+	short		width;
+	short		height;
+	void		**collumndirectory;	//!< [width] pointers to collumn_ts to draw the texture
+	short		patchcount;
+	mappatch_t	patches[1];			//!< [patchcount] drawn back to front into the cached texture
 } maptexture_t;
 
-// A mapends_t defines what to draw on the floor and ceiling of an open area, as well as the
-// light level for all sprites and walls in the open area
+/// A mapends_t defines what to draw on the floor and ceiling of an open area, as well as the
+/// light level for all sprites and walls in the open area
 typedef struct mapsector_s
 {
 	short		floorheight, ceilingheight;
 	short		floortexture, ceilingtexture;
-	short		lightlevel;		// base light level
-	short		special;			// to allow things to happen on a given floor section
+	short		lightlevel;		//!< base light level
+	short		special;		//!< to allow things to happen on a given floor section
 	short		tag;
 	short		linecount;
-	short		lines[1];			// [linecount] size
+	short		lines[1];		//!< [linecount] size
 } mapsector_t;
 
+/// Line flags - can go up to 16 bits!
+typedef CF_OPTIONS(short, DELineFlag) {
+	DELinePlayerBlock = 1 << 0,
+	DELineMonsterBlock = 1 << 1,
+	/// backside will not be present if not 2-sided
+	DELineTwoSided = 1 << 2,
+	DELineDontPegTop = 1 << 3,
+	DELineDontPegBottom = 1 << 4,
+	/// don't display in automap: IT'S A SECRET!
+	DELineSecret = 1 << 5,
+	/// blocks sound, eh?
+	DELineSoundBlock = 1 << 6,
+	/// don't draw in automap
+	DELineDontDraw = 1 << 7
+};
 
-// The entire world is defined by maplines with various attributes.
+/// The entire world is defined by maplines with various attributes.
 typedef struct mapside_s
 {
-	short	flags;	
-	short	sector;					// on the viewer's side
-	short	firstcollumn;				// first collumn for all textures
-	short	midtexture;				// end wall or masked mid texture, -1 = no texture
-	short	toptexture;				// texture to fill gaps between ceiling planes
-	short	bottomtexture;				// texture to fill gaps between floor planes
+	DELineFlag	flags;
+	short		sector;					//!< on the viewer's side
+	short		firstcollumn;			//!< first collumn for all textures
+	short		midtexture;				//!< end wall or masked mid texture, -1 = no texture
+	short		toptexture;				//!< texture to fill gaps between ceiling planes
+	short		bottomtexture;			//!< texture to fill gaps between floor planes
 } mapside_t;
 
-// if the line is not two sided, the midtexture must cover the entire space
-
+/// if the line is not two sided, the midtexture must cover the entire space
 typedef struct mapline_s
 {
-	short		p1, p2;				// point numbers
+	short		p1, p2;				//!< point numbers
 	short		flags;
-	short		length;				// texture collumns
-	short		special,tag;			// for segment triggers!
+	short		length;				//!< texture columns
+	short		special,tag;		//!< for segment triggers!
 	mapside_t	side[2];
 } mapline_t;
 
@@ -109,3 +128,4 @@ typedef struct mapline_s
 // Unpegged textures allways have the first row of the texture at the top pixel of the line for both
 // top and bottom textures (windows)
 
+#endif

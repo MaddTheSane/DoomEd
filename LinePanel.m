@@ -217,7 +217,7 @@ SpecialList *lineSpecialPanel_i;
 //============================================================================
 
 
-- (void)changeLineFlag: (int)mask to: (int)set
+- (void)changeLineFlag: (DELineFlag)mask to: (DELineFlag)set
 {
 	int	i;
 	worldline_t	*line;
@@ -238,56 +238,56 @@ SpecialList *lineSpecialPanel_i;
 {
 	NSInteger	state;
 	state = [monsterblock_i state];	
-	[self changeLineFlag: ~ML_MONSTERBLOCK  to: (int)(ML_MONSTERBLOCK*state)];
+	[self changeLineFlag: ~DELineMonsterBlock  to: (DELineMonsterBlock*state)];
 }
 
 - (IBAction)blockChanged:(id)sender
 {
 	NSInteger	state;
 	state = [pblock_i state];	
-	[self changeLineFlag: ~ML_BLOCKMOVE  to: (int)(ML_BLOCKMOVE*state)];
+	[self changeLineFlag: ~ML_BLOCKMOVE  to: (DELineFlag)(ML_BLOCKMOVE*state)];
 }
 
 - (IBAction)secretChanged:(id)sender
 {
 	NSInteger	state;
 	state = [secret_i	state];
-	[self	changeLineFlag: ~ML_SECRET	to:(int)(ML_SECRET*state)];
+	[self	changeLineFlag: ~DELineSecret to:(DELineSecret*state)];
 }
 
 - (IBAction)dontDrawChanged:(id)sender
 {
 	NSInteger	state;
 	state = [dontdraw_i	state];
-	[self	changeLineFlag: ~ML_DONTDRAW	to:(int)(ML_DONTDRAW*state)];
+	[self	changeLineFlag: ~DELineDontDraw	to:(DELineDontDraw*state)];
 }
 
 - (IBAction)soundBlkChanged:(id)sender
 {
 	NSInteger	state;
 	state = [soundblock_i	state];
-	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:(int)(ML_SOUNDBLOCK*state)];
+	[self	changeLineFlag: ~DELineSoundBlock	to:(DELineSoundBlock*state)];
 }
 
 - (IBAction)twosideChanged:(id)sender
 {
 	NSInteger	state;
 	state = [twosided_i state];	
-	[self changeLineFlag: ~ML_TWOSIDED  to: (int)(ML_TWOSIDED*state)];
+	[self changeLineFlag: ~DELineTwoSided  to: (DELineTwoSided*state)];
 }
 
 - (IBAction)toppegChanged: sender
 {
 	NSInteger	state;
 	state = [toppeg_i state];	
-	[self changeLineFlag: ~ML_DONTPEGTOP  to: (int)(ML_DONTPEGTOP*state)];
+	[self changeLineFlag: ~DELineDontPegTop  to: (DELineDontPegTop*state)];
 }
 
 - (IBAction)bottompegChanged:(id)sender
 {
 	NSInteger	state;
 	state = [bottompeg_i state];	
-	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: (int)(ML_DONTPEGBOTTOM*state)];
+	[self changeLineFlag: ~DELineDontPegBottom  to: (DELineDontPegBottom*state)];
 }
 
 - (IBAction)specialChanged:(id)sender

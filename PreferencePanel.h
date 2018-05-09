@@ -53,7 +53,7 @@ typedef enum
     IBOutlet NSWindow *window_i;
 	
 	NSColorWell	*colorwell[NUMCOLORS];
-	NSColor		*color[NUMCOLORS];
+	NSMutableArray<NSColor*>		*color;
 	int			launchThingType;
 	NSString	*projectPath;
 }

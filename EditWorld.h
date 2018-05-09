@@ -1,6 +1,7 @@
 #import <AppKit/AppKit.h>
 #import "Storage.h"
 #import "DoomProject.h"
+#include "R_mapdef.h"
 
 #define	WORLDNAME	@"EditWorld"
 
@@ -14,13 +15,13 @@ typedef struct worldpoint_s
 
 typedef struct worldside_s
 {
-	int		flags;	
-	int		firstcollumn;
+	int			flags;
+	int			firstcollumn;
 	char		toptexture[9];
 	char		bottomtexture[9];
 	char		midtexture[9];
 	sectordef_t	ends;				//!< on the viewer's side
-	int		sector;					//!< only used when saving doom map
+	int			sector;				//!< only used when saving doom map
 } worldside_t;
 
 typedef struct worldline_s
@@ -29,7 +30,7 @@ typedef struct worldline_s
 	
 	int	p1, p2;
 	int	special, tag;
-	int	flags;
+	DELineFlag	flags;
 	
 	worldside_t	side[2];
 
@@ -37,7 +38,7 @@ typedef struct worldline_s
 	NSPoint	norm;
 } worldline_t;
 
-#define	ML_BLOCKMOVE			1
+#define	ML_BLOCKMOVE		ML_PLAYERBLOCK
 #define	ML_TWOSIDED			4	// backside will not be present at all if not two sided
 
 typedef struct worldthing_s

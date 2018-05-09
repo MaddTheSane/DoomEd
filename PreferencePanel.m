@@ -115,13 +115,16 @@ BOOL		openupValues[NUMOPENUP];
 	if (self = [super init]) {
 	int		i;
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		color = [[NSMutableArray alloc] init];
+		
 
 	prefpanel_i = self;
 	window_i = NULL;		// until nib is loaded
 
-	for (i=0 ; i<NUMCOLORS ; i++)
-		color[i] = [self getColorFromString:
-		    [defaults stringForKey:ucolornames[i]]];
+		for (i=0 ; i<NUMCOLORS ; i++) {
+			[color addObject:[self getColorFromString:
+							  [defaults stringForKey:ucolornames[i]]]];
+		}
 
 		launchThingType = (int)[defaults integerForKey:launchTypeName];
 		

@@ -446,7 +446,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
-                        <rect key="frame" x="72" y="204" width="31" height="15"/>
+                        <rect key="frame" x="72" y="199" width="31" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" alignment="center" title="0" id="114">
                             <font key="font" size="12" name="Helvetica-Bold"/>
