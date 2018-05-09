@@ -1,5 +1,9 @@
+#import <Foundation/Foundation.h>
+#include <sys/stat.h>
+#import "TextureEdit.h"
+#include <sys/malloc.h>
 
-@interface WadCache: Object
+@interface WadCache: NSObject
 {
 	char	wadpath[MAXPATH];
 	char	cachepath[MAXPATH];
@@ -15,7 +19,7 @@
 	id		datastore_i;
 }
 
-- initFromWadfile:(char const *)wadfile cacheFile:(char const *)cachefile
+- initFromWadfile:(char const *)wadfile cacheFile:(char const *)cachefile;
 - free;
 
 - (int)numFlats;
@@ -43,7 +47,7 @@ typedef struct
 
 
 	
-@interface WadCache
+@implementation WadCache
 /*
 =========================
 =
@@ -167,7 +171,7 @@ typedef struct
 	mappedfd = open (cachepath, O_RDONLY);
 	if (mappedfd < 0)
 	{
-		perror (loadImageCache: open ");
+		perror ("loadImageCache: open ");
 		return nil;
 	}
 	
@@ -175,7 +179,7 @@ typedef struct
 	if (ret < 0)
 	{
 		close (mappedfd);
-		perror (loadImageCache: fstat ");
+		perror ("loadImageCache: fstat ");
 		return nil;
 	}
 	imageblocksize = buf.size;
