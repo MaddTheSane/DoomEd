@@ -3,8 +3,8 @@
 #import "PopScrollView.h"
 #import "EditWorld.h"
 
-NSSize	minsize = {256, 256};
-NSSize	newsize = {400, 400};
+static NSSize	minsize = {256, 256};
+static NSSize	newsize = {400, 400};
 
 static	int	cornerx = 128, cornery = 64;
 
@@ -12,7 +12,6 @@ static	int	cornerx = 128, cornery = 64;
 
 - (id)initFromEditWorld
 {
-	id		oldobj_i;
 	NSRect	screensize;
 	NSRect	wframe;
 	NSPoint	origin;
@@ -37,7 +36,7 @@ static	int	cornerx = 128, cornery = 64;
 	cornery += 32;
 #endif
 	if (self = [self initWithContentRect: wframe
-	      styleMask: NSWindowStyleMaskResizable | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable
+	      styleMask: NSWindowStyleMaskResizable | NSWindowStyleMaskClosable | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskTitled
 	      backing: NSBackingStoreBuffered
 	      defer: NO
 	      screen: scrn
@@ -45,13 +44,13 @@ static	int	cornerx = 128, cornery = 64;
 
 	[self	setMinSize:	minsize];
 
-// initialize the map view
+		// initialize the map view
 	mapview_i = [[MapView alloc] initFromEditWorld];
 	[scrollview_i setAutoresizingMask:
 		NSViewWidthSizable | NSViewHeightSizable];
 
-// initialize the pop up menus
-//
+		// initialize the pop up menus
+		//
 	scalebutton_i = [[NSPopUpButton alloc]
 		initWithFrame: CGRectZero
 		pullsDown: NO
@@ -86,7 +85,7 @@ static	int	cornerx = 128, cornery = 64;
 
 	[gridbutton_i selectItemAtIndex: 3];
 
-// initialize the scroll view
+		// initialize the scroll view
 	wframe.origin.x = wframe.origin.y = 0;
 	scrollview_i = [[PopScrollView alloc]
 		initWithFrame: 	wframe
@@ -96,13 +95,13 @@ static	int	cornerx = 128, cornery = 64;
 	[scrollview_i setAutoresizingMask:
 		NSViewWidthSizable | NSViewHeightSizable];
 
-// link objects together
+		// link objects together
 	[self setDelegate: self];
 
 	[scrollview_i setDocumentView: mapview_i];
 	[self  setContentView: scrollview_i];
 
-// scroll to the middle
+		// scroll to the middle
 	mapbounds = [editworld_i getBounds];
 	origin.x = mapbounds.origin.x + mapbounds.size.width / 2 - newsize.width /2;
 	origin.y = mapbounds.origin.y + mapbounds.size.height / 2 - newsize.width /2;
@@ -169,9 +168,9 @@ static	int	cornerx = 128, cornery = 64;
 	float		scale;
 	NSPoint	newscreenorg;
 
-//
-// change frame if needed
-//	
+	//
+	// change frame if needed
+	//	
 	newscreenorg.x = newscreenorg.y = 0;
 	newscreenorg = [self convertBaseToScreen: newscreenorg];
 
@@ -180,9 +179,9 @@ static	int	cornerx = 128, cornery = 64;
 	presizeorigin.y += (newscreenorg.y - oldscreenorg.y)/scale;
 	[mapview_i setOrigin: presizeorigin];
 
-//
-// resize drag image
-//
+	//
+	// resize drag image
+	//
 	wincont = [NSWindow contentRectForFrameRect: [self frame]
 	                    styleMask: NSResizableWindowMask];
 

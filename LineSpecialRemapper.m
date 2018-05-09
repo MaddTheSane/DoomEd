@@ -16,8 +16,7 @@ id	lineSpecialRemapper_i;
 	if (self = [super init]) {
 	lineSpecialRemapper_i = self;
 
-	remapper_i = [[Remapper alloc] init];
-	[remapper_i
+	[self
 		setFrameName: @"LineSpecialRemapper"
 		setPanelTitle: @"Line Special Remapper"
 		setBrowserTitle: @"List of line specials to be remapped"
@@ -36,12 +35,12 @@ id	lineSpecialRemapper_i;
 //===================================================================
 - (void)menuTarget:sender
 {
-	[remapper_i	showPanel];
+	[self	showPanel];
 }
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname
 {
-	[remapper_i addToList:orgname to:newname];
+	[super addToList:orgname to:newname];
 }
 
 //===================================================================

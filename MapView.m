@@ -8,6 +8,12 @@
 #import "pathops.h"
 #include <ctype.h>
 
+// import category definitions
+
+#import "MapViewDraw.h"
+#import "MapViewResp.h"
+
+
 // some arrays are shared by all mapview for temporary drawing data
 
 BOOL	linecross[9][9];

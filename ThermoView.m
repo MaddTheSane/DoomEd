@@ -21,7 +21,7 @@
 	
 	[path removeAllPoints];
 	
-	[[NSColor greenColor] set];
+	[[NSColor grayColor] set];
 	[path moveToPoint:NSMakePoint(thermoWidth+1, [self bounds].size.height/2)];
 	[path lineToPoint:NSMakePoint([self bounds].size.width, [self bounds].size.height/2)];
 	[path stroke];

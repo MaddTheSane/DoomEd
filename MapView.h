@@ -37,9 +37,3 @@ extern	BOOL	linecross[9][9];
 - (void)setOrigin: (NSPoint)org;
 
 @end
-
-// import category definitions
-
-#import "MapViewDraw.h"
-#import "MapViewResp.h"
-

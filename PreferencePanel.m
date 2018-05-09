@@ -144,6 +144,7 @@ BOOL		openupValues[NUMOPENUP];
 - (void)dealloc
 {
 	[projectPath release];
+	[color release];
 	
 	[super dealloc];
 }
@@ -219,8 +220,8 @@ BOOL		openupValues[NUMOPENUP];
 			[colorwell[i] setColor: color[i]];
 			
 		for (i = 0;i < NUMOPENUP;i++)
-			[[openupDefaults_i	cellWithTag:i]
-				setIntValue:openupValues[i]];
+			[[openupDefaults_i cellWithTag:i]
+			 setState:openupValues[i] ? NSOnState : NSOffState];
 	}
 
 	[launchThingType_i  	setIntValue:launchThingType];
@@ -239,21 +240,21 @@ BOOL		openupValues[NUMOPENUP];
 
 - (IBAction)colorChanged:sender
 {
-	NSInteger i;
-	NSWindow *win;
-	NSArray *winList;
+	NSArray<NSWindow*> *winList;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
 // get current colors
 
-	for (i=0 ; i<NUMCOLORS ; i++)
+	for (NSInteger i=0 ; i<NUMCOLORS ; i++) {
 		color[i] = [colorwell[i] color];
+		NSString *colorStr = [self getStringFromColor:color[i]];
+		[defaults setObject:colorStr forKey:ucolornames[i]];
+	}
 
-// update all windows
+	// update all windows
 	winList = [[NSApplication sharedApplication] windows];
-	i = [winList count];
-	while (--i >= 0)
+	for (NSWindow *win in winList.reverseObjectEnumerator)
 	{
-		win = [winList objectAtIndex: i];
 		if ([win isKindOfClass:[MapWindow class]])
 			[[(MapWindow *)win mapView] setNeedsDisplay:YES];
 	}
@@ -281,8 +282,11 @@ BOOL		openupValues[NUMOPENUP];
 
 - (IBAction)openupChanged:sender
 {
-	id	cell = [sender selectedCell];
-	openupValues[[cell tag]] = [cell intValue];
+	NSCell	*cell = [sender selectedCell];
+	NSInteger tag = [cell tag];
+	BOOL isOn = [cell state] == NSOnState;
+	openupValues[tag] = isOn;
+	[[NSUserDefaults standardUserDefaults] setBool:isOn forKey:openupNames[tag]];
 }
 
 - (const char *)getProjectPath

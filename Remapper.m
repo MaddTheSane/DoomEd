@@ -9,7 +9,15 @@
 @synthesize changeToName=newname;
 @end
 
+@interface Remapper()
+@property (copy) NSString *frameName;
+
+@end
+
 @implementation Remapper
+@synthesize delegate=delegate_i;
+@synthesize frameName;
+
 //===================================================================
 //
 //	REMAPPER
@@ -27,7 +35,7 @@
 	  setRemapString: (NSString *)rstring
 		 setDelegate: (id)delegate
 {
-	frameName = fname;
+	self.frameName = fname;
 
 	if (! remapPanel_i )
 	{
@@ -44,6 +52,13 @@
 	[browser_i		setTitle:btitle ofColumn:0];
 	[remapPanel_i	setTitle:ptitle];
 	delegate_i = delegate;
+}
+
+- (void)dealloc
+{
+	[frameName release];
+	
+	[super dealloc];
 }
 
 //===================================================================
@@ -133,9 +148,9 @@
 	selRow = [matrix_i		selectedRow];
 	if (selRow < 0)
 		return;
-	[matrix_i		removeRowAtIndex:selRow];
-	[matrix_i		sizeToCells];
-	[matrix_i		selectCellAtRow:-1 column:-1];
+	[matrix_i	removeRow:selRow];
+	[matrix_i	sizeToCells];
+	[matrix_i	selectCellAtRow:-1 column:-1];
 	[storage_i	removeObjectAtIndex:selRow];
 	[browser_i	reloadColumn:0];
 }
@@ -156,7 +171,7 @@
 	[storage_i		removeAllObjects];
 	[original_i		setStringValue:@" "];
 	[new_i			setStringValue:@" "];
-	[browser_i	reloadColumn:0];
+	[browser_i		reloadColumn:0];
 }
 
 //===================================================================
@@ -202,7 +217,7 @@
 - (IBAction)doRemappingAllMaps:sender
 {
 	NSInteger		max;
-	unsigned int	linenum, total;
+	NSUInteger		linenum, total;
 	NSString *oldname, *newname;
 	NSString *string;
 
@@ -227,8 +242,8 @@
 			linenum += [delegate_i	doRemap:oldname to:newname];
 		}
 
-		string = [NSString stringWithFormat: @"%u remappings.",
-		                                     linenum];
+		string = [NSString stringWithFormat: @"%lu remappings.",
+				  (unsigned long)linenum];
 		total += linenum;
 		[status_i setStringValue:string];
 		[remapPanel_i makeKeyAndOrderFront:NULL];
@@ -237,8 +252,8 @@
 			[ editworld_i	saveDoomEdMapBSP:NULL ];
 	}
 
-	string = [NSString stringWithFormat: @"%u total remappings performed.",
-	                                     total];
+	string = [NSString stringWithFormat: @"%lu total remappings performed.",
+			  (unsigned long)total];
 	[status_i setStringValue: string];
 	[delegate_i finishUp];
 }

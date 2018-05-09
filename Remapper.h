@@ -19,7 +19,7 @@
 @end
 
 
-@interface Remapper:NSObject <NSApplicationDelegate, NSBrowserDelegate, NSWindowDelegate>
+@interface Remapper:NSObject <NSBrowserDelegate, NSWindowDelegate>
 {
 	IBOutlet NSTextField	*original_i;
 	IBOutlet NSTextField	*new_i;
@@ -27,7 +27,7 @@
 	IBOutlet NSTextField	*remapString_i;
 	IBOutlet NSTextField	*status_i;
 	IBOutlet NSBrowser		*browser_i;
-	IBOutlet id		matrix_i;
+	IBOutlet NSMatrix		*matrix_i;
 	
 	NSMutableArray<RemapperObject*> *storage_i;
 	IBOutlet id<RemapperDelegate> delegate_i;
@@ -40,6 +40,7 @@
   setBrowserTitle:(NSString *)btitle
   setRemapString:(NSString *)rstring
   setDelegate:(id<RemapperDelegate>)delegate;
+@property (assign) IBOutlet id<RemapperDelegate> delegate;
 
 //extern - (int)doRemap:(char *)oldname to:(char *)newname;
 
