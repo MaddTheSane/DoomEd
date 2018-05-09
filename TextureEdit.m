@@ -1247,7 +1247,7 @@ CompatibleStorage *texturePatches;
 //
 //	Return index of patch from name
 //
-- (int)findPatchIndex:(char *)name
+- (int)findPatchIndex:(const char *)name
 {
 	int		i, max;
 	apatch_t	*p;
@@ -1266,7 +1266,7 @@ CompatibleStorage *texturePatches;
 //
 //	Return name of patch from index
 //
-- (char *)getPatchName:(int)which;
+- (const char *)getPatchName:(int)which;
 {
 	apatch_t	*p;
 	

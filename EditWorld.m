@@ -794,6 +794,27 @@ FIXME: make these scan for deleted entries
 	return numlines - 1;
 }
 
+- (int)newLine:(worldline_t *)data fromPoint: (NSPoint)p1 toPoint:(NSPoint)p2
+{
+	if (numlines == linessize)
+	{
+		linessize += 128;		// add space to array
+		lines = realloc (lines, linessize*sizeof(worldline_t));
+	}
+	
+	lines[numlines].selected = -1;	// signal change that it is a new addition
+	
+	numlines++;
+	
+	data->p1 = [self newPoint: &p1];
+	data->p2 = [self newPoint: &p2];
+	
+	dirtypoints = YES;		// connection matrix will need to be recalculated
+	
+	[self changeLine: numlines-1 to: data];
+	
+	return numlines - 1;
+}
 
 /*
 ===============
@@ -1053,54 +1074,41 @@ FIXME: make these scan for deleted entries
 			[self	deselectPoint:i];
 }
 
-- (int)findMin:(int)num0	:(int)num1
-{
-	if (num1 < num0)
-		return num1;
-	return num0;
-}
-
-- (int)findMax:(int)num0	:(int)num1
-{
-	if (num1 > num0)
-		return num1;
-	return num0;
-}
-
 //
 // find center point of copied stuff
 //
 - (NSPoint)findCopyCenter
 {
 	worldthing_t	*t;
-	copyline_t	*L;
-	NSPoint	p;
-	int	i,max,xmin,ymin,xmax,ymax;
+	copyline_t		*L;
+	NSPoint			p;
+	int	xmin,ymin,xmax,ymax;
+	NSInteger i, max;
 	
 	xmin  = ymin  = xmax = ymax = 0;
 	max = [copyThings_i	count];
 	for (i=0;i < max;i++)
 	{
 		t = [copyThings_i	elementAt:i];
-		xmin = [self	findMin:xmin	:t->origin.x];
-		ymin = [self	findMin:ymin	:t->origin.y];
-		xmax = [self	findMax:xmax	:t->origin.x];
-		ymax = [self	findMax:ymax	:t->origin.y];
+		xmin = MIN(xmin, (int)t->origin.x);
+		ymin = MIN(ymin, (int)t->origin.y);
+		xmax = MAX(xmax, (int)t->origin.x);
+		ymax = MAX(ymax, (int)t->origin.y);
 	}
 	
 	max = [copyLines_i	count];
 	for (i=0;i < max;i++)
 	{
 		L = [copyLines_i	elementAt:i];
-		xmin = [self	findMin:xmin	:L->p1.x];
-		ymin = [self	findMin:ymin	:L->p1.y];
-		xmax = [self	findMax:xmax	:L->p1.x];
-		ymax = [self	findMax:ymax	:L->p1.y];
+		xmin = MIN(xmin, (int)L->p1.x);
+		ymin = MIN(ymin, (int)L->p1.y);
+		xmax = MAX(xmax, (int)L->p1.x);
+		ymax = MAX(ymax, (int)L->p1.y);
 		
-		xmin = [self	findMin:xmin	:L->p2.x];
-		ymin = [self	findMin:ymin	:L->p2.y];
-		xmax = [self	findMax:xmax	:L->p2.x];
-		ymax = [self	findMax:ymax	:L->p2.y];
+		xmin = MIN(xmin, (int)L->p2.x);
+		ymin = MIN(ymin, (int)L->p2.y);
+		xmax = MAX(xmax, (int)L->p2.x);
+		ymax = MAX(ymax, (int)L->p2.y);
 	}
 
 	p.x = (xmax + xmin) / 2;
@@ -1110,9 +1118,9 @@ FIXME: make these scan for deleted entries
 
 - (IBAction)cut: sender
 {
-	[self	storeCopies];
-	[self	delete:NULL];
-	[self	copyDeselect];
+	[self storeCopies];
+	[self delete:NULL];
+	[self copyDeselect];
 	[self updateWindows];
 }
 
@@ -1127,8 +1135,8 @@ FIXME: make these scan for deleted entries
 
 - (IBAction)copy: sender
 {
-	[self	storeCopies];
-	[self	copyDeselect];
+	[self storeCopies];
+	[self copyDeselect];
 	[self updateWindows];
 }
 
@@ -1144,13 +1152,14 @@ FIXME: make these scan for deleted entries
 - (void)paste: sender
 {
 	NSWindow *mainWin;
-	int xadd,yadd,i,max, index;
+	int xadd,yadd,i, index;
+	NSInteger max;
 	NSRect	r;
 	worldthing_t	*t, t1;
 	copyline_t	*L;
 	NSPoint	p1,p2;
 
-	[self	copyDeselect];
+	[self copyDeselect];
 	mainWin = [[NSApplication sharedApplication] mainWindow];
 	r = [[mainWin contentView] documentVisibleRect];
 	if (copyLoaded)

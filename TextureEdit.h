@@ -45,13 +45,13 @@
 	IBOutlet NSButton		*newSetButton_i;		// Create New Set button
 	IBOutlet NSTextField	*patchSearchField_i;	// Search for patch string
 
-	CompatibleStorage *patchImages;		// Patch Palette images
+	CompatibleStorage *patchImages;		//!< Patch Palette images
 	
-	int	selectedPatch;			// in the Patch Palette
-	CompatibleStorage *selectedTexturePatches;	// in the Texture Editor View
-	CompatibleStorage *copyList;		// list of copied patches
-	int	currentTexture;			// being edited
-	int	oldx,oldy;				// last texture x,y
+	int	selectedPatch;			//!< in the Patch Palette
+	CompatibleStorage *selectedTexturePatches;	//!< in the Texture Editor View
+	CompatibleStorage *copyList;		//!< list of copied patches
+	int	currentTexture;			//!< being edited
+	int	oldx,oldy;				//!< last texture x,y
 }
 
 typedef struct store_s
@@ -59,31 +59,28 @@ typedef struct store_s
 	int	sel;
 } store_t;
 
-// a patch holds one or more collumns
-// Some patches will be in native color, while be used with a color remap table
+/// a patch holds one or more columns
+/// Some patches will be in native color, while be used with a color remap table
 typedef struct patch_s
 {
-	short	width;				// bounding box size
-	short	height;
-	short	leftoffset;			// pixels to the left of origin
-	short	bottomoffset;		// pixels below the origin
-	int		collumnofs[256];	// only [width] used, the [0] is
-								// &collumnofs[width]
+	short	width, height;		//!< bounding box size
+	short	leftoffset;			//!< pixels to the left of origin
+	short	bottomoffset;		//!< pixels below the origin
+	int		collumnofs[256];	//!< only [width] used, the [0] is
+								//!< &collumnofs[width]
 } patch_t;
 
 typedef struct post_s
 {
-	byte		topdelta;			// -1 is the last post in a collumn
+	byte		topdelta;			//!< -1 is the last post in a column
 	byte		length;
 // length data bytes follow
 } post_t;
 
-// collumn_t is a list of 0 or more post_t, (byte)-1 terminated
+/// column_t is a list of 0 or more post_t, (byte)-1 terminated
 typedef post_t	collumn_t;
 
-//
-// structure for loaded patches
-//
+/// structure for loaded patches
 typedef struct apatch_s
 {
 	NSRect	r;
@@ -154,8 +151,8 @@ typedef	struct texpatch_s
 - (void)saveFrame;
 
 - (int)getNumPatches;
-- (int)findPatchIndex:(char *)name;
-- (char *)getPatchName:(int)which;
+- (int)findPatchIndex:(const char *)name;
+- (const char *)getPatchName:(int)which;
 
 - (IBAction)locatePatchInTextures:sender;
 

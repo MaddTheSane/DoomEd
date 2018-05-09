@@ -5,6 +5,8 @@
 
 #define	WORLDNAME	@"EditWorld"
 
+@class MapWindow;
+
 typedef struct worldpoint_s
 {
 	int	selected;		//!< context that owns the point, 0 if unselected, or -1 if deleted
@@ -70,19 +72,19 @@ typedef struct copyline_s
 {
 	BOOL	loaded;
 	
-	int		pointssize, linessize, thingssize, texturessize;	// array size >= numvalid
-	BOOL	dirty, dirtypoints;		// set whenever the map is changed FIXME
+	int		pointssize, linessize, thingssize, texturessize;	//!< array size >= numvalid
+	BOOL	dirty, dirtypoints;		//!< set whenever the map is changed FIXME
 	NSRect	bounds;
 	BOOL	boundsdirty;
 	NSString *pathname;
 	NSRect	dirtyrect;
-	NSMutableArray *windowlist_i;	// all windows that display this world
+	NSMutableArray<MapWindow*> *windowlist_i;	//!< all windows that display this world
 
-	CompatibleStorage *copyThings_i;		// cut/copy/paste info
+	CompatibleStorage *copyThings_i;		//!< cut/copy/paste info
 	CompatibleStorage *copyLines_i;
 	NSPoint	copyCoord;
 	int		copyLoaded;
-	NSSound *saveSound;				// Sound instance
+	NSSound *saveSound;				//!< Sound instance
 }
 
 - (void)applicationWillTerminate: (NSNotification *)notification;
@@ -146,6 +148,7 @@ typedef struct copyline_s
 - (int)allocatePoint: (NSPoint *)pt;
 - (int)newPoint: (NSPoint *)pt;
 - (int)newLine: (worldline_t *)line from: (NSPoint *)p1 to:(NSPoint *)p2;
+- (int)newLine: (worldline_t *)line fromPoint: (NSPoint)p1 toPoint:(NSPoint)p2;
 - (int)newThing: (worldthing_t *)thing;
 
 - (void)changePoint: (int)p to: (worldpoint_t *)data;
@@ -159,8 +162,6 @@ typedef struct copyline_s
 - (void)storeCopies;
 - (void)copyDeselect;
 - (NSPoint)findCopyCenter;
-- (int)findMin:(int)num0	:(int)num1;
-- (int)findMax:(int)num0	:(int)num1;
 @end
 
 
