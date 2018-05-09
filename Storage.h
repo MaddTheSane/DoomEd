@@ -1,6 +1,8 @@
 
 #import <Foundation/NSObject.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// NeXTStep included a class called 'Storage' that implemented an array
 /// able to store arbitrary C types and structs. It seems that it was
 /// removed or otherwise ditched during the evolution towards Cocoa and
@@ -23,15 +25,16 @@
 
 - (void) addElement:(void *)anElement;
 @property (readonly) NSUInteger count;
-- (const char *)description;
-- (void *)elementAt:(NSUInteger)index;
+- (nullable const char *)description;
+- (nullable void *)elementAt:(NSUInteger)index NS_RETURNS_INNER_POINTER;
 - (void) empty;
-- (instancetype) initCount:(NSUInteger)count
+- (instancetype) initCount: (NSUInteger)count
 			   elementSize: (NSUInteger) sizeInBytes
-			   description: (const char *) string;
+			   description: (nullable const char *) string;
 - (void) insertElement:(void *)anElement at:(NSUInteger)index;
 - (void) removeElementAt:(NSUInteger)index;
 - (void) replaceElementAt:(NSUInteger)index with:(void *)anElement;
 
 @end
 
+NS_ASSUME_NONNULL_END
