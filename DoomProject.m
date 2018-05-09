@@ -69,6 +69,13 @@ char	bsphost[32];		// bsp host machine
 	return self;
 }
 
+- (void)dealloc
+{
+	[wadfile release];
+	
+	[super dealloc];
+}
+
 - (void)checkDirtyProject
 {
 	NSInteger	val;

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)startOfLumpAtIndex: (NSInteger)lump;
 - (NSString *)nameOfLumpAtIndex: (NSInteger)lump;
 - (NSInteger)indexOfLumpNamed: (NSString *)name;
-- (NSData *)dataOfLumpAtIndex: (NSInteger)lump;
+- (nullable NSData *)dataOfLumpAtIndex: (NSInteger)lump;
 - (nullable NSData *)dataOfLumpNamed: (NSString *)name;
 
 - (void)addIndexWithName: (NSString *)name data: (NSData *)data;

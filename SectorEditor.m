@@ -16,6 +16,7 @@ SectorEditor *sectorEdit_i;
 
 - init
 {
+	if (self = [super init]) {
 	window_i = NULL;
 	sectorEdit_i = self;
 	currentFlat = -1;
@@ -23,6 +24,7 @@ SectorEditor *sectorEdit_i;
 	[specialPanel_i setSpecialTitle:@"Sector Editor - Specials"];
 	[specialPanel_i setFrameName:@"SectorSpecialPanel"];
 	[specialPanel_i setDelegate:self];
+	}
 	return self;
 }
 
