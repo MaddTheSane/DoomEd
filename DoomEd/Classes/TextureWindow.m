@@ -3,9 +3,11 @@
 
 @implementation TextureWindow
 
-- init
+- (id)init
 {
-	
+	if (self = [super init]) {
+		
+	}
 	return self;
 }
 
