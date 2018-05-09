@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,16 +35,16 @@
                         </connections>
                     </button>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vK1-xj-aQ4">
-                        <rect key="frame" x="-1" y="61" width="278" height="318"/>
+                        <rect key="frame" x="-1" y="48" width="278" height="331"/>
                         <clipView key="contentView" id="DAi-Ij-ml6">
-                            <rect key="frame" x="1" y="1" width="276" height="316"/>
+                            <rect key="frame" x="1" y="1" width="276" height="329"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Ysc-De-bEW">
-                                    <rect key="frame" x="0.0" y="0.0" width="276" height="316"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="276" height="329"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <size key="minSize" width="276" height="316"/>
+                                    <size key="minSize" width="276" height="329"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 </textView>
@@ -55,7 +56,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="icq-WO-0Fr">
-                            <rect key="frame" x="261" y="1" width="16" height="316"/>
+                            <rect key="frame" x="261" y="1" width="16" height="329"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -66,7 +67,7 @@
                     <constraint firstAttribute="bottom" secondItem="qkr-EC-BTc" secondAttribute="bottom" constant="20" symbolic="YES" id="Zmc-8G-EbL"/>
                     <constraint firstItem="vK1-xj-aQ4" firstAttribute="leading" secondItem="YDK-5i-t30" secondAttribute="leading" constant="-1" id="cbB-Iz-00U"/>
                     <constraint firstItem="qkr-EC-BTc" firstAttribute="centerX" secondItem="YDK-5i-t30" secondAttribute="centerX" id="sCc-1Q-Yu1"/>
-                    <constraint firstItem="qkr-EC-BTc" firstAttribute="top" secondItem="vK1-xj-aQ4" secondAttribute="bottom" constant="20" symbolic="YES" id="uOs-oB-0wj"/>
+                    <constraint firstItem="qkr-EC-BTc" firstAttribute="top" secondItem="vK1-xj-aQ4" secondAttribute="bottom" multiplier="0.96" constant="20" symbolic="YES" id="uOs-oB-0wj"/>
                     <constraint firstItem="vK1-xj-aQ4" firstAttribute="top" secondItem="YDK-5i-t30" secondAttribute="top" constant="-1" id="v5d-jG-UDi"/>
                 </constraints>
             </view>

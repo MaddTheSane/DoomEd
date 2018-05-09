@@ -93,8 +93,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </colorWell>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="32">
-                        <rect key="frame" x="8" y="142" width="152" height="20"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="32">
+                        <rect key="frame" x="8" y="138" width="152" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Update Thing data" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="82">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -259,8 +259,8 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="15">
-                                    <rect key="frame" x="11" y="25" width="120" height="20"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="15">
+                                    <rect key="frame" x="11" y="18" width="120" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Assign Icon" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="88">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -270,8 +270,8 @@
                                         <action selector="assignIcon:" target="-2" id="64"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="44">
-                                    <rect key="frame" x="11" y="3" width="120" height="20"/>
+                                <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="44">
+                                    <rect key="frame" x="11" y="-3" width="120" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Unlink Icon" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="89">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -297,11 +297,10 @@ Display</string>
                         </textFieldCell>
                     </textField>
                     <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" autosizesCells="NO" id="14">
-                        <rect key="frame" x="165" y="237" width="65" height="65"/>
+                        <rect key="frame" x="165" y="234" width="65" height="68"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <size key="cellSize" width="65" height="14"/>
-                        <size key="intercellSpacing" width="0.0" height="3"/>
+                        <size key="cellSize" width="65" height="17"/>
                         <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" inset="2" id="91">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="12" name="Helvetica"/>
@@ -364,6 +363,7 @@ Display</string>
             <connections>
                 <outlet property="delegate" destination="-2" id="49"/>
             </connections>
+            <point key="canvasLocation" x="139" y="161.5"/>
         </window>
     </objects>
 </document>

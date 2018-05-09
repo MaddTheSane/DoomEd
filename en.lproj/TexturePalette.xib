@@ -85,11 +85,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="261" height="397"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="23">
-                        <rect key="frame" x="3" y="90" width="256" height="304"/>
+                    <scrollView misplaced="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="23">
+                        <rect key="frame" x="-1" y="90" width="263" height="308"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" autoresizesSubviews="NO" id="Aul-3u-1bw">
-                            <rect key="frame" x="1" y="1" width="254" height="302"/>
+                            <rect key="frame" x="1" y="1" width="261" height="306"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView id="27" customClass="TexturePalView">
@@ -99,11 +99,11 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="68">
-                            <rect key="frame" x="1" y="287" width="254" height="16"/>
+                            <rect key="frame" x="1" y="291" width="261" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="69">
-                            <rect key="frame" x="239" y="1" width="16" height="302"/>
+                            <rect key="frame" x="246" y="1" width="16" height="306"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -137,12 +137,12 @@
                             <action selector="performClick:" target="15" id="35"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="15">
-                        <rect key="frame" x="201" y="45" width="56" height="20"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="15">
+                        <rect key="frame" x="202" y="40" width="54" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="55">
+                        <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="55">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="searchForTexture:" target="-2" id="34"/>
@@ -166,12 +166,12 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="20">
-                        <rect key="frame" x="201" y="24" width="56" height="20"/>
+                    <button verticalHuggingPriority="750" misplaced="YES" imageHugsTitle="YES" id="20">
+                        <rect key="frame" x="202" y="19" width="54" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                        <buttonCell key="cell" type="push" title="Show" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="57">
+                        <buttonCell key="cell" type="push" title="Show" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="57">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="showTextureInMap:" target="-2" id="43"/>
@@ -266,6 +266,7 @@
                     </box>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="138.5" y="527.5"/>
         </window>
     </objects>
 </document>

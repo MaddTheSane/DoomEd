@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,9 +27,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2">
-                        <rect key="frame" x="-1" y="33" width="337" height="304"/>
+                        <rect key="frame" x="-1" y="34" width="337" height="303"/>
                         <clipView key="contentView" autoresizesSubviews="NO" id="Cpg-W4-9Wn">
-                            <rect key="frame" x="1" y="1" width="335" height="302"/>
+                            <rect key="frame" x="1" y="1" width="335" height="301"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6" customClass="ThingPalView">
@@ -42,12 +43,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="14">
-                            <rect key="frame" x="320" y="1" width="16" height="302"/>
+                            <rect key="frame" x="320" y="1" width="16" height="301"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                        <rect key="frame" x="71" y="2" width="194" height="23"/>
+                        <rect key="frame" x="71" y="3" width="194" height="23"/>
                         <textFieldCell key="cell" alignment="center" title="********Warning*********" id="12">
                             <font key="font" size="18" name="Helvetica"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -60,7 +61,7 @@
                     <constraint firstItem="4" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="8" symbolic="YES" id="ASr-Sf-ndl"/>
                     <constraint firstItem="2" firstAttribute="top" secondItem="3" secondAttribute="top" constant="-1" id="QRM-1u-HmH"/>
                     <constraint firstItem="2" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="-1" id="W4U-Gx-Ozp"/>
-                    <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="2" id="Yzx-6a-1K7"/>
+                    <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" multiplier="0.95" constant="20" symbolic="YES" id="Yzx-6a-1K7"/>
                     <constraint firstItem="4" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" id="buv-Nc-LMK"/>
                 </constraints>
             </view>

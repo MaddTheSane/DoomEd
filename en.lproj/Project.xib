@@ -62,7 +62,7 @@
                             <subviews>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                                     <rect key="frame" x="87" y="66" width="250" height="11"/>
-                                    <textFieldCell key="cell" alignment="left" title="Pathname" id="35">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="left" title="Pathname" id="35">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -70,7 +70,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                                     <rect key="frame" x="87" y="50" width="250" height="11"/>
-                                    <textFieldCell key="cell" alignment="left" title="Wadfile" id="36">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="left" title="Wadfile" id="36">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -78,7 +78,7 @@
                                 </textField>
                                 <textField horizontalHuggingPriority="749" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2">
                                     <rect key="frame" x="18" y="66" width="65" height="11"/>
-                                    <textFieldCell key="cell" alignment="right" title="MAPS:" id="37">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="right" title="MAPS:" id="37">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -86,7 +86,7 @@
                                 </textField>
                                 <textField horizontalHuggingPriority="749" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                                     <rect key="frame" x="18" y="50" width="65" height="11"/>
-                                    <textFieldCell key="cell" alignment="right" title="WAD:" id="38">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="right" title="WAD:" id="38">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -94,7 +94,7 @@
                                 </textField>
                                 <textField horizontalHuggingPriority="749" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                                     <rect key="frame" x="18" y="34" width="65" height="11"/>
-                                    <textFieldCell key="cell" alignment="right" title="MapWADS:" id="39">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="right" title="MapWADS:" id="39">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -102,7 +102,7 @@
                                 </textField>
                                 <textField horizontalHuggingPriority="749" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                                     <rect key="frame" x="18" y="18" width="65" height="11"/>
-                                    <textFieldCell key="cell" alignment="right" title="BSP program:" id="40">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="right" title="BSP program:" id="40">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -110,7 +110,7 @@
                                 </textField>
                                 <textField horizontalHuggingPriority="749" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="14">
                                     <rect key="frame" x="18" y="2" width="65" height="11"/>
-                                    <textFieldCell key="cell" alignment="right" title="BSP host:" id="41">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="right" title="BSP host:" id="41">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -118,7 +118,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                                     <rect key="frame" x="87" y="34" width="250" height="11"/>
-                                    <textFieldCell key="cell" alignment="left" title="MapWADdirectory" id="42">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="left" title="MapWADdirectory" id="42">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -126,7 +126,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                                     <rect key="frame" x="87" y="18" width="250" height="11"/>
-                                    <textFieldCell key="cell" alignment="left" title="BSPprogrampath" id="43">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="left" title="BSPprogrampath" id="43">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -134,7 +134,7 @@
                                 </textField>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                                     <rect key="frame" x="87" y="2" width="250" height="11"/>
-                                    <textFieldCell key="cell" alignment="left" title="BSPhostmachine" id="44">
+                                    <textFieldCell key="cell" controlSize="mini" alignment="left" title="BSPhostmachine" id="44">
                                         <font key="font" metaFont="miniSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
