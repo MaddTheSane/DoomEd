@@ -2,10 +2,13 @@
 
 #import <AppKit/AppKit.h>
 
-typedef struct
+@interface RemapperObject: NSObject
 {
 	NSString *orgname, *newname;
-} type_t;
+}
+@property (copy) NSString *originalName;
+@property (copy) NSString *changeToName;
+@end
 
 //
 //	Methods to be implemented by the delegate
@@ -28,7 +31,7 @@ typedef struct
 	IBOutlet NSBrowser		*browser_i;
 	IBOutlet id		matrix_i;
 	
-	CompatibleStorage *storage_i;
+	NSMutableArray<RemapperObject*> *storage_i;
 	IBOutlet id<Remapper> delegate_i;
 	NSString *frameName;
 }

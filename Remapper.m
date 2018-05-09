@@ -4,6 +4,11 @@
 #import	"TextureEdit.h"
 #import "ps_quartz.h"
 
+@implementation RemapperObject
+@synthesize originalName=orgname;
+@synthesize changeToName=newname;
+@end
+
 @implementation Remapper
 //===================================================================
 //
@@ -29,11 +34,7 @@
 		[NSBundle loadNibNamed: @"Remapper"
 						 owner: self];
 
-		storage_i = [ [CompatibleStorage alloc]
-			initCount: 0
-			elementSize: sizeof(type_t)
-			description: NULL
-		];
+		storage_i = [[NSMutableArray alloc] init];
 
 		[remapPanel_i setFrameUsingName:fname];
 		[status_i setStringValue:@" "];
@@ -90,31 +91,32 @@
 
 - (IBAction)addToList:sender
 {
-	type_t		r,	*r2;
-	NSInteger	i, max;
+	RemapperObject	*r = [RemapperObject new];
+	NSInteger		max;
 
-	r.orgname = [[original_i stringValue] uppercaseString];
-	r.newname = [[new_i stringValue] uppercaseString];
+	r.originalName = [[original_i stringValue] uppercaseString];
+	r.changeToName = [[new_i stringValue] uppercaseString];
 
-	[original_i setStringValue: r.orgname];
-	[new_i setStringValue: r.newname];
+	[original_i setStringValue: r.originalName];
+	[new_i setStringValue: r.changeToName];
 
 	//
 	//	Check for duplicates
 	//
 	max = [storage_i count];
-	for (i = 0;i < max; i++)
+	for (RemapperObject *r2 in storage_i)
 	{
-		r2 = [storage_i elementAt:i];
-		if ([r2->orgname compare: r.orgname] == 0
-		 && [r2->newname compare: r.newname] == 0)
+		if ([r2.originalName compare: r.originalName] == 0
+		 && [r2.changeToName compare: r.changeToName] == 0)
 		{
+			[r release];
 			NSBeep ();
 			return;
 		}
 	}
 	
-	[storage_i	addElement:&r];
+	[storage_i	addObject:r];
+	[r release];
 	[browser_i	reloadColumn:0];
 }
 
@@ -134,7 +136,7 @@
 	[matrix_i		removeRowAtIndex:selRow];
 	[matrix_i		sizeToCells];
 	[matrix_i		selectCellAtRow:-1 column:-1];
-	[storage_i	removeElementAt:selRow];
+	[storage_i	removeObjectAtIndex:selRow];
 	[browser_i	reloadColumn:0];
 }
 
@@ -151,7 +153,7 @@
 		return;
 
 	[remapPanel_i	saveFrameUsingName:frameName];
-	[storage_i		empty];
+	[storage_i		removeAllObjects];
 	[original_i		setStringValue:@" "];
 	[new_i			setStringValue:@" "];
 	[browser_i	reloadColumn:0];
@@ -164,9 +166,8 @@
 //===================================================================
 - (IBAction)doRemappingOneMap:sender
 {
-	type_t	*r;
-	NSInteger		index, max;
-	unsigned int		linenum;
+	NSInteger		max;
+	unsigned int	linenum;
 	NSString *oldname, *newname;
 	NSString *string;
 	
@@ -178,11 +179,10 @@
 	}
 
 	linenum = 0;
-	for (index = 0; index < max; index++)
+	for (RemapperObject *r in storage_i)
 	{
-		r = [storage_i	elementAt:index];
-		oldname = r->orgname;
-		newname = r->newname;
+		oldname = r.originalName;
+		newname = r.changeToName;
 		
 		linenum += [delegate_i	doRemap:oldname to:newname];
 	}
@@ -201,9 +201,8 @@
 //===================================================================
 - (IBAction)doRemappingAllMaps:sender
 {
-	type_t	*r;
-	NSInteger		index, max;
-	unsigned int		linenum, total;
+	NSInteger		max;
+	unsigned int	linenum, total;
 	NSString *oldname, *newname;
 	NSString *string;
 
@@ -220,11 +219,10 @@
 	while ([doomproject_i	openNextMap] == YES)
 	{
 		linenum = 0;
-		for (index = 0; index < max; index++)
+		for (RemapperObject *r in storage_i)
 		{
-			r = [storage_i	elementAt:index];
-			oldname = r->orgname;
-			newname = r->newname;
+			oldname = r.originalName;
+			newname = r.changeToName;
 
 			linenum += [delegate_i	doRemap:oldname to:newname];
 		}
@@ -267,12 +265,12 @@
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
 {
 	NSString *string;
-	type_t	*r;
-	r = [storage_i	elementAt:row];
+	RemapperObject	*r;
+	r = [storage_i	objectAtIndex:row];
 
 	
 	string = [NSString stringWithFormat: @"%@ remaps to %@",
-			  r->orgname, r->newname];
+			  r.originalName, r.changeToName];
 	
 	[cell setStringValue:string];
 	[cell setLeaf: YES];
