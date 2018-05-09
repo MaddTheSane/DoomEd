@@ -4,7 +4,7 @@
 @class ThingRemapper;
 extern ThingRemapper *thingRemapper_i;
 
-@interface ThingRemapper:Remapper <Remapper>
+@interface ThingRemapper:Remapper <RemapperDelegate>
 
 - (IBAction)menuTarget:sender;
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;

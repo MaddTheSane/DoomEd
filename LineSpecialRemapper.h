@@ -4,7 +4,7 @@
 @class LineSpecialRemapper;
 extern LineSpecialRemapper *lineSpecialRemapper_i;
 
-@interface LineSpecialRemapper:NSObject <Remapper>
+@interface LineSpecialRemapper:NSObject <RemapperDelegate>
 {
 	IBOutlet Remapper	*remapper_i;
 }

@@ -60,7 +60,7 @@ ThingRemapper *thingRemapper_i;
 	return [self getOriginalName];
 }
 
-- (int)doRemap: (NSString *) oldn to: (NSString *) newn
+- (NSInteger)doRemap: (NSString *) oldn to: (NSString *) newn
 {
 	const char *oldname, *newname;
 	int	i, thingnum,oldnum,newnum;

@@ -10,13 +10,11 @@
 @property (copy) NSString *changeToName;
 @end
 
-//
-//	Methods to be implemented by the delegate
-//
-@protocol Remapper <NSObject>
+/// Methods to be implemented by the delegate
+@protocol RemapperDelegate <NSObject>
 - (NSString *) getOriginalName;
 - (NSString *) getNewName;
-- (int)doRemap: (NSString *) oldname to: (NSString *) newname;
+- (NSInteger)doRemap: (NSString *) oldname to: (NSString *) newname;
 - (void)finishUp;
 @end
 
@@ -32,7 +30,7 @@
 	IBOutlet id		matrix_i;
 	
 	NSMutableArray<RemapperObject*> *storage_i;
-	IBOutlet id<Remapper> delegate_i;
+	IBOutlet id<RemapperDelegate> delegate_i;
 	NSString *frameName;
 }
 
@@ -41,7 +39,7 @@
   setPanelTitle:(NSString *)ptitle
   setBrowserTitle:(NSString *)btitle
   setRemapString:(NSString *)rstring
-  setDelegate:(id<Remapper>)delegate;
+  setDelegate:(id<RemapperDelegate>)delegate;
 
 //extern - (int)doRemap:(char *)oldname to:(char *)newname;
 

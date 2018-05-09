@@ -1,7 +1,7 @@
 #import	"Remapper.h"
 #import <AppKit/AppKit.h>
 
-@interface TextureRemapper:Remapper <Remapper>
+@interface TextureRemapper:Remapper <RemapperDelegate>
 {
 	
 }

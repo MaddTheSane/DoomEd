@@ -59,12 +59,12 @@ TextureRemapper *textureRemapper_i;
 	return [self getOriginalName];
 }
 
-- (int)doRemap: (NSString *) oldn to: (NSString *) newn
+- (NSInteger)doRemap: (NSString *) oldn to: (NSString *) newn
 {
 	const char *oldname, *newname;
 	int i;
 	int linenum;
-	int flag;
+	BOOL flag;
 
 	oldname = [oldn UTF8String];
 	newname = [newn UTF8String];
@@ -72,39 +72,39 @@ TextureRemapper *textureRemapper_i;
 	linenum = 0;
 	for (i = 0;i < numlines; i++)
 	{
-		flag = 0;
+		flag = NO;
 		// SIDE 0
 		if (!strcasecmp ( oldname,lines[i].side[0].bottomtexture))
 		{
 			strcpy(lines[i].side[0].bottomtexture, newname );
-			flag++;
+			flag = YES;
 		}
 		if (!strcasecmp( oldname,lines[i].side[0].midtexture))
 		{
 			strcpy(lines[i].side[0].midtexture, newname );
-			flag++;
+			flag = YES;
 		}
 		if (!strcasecmp( oldname ,lines[i].side[0].toptexture))
 		{
 			strcpy(lines[i].side[0].toptexture, newname );
-			flag++;
+			flag = YES;
 		}
 
 		// SIDE 1
 		if (!strcasecmp ( oldname,lines[i].side[1].bottomtexture))
 		{
 			strcpy(lines[i].side[1].bottomtexture, newname );
-			flag++;
+			flag = YES;
 		}
 		if (!strcasecmp( oldname,lines[i].side[1].midtexture))
 		{
 			strcpy(lines[i].side[1].midtexture, newname );
-			flag++;
+			flag = YES;
 		}
 		if (!strcasecmp( oldname ,lines[i].side[1].toptexture))
 		{
 			strcpy(lines[i].side[1].toptexture, newname );
-			flag++;
+			flag = YES;
 		}
 
 		if (flag)

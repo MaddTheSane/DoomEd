@@ -56,7 +56,7 @@ FlatRemapper *flatRemapper_i;
 	return [sectorEdit_i flatName:[sectorEdit_i getCurrentFlat] ];
 }
 
-- (int)doRemap: (NSString *) oldn to: (NSString *) newn
+- (NSInteger)doRemap: (NSString *) oldn to: (NSString *) newn
 {
 	const char *oldname, *newname;
 	int i;

@@ -63,7 +63,7 @@ id	lineSpecialRemapper_i;
 	return [self getOriginalName];
 }
 
-- (int)doRemap: (NSString *) oldname to: (NSString *) newname
+- (NSInteger)doRemap: (NSString *) oldname to: (NSString *) newname
 {
 	int i;
 	int linenum;

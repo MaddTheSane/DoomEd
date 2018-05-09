@@ -4,7 +4,7 @@
 @class FlatRemapper;
 extern FlatRemapper *flatRemapper_i;
 
-@interface FlatRemapper:Remapper <Remapper>
+@interface FlatRemapper:Remapper <RemapperDelegate>
 
 - (void)addToList: (NSString *) orgname to: (NSString *) newname;
 
