@@ -25,7 +25,6 @@
 {
 	NSAttributedString *tmpAttr = [[NSAttributedString alloc] initWithString:string];
 	[self addLogAttributedString:tmpAttr];
-	[tmpAttr release];
 }
 
 - (void)addLogAttributedString:(NSAttributedString*)string
@@ -49,7 +48,7 @@
 - (IBAction)clear:sender
 {
 	[text_i.textStorage beginEditing];
-	[text_i.textStorage setAttributedString:[[[NSAttributedString alloc] init] autorelease]];
+	[text_i.textStorage setAttributedString:[[NSAttributedString alloc] init]];
 	[text_i.textStorage endEditing];
 }
 

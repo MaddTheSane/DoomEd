@@ -50,7 +50,7 @@
 		27DA44A719706396005CB000 /* SettingsPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447919706396005CB000 /* SettingsPanel.m */; };
 		27DA44A819706396005CB000 /* SpecialList.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447A19706396005CB000 /* SpecialList.m */; };
 		27DA44A919706396005CB000 /* SpecialListWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447B19706396005CB000 /* SpecialListWindow.m */; };
-		27DA44AA19706396005CB000 /* TextLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447C19706396005CB000 /* TextLog.m */; };
+		27DA44AA19706396005CB000 /* TextLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447C19706396005CB000 /* TextLog.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		27DA44AB19706396005CB000 /* TextureEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447D19706396005CB000 /* TextureEdit.m */; };
 		27DA44AC19706396005CB000 /* TexturePalette.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447E19706396005CB000 /* TexturePalette.m */; };
 		27DA44AD19706396005CB000 /* TexturePalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27DA447F19706396005CB000 /* TexturePalView.m */; };
