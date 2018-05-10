@@ -1,0 +1,6 @@
+[ ] Remove `CompatibleStorage`, replace with `NSArray`s and Objective-C classes.
+[ ] Re-do UI to be with recent HIG for Mac OS X.
+[ ] Add Mac OS X icons for DoomEdMap and DoomEdWorld.
+[ ] The cursors should be used for something…
+[X] Make it compile and link.
+[ ] Update file path to `NSURL` instead of C strings or `NSString`s.
