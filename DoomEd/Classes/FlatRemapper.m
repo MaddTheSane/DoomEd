@@ -36,11 +36,6 @@ FlatRemapper *flatRemapper_i;
 	[self	showPanel];
 }
 
-- (void)addToList: (NSString *)orgname to: (NSString *) newname;
-{
-	[super addToList:orgname to:newname];
-}
-
 //===================================================================
 //
 //	Delegate methods
@@ -61,7 +56,7 @@ FlatRemapper *flatRemapper_i;
 	const char *oldname, *newname;
 	int i;
 	int linenum;
-	int flag;
+	BOOL flag;
 
 	oldname = [oldn UTF8String];
 	newname = [newn UTF8String];
@@ -69,29 +64,29 @@ FlatRemapper *flatRemapper_i;
 	linenum = 0;
 	for (i = 0;i < numlines; i++)
 	{
-		flag = 0;
+		flag = NO;
 		// SIDE 0
 		if (!strcasecmp ( oldname,lines[i].side[0].ends.floorflat))
 		{
 			strcpy(lines[i].side[0].ends.floorflat, newname );
-			flag++;
+			flag = YES;
 		}
 		if (!strcasecmp( oldname,lines[i].side[0].ends.ceilingflat))
 		{
 			strcpy(lines[i].side[0].ends.ceilingflat, newname );
-			flag++;
+			flag = YES;
 		}
 
 		// SIDE 1
 		if (!strcasecmp ( oldname,lines[i].side[1].ends.floorflat))
 		{
 			strcpy(lines[i].side[1].ends.floorflat, newname );
-			flag++;
+			flag = YES;
 		}
 		if (!strcasecmp( oldname,lines[i].side[1].ends.ceilingflat))
 		{
 			strcpy(lines[i].side[1].ends.ceilingflat, newname );
-			flag++;
+			flag = YES;
 		}
 		
 		if (flag)

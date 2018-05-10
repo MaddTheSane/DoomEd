@@ -1297,7 +1297,7 @@ typedef struct
 
 	int		numPatches;
 	int		*patchCount;
-	char	*patchName;
+	const char	*patchName;
 	
 	int		i;
 	int		k;
@@ -1332,12 +1332,12 @@ typedef struct
 	textureCount = malloc(sizeof(int) * nt);
 	bzero(textureCount,sizeof(int)*nt);
 	
-	nf = [sectorEdit_i	countOfFlats];
+	nf = [sectorEdit_i countOfFlats];
 	flatCount = malloc ( sizeof(*flatCount) * nf );
 	bzero (flatCount, sizeof (*flatCount) * nf );
 
 	thingList_i = [thingPanel_i getThingList];
-	numth = [thingList_i	count];
+	numth = [thingList_i count];
 	thingCount = malloc (numth * sizeof(*thingCount));
 	bzero(thingCount,sizeof(*thingCount)*numth);
 	// FILL THING COUNT LIST WITH ALL POSSIBLE THINGS
@@ -2518,17 +2518,18 @@ void IO_Error (char *error, ...)
 //	Draw a red outline (must already be lockFocus'ed on something)
 //
 //=======================================================
-void DE_DrawOutline(NSRect *r)
+void DE_DrawOutline(NSRect r)
 {
 	[[NSColor colorWithDeviceRed:148.0/255 green:0 blue:0 alpha:1] set];
 	NSBezierPath *path = [NSBezierPath bezierPath];
-	[path moveToPoint:r->origin];
+	[path moveToPoint:r.origin];
 	path.lineWidth = 2;
-	[path lineToPoint:NSMakePoint(r->origin.x+r->size.width-1,r->origin.y)];
-	[path lineToPoint:NSMakePoint(r->origin.x+r->size.width-1,
-								  r->origin.y+r->size.height-1)];
-	[path lineToPoint:NSMakePoint(r->origin.x,r->origin.y+r->size.height-1)];
-	[path lineToPoint:r->origin];
+	[path lineToPoint:NSMakePoint(r.origin.x+r.size.width-1,r.origin.y)];
+	[path lineToPoint:NSMakePoint(r.origin.x+r.size.width-1,
+								  r.origin.y+r.size.height-1)];
+	[path lineToPoint:NSMakePoint(r.origin.x,r.origin.y+r.size.height-1)];
+	[path lineToPoint:r.origin];
+	[path closePath];
 	[path stroke];
 
 	return;	

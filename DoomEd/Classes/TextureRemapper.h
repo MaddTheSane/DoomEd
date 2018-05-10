@@ -2,11 +2,6 @@
 #import <AppKit/AppKit.h>
 
 @interface TextureRemapper:Remapper <RemapperDelegate>
-{
-	
-}
-
-- (void)addToList: (NSString *) orgname to: (NSString *) newname;
 
 @end
 

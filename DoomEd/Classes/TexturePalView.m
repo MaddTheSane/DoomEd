@@ -63,7 +63,7 @@
 		r.origin.y -= SPACING/2;
 		r.size.width += SPACING;
 		r.size.height += SPACING;
-		DE_DrawOutline(&r);
+		DE_DrawOutline(r);
 	}
 	
 	//

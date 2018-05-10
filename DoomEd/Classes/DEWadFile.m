@@ -22,12 +22,21 @@ typedef struct lumpinfo_s
 #endif
 
 @interface DELumpInfo()
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithLumpInfoStruct:(lumpinfo_t)lumpInfo;
 
 @property (readonly) lumpinfo_t lumpInfo;
 @end
 
 @implementation DELumpInfo
+
+- (instancetype)init
+{
+	if (self = [super init]) {
+		self.name = @"";
+	}
+	return self;
+}
 
 - (instancetype)initWithLumpInfoStruct:(lumpinfo_t)lumpInfo
 {
@@ -291,7 +300,7 @@ typedef struct lumpinfo_s
 	//
 	// write the header
 	//
-	memcpy (wad.identification, "IWAD",4);
+	memcpy (wad.identification, "IWAD", 4);
 	wad.numlumps = LongSwap ((unsigned)[info count]);
 	lseek (handle, 0, SEEK_SET);
 	write (handle, &wad, sizeof(wad));

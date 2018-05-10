@@ -49,7 +49,7 @@
 		r.origin.y -= 5;
 		r.size.width += 10;
 		r.size.height += 10;
-		DE_DrawOutline(&r);
+		DE_DrawOutline(r);
 	}
 	
 	max = [sectorEdit_i	countOfFlats];

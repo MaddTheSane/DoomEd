@@ -77,7 +77,7 @@
 		r.origin.y -= 5;
 		r.size.width += 10;
 		r.size.height += 10;
-		DE_DrawOutline(&r);
+		DE_DrawOutline(r);
 		[patch->image drawAtPoint:patch->r.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 	}
 

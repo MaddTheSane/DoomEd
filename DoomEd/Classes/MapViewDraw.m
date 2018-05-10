@@ -42,11 +42,11 @@
 	right = rect.origin.x+rect.size.width+2;
 	top = rect.origin.y+rect.size.height+2;
 
-//
-// grid
-//
-// can't just divide by grid size because of negetive coordinate truncating direction
-//
+	//
+	// grid
+	//
+	// can't just divide by grid size because of negetive coordinate truncating direction
+	//
 	if (gridsize*scale >= 4)
 	{
 		y = floor(bottom/gridsize);
@@ -80,9 +80,9 @@
 		FinishPath (GRID_C);
 	}
 
-//
-// tiles
-//
+	//
+	// tiles
+	//
 	if (scale > 4.0/64)
 	{
 		y = floor(bottom/64);
@@ -135,7 +135,7 @@
 	worldline_t	const	*li;
 	int		color;
 	
-// classify all points on the currently displayed levels into 9 clipping regions
+	// classify all points on the currently displayed levels into 9 clipping regions
 	clippoint = alloca (numpoints);
 
 	left = rect.origin.x-1;
@@ -164,13 +164,13 @@
 		clippoint[i] = yc*3+xc;
 	}
 	
-// set up user paths	
+	// set up user paths
 	StartPath (ONESIDED_C);
 	StartPath (TWOSIDED_C);
 	StartPath (SELECTED_C);
 	StartPath (SPECIAL_C);
 	
-// only draw the lines that might intersect the visible rect
+	// only draw the lines that might intersect the visible rect
 
 	li = lines;
 	for (i=0 ; i<numlines ; i++, li++)
@@ -180,7 +180,7 @@
 		if (!linecross[ clippoint[ li->p1] ][ clippoint[ li->p2] ])
 			continue;			// line can't intersect the view
 			
-	// add a line to the path for it's type
+		// add a line to the path for it's type
 		if (li->selected)
 			color = SELECTED_C;
 		else if (li->special)
@@ -358,7 +358,7 @@
 
 	// the draw size must be increased to cover any things that might have been overdrawn
 	// past the edges
-	newrect = NSInsetRect(dirtyRect, THINGDRAWSIZE, THINGDRAWSIZE);
+	newrect = NSInsetRect(dirtyRect, -THINGDRAWSIZE, -THINGDRAWSIZE);
 	[self drawLines: newrect];
 	[self drawPoints: newrect];
 		

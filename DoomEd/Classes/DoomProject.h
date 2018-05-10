@@ -145,7 +145,7 @@ typedef struct sectordef_s
 @end
 
 void IO_Error (char *error, ...);
-void DE_DrawOutline(NSRect *r);
+void DE_DrawOutline(NSRect r);
 
 //============================================================================
 

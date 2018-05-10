@@ -38,11 +38,6 @@ TextureRemapper *textureRemapper_i;
 	[self	showPanel];
 }
 
-- (void)addToList: (NSString *) orgname to: (NSString *) newname;
-{
-	[super addToList:orgname to:newname];
-}
-
 //===================================================================
 //
 //	Delegate methods
