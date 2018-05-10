@@ -24,12 +24,12 @@ ToolPanel *toolpanel_i;
 	}
 }
 
-- (tool_t)currentTool
+- (DETool)currentTool
 {
-	return (tool_t)[toolmatrix_i selectedRow];
+	return [toolmatrix_i selectedRow];
 }
 
-- (void)changeTool:(int)which
+- (void)changeTool:(DETool)which
 {
 	[toolmatrix_i selectCellAtRow:which column:0];
 }

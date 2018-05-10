@@ -64,7 +64,7 @@ BOOL	linecross[9][9];
 	// call -setOrigin after installing in clip view
 	aRect = NSMakeRect(0, 0, 100, 100);
 	if (self = [super initWithFrame: aRect]) {	// to set the proper rectangle
-		if (![editworld_i loaded]) {
+		if (![editworld_i isLoaded]) {
 			NSRunAlertPanel(@"Error",
 							@"MapView inited with NULL world",
 							nil, nil, nil);

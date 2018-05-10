@@ -58,7 +58,7 @@ BOOL	debugflag = NO;
 
 - (BOOL)appAcceptsAnotherFile: sender
 {
-	if (![editworld_i loaded])
+	if (![editworld_i isLoadeds])
 		return YES;
 	return NO;
 }

@@ -141,16 +141,8 @@ int LineByPoint (NSPoint *ptin, int *side)
 
 
 @implementation EditWorld
-
-- (BOOL)loaded
-{
-	return loaded;
-}
-
-- (BOOL)dirty
-{
-	return dirty;
-}
+@synthesize loaded;
+@synthesize dirty;
 
 - (BOOL)dirtyPoints
 {
@@ -172,7 +164,7 @@ int LineByPoint (NSPoint *ptin, int *side)
 =======================
 */
 
-- init
+- (id)init
 {
 	if (self = [super init]) {
 	editworld_i = self;
@@ -235,14 +227,14 @@ int LineByPoint (NSPoint *ptin, int *side)
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	boundsdirty = YES;
 	
-//
-// load the file
-//
+	//
+	// load the file
+	//
 	numpoints = numlines = numthings = 0;
 
-//
-// identify which map version the file is
-//
+	//
+	// identify which map version the file is
+	//
 	stream = fopen([pathname fileSystemRepresentation], "r");
 	if (!stream)
 	{
@@ -278,9 +270,9 @@ int LineByPoint (NSPoint *ptin, int *side)
 	fclose (stream);
 	dirty = NO;
 	dirtypoints = YES;		// a connection matrix will be build for flood filling
-//
-// create a new window
-//
+	//
+	// create a new window
+	//
 	loaded = YES;
 	[self newWindow:self];
 	copyLoaded = 1;

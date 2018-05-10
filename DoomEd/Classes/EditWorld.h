@@ -91,8 +91,8 @@ typedef struct copyline_s
 - (BOOL)loadWorldFile: (NSString *)path;
 - (IBAction)saveDoomEdMapBSP:sender;
 
-- (BOOL)loaded;
-- (BOOL)dirty;
+@property (readonly, getter=isLoaded) BOOL loaded;
+@property (readonly, getter=isDirty) BOOL dirty;
 - (BOOL)dirtyPoints;
 
 - (void)closeWorld;

@@ -603,7 +603,6 @@ TexturePalette *texturePalette_i;
 	NSString	*lbmname;
 	NSString	*lsEnteredName;
 	NSString	*waddir;
-	int		i;
 	int		j;
 	FILE	*fp;
 	NSString	*lsname;

@@ -797,7 +797,7 @@ char	bsphost[32];		// bsp host machine
 	NSString *fullpath;
 	NSString *string;
 
-	if ([editworld_i loaded])
+	if ([editworld_i isLoaded])
 		[editworld_i closeWorld];
 	
 	cell = [sender selectedCell];
@@ -1026,7 +1026,7 @@ typedef struct
 	int		numth;
 	tc_t	*thingCount;
 	
-	if ([editworld_i	loaded] == NO)
+	if ([editworld_i	isLoaded] == NO)
 	{
 		NSRunAlertPanel(@"Hey!",
 			@"You don't have a world loaded!",

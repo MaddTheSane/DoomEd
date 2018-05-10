@@ -101,7 +101,7 @@
 - (void) mouseDown:(NSEvent *)theEvent
 {
 	NSPoint	loc;
-	int		i,texcount,oldwindowmask, which;
+	int		i,texcount, which;
 	texpal_t	*t;
 
 	// TODO: Needed?
