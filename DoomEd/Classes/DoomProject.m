@@ -325,6 +325,7 @@ char	bsphost[32];		// bsp host machine
 	//
 	// get wadfile
 	//
+	panel = [NSOpenPanel openPanel];
 	[panel setTitle: @"Wadfile"];
 	[panel setCanChooseDirectories:NO];
 	[panel setCanChooseFiles:YES];
