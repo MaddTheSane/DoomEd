@@ -262,7 +262,7 @@ int			openupValues[NUMOPENUP];
 ==============
 */
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	int		i;
 	
@@ -317,8 +317,6 @@ int			openupValues[NUMOPENUP];
 #endif
 
 	[window_i orderFront:self];
-
-	return self;
 }
 
 /*
@@ -329,7 +327,7 @@ int			openupValues[NUMOPENUP];
 ==============
 */
 
-- colorChanged:sender
+- (IBAction)colorChanged:sender
 {
 	int	i;
 	id	list, win;
@@ -348,12 +346,10 @@ int			openupValues[NUMOPENUP];
 	i = [list count];
 	while (--i >= 0)
 	{
-		win = [list objectAt: i];
+		win = [list objectAtIndex: i];
 		if ([win class] == [MapWindow class])
 			[[win mapView] display];
 	}
-	
-	return self;
 }
 
 - (NXColor)colorFor: (int)ucolor
@@ -361,10 +357,9 @@ int			openupValues[NUMOPENUP];
 	return color[ucolor];
 }
 
-- launchThingTypeChanged:sender
+- (IBAction)launchThingTypeChanged:sender
 {
 	launchThingType = [sender	intValue];
-	return self;
 }
 
 - (int)getLaunchThingType
@@ -372,7 +367,7 @@ int			openupValues[NUMOPENUP];
 	return	launchThingType;
 }
 
-- projectPathChanged:sender
+- (IBAction)projectPathChanged:sender
 {
 #ifdef REDOOMED
 	NSString *newProjectPathString = [sender stringValue];
@@ -401,15 +396,12 @@ int			openupValues[NUMOPENUP];
 #else // Original
 	strcpy(projectPath, [sender	stringValue] );
 #endif
-
-	return self;
 }
 
-- openupChanged:sender
+- (IBAction)openupChanged:sender
 {
 	id	cell = [sender selectedCell];
 	openupValues[[cell tag]] = [cell intValue];
-	return self;
 }
 
 - (char *)getProjectPath

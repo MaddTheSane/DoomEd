@@ -9,17 +9,17 @@
 	<key>CFBundleIconFile</key>
 	<string>ReDoomEd_Icon_OSX.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.twilightedge.ReDoomEd</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>RDEd</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.92.1 BETA1</string>
+	<key>CFBundleSignature</key>
+	<string>RDEd</string>
 	<key>CFBundleVersion</key>
 	<string>0006</string>
 	<key>NSMainNibFile</key>

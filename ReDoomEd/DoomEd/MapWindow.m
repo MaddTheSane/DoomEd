@@ -145,10 +145,7 @@ static	int	cornerx = 128, cornery = 64;
 	return self;
 }
 
-- mapView
-{
-	return mapview_i;
-}
+@synthesize mapView=mapview_i;
 
 - scalemenu
 {

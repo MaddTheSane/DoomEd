@@ -31,13 +31,12 @@ BOOL	debugflag = NO;
 	return self;
 }
 
-- toggleDebug: sender
+- (void)toggleDebug: sender
 {
 	debugflag ^= 1;
-	return self;
 }
 
-- redraw: sender
+- (void)redraw: sender
 {
 	int	i;
 	id	list, win;
@@ -47,12 +46,10 @@ BOOL	debugflag = NO;
 	i = [list count];
 	while (--i >= 0)
 	{
-		win = [list objectAt: i];
+		win = [list objectAtIndex: i];
 		if ([win class] == [MapWindow class])
 			[[win mapView] display];
 	}
-	
-	return self;
 }
 
 

@@ -14,7 +14,7 @@ typedef struct
 //
 //	Methods to be implemented by the delegate
 //
-@protocol Remapper
+@protocol Remapper <NSObject>
 - (char *)getOriginalName;
 - (char *)getNewName;
 - (int)doRemap:(char *)oldname to:(char *)newname;
@@ -22,7 +22,7 @@ typedef struct
 @end
 
 
-@interface Remapper:Object
+@interface Remapper:Object <NSBrowserDelegate>
 {
 	id		original_i;
 	id		new_i;

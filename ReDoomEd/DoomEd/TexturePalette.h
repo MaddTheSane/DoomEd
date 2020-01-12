@@ -8,7 +8,10 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern id	texturePalette_i;
+@class TexturePalette;
+@class TexturePalView;
+
+extern TexturePalette *texturePalette_i;
 
 typedef struct
 {
@@ -22,30 +25,30 @@ typedef struct
 
 @interface TexturePalette:Object
 {
-	id	window_i;
-	id	texturePalView_i;
-	id	texturePalScrView_i;
-	id	titleField_i;
-	id	widthField_i;
-	id	heightField_i;
-	id	searchField_i;
-	id	patchField_i;
-	id	widthSearch_i;
-	id	heightSearch_i;
+	IBOutlet NSWindow *window_i;
+	IBOutlet TexturePalView *texturePalView_i;
+	IBOutlet NSScrollView	*texturePalScrView_i;
+	IBOutlet NSTextField	*titleField_i;
+	IBOutlet NSTextField	*widthField_i;
+	IBOutlet NSTextField	*heightField_i;
+	IBOutlet NSTextField	*searchField_i;
+	IBOutlet NSTextField	*patchField_i;
+	IBOutlet NSTextField	*widthSearch_i;
+	IBOutlet NSTextField	*heightSearch_i;
 	
 	id	texturePatches;
 	id	allTextures;
 	id	newTextures;
 	int	selectedTexture;
-	id	lsTextField_i;
-	id	lsPanel_i;
-	id	lsStatus_i;
+	IBOutlet NSTextField	*lsTextField_i;
+	IBOutlet NSPanel	*lsPanel_i;
+	IBOutlet NSTextField	*lsStatus_i;
 }
 
 - setupPalette;
 - initTextures;
 - finishInit;
-- searchForTexture:sender;
+- (IBAction)searchForTexture:sender;
 - (int) getNumTextures;
 - (int) getTextureIndex:(char *)name;
 - createAllTextureImages;
@@ -61,16 +64,16 @@ typedef struct
 - setSelTexture:(char *)name;
 - (int) currentSelection;
 - selectTexture:(int)val;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - saveFrame;
 
-- searchWidth:sender;
-- searchHeight:sender;
-- showTextureInMap:sender;
+- (IBAction)searchWidth:sender;
+- (IBAction)searchHeight:sender;
+- (IBAction)showTextureInMap:sender;
 
-- saveTextureLBM:sender;
-- saveAllTexturesAsLBM:sender;
-- doSaveAllTexturesAsLBM:sender;
+- (IBAction)saveTextureLBM:sender;
+- (IBAction)saveAllTexturesAsLBM:sender;
+- (IBAction)doSaveAllTexturesAsLBM:sender;
 
 @end
 

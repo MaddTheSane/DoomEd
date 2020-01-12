@@ -8,11 +8,11 @@
 
 @interface FindLine:Object
 {
-	id	window_i;
-	id	status_i;
-	id	numfield_i;
-	id	delSound;
-	id	fromBSP_i;
+	IBOutlet NSWindow	*window_i;
+	IBOutlet id	status_i;
+	IBOutlet id	numfield_i;
+	NSSound	*delSound;
+	IBOutlet id	fromBSP_i;
 }
 
 #define MARGIN		64			// margin from window edge
@@ -24,9 +24,9 @@
 #endif
 
 - (int)getRealLineNum:(int)num;
-- findLine:sender;
-- deleteLine:sender;
-- menuTarget:sender;
+- (IBAction)findLine:sender;
+- (IBAction)deleteLine:sender;
+- (IBAction)menuTarget:sender;
 - (void)rectFromPoints:(NXRect *)r p1:(NXPoint)p1 p2:(NXPoint)p2;
 
 @end

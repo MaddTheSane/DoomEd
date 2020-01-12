@@ -20,7 +20,7 @@ id	toolpanel_i;
 	return self;
 }
 
-- toolChanged:sender
+- (IBAction)toolChanged:sender
 {
 	switch([self	currentTool])
 	{
@@ -29,7 +29,6 @@ id	toolpanel_i;
 		default:
 			break;
 	}
-    return self;
 }
 
 - (tool_t)currentTool
@@ -39,7 +38,7 @@ id	toolpanel_i;
 
 - changeTool:(int)which
 {
-	[toolmatrix_i	selectCellAt:which :0];
+	[toolmatrix_i	selectCellAtRow:which column:0];
 	return self;
 }
 

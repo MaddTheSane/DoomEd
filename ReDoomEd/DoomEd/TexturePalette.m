@@ -8,7 +8,7 @@
 #import	"Wadfile.h"
 #import	"TextLog.h"
 
-id	texturePalette_i;
+TexturePalette	*texturePalette_i;
 
 @implementation TexturePalette
 

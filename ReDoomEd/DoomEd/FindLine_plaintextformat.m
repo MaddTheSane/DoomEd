@@ -23,7 +23,7 @@
 #endif
 
 	window_i = NULL;
-	delSound = [[Sound alloc] initFromSection:"D_EPain"];
+	delSound = [[NSSound alloc] initFromSection:"D_EPain"];
     return self;
 }
 

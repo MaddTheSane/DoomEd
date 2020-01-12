@@ -6,17 +6,19 @@
 #   import <appkit/appkit.h>
 #endif
 
+@class MapView;
+
 @interface MapWindow: Window
 {
-	id		scrollview_i;
-	id		mapview_i;
+	IBOutlet id		scrollview_i;
+	IBOutlet MapView		*mapview_i;
 	
 #ifdef REDOOMED
 	// specify scalemenu_i & gridmenu_i as PopUpList instances
-	PopUpList *scalemenu_i;
-	id		scalebutton_i;
-	PopUpList *gridmenu_i;
-	id		gridbutton_i;
+	IBOutlet PopUpList *scalemenu_i;
+	IBOutlet id		scalebutton_i;
+	IBOutlet PopUpList *gridmenu_i;
+	IBOutlet id		gridbutton_i;
 #else // Original
 	id		scalemenu_i, scalebutton_i;
 	id		gridmenu_i, gridbutton_i;	
@@ -27,7 +29,7 @@
 }
 
 - initFromEditWorld;
-- mapView;
+@property (readonly, assign) MapView* mapView;
 
 - scalemenu;
 - scalebutton;

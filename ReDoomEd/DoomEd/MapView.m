@@ -247,24 +247,24 @@ printf ("Done\n");
 ===============================================================================
 */
 
-- cut: sender
+- (void)cut: sender
 {
-	return [editworld_i cut:sender];
+	[editworld_i cut:sender];
 }
 
-- copy: sender
+- (void)copy: sender
 {
-	return [editworld_i copy:sender];
+	[editworld_i copy:sender];
 }
 
-- paste: sender
+- (void)paste: sender
 {
-	return [editworld_i paste:sender];
+	[editworld_i paste:sender];
 }
 
-- delete: sender
+- (void)delete: sender
 {
-	return [editworld_i delete:sender];
+	[editworld_i delete:sender];
 }
 
 /*
@@ -309,21 +309,19 @@ printf ("Done\n");
 	NSView *superview = [self superview];
 #endif
 	
-	[superview getBounds: &global];
+	global = superview.bounds;
 	[self convertPointFromSuperview: &global.origin];
 	*worldorigin = global.origin;
 	
 	return self;
 }
 
-- printInfo: sender
+- (IBAction)printInfo: sender
 {
 	NXPoint	wrld;
 	
 	[self getCurrentOrigin: &wrld];
 	printf ("getCurrentOrigin: %f, %f\n",wrld.x,wrld.y);
-	
-	return self;
 }
 
 

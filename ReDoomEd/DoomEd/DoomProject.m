@@ -1539,7 +1539,7 @@ typedef struct
 	// launch Edit with file!
 	//
 #ifdef REDOOMED
-	[[Application	workspace]	openTempFile:RDE_NSStringFromCString(filename)];
+	[[NSWorkspace sharedWorkspace]	openTempFile:RDE_NSStringFromCString(filename)];
 #else // Original
 	[[Application	workspace]	openTempFile:filename];
 #endif
@@ -2135,7 +2135,7 @@ typedef struct
 	windex = 0;
 	for (x = 0;x <= sets;x++)
 	{
-		store = [list	objectAt:x];
+		store = [list	objectAtIndex:x];
 		max = [store count];
 		for (y = 0;y < max;y++, windex++)
 		{

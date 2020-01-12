@@ -110,18 +110,20 @@ id	thingPalette_i;
 	return currentIcon;
 }
 
+@synthesize currentIcon;
+
 //============================================================
 //
 //	Set currently selected icon #
 //
 //============================================================
-- setCurrentIcon:(int)which
+- (void)setCurrentIcon:(int)which
 {
 	icon_t	*icon;
 	NXRect	r;
 	
 	if (which < 0)
-		return self;
+		return;
 		
 	currentIcon = which;
 	icon = [thingImages	elementAt:which];
@@ -144,7 +146,6 @@ id	thingPalette_i;
 #endif
 
 	[thingPalScrView_i	display];
-	return self;
 }
 
 //============================================================

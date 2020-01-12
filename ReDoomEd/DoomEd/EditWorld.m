@@ -131,7 +131,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 			xintercept = p2->x + frac*(p1->x - p2->x);
 		}
 		
-		distance = abs(xintercept - pt->x);
+		distance = fabs(xintercept - pt->x);
 		if (distance < bestdistance)
 		{
 			bestdistance = distance;
@@ -226,7 +226,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 {
 // FIXME: prompt to save map if dirty
 	if ([windowlist_i	count] > 0)
-		[[windowlist_i	objectAt:0]	saveFrameUsingName:WORLDNAME];
+		[[windowlist_i	objectAtIndex:0]	saveFrameUsingName:WORLDNAME];
 	[self free];
 	return self;
 }
@@ -324,11 +324,11 @@ int LineByPoint (NXPoint *ptin, int *side)
 		[doomproject_i	setDirtyMap:FALSE];
 	}	
 
-	[[windowlist_i	objectAt:0] saveFrameUsingName:WORLDNAME];
+	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
 
 #ifdef REDOOMED
 	// close the window
-	[[windowlist_i	objectAt:0] performClose: self];
+	[[windowlist_i	objectAtIndex:0] performClose: self];
 #endif
 
 	[windowlist_i makeObjectsPerform: @selector(free)];
@@ -673,7 +673,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 #endif
 	}
 	
-	[[windowlist_i	objectAt:0] saveFrameUsingName:WORLDNAME];
+	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
 	[windowlist_i removeObject: sender];
 
 //	[self	closeWorld];
@@ -690,7 +690,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 	count = [windowlist_i count];
 	while (--count > -1)
-		[[windowlist_i objectAt: count] reDisplay: &dirtyrect];
+		[[windowlist_i objectAtIndex: count] reDisplay: &dirtyrect];
 		
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
@@ -710,7 +710,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - getMainWindow
 {
-	return [windowlist_i	objectAt:0];
+	return [windowlist_i	objectAtIndex:0];
 }
 
 /*

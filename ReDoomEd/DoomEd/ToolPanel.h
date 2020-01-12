@@ -6,7 +6,7 @@
 #   import <appkit/appkit.h>
 #endif
 
-typedef enum
+typedef NS_ENUM(NSInteger, tool_t)
 {
 	SELECT_TOOL = 0,
 	POLY_TOOL,
@@ -16,16 +16,17 @@ typedef enum
 	GET_TOOL,
 	THING_TOOL,
 	LAUNCH_TOOL
-} tool_t;
+};
 
-extern	id	toolpanel_i;
+@class ToolPanel;
+extern	ToolPanel	*toolpanel_i;
 
 @interface ToolPanel:Object
 {
-    id	toolmatrix_i;
+    IBOutlet NSMatrix	*toolmatrix_i;
 }
 
-- toolChanged:sender;
+- (IBAction)toolChanged:sender;
 - (tool_t)currentTool;
 - changeTool:(int)which;
 

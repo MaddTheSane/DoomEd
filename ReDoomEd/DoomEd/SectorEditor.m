@@ -19,7 +19,7 @@
 
 @implementation SectorEditor
 
-id	sectorEdit_i;
+SectorEditor	*sectorEdit_i;
 
 - init
 {
@@ -119,7 +119,7 @@ id	sectorEdit_i;
 	return self;
 }
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (![doomproject_i loaded])
 	{
@@ -127,7 +127,7 @@ id	sectorEdit_i;
 						"There must be a project loaded before you even\n"
 						"THINK about editing sectors!",
 						"OK",NULL,NULL,NULL);
-		return self;
+		return;
 	}
 	
 	if (!window_i)
@@ -162,7 +162,6 @@ id	sectorEdit_i;
 #endif
 
 	[window_i	orderFront:NULL];
-	return self;
 }
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - unused)
@@ -181,7 +180,7 @@ id	sectorEdit_i;
 //============================================================
 - ceilingAdjust:sender
 {
-	[cheightfield_i	setIntValue:[cheightfield_i	intValue] +
+	[cheightfield_i	setIntegerValue:[cheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
 	return self;
@@ -189,7 +188,7 @@ id	sectorEdit_i;
 
 - floorAdjust:sender
 {
-	[fheightfield_i	setIntValue:[fheightfield_i	intValue] +
+	[fheightfield_i	setIntegerValue:[fheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
 	return self;
@@ -391,7 +390,7 @@ id	sectorEdit_i;
 //	Ceiling or Floor height changed -- clip and modify totalHeight
 //
 //============================================================
-- CorFheightChanged:sender
+- (IBAction)CorFheightChanged:sender
 {
 	int	val;
 	
@@ -411,8 +410,6 @@ id	sectorEdit_i;
 	[sectorEditView_i	display];
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -420,7 +417,7 @@ id	sectorEdit_i;
 //	Find the flat in the palette designated by floor/ceiling radio button
 //
 //============================================================
-- locateFlat:sender
+- (IBAction)locateFlat:sender
 {
 	int	flat;
 	flat_t	*f;
@@ -434,7 +431,7 @@ id	sectorEdit_i;
 	if (flat < 0)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 	
 	[self	selectFlat:flat];
@@ -454,8 +451,6 @@ id	sectorEdit_i;
 
 	[flatPalView_i		display];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -918,10 +913,9 @@ id	sectorEdit_i;
 	return self;
 }
 
-- activateSpecialList:sender
+- (IBAction)activateSpecialList:sender
 {
 	[specialPanel_i	displayPanel];
-	return self;
 }
 
 @end
@@ -935,7 +929,7 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 {
 	short		*dest_p;
 	NXImageRep *image_i;
-	id			fastImage_i;
+	NXBitmapImageRep *fastImage_i;
 	unsigned		i;
 
 	//

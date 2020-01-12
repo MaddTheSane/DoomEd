@@ -116,7 +116,7 @@ extern	worldthing_t	*things;
 
 - appWillTerminate: sender;
 - loadWorldFile: (char const *)path;
-- saveDoomEdMapBSP:sender;
+- (IBAction)saveDoomEdMapBSP:sender;
 
 - (BOOL)loaded;
 - (BOOL)dirty;
@@ -127,21 +127,21 @@ extern	worldthing_t	*things;
 //
 // menu targets
 //
-- newWindow:sender;
-- saveWorld:sender;
-- print:sender;
+- (IBAction)newWindow:sender;
+- (IBAction)saveWorld:sender;
+- (IBAction)print:sender;
 
 //
 // selection operations
 //
 
-- cut: sender;
-- copy: sender;
-- paste: sender;
-- delete: sender;
-- flipSelectedLines: sender;
-- fusePoints: sender;
-- seperatePoints: sender;
+- (IBAction)cut: sender;
+- (IBAction)copy: sender;
+- (IBAction)paste: sender;
+- (IBAction)delete: sender;
+- (IBAction)flipSelectedLines: sender;
+- (IBAction)fusePoints: sender;
+- (IBAction)seperatePoints: sender;
 
 //
 // dealing with map windows

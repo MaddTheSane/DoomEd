@@ -6,7 +6,8 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern	id	coordinator_i;
+@class Coordinator;
+extern	Coordinator	*coordinator_i;
 
 extern	BOOL	debugflag;
 
@@ -27,6 +28,6 @@ extern	BOOL	debugflag;
 #endif
 }
 
-- toggleDebug: sender;
-- redraw: sender;
+- (IBAction)toggleDebug: sender;
+- (IBAction)redraw: sender;
 @end

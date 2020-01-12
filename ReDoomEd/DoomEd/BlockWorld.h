@@ -1,8 +1,10 @@
 #import "EditWorld.h"
 #import "idfunctions.h"
 
-extern	id	sectors;
-extern	id	blockworld_i;
+@class Storage;
+@class BlockWorld;
+extern	Storage	*sectors;
+extern	BlockWorld	*blockworld_i;
 extern	BOOL	fillerror;
 
 @interface BlockWorld : Object

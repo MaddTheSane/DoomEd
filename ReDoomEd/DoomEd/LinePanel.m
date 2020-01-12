@@ -1,5 +1,6 @@
 // REDOOMED changes (c) 2019 Josh Freeman, distributed under GNU AGPL (v3 or later approved vers.)
 
+#include <tgmath.h>
 #import "idfunctions.h"
 #import "LinePanel.h"
 #import "SpecialList.h"
@@ -7,7 +8,7 @@
 #import "R_mapdef.h"
 #import	"DoomProject.h"
 
-id	linepanel_i;
+LinePanel *linepanel_i;
 id	lineSpecialPanel_i;
 
 @implementation LinePanel
@@ -100,10 +101,9 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- activateSpecialList:sender
+- (IBAction)activateSpecialList:sender
 {
 	[lineSpecialPanel_i	displayPanel];
-	return self;
 }
 
 /*
@@ -114,7 +114,7 @@ id	lineSpecialPanel_i;
 ==============
 */
 
-- menuTarget:sender
+- (void)menuTarget:sender
 {
 	if (!window_i)
 	{
@@ -153,8 +153,6 @@ id	lineSpecialPanel_i;
 #endif
 
 	[window_i orderFront:self];
-
-	return self;
 }
 
 /*
@@ -165,10 +163,9 @@ id	lineSpecialPanel_i;
 ==============
 */
 
-- sideRadioTarget:sender
+- (IBAction)sideRadioTarget:sender
 {
 	[self updateInspector: NO];
-	return self;
 }
 
 
@@ -278,9 +275,9 @@ id	lineSpecialPanel_i;
 	//
 	//	Calc line length
 	//
-	xlen = abs(points[line->p2].pt.x - points[line->p1].pt.x);
+	xlen = fabs(points[line->p2].pt.x - points[line->p1].pt.x);
 	xlen = xlen*xlen;
-	ylen = abs(points[line->p2].pt.y - points[line->p1].pt.y);
+	ylen = fabs(points[line->p2].pt.y - points[line->p1].pt.y);
 	ylen = ylen*ylen;
 	dlen = sqrt(xlen + ylen);
 	[linelength_i	setIntValue:dlen];
@@ -334,71 +331,63 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- monsterblockChanged: sender
+- (IBAction)monsterblockChanged: sender
 {
 	int	state;
 	state = [monsterblock_i state];	
 	[self changeLineFlag: ~ML_MONSTERBLOCK  to: ML_MONSTERBLOCK*state];
-	return self;
 }
 
-- blockChanged: sender
+- (IBAction)blockChanged: sender
 {
 	int	state;
 	state = [pblock_i state];	
 	[self changeLineFlag: ~ML_BLOCKMOVE  to: ML_BLOCKMOVE*state];
-	return self;
 }
 
-- secretChanged:sender
+- (IBAction)secretChanged:sender
 {
 	int	state;
 	state = [secret_i	state];
 	[self	changeLineFlag: ~ML_SECRET	to:ML_SECRET*state];
-	return self;
 }
 
-- dontDrawChanged:sender
+- (IBAction)dontDrawChanged:sender
 {
 	int	state;
 	state = [dontdraw_i	state];
 	[self	changeLineFlag: ~ML_DONTDRAW	to:ML_DONTDRAW*state];
-	return self;
 }
 
-- soundBlkChanged:sender
+- (IBAction)soundBlkChanged:sender
 {
 	int	state;
 	state = [soundblock_i	state];
 	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:ML_SOUNDBLOCK*state];
-	return self;
 }
 
-- twosideChanged: sender
+- (IBAction)twosideChanged: sender
 {
 	int	state;
 	state = [twosided_i state];	
 	[self changeLineFlag: ~ML_TWOSIDED  to: ML_TWOSIDED*state];
-	return self;
 }
 
-- toppegChanged: sender
+- (IBAction)toppegChanged: sender
 {
 	int	state;
 	state = [toppeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGTOP  to: ML_DONTPEGTOP*state];
-	return self;
 }
 
-- bottompegChanged: sender
+- (IBAction)bottompegChanged: sender
 {
 	int	state;
 	state = [bottompeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: ML_DONTPEGBOTTOM*state];
-	return self;
 }
 
-- specialChanged: sender
+- (IBAction)specialChanged: sender
 {
 	int		i,value;
 #ifdef REDOOMED
@@ -425,11 +414,10 @@ id	lineSpecialPanel_i;
 	
 	[lineSpecialPanel_i	setSpecial:[special_i	intValue]];
 	[editworld_i updateWindows];
-	return self;
 }
 
 
-- tagChanged: sender
+- (IBAction)tagChanged: sender
 {
 	int		i,value;
 #ifdef REDOOMED
@@ -455,11 +443,10 @@ id	lineSpecialPanel_i;
 		}
 	
 	[editworld_i updateWindows];
-	return self;
 }
 
 
-- sideChanged: sender
+- (IBAction)sideChanged: sender
 {
 	int		i,side;
 	worldside_t	new;
@@ -478,10 +465,9 @@ id	lineSpecialPanel_i;
 		}
 	
 	[editworld_i updateWindows];
-	return self;
 }
 
-- getFromTP:sender
+- (IBAction)getFromTP:sender
 {
 	int	tag;
 	
@@ -496,10 +482,9 @@ id	lineSpecialPanel_i;
 #endif
 
 	[self	sideChanged:NULL];
-	return self;
 }
 
-- setTP:sender
+- (IBAction)setTP:sender
 {
 	int	tag;
 	
@@ -512,24 +497,21 @@ id	lineSpecialPanel_i;
 #else // Original
 	[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
 #endif
-
-	return self;
 }
 
-- zeroEntry:sender
+- (IBAction)zeroEntry:sender
 {
 	int	tag;
 	
 	tag = [[sender selectedCell] tag];
 
 #ifdef REDOOMED
-	[[sideform_i	cellAt:2+tag :0] setStringValue:@"-"];
+	[[sideform_i	cellAtRow:2+tag column:0] setStringValue:@"-"];
 #else // Original
 	[[sideform_i	cellAt:2+tag :0] setStringValue:"-"];
 #endif
 
 	[self	sideChanged:NULL];
-	return self;
 }
 
 //==========================================================
@@ -537,7 +519,7 @@ id	lineSpecialPanel_i;
 // Suggest a new tag value for this map
 //
 //==========================================================
-- suggestTagValue:sender
+- (IBAction)suggestTagValue:sender
 {
 	int	i, val, found;
 	
@@ -558,7 +540,6 @@ id	lineSpecialPanel_i;
 			break;
 		}
 	}
-	return self;
 }
 
 - (int)getTagValue
@@ -571,38 +552,34 @@ id	lineSpecialPanel_i;
 //	Firstcol Calculator code
 //
 //==========================================================
-- popUpCalc:sender
+- (void)popUpCalc:sender
 {
 	[firstColCalc_i		makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- setFCVal:sender
+- (IBAction)setFCVal:sender
 {
-	[fc_currentVal_i  setIntValue:[[sideform_i  cellAt:1 :0]  intValue]];
-	return self;
+	[fc_currentVal_i  setIntValue:[[sideform_i  cellAtRow:1 column:0]  intValue]];
 }
 
-- incFirstCol:sender
+- (IBAction)incFirstCol:sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
 	val += [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAt:1 :0]  setIntValue:val];
+	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
 	[self	sideChanged:NULL];
-	return self;
 }
 
-- decFirstCol:sender
+- (IBAction)decFirstCol:sender
 {
 	int	val;
 	val = [fc_currentVal_i	intValue];
 	val -= [fc_incDec_i	intValue];
 	[fc_currentVal_i	setIntValue:val];
-	[[sideform_i cellAt:1 :0]  setIntValue:val];
+	[[sideform_i cellAtRow:1 column:0]  setIntValue:val];
 	[self	sideChanged:NULL];
-	return self;
 }
 
 
@@ -617,7 +594,7 @@ id	lineSpecialPanel_i;
 ==============
 */
 
-- updateLineInspector
+- (void)updateLineInspector
 {
 	int		i;
 	worldline_t	*line;
@@ -638,17 +615,14 @@ id	lineSpecialPanel_i;
 	}
 	
 	[self	updateLineSpecial];
-		
-	return self;
 }
 
-- updateLineSpecial
+- (void)updateLineSpecial
 {
 	int	which;
 	
 	which = [special_i	intValue];
 	[lineSpecialPanel_i	setSpecial:which];
-	return self;
 }
 
 

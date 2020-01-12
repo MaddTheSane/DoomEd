@@ -183,7 +183,7 @@ id	thingpanel_i;
 //	Change the difficulty of Things to view
 //
 //===================================================================
-- changeDifficultyDisplay:sender
+- (IBAction)changeDifficultyDisplay:sender
 {
 	id				cell;
 	
@@ -193,8 +193,12 @@ id	thingpanel_i;
 	cell = [sender selectedCell];
 	diffDisplay = [cell tag];
 	[editworld_i	redrawWindows];
-	[self	currentThingCount];
-	
+	[self	countCurrentThings];
+}
+
+- currentThingCount
+{
+	[self countCurrentThings];
 	return self;
 }
 
@@ -203,7 +207,7 @@ id	thingpanel_i;
 //	Display # of Things that match currently selected type
 //
 //===================================================================
-- currentThingCount
+- (void)countCurrentThings
 {
 	int				max;
 	int				j;
@@ -222,7 +226,7 @@ id	thingpanel_i;
 		[count_i	setStringValue:"-"];
 #endif
 
-		return self;
+		return;
 	}
 		
 	max = [masterList_i	count];
@@ -244,8 +248,6 @@ id	thingpanel_i;
 		}
 
 	[count_i	setIntValue:count];
-	
-	return self;
 }
 
 //===================================================================
@@ -282,7 +284,7 @@ id	thingpanel_i;
 //	Unlink icon from this Thing
 //
 //===================================================================
-- unlinkIcon:sender
+- (IBAction)unlinkIcon:sender
 {
 #ifdef REDOOMED
 	[iconField_i	setStringValue:@"NOICON"];
@@ -291,7 +293,6 @@ id	thingpanel_i;
 #endif
 
 	[updateButton_i	performClick:self];
-	return self;
 }
 
 //===================================================================
@@ -299,16 +300,16 @@ id	thingpanel_i;
 //	Assign icon selected in Thing Palette to current thing data
 //
 //===================================================================
-- assignIcon:sender
+- (IBAction)assignIcon:sender
 {
 	int		iconnum;
 	icon_t	*icon;
 	
-	iconnum = [thingPalette_i	getCurrentIcon];
+	iconnum = [thingPalette_i	currentIcon];
 	if (iconnum < 0)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 	icon = [thingPalette_i	getIcon:iconnum];
 
@@ -319,8 +320,6 @@ id	thingpanel_i;
 #endif
 
 	[updateButton_i	performClick:self];
-	
-	return self;
 }
 
 //===================================================================
@@ -328,7 +327,7 @@ id	thingpanel_i;
 //	Verify a correct icon name input
 //
 //===================================================================
-- verifyIconName:sender
+- (IBAction)verifyIconName:sender
 {
 	char	name[10];
 	int		which;
@@ -352,7 +351,7 @@ id	thingpanel_i;
 		[iconField_i	setStringValue:"NOICON"];
 #endif
 
-		return self;
+		return;
 	}
 
 #ifdef REDOOMED
@@ -360,8 +359,6 @@ id	thingpanel_i;
 #else // Original
 	[iconField_i	setStringValue:name];
 #endif
-	
-	return self;
 }
 
 //===================================================================
@@ -369,7 +366,7 @@ id	thingpanel_i;
 //	Suggest a new type for a new Thing
 //
 //===================================================================
-- suggestNewType:sender
+- (IBAction)suggestNewType:sender
 {
 	int	num,i,found,max;
 	
@@ -386,10 +383,9 @@ id	thingpanel_i;
 		if (!found)
 		{
 			[fields_i	setIntValue:num	at:1];
-			return self;
+			return;
 		}
 	}
-	return self;
 }
 
 //
@@ -496,7 +492,7 @@ id	thingpanel_i;
 //
 // update current thing with current data
 //
-- updateThingData:sender
+- (IBAction)updateThingData:sender
 {
 	id	cell;
 	int	which;
@@ -509,7 +505,7 @@ id	thingpanel_i;
 	if (!cell)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 
 #ifdef REDOOMED
@@ -542,8 +538,6 @@ id	thingpanel_i;
 		[editworld_i redrawWindows];
 	}
 #endif
-	
-	return self;
 }
 
 //
@@ -586,7 +580,7 @@ id	thingpanel_i;
 //
 // corrects any wrongness in namefield
 //
-- confirmCorrectNameEntry:sender
+- (IBAction)confirmCorrectNameEntry:sender
 {
 	char		name[32];
 	int	i;
@@ -614,8 +608,6 @@ id	thingpanel_i;
 #else // Original
 	[nameField_i	setStringValue:name];
 #endif
-
-	return self;
 }
 
 //
@@ -672,11 +664,10 @@ id	thingpanel_i;
 	return self;
 }
 
-- setAngle:sender
+- (IBAction)setAngle:sender
 {
 	[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
 	[self		formTarget:NULL];
-	return self;
 }
 
 - (NXColor)getThingColor:(int)type

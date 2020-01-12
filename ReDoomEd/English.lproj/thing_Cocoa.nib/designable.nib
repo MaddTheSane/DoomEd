@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ThingPanel">
+            <connections>
+                <outlet property="addButton_i" destination="38" id="50"/>
+                <outlet property="ambush_i" destination="18" id="68"/>
+                <outlet property="count_i" destination="41" id="75"/>
+                <outlet property="diffDisplay_i" destination="43" id="72"/>
+                <outlet property="difficulty_i" destination="26" id="67"/>
+                <outlet property="fields_i" destination="3" id="47"/>
+                <outlet property="iconField_i" destination="6" id="62"/>
+                <outlet property="nameField_i" destination="32" id="57"/>
+                <outlet property="network_i" destination="23" id="73"/>
+                <outlet property="thingAngle_i" destination="17" id="59"/>
+                <outlet property="thingBrowser_i" destination="25" id="53"/>
+                <outlet property="thingColor_i" destination="30" id="55"/>
+                <outlet property="updateButton_i" destination="15" id="66"/>
+                <outlet property="window_i" destination="45" id="46"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Thing Inspector" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="45" userLabel="ThingPanel" customClass="ThingWindow">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="556" y="162" width="244" height="459"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <view key="contentView" id="9">
+                <rect key="frame" x="0.0" y="0.0" width="244" height="459"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <form verticalHuggingPriority="750" fixedFrame="YES" mode="track" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                        <rect key="frame" x="5" y="346" width="225" height="66"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="cellSize" width="225" height="22"/>
+                        <size key="intercellSpacing" width="1" height="0.0"/>
+                        <formCell key="prototype" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Field:" id="90">
+                            <font key="font" metaFont="user"/>
+                            <font key="titleFont" metaFont="user"/>
+                        </formCell>
+                        <cells>
+                            <column>
+                                <formCell selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Angle:" id="21">
+                                    <font key="font" metaFont="user"/>
+                                    <font key="titleFont" metaFont="user"/>
+                                </formCell>
+                                <formCell selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Type:" id="39">
+                                    <font key="font" metaFont="user"/>
+                                    <font key="titleFont" metaFont="user"/>
+                                </formCell>
+                                <formCell selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Name:" id="32">
+                                    <font key="font" metaFont="user"/>
+                                    <font key="titleFont" metaFont="user"/>
+                                    <connections>
+                                        <action selector="confirmCorrectNameEntry:" target="-2" id="58"/>
+                                    </connections>
+                                </formCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="formTarget:" target="-2" id="48"/>
+                        </connections>
+                    </form>
+                    <browser verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" enabled="YES" allowsEmptySelection="YES" defaultColumnWidth="100" minColumnWidth="1" maxVisibleColumns="1" titled="YES" separatesColumns="YES" allowsTypeSelect="YES" columnResizingType="auto" translatesAutoresizingMaskIntoConstraints="NO" id="25">
+                        <rect key="frame" x="12" y="7" width="219" height="131"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <connections>
+                            <action selector="chooseThing:" target="-2" id="54"/>
+                            <outlet property="delegate" destination="-2" id="52"/>
+                        </connections>
+                    </browser>
+                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38">
+                        <rect key="frame" x="78" y="267" width="80" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Add to List" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="84">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="11" name="Helvetica-Bold"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="addThing:" target="-2" id="51"/>
+                        </connections>
+                    </button>
+                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                        <rect key="frame" x="174" y="143" width="53" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </colorWell>
+                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                        <rect key="frame" x="11" y="143" width="152" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Update Thing data" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="79">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="11" name="Helvetica-Bold"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="updateThingData:" target="-2" id="56"/>
+                        </connections>
+                    </button>
+                    <matrix verticalHuggingPriority="750" fixedFrame="YES" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                        <rect key="frame" x="13" y="415" width="90" height="39"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="cellSize" width="30" height="13"/>
+                        <buttonCell key="prototype" type="square" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="91">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="10" name="Helvetica-Bold"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="square" title="NW" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="135" imageScaling="proportionallyDown" inset="2" id="24">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                                <buttonCell type="square" title="W" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="180" imageScaling="proportionallyDown" inset="2" id="13">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                                <buttonCell type="square" title="SW" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="225" imageScaling="proportionallyDown" inset="2" id="27">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                            </column>
+                            <column>
+                                <buttonCell type="square" title="N" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="90" imageScaling="proportionallyDown" inset="2" id="5">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                                <buttonCell type="square" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="40">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                                <buttonCell type="square" title="S" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="270" imageScaling="proportionallyDown" inset="2" id="29">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                            </column>
+                            <column>
+                                <buttonCell type="square" title="NE" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="45" imageScaling="proportionallyDown" inset="2" id="42">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                                <buttonCell type="square" title="E" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="35">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                                <buttonCell type="square" title="SE" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" tag="315" imageScaling="proportionallyDown" inset="2" id="22">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="10" name="Helvetica-Bold"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="setAngle:" target="-2" id="60"/>
+                        </connections>
+                    </matrix>
+                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                        <rect key="frame" x="112" y="414" width="118" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="78">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <string key="title">Suggest New
+Type</string>
+                            <font key="font" size="12" name="Helvetica-Bold"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="suggestNewType:" target="-2" id="61"/>
+                        </connections>
+                    </button>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33">
+                        <rect key="frame" x="177" y="174" width="45" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" alignment="center" title="Color" id="83">
+                            <font key="font" size="12" name="Helvetica-Bold"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18">
+                        <rect key="frame" x="79" y="304" width="75" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Ambush" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="80">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="user"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="formTarget:" target="-2" id="69"/>
+                        </connections>
+                    </button>
+                    <matrix verticalHuggingPriority="750" fixedFrame="YES" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26">
+                        <rect key="frame" x="2" y="269" width="71" height="57"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="cellSize" width="71" height="19"/>
+                        <buttonCell key="prototype" type="check" title="Switch" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="92">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="user"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="check" title="Easy" imagePosition="trailing" alignment="right" state="on" imageScaling="proportionallyDown" inset="2" id="8">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                                <buttonCell type="check" title="Normal" imagePosition="trailing" alignment="right" state="on" tag="1" imageScaling="proportionallyDown" inset="2" id="34">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                                <buttonCell type="check" title="Hard" imagePosition="trailing" alignment="right" state="on" tag="2" imageScaling="proportionallyDown" inset="2" id="2">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="formTarget:" target="-2" id="70"/>
+                        </connections>
+                    </matrix>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                        <rect key="frame" x="9" y="327" width="71" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" alignment="center" title="Difficulty" id="77">
+                            <font key="font" size="14" name="Helvetica-BoldOblique"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box fixedFrame="YES" borderType="bezel" title="Title" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="14">
+                        <rect key="frame" x="10" y="177" width="147" height="77"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" ambiguous="YES" id="Heu-Pw-bOw">
+                            <rect key="frame" x="3" y="3" width="141" height="71"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                                    <rect key="frame" x="35" y="48" width="102" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="86">
+                                        <font key="font" metaFont="user"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <action selector="verifyIconName:" target="-2" id="63"/>
+                                    </connections>
+                                </textField>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="37">
+                                    <rect key="frame" x="2" y="52" width="33" height="15"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" alignment="right" title="Icon:" id="87">
+                                        <font key="font" metaFont="user"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                                    <rect key="frame" x="11" y="25" width="120" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Assign Icon" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="88">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="user"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="assignIcon:" target="-2" id="64"/>
+                                    </connections>
+                                </button>
+                                <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="20">
+                                    <rect key="frame" x="11" y="3" width="120" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" title="Unlink Icon" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="89">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="user"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="unlinkIcon:" target="-2" id="65"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </view>
+                        <font key="titleFont" metaFont="user"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                        <rect key="frame" x="158" y="308" width="75" height="36"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" alignment="center" id="82">
+                            <font key="font" size="14" name="Helvetica-BoldOblique"/>
+                            <string key="title">Difficulty
+Display</string>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43">
+                        <rect key="frame" x="167" y="235" width="67" height="72"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <size key="cellSize" width="67" height="18"/>
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="93">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="user"/>
+                        </buttonCell>
+                        <cells>
+                            <column>
+                                <buttonCell type="radio" title="Easy" imagePosition="leading" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="31">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Normal" imagePosition="leading" alignment="left" tag="1" imageScaling="proportionallyDown" inset="2" id="36">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="Hard" imagePosition="leading" alignment="left" tag="2" imageScaling="proportionallyDown" inset="2" id="7">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                                <buttonCell type="radio" title="All" imagePosition="leading" alignment="left" tag="3" imageScaling="proportionallyDown" inset="2" id="44">
+                                    <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="user"/>
+                                </buttonCell>
+                            </column>
+                        </cells>
+                        <connections>
+                            <action selector="changeDifficultyDisplay:" target="-2" id="71"/>
+                        </connections>
+                    </matrix>
+                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
+                        <rect key="frame" x="79" y="323" width="75" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Network" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="81">
+                            <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="user"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="formTarget:" target="-2" id="74"/>
+                        </connections>
+                    </button>
+                    <box fixedFrame="YES" title="Count" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                        <rect key="frame" x="168" y="188" width="64" height="47"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="7bd-6N-PeY">
+                            <rect key="frame" x="3" y="3" width="58" height="29"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <font key="titleFont" metaFont="user"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41">
+                        <rect key="frame" x="170" y="197" width="57" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" alignment="center" title="Count" id="85">
+                            <font key="font" size="18" name="Helvetica"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="49"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="151"/>
+        </window>
+    </objects>
+</document>

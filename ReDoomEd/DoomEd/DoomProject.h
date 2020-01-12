@@ -70,11 +70,11 @@ extern	char	bsphost[32];		// bsp host machine
 	
 	int		texturessize;
 	
-	id		window_i;
+	IBOutlet NSWindow	*window_i;
 	id		projectpath_i;
 	id		wadpath_i;
 	id		maps_i;
-	id		thingPanel_i;
+	IBOutlet id		thingPanel_i;
 	id		findPanel_i;
 	id		mapNameField_i;
 	id		BSPprogram_i;
@@ -85,31 +85,31 @@ extern	char	bsphost[32];		// bsp host machine
 	BOOL	texturesdirty;
 	BOOL	mapdirty;
 	
-	id		thermoTitle_i;
-	id		thermoMsg_i;
-	id		thermoView_i;
-	id		thermoWindow_i;
+	IBOutlet NSTextField	*thermoTitle_i;
+	IBOutlet NSTextField	*thermoMsg_i;
+	IBOutlet id		thermoView_i;
+	IBOutlet NSPanel	*thermoWindow_i;
 	
-	id		printPrefWindow_i;
+	IBOutlet NSWindow	*printPrefWindow_i;
 }
 
 
 - init;
-- displayLog:sender;
+- (IBAction)displayLog:sender;
 - (BOOL)loaded;
 - (char *)wadfile;
 - (char const *)directory;
 
-- menuTarget: sender;
-- openProject: sender;
-- newProject: sender;
-- saveProject: sender;
-- reloadProject: sender;
-- openMap: sender;
-- newMap: sender;
-- removeMap: sender;
-- printMap:sender;
-- printAllMaps:sender;
+- (IBAction)menuTarget: sender;
+- (IBAction)openProject: sender;
+- (IBAction)newProject: sender;
+- (IBAction)saveProject: sender;
+- (IBAction)reloadProject: sender;
+- (IBAction)openMap: sender;
+- (IBAction)newMap: sender;
+- (IBAction)removeMap: sender;
+- (IBAction)printMap:sender;
+- (IBAction)printAllMaps:sender;
 
 - loadProject: (char const *)path;
 - updateTextures;
@@ -125,9 +125,9 @@ extern	char	bsphost[32];		// bsp host machine
 - changeTexture: (int)num to: (worldtexture_t *)tex;
 
 - saveDoomLumps;
-- loadAndSaveAllMaps:sender;
-- printStatistics:sender;
-- printSingleMapStatistics:sender;
+- (IBAction)loadAndSaveAllMaps:sender;
+- (IBAction)printStatistics:sender;
+- (IBAction)printSingleMapStatistics:sender;
 - updateThings;
 - updateSectorSpecials;
 - updateLineSpecials;
@@ -140,11 +140,11 @@ extern	char	bsphost[32];		// bsp host machine
 - (BOOL)mapDirty;
 - checkDirtyProject;
 
-- printPrefs:sender;
-- togglePanel:sender;
-- toggleMonsters:sender;
-- toggleItems:sender;
-- toggleWeapons:sender;
+- (IBAction)printPrefs:sender;
+- (IBAction)togglePanel:sender;
+- (IBAction)toggleMonsters:sender;
+- (IBAction)toggleItems:sender;
+- (IBAction)toggleWeapons:sender;
 
 // Thermometer functions
 - initThermo:(char *)title message:(char *)msg;

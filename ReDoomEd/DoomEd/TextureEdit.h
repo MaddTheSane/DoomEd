@@ -141,7 +141,7 @@ extern	id	textureEdit_i;
 - addPatch:(int)which;
 - sizeChanged:sender;
 - fillWithPatch:sender;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - (int)getCurrentTexture;
 - (int)getCurrentPatch;
 
@@ -158,7 +158,6 @@ extern	id	textureEdit_i;
 - dumpAllPatches;
 - initPatches;
 - createPatchX2:(apatch_t *)p;
-- menuTarget:sender;
 - computePatchDocView: (NXRect *)theframe;
 - setWarning:(BOOL)state;
 - saveFrame;

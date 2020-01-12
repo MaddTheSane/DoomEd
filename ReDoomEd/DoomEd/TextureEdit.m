@@ -838,7 +838,8 @@ id	texturePatches;
 //
 - makeNewTexture:sender
 {
-	int	textureNum,rcode;
+	int	textureNum;
+	NSModalResponse rcode;
 	worldtexture_t		tex;
 	id	cell;
 	
@@ -849,7 +850,7 @@ id	texturePatches;
 	// create a default new texture
 	//
 	
-	rcode = [NXApp	runModalFor:createTexture_i];
+	rcode = [NXApp	runModalForWindow:createTexture_i];
 	[createTexture_i	close];
 	if (rcode == NX_RUNABORTED)
 		return self;

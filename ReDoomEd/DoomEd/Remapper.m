@@ -361,7 +361,7 @@
 - (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
 #endif
 {
-	int	max, i;
+	NSInteger	max, i;
 	id	cell;
 	char		string[128];
 	type_t	*r;
@@ -371,7 +371,7 @@
 	{
 		r = [storage_i	elementAt:i];
 		[matrix	addRow];
-		cell = [matrix	cellAt:i	:0];
+		cell = [matrix	cellAtRow:i	column:0];
 		
 		strcpy ( string, r->orgname );
 		strcat ( string, " remaps to " );

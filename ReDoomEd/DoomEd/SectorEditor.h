@@ -20,7 +20,9 @@ typedef struct
 #define	SPACING		10
 #define	FLATSIZE	64
 
-extern id	sectorEdit_i;
+@class SectorEditor;
+
+extern SectorEditor *sectorEdit_i;
 
 @interface SectorEditor:Object
 {
@@ -33,9 +35,9 @@ extern id	sectorEdit_i;
 	id	lightSlider_i;
 	id	special_i;
 	id	tag_i;
-	id	floorAndCeiling_i;		// radio button matrix
-	id	ceiling_i;				// radio button
-	id	floor_i;				// radio button
+	NSMatrix	*floorAndCeiling_i;		// radio button matrix
+	NSButton	*ceiling_i;				// radio button
+	NSButton	*floor_i;				// radio button
 	id	cheightfield_i;
 	id	fheightfield_i;
 	id	cflatname_i;
@@ -71,15 +73,15 @@ extern id	sectorEdit_i;
 - (flat_t *) getFloorFlat;
 - setCeiling:(int) what;
 - setFloor:(int) what;
-- CorFheightChanged:sender;
-- locateFlat:sender;
+- (IBAction)CorFheightChanged:sender;
+- (IBAction)locateFlat:sender;
 - (int) getNumFlats;
 - (char *)flatName:(int) flat;
 - (flat_t *) getFlat:(int) which;
 - selectFlat:(int) which;
 - setCurrentFlat:(int)which;
 - (int) getCurrentFlat;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - dumpAllFlats;
 - emptySpecialList;
 - (int)loadFlats;
@@ -88,13 +90,13 @@ extern id	sectorEdit_i;
 - error:(const char *)string;
 - saveFrame;
 
-- searchForTaggedSector:sender;
-- searchForTaggedLine:sender;
+- (IBAction)searchForTaggedSector:sender;
+- (IBAction)searchForTaggedLine:sender;
 
 //
 // sector special list
 //
-- activateSpecialList:sender;
+- (IBAction)activateSpecialList:sender;
 - updateSectorSpecialsDSP:(FILE *)stream;
 @end
 

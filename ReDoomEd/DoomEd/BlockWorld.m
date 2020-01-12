@@ -3,9 +3,9 @@
 #import "BlockWorld.h"
 #import	"DoomProject.h"
 
-id		blockworld_i;
-id		sectors=NULL;	// storage object of sectors
-int		numsectors;
+BlockWorld	*blockworld_i;
+Storage		*sectors=NULL;	// storage object of sectors
+extern int		numsectors;
 id		pan;
 
 //define SHOWFILL

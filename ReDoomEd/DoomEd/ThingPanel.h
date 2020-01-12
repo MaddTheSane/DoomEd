@@ -9,7 +9,8 @@
 #import 	"DoomProject.h"
 #import		"EditWorld.h"
 
-extern	id	thingpanel_i;
+@class ThingPanel;
+extern	ThingPanel	*thingpanel_i;
 
 typedef struct
 {
@@ -32,8 +33,8 @@ typedef struct
 
 @interface ThingPanel:Object
 {
-	id	fields_i;
- 	id	window_i;
+	IBOutlet NSForm	*fields_i;
+ 	IBOutlet NSWindow	*window_i;
 	id	addButton_i;
 	id	updateButton_i;
 	id	nameField_i;
@@ -41,11 +42,11 @@ typedef struct
 	id	thingColor_i;
 	id	thingAngle_i;
 	id	masterList_i;
-	id	iconField_i;
-	id	ambush_i;		// switch
-	id	network_i;		// switch
-	id	difficulty_i;	// switch matrix
-	id	diffDisplay_i;	// radio matrix
+	IBOutlet NSTextField	*iconField_i;
+	IBOutlet NSButton	*ambush_i;		// switch
+	IBOutlet NSButton	*network_i;		// switch
+	IBOutlet NSMatrix	*difficulty_i;	// switch matrix
+	IBOutlet NSMatrix	*diffDisplay_i;	// radio matrix
 	id	count_i;		// display count
 	
 	int	diffDisplay;
@@ -53,41 +54,43 @@ typedef struct
 	worldthing_t	basething, oldthing;
 }
 
-- changeDifficultyDisplay:sender;
+- (IBAction)changeDifficultyDisplay:sender;
 - (int)getDifficultyDisplay;
 - emptyThingList;
 - pgmTarget;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - saveFrame;
-- formTarget: sender;
+- (IBAction)formTarget: sender;
 - updateInspector: (BOOL)force;
 - updateThingInspector;
-- updateThingData:sender;
+- (IBAction)updateThingData:sender;
 - sortThings;
-- setAngle:sender;
+- (IBAction)setAngle:sender;
 - (NXColor)getThingColor:(int)type;
 - fillThingData:(thinglist_t *)thing;
 - fillDataFromThing:(thinglist_t *)thing;
 - fillAllDataFromThing:(thinglist_t *)thing;
-- addThing:sender;
+- (IBAction)addThing:sender;
 - (int)findThing:(char *)string;
 - (thinglist_t *)getThingData:(int)index;
-- chooseThing:sender;
-- confirmCorrectNameEntry:sender;
+- (IBAction)chooseThing:sender;
+- (IBAction)confirmCorrectNameEntry:sender;
 - getThing:(worldthing_t	*)thing;
 - setThing:(worldthing_t *)thing;
 - (int)searchForThingType:(int)type;
-- suggestNewType:sender;
+- (IBAction)suggestNewType:sender;
 - scrollToItem:(int)which;
 - getThingList;
 
-- verifyIconName:sender;
-- assignIcon:sender;
-- unlinkIcon:sender;
+- (IBAction)verifyIconName:sender;
+- (IBAction)assignIcon:sender;
+- (IBAction)unlinkIcon:sender;
 - selectThingWithIcon:(char *)name;
 
 - (thinglist_t *)getCurrentThingData;
-- currentThingCount;
+- currentThingCount API_DEPRECATED_WITH_REPLACEMENT("-countCurrentThings", macos(10.0, 10.0));
+- (void)countCurrentThings;
+
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream;
 - writeThing:(thinglist_t *)thing	from:(FILE *)stream;

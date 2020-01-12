@@ -7,8 +7,5 @@
 #endif
 
 @interface ThingPalView:View
-{
-}
-
 
 @end

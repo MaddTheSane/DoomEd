@@ -8,7 +8,9 @@
 
 #import "EditWorld.h"
 
-extern	id	linepanel_i;
+@class LinePanel;
+
+extern	LinePanel *linepanel_i;
 extern	id	lineSpecialPanel_i;
 
 @interface LinePanel:Object
@@ -27,7 +29,7 @@ extern	id	lineSpecialPanel_i;
 	id	monsterblock_i;
 	
 	id	sideradio_i;
-	id	sideform_i;
+	NSForm	*sideform_i;
 	id	tagField_i;
 	id	linelength_i;
 	
@@ -39,38 +41,38 @@ extern	id	lineSpecialPanel_i;
 }
 
 - emptySpecialList;
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - updateInspector: (BOOL)force;
-- sideRadioTarget:sender;
-- updateLineInspector;
+- (IBAction)sideRadioTarget:sender;
+- (void)updateLineInspector;
 
-- monsterblockChanged:sender;
-- blockChanged: sender;
-- twosideChanged: sender;
-- toppegChanged: sender;
-- bottompegChanged: sender;
-- secretChanged:sender;
-- soundBlkChanged:sender;
-- dontDrawChanged:sender;
-- specialChanged: sender;
-- tagChanged: sender;
-- sideChanged: sender;
+- (IBAction)monsterblockChanged:sender;
+- (IBAction)blockChanged: sender;
+- (IBAction)twosideChanged: sender;
+- (IBAction)toppegChanged: sender;
+- (IBAction)bottompegChanged: sender;
+- (IBAction)secretChanged:sender;
+- (IBAction)soundBlkChanged:sender;
+- (IBAction)dontDrawChanged:sender;
+- (IBAction)specialChanged: sender;
+- (IBAction)tagChanged: sender;
+- (IBAction)sideChanged: sender;
 
-- getFromTP:sender;
-- setTP:sender;
-- zeroEntry:sender;
-- suggestTagValue:sender;
+- (IBAction)getFromTP:sender;
+- (IBAction)setTP:sender;
+- (IBAction)zeroEntry:sender;
+- (IBAction)suggestTagValue:sender;
 - (int)getTagValue;
 
 // FIRSTCOL CALCULATOR
-- setFCVal:sender;
-- popUpCalc:sender;
-- incFirstCol:sender;
-- decFirstCol:sender;
+- (IBAction)setFCVal:sender;
+- (IBAction)popUpCalc:sender;
+- (IBAction)incFirstCol:sender;
+- (IBAction)decFirstCol:sender;
 
 -baseLine: (worldline_t *)line;
 
-- updateLineSpecial;
-- activateSpecialList:sender;
+- (void)updateLineSpecial;
+- (IBAction)activateSpecialList:sender;
 - updateLineSpecialsDSP:(FILE *)stream;
 @end

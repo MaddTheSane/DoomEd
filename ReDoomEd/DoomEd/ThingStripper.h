@@ -20,16 +20,16 @@ typedef struct
 
 @interface ThingStripper:Object
 {
-	id	thingBrowser_i;		// nib outlets
-	id	thingStripPanel_i;
+	IBOutlet id	thingBrowser_i;		// nib outlets
+	IBOutlet id	thingStripPanel_i;
 
 	id	thingList_i;
 }
 
-- displayPanel:sender;
-- addThing:sender;
-- deleteThing:sender;
-- doStrippingAllMaps:sender;
-- doStrippingOneMap:sender;
+- (IBAction)displayPanel:sender;
+- (IBAction)addThing:sender;
+- (IBAction)deleteThing:sender;
+- (IBAction)doStrippingAllMaps:sender;
+- (IBAction)doStrippingOneMap:sender;
 
 @end
