@@ -824,7 +824,7 @@ SectorEditor	*sectorEdit_i;
 //	Search for sector that matches TAG field
 //
 //=================================================================
-- searchForTaggedSector:sender
+- (IBAction)searchForTaggedSector:sender
 {
 	int		tag, i, found;
 	
@@ -845,7 +845,6 @@ SectorEditor	*sectorEdit_i;
 		[editworld_i	updateWindows];
 		
 	[self	setKey:NULL];
-	return self;
 }
 
 //=================================================================
@@ -853,7 +852,7 @@ SectorEditor	*sectorEdit_i;
 //	Search for line that matches TAG field
 //
 //=================================================================
-- searchForTaggedLine:sender
+- (IBAction)searchForTaggedLine:sender
 {
 	int		tag, i, found;
 	
@@ -873,7 +872,6 @@ SectorEditor	*sectorEdit_i;
 		[editworld_i	updateWindows];
 		
 	[self	setKey:NULL];
-	return self;
 }
 
 - error:(const char *)string
@@ -928,8 +926,8 @@ SectorEditor	*sectorEdit_i;
 id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette)
 {
 	short		*dest_p;
-	NXImageRep *image_i;
-	NXBitmapImageRep *fastImage_i;
+	NSBitmapImageRep *image_i;
+	NSImage *fastImage_i;
 	unsigned		i;
 
 	//

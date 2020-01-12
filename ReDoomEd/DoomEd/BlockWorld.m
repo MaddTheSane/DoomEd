@@ -137,19 +137,19 @@ NXEraseRect (&r);
 }
 #endif
 
-		if (line = *(dest+WL_EAST))
+		if ((line = *(dest+WL_EAST)))
 		{
 			selectline (line);
 			break;
 		}
 		else if (x<bwidth-1)
 		{
-			if (line = *(dest+WLSIZE+WL_NWSE))
+			if ((line = *(dest+WLSIZE+WL_NWSE)))
 			{
 				selectline(line);
 				break;
 			}
-			else if (line = *(dest+WLSIZE+WL_NESW))
+			else if ((line = *(dest+WLSIZE+WL_NESW)))
 			{
 				selectline(line^SIDEBIT);
 				break;
@@ -602,7 +602,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	int		i,x,y;
 	worldline_t	*line;
 	short	*test;
-	int		count;
+	NSInteger		count;
 	worldsector_t	*sector;
 
 //

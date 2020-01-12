@@ -402,7 +402,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[panel setTitle: "Project directory"];
 #endif
 
-	[panel chooseDirectories:YES];
+	[panel setCanChooseDirectories:YES];
 	if (! [panel runModal] )
 		return self;
 		
@@ -574,13 +574,13 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- saveProject: sender
+- (IBAction)saveProject: sender
 {
 	FILE		*stream;
 	char		filename[1024];
 
 	if (!loaded)
-		return nil;
+		return;
 		
 	strcpy (filename, projectdirectory);
 	strcat (filename ,"/project.dpr");
@@ -597,8 +597,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[texturePalette_i	finishInit];
 	[self	saveDoomLumps];
 	[self	setDirtyProject:FALSE];
-	
-	return self;
 }
 
 
@@ -610,18 +608,16 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- reloadProject: sender
+- (IBAction)reloadProject: sender
 {
 	if (!loaded)
-		return nil;
+		return;
 		
 	[self updateTextures];
 	[self	updateThings];
 	[self	updateSectorSpecials];
 	[self	updateLineSpecials];
 	[self	setDirtyProject:FALSE];
-	
-	return self;
 }
 
 
@@ -758,7 +754,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	}
 	
 	[editworld_i	closeWorld];
-	[log_i	msg:"DoomEd initializing...\n\n" ];
+	[log_i	addMessage:@"DoomEd initializing...\n\n" ];
 	
 	[sectorEdit_i	emptySpecialList];
 	[linepanel_i	emptySpecialList];
@@ -813,10 +809,10 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- removeMap:sender
+- (IBAction)removeMap:sender
 {
 
-	return self;
+	//return self;
 }
 
 //============================================================
@@ -909,7 +905,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 =====================
 */
 
-- newMap: sender
+- (IBAction)newMap: sender
 {
 	FILE		*stream;
 	char		pathname[1024];
@@ -930,14 +926,14 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel ("Error","Map names must be 1 to 8 characters",
 			NULL, NULL, NULL);
-		return nil;
+		return;
 	}
 	
 	for (i=0 ; i<nummaps ; i++)
 		if (!strcmp(title, mapnames[i]))
 		{
 			NXRunAlertPanel ("Error","Map name in use",NULL, NULL, NULL);
-			return nil;
+			return;
 		}
 		
 	//
@@ -952,7 +948,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel ("Error","Could not open %s",
 			NULL, NULL, NULL, pathname);
-		return nil;	
+		return;
 	}
 	fprintf (stream, "WorldServer version 0\n");
 	fclose (stream);
@@ -965,8 +961,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	
 	[self updatePanel];
 	[self saveProject: self];
-	
-	return self;
 }
 
 /*
@@ -979,7 +973,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 =====================
 */
 
-- openMap:sender
+- (IBAction)openMap:sender
 {
 	id			cell;
 	const char	*title;
@@ -1018,8 +1012,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	// reset it after opening a map
 	[self setDirtyMap: FALSE];
 #endif
-
-	return self;
 }
 
 //===================================================================
@@ -1065,7 +1057,7 @@ id	openMatrix;
 //	Print all the maps out!
 //
 //===================================================================
-- printAllMaps:sender
+- (IBAction)printAllMaps:sender
 {
 #ifdef REDOOMED
 	// DoomEd's 'doomprint' command-line tool is currently unimplemented in ReDoomEd -
@@ -1101,8 +1093,6 @@ id	openMatrix;
 	}
 
 #endif // Original
-	
-	return self;
 }
 
 //===================================================================
@@ -1110,31 +1100,26 @@ id	openMatrix;
 //	Map printing preferences
 //
 //===================================================================
-- printPrefs:sender
+- (IBAction)printPrefs:sender
 {
 	[printPrefWindow_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- togglePanel:sender
+- (IBAction)togglePanel:sender
 {
 	pp_panel = 1-pp_panel;
-	return self;
 }
-- toggleItems:sender
+- (IBAction)toggleItems:sender
 {
 	pp_items = 1-pp_items;
-	return self;
 }
-- toggleMonsters:sender
+- (IBAction)toggleMonsters:sender
 {
 	pp_monsters = 1-pp_monsters;
-	return self;
 }
-- toggleWeapons:sender
+- (IBAction)toggleWeapons:sender
 {
 	pp_weapons = 1-pp_weapons;
-	return self;
 }
 
 //===================================================================
@@ -1142,7 +1127,7 @@ id	openMatrix;
 //	Print the map out!
 //
 //===================================================================
-- printMap:sender
+- (IBAction)printMap:sender
 {
 #ifdef REDOOMED
 	// DoomEd's 'doomprint' command-line tool is currently unimplemented in ReDoomEd -
@@ -1151,7 +1136,7 @@ id	openMatrix;
     if (!loaded || ![editworld_i getMainWindow])
     {
         NSBeep();
-        return self;
+        return;
     }
 
     if ([self rdePromptUserForPNGExport])
@@ -1209,8 +1194,6 @@ id	openMatrix;
 	NXFreeAlertPanel(panel);
 	
 #endif // Original
-
-	return self;
 }
 
 //===================================================================
@@ -1218,11 +1201,11 @@ id	openMatrix;
 // 				MAP MUNGE: LOAD AND SAVE ALL MAPS
 //
 //===================================================================
-- loadAndSaveAllMaps:sender
+- (IBAction)loadAndSaveAllMaps:sender
 {
-	id		openMatrix;
-	int		i;
-	int		selRow;
+	NSMatrix	*openMatrix;
+	NSInteger	i;
+	NSInteger	selRow;
 
 #if 0
 	rv = NXRunAlertPanel("Warning!",
@@ -1238,18 +1221,16 @@ id	openMatrix;
 	
 	for (i = 0;i < nummaps; i++)
 	{
-		[openMatrix	selectCellAt:i :0];
+		[openMatrix	selectCellAtRow:i column:0];
 		[self	openMap:openMatrix];
 		[editworld_i	saveDoomEdMapBSP:NULL];
 	}
 	
 	if (selRow >=0)
 	{
-		[openMatrix	selectCellAt:selRow :0];
+		[openMatrix	selectCellAtRow:selRow column:0];
 		[self	openMap:openMatrix];
 	}
-	
-	return self;
 }
 
 //===================================================================
@@ -1264,7 +1245,7 @@ typedef struct
 	char	name[32];
 } tc_t;
 
-- printSingleMapStatistics:sender
+- (IBAction)printSingleMapStatistics:sender
 {
 	int		i,nt,k;
 	int		tset;
@@ -1283,10 +1264,10 @@ typedef struct
 		NXRunAlertPanel("Hey!",
 			"You don't have a world loaded!",
 			"Oops, what a dolt I am!",NULL,NULL);
-		return self;
+		return;
 	}
 	
-	[ log_i	msg:"Single map statistics\n" ];	
+	[ log_i	addMessage:@"Single map statistics\n" ];
 
 	//
 	//	Thing report data
@@ -1368,7 +1349,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].bottomtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1392,7 +1373,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].midtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1416,7 +1397,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].toptexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		// SIDE 1
@@ -1442,7 +1423,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].bottomtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1466,7 +1447,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].midtexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 
 		//
@@ -1490,7 +1471,7 @@ typedef struct
 			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
 				k, lines[k].side[0].toptexture);
 			[log_i	msg:string];
-			return self;
+			return;
 		}
 	}
 		
@@ -1545,8 +1526,6 @@ typedef struct
 #endif
 	
 	free(textureCount);
-	
-	return self;
 }
 
 //===================================================================
@@ -1612,7 +1591,7 @@ typedef struct
 		strcpy(thingCount[k].name,thing->name);
 	}
 	
-	[log_i	msg:"Starting to calculate multiple map statistics...\n" ];
+	[log_i	addMessage:@"Starting to calculate multiple map statistics...\n" ];
 	
 	errors = 0;
 	
@@ -1635,7 +1614,7 @@ typedef struct
 		//
 		//	Thing report data
 		//
-		[log_i	msg:"Counting things.\n" ];
+		[log_i	addMessage:@"Counting things.\n" ];
 		for (k = 0;k < numthings;k++)
 		{
 			int	type = things[k].type;
@@ -1675,7 +1654,7 @@ typedef struct
 		//
 		// count amount of each texture
 		//
-		[log_i	msg:"Counting textures and flats.\n" ];
+		[log_i	addMessage:@"Counting textures and flats.\n" ];
 		for (k=0;k<numlines;k++)
 		{
 			// SIDE 0
@@ -1882,7 +1861,7 @@ typedef struct
 	//
 	//	Count patch usage
 	//
-	[log_i	msg:"Calculating patch usage: " ];
+	[log_i	addMessage:@"Calculating patch usage: " ];
 	numPatches = [textureEdit_i	getNumPatches];
 	patchCount = malloc(sizeof(*patchCount) * numPatches);
 	bzero(patchCount,sizeof(*patchCount)* numPatches);
@@ -1891,7 +1870,7 @@ typedef struct
 	fprintf(stream, "Patch count:\n");
 	for (i = 0;i < numPatches; i++)
 	{
-		[log_i	msg:"." ];
+		[log_i	addMessage:@"." ];
 		patchName = [textureEdit_i  getPatchName:i];
 		for (j = 0;j < numtextures; j++)
 			for (k = 0;k < textures[j].patchcount; k++)
@@ -1905,13 +1884,13 @@ typedef struct
 	//	Done!
 	//
 	fclose(stream);
-	[log_i	msg:"\nFinished!\n\n" ];
+	[log_i	addMessage:@"\nFinished!\n\n" ];
 	
 	//
 	// launch Edit with file!
 	//
 #ifdef REDOOMED
-	[[Application	workspace]	openTempFile:RDE_NSStringFromCString(filename)];
+	[[NSWorkspace sharedWorkspace] openTempFile:RDE_NSStringFromCString(filename)];
 #else // Original
 	[[Application	workspace]	openTempFile:filename];
 #endif

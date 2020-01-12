@@ -15,28 +15,28 @@ extern	id	lineSpecialPanel_i;
 
 @interface LinePanel:Object
 {
-	id	p1_i;
-	id	p2_i;
-	id	special_i;
+	IBOutlet NSTextField	*p1_i;
+	IBOutlet NSTextField	*p2_i;
+	IBOutlet NSTextField	*special_i;
 	
-	id	pblock_i;
-	id	toppeg_i;
-	id	bottompeg_i;
-	id	twosided_i;
-	id	secret_i;
-	id	soundblock_i;
-	id	dontdraw_i;
-	id	monsterblock_i;
+	IBOutlet NSButton	*pblock_i;
+	IBOutlet NSButton	*toppeg_i;
+	IBOutlet NSButton	*bottompeg_i;
+	IBOutlet NSButton	*twosided_i;
+	IBOutlet NSButton	*secret_i;
+	IBOutlet NSButton	*soundblock_i;
+	IBOutlet NSButton	*dontdraw_i;
+	IBOutlet NSButton	*monsterblock_i;
 	
-	id	sideradio_i;
+	IBOutlet NSMatrix	*sideradio_i;
 	IBOutlet NSForm	*sideform_i;
-	id	tagField_i;
-	id	linelength_i;
+	IBOutlet NSTextField	*tagField_i;
+	IBOutlet NSTextField	*linelength_i;
 	
-	id	window_i;
-	id	firstColCalc_i;
-	id	fc_currentVal_i;
-	id	fc_incDec_i;
+	IBOutlet NSPanel	*window_i;
+	IBOutlet NSPanel	*firstColCalc_i;
+	IBOutlet NSTextField	*fc_currentVal_i;
+	IBOutlet NSTextField	*fc_incDec_i;
 	worldline_t	baseline, oldline;
 }
 

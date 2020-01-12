@@ -14,12 +14,12 @@
 
 #ifdef REDOOMED
 // declare initTitle: publicly
-- initTitle:(char *)title API_DEPRECATED_WITH_REPLACEMENT("-initWithTitle", macos(10.0, 10.0));
+- initTitle:(char *)title API_DEPRECATED_WITH_REPLACEMENT("-initWithTitle:", macos(10.0, 10.0));
 - (instancetype)initWithTitle:(NSString*)title;
 #endif
 
 #ifdef REDOOMED
-- msg:(char *)string API_DEPRECATED_WITH_REPLACEMENT("-addMessage", macos(10.0, 10.0));
+- msg:(char *)string API_DEPRECATED_WITH_REPLACEMENT("-addMessage:", macos(10.0, 10.0));
 - (void)addMessage:(NSString*)string;
 #else
 - msg:(char *)string;

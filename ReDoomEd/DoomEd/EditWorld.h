@@ -48,7 +48,7 @@ typedef struct
 } worldline_t;
 
 #define	ML_BLOCKMOVE			1
-#define	ML_TWOSIDED			4	// backside will not be present at all if not two sided
+//#define	ML_TWOSIDED			4	// backside will not be present at all if not two sided
 
 typedef struct
 {

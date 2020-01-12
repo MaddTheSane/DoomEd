@@ -93,29 +93,33 @@ typedef struct
 
 // if the line is not two sided, the midtexture must cover the entire space
 
-typedef struct
-{
-	short		p1, p2;				// point numbers
-	short		flags;
-	short		length;				// texture collumns
-	short		special,tag;			// for segment triggers!
-	mapside_t	side[2];
-} mapline_t;
 
 // Line flags - can go up to 16 bits!
 
-#define	ML_PLAYERBLOCK		1
-#define	ML_MONSTERBLOCK		2
-#define	ML_TWOSIDED			4	// backside will not be present if not 2-sided
-#define	ML_DONTPEGTOP		8
-#define	ML_DONTPEGBOTTOM	16
-#define ML_SECRET			32	// don't display in automap: IT'S A SECRET!
-#define ML_SOUNDBLOCK		64	// blocks sound, eh?
-#define ML_DONTDRAW			128	// don't draw in automap
+typedef NS_OPTIONS(short, mapline_flags) {
+	ML_PLAYERBLOCK		= 1,
+	ML_MONSTERBLOCK		= 2,
+	ML_TWOSIDED			= 4,	//!< backside will not be present if not 2-sided
+	ML_DONTPEGTOP		= 8,
+	ML_DONTPEGBOTTOM	= 16,
+	ML_SECRET			= 32,	//!< don't display in automap: IT'S A SECRET!
+	ML_SOUNDBLOCK		= 64,	//!< blocks sound, eh?
+	ML_DONTDRAW			= 128	//!< don't draw in automap
+};
 
 // if a texture is pegged, the texture will have the end exposed to air held constant at the top
-// or bottom of the texture (stairs or pulled down things) and will move with a height change of 
+// or bottom of the texture (stairs or pulled down things) and will move with a height change of
 // one of the middle lines (doors, etc)
 // Unpegged textures allways have the first row of the texture at the top pixel of the line for both
 // top and bottom textures (windows)
+
+
+typedef struct
+{
+	short		p1, p2;				//!< point numbers
+	mapline_flags	flags;
+	short		length;				//!< texture collumns
+	short		special,tag;			//!< for segment triggers!
+	mapside_t	side[2];
+} mapline_t;
 

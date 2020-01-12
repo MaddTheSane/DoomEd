@@ -12,20 +12,9 @@
 		033FAA8320E829DE00CC584F /* D_Dbite.snd in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA7C20E829DE00CC584F /* D_Dbite.snd */; };
 		033FAA8420E829DE00CC584F /* D_EPain.snd in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA7D20E829DE00CC584F /* D_EPain.snd */; };
 		033FAA8620E829DE00CC584F /* DESave.snd in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA7F20E829DE00CC584F /* DESave.snd */; };
-		033FAA9C20E82A9500CC584F /* Delete.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA8A20E82A9500CC584F /* Delete.tiff */; };
 		033FAA9D20E82A9500CC584F /* DoomEd.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA8B20E82A9500CC584F /* DoomEd.tiff */; };
 		033FAA9E20E82A9500CC584F /* DoomEdIcon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA8C20E82A9500CC584F /* DoomEdIcon.tiff */; };
-		033FAA9F20E82A9500CC584F /* DoomEdMap.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA8D20E82A9500CC584F /* DoomEdMap.tiff */; };
-		033FAAA020E82A9500CC584F /* DoomEdWorld.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA8E20E82A9500CC584F /* DoomEdWorld.tiff */; };
-		033FAAA220E82A9500CC584F /* Find.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9020E82A9500CC584F /* Find.tiff */; };
-		033FAAA320E82A9500CC584F /* johnc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9120E82A9500CC584F /* johnc.tiff */; };
-		033FAAA520E82A9500CC584F /* Me1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9320E82A9500CC584F /* Me1.tiff */; };
-		033FAAA620E82A9500CC584F /* Me2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9420E82A9500CC584F /* Me2.tiff */; };
 		033FAAA720E82A9500CC584F /* OldDoomEd.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9520E82A9500CC584F /* OldDoomEd.tiff */; };
-		033FAAA820E82A9500CC584F /* Recycle.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9620E82A9500CC584F /* Recycle.tiff */; };
-		033FAAAA20E82A9500CC584F /* SmallDemon.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9820E82A9500CC584F /* SmallDemon.tiff */; };
-		033FAAAC20E82A9500CC584F /* WarningLight1.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9A20E82A9500CC584F /* WarningLight1.tiff */; };
-		033FAAAD20E82A9500CC584F /* WarningLight2.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9B20E82A9500CC584F /* WarningLight2.tiff */; };
 		033FAB0D20E834C700CC584F /* BlockWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAADF20E834C700CC584F /* BlockWorld.m */; };
 		033FAB0E20E834C700CC584F /* Coordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE020E834C700CC584F /* Coordinator.m */; };
 		033FAB1020E834C700CC584F /* DoomProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE220E834C700CC584F /* DoomProject.m */; };
@@ -90,11 +79,7 @@
 		033FAB8520E83CBC00CC584F /* RDECocoaGlue_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6F20E83CBC00CC584F /* RDECocoaGlue_View.m */; };
 		033FAB8620E83CBC00CC584F /* RDECocoaGlue_Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB7120E83CBC00CC584F /* RDECocoaGlue_Window.m */; };
 		033FABA220E8513F00CC584F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FABA120E8513F00CC584F /* main.m */; };
-		033FABB620E8551000CC584F /* DownArrow_Cocoa.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FABB120E8551000CC584F /* DownArrow_Cocoa.tiff */; };
-		033FABB720E8551000CC584F /* LeftArrow_Cocoa.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FABB220E8551000CC584F /* LeftArrow_Cocoa.tiff */; };
 		033FABB820E8551000CC584F /* ReDoomEd_Icon_OSX.icns in Resources */ = {isa = PBXBuildFile; fileRef = 033FABB320E8551000CC584F /* ReDoomEd_Icon_OSX.icns */; };
-		033FABB920E8551000CC584F /* RightArrow_Cocoa.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FABB420E8551000CC584F /* RightArrow_Cocoa.tiff */; };
-		033FABBA20E8551000CC584F /* UpArrow_Cocoa.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FABB520E8551000CC584F /* UpArrow_Cocoa.tiff */; };
 		034DD84E21EED28F005E2BC0 /* RDEApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 034DD84D21EED28F005E2BC0 /* RDEApplication.m */; };
 		034DD88B21EEDC8E005E2BC0 /* RDEOSXGlue_BrowserTitles.m in Sources */ = {isa = PBXBuildFile; fileRef = 034DD88A21EEDC8E005E2BC0 /* RDEOSXGlue_BrowserTitles.m */; };
 		034DD8B321EEE24D005E2BC0 /* RDEOSXGlue_MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 034DD8B221EEE24D005E2BC0 /* RDEOSXGlue_MainMenu.m */; };
@@ -133,6 +118,7 @@
 		03ECDA7321CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ECDA7221CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m */; };
 		03F6BDAE231441DE00045261 /* PPSRGBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDAD231441DE00045261 /* PPSRGBUtilities.m */; };
 		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; };
+		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -358,6 +344,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* ReDoomEd_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReDoomEd_Prefix.pch; sourceTree = "<group>"; };
+		552BAD0223CB935D00B3B658 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ReDoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReDoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -413,7 +400,7 @@
 				033FAA9120E82A9500CC584F /* johnc.tiff */,
 			);
 			path = DoomEd;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		033FABAE20E854DE00CC584F /* ReDoomEd */ = {
 			isa = PBXGroup;
@@ -425,7 +412,6 @@
 				033FABB120E8551000CC584F /* DownArrow_Cocoa.tiff */,
 			);
 			name = ReDoomEd;
-			path = Images;
 			sourceTree = "<group>";
 		};
 		034DD84921EED1C6005E2BC0 /* ReDoomEd */ = {
@@ -502,8 +488,9 @@
 			children = (
 				033FABAE20E854DE00CC584F /* ReDoomEd */,
 				033FABA920E854C100CC584F /* DoomEd */,
+				552BAD0223CB935D00B3B658 /* Media.xcassets */,
 			);
-			name = Images;
+			path = Images;
 			sourceTree = "<group>";
 		};
 		03E4F3D31FB5FCFF0046BADC /* Sounds */ = {
@@ -797,6 +784,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */,
 				03DC35D91FA1D04900DB9A7A /* SpecialList_Cocoa.nib in Resources */,
 				03DC35DA1FA1D04900DB9A7A /* thing_Cocoa.nib in Resources */,
 				03DC35DB1FA1D04900DB9A7A /* line_Cocoa.nib in Resources */,
@@ -814,25 +802,10 @@
 				033FAA8320E829DE00CC584F /* D_Dbite.snd in Resources */,
 				033FAA8420E829DE00CC584F /* D_EPain.snd in Resources */,
 				033FAA8620E829DE00CC584F /* DESave.snd in Resources */,
-				033FAA9C20E82A9500CC584F /* Delete.tiff in Resources */,
 				033FAA9D20E82A9500CC584F /* DoomEd.tiff in Resources */,
 				033FAA9E20E82A9500CC584F /* DoomEdIcon.tiff in Resources */,
-				033FAA9F20E82A9500CC584F /* DoomEdMap.tiff in Resources */,
-				033FAAA020E82A9500CC584F /* DoomEdWorld.tiff in Resources */,
-				033FAAA220E82A9500CC584F /* Find.tiff in Resources */,
-				033FAAA320E82A9500CC584F /* johnc.tiff in Resources */,
-				033FAAA520E82A9500CC584F /* Me1.tiff in Resources */,
-				033FAAA620E82A9500CC584F /* Me2.tiff in Resources */,
 				033FAAA720E82A9500CC584F /* OldDoomEd.tiff in Resources */,
-				033FAAA820E82A9500CC584F /* Recycle.tiff in Resources */,
-				033FAAAA20E82A9500CC584F /* SmallDemon.tiff in Resources */,
-				033FAAAC20E82A9500CC584F /* WarningLight1.tiff in Resources */,
-				033FAAAD20E82A9500CC584F /* WarningLight2.tiff in Resources */,
-				033FABB620E8551000CC584F /* DownArrow_Cocoa.tiff in Resources */,
-				033FABB720E8551000CC584F /* LeftArrow_Cocoa.tiff in Resources */,
 				033FABB820E8551000CC584F /* ReDoomEd_Icon_OSX.icns in Resources */,
-				033FABB920E8551000CC584F /* RightArrow_Cocoa.tiff in Resources */,
-				033FABBA20E8551000CC584F /* UpArrow_Cocoa.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

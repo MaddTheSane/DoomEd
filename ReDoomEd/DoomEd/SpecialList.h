@@ -12,13 +12,15 @@ typedef struct
 	char		desc[32];
 } speciallist_t;
 
+@class Storage;
+
 @interface SpecialList:Object
 {
 	id	specialDesc_i;
 	id	specialBrowser_i;
 	id	specialValue_i;
 	id	specialPanel_i;
-	id	specialList_i;
+	Storage	*specialList_i;
 	
 	id	delegate;
 	char		title[32];
@@ -37,9 +39,9 @@ typedef struct
 #endif
 
 - displayPanel;
-- addSpecial:sender;
-- suggestValue:sender;
-- chooseSpecial:sender;
+- (IBAction)addSpecial:sender;
+- (IBAction)suggestValue:sender;
+- (IBAction)chooseSpecial:sender;
 - updateSpecialsDSP:(FILE *)stream;
 - (int)findSpecial:(int)value;
 - validateSpecialString:sender;
