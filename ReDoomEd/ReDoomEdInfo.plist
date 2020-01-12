@@ -1,0 +1,15 @@
+// ReDoomEd Info property list for GNUstep
+{
+    ApplicationDescription = "Doom game map editor, ported from id Software's DoomEd for NeXTSTEP";
+    ApplicationName = ReDoomEd;
+    ApplicationRelease = "0.92.1 BETA1";
+    Authors = ( "John Romero & John Carmack (DoomEd & doombsp) ",
+                "Josh Freeman " );
+    Copyright = " ";
+    CopyrightDescription = " ";
+    NSExecutable = ReDoomEd;
+    NSMainNibFile = "DoomEd_Cocoa.nib";
+    NSPrincipalClass = RDEApplication;
+    NSRole = Application;
+    FreeDesktopCategories = ("Development", "Maps", "Shooter", "Building", "X-GNUstep");
+}

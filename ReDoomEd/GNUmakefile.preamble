@@ -1,0 +1,24 @@
+# Additional flags to pass to the preprocessor
+ADDITIONAL_CPPFLAGS += 
+
+# Additional flags to pass to Objective C compiler
+ADDITIONAL_OBJCFLAGS += -include ReDoomEd_Prefix.pch -Winvalid-pch -Wfatal-errors   \
+    -Wno-parentheses -Wno-pointer-sign -Wno-unused-variable -Wno-char-subscripts    \
+    -Wno-address -Wno-overflow -Wno-sequence-point -Wno-unknown-pragmas             \
+    -Wno-unused-result
+
+# Additional flags to pass to C compiler
+ADDITIONAL_CFLAGS += -include ReDoomEd_Prefix.pch
+
+# Additional flags to pass to the linker
+ADDITIONAL_LDFLAGS +=  
+
+# Additional include directories the compiler should search
+ADDITIONAL_INCLUDE_DIRS += 
+
+# Additional library directories the linker should search
+ADDITIONAL_LIB_DIRS += 
+
+# Additional GUI libraries to link
+ADDITIONAL_GUI_LIBS += 
+

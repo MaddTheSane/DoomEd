@@ -1,0 +1,19 @@
+//
+//  RDEXCConfig_10.14sdk.xcconfig
+//
+//  Copyright 2019 Josh Freeman
+//  http://www.twilightedge.com
+//
+//  This file is part of ReDoomEd for Mac OS X and GNUstep.
+//  ReDoomEd is a Doom game map editor, ported from id Software's DoomEd for NeXTSTEP.
+//
+
+// ReDoomEd Xcode Configuration File for 10.14+ SDKs
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) RDEXCCONFIG__10_14_SDK
+
+RDEXCCONFIG__RELEASE_ARCHS = x86_64
+
+MACOSX_DEPLOYMENT_TARGET = 10.7
+
+ALWAYS_SEARCH_USER_PATHS = NO

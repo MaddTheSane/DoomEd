@@ -1,0 +1,25 @@
+   ReDoomEd includes source-files from DoomEd (map editor), doombsp (command-line tool), and
+PikoPixel (pixel-art editor).
+
+   DoomEd & doombsp are copyright (c) 1993, id Software, Inc.
+
+   PikoPixel is copyright (c) 2013-2018, Josh Freeman.
+
+   ReDoomEd-specific source-files and ReDoomEd-specific modifications to
+DoomEd/doombsp/PikoPixel source-files (marked by "REDOOMED" compiler-directives) are
+copyright (c) 2019, Josh Freeman.
+
+   The sources to DoomEd & doombsp were released publicly by John Romero in 2015 [1], and are
+available for free download at archive.org [2]. The license for DoomEd & doombsp is currently
+UNKNOWN.
+
+   ReDoomEd source-files, ReDoomEd-specific modifications to DoomEd/doombsp/PikoPixel
+source-files, and PikoPixel are released under the terms of the GNU Affero General Public
+License as published by the Free Software Foundation. You can redistribute and/or modify them
+under the terms of version 3 of the License [3], or (at your option) any later version approved
+for distribution by their copyright holder (or an authorized proxy).
+
+
+[1] https://www.doomworld.com/vb/post/1363790
+[2] https://archive.org/details/2015JohnRomeroDoomDump
+[3] https://www.gnu.org/licenses/agpl-3.0.en.html

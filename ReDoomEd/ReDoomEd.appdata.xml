@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>ReDoomEd</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>PRERELEASE - PLEASE DON'T DISTRIBUTE</project_license>
+  <name>ReDoomEd</name>
+  <summary>Doom game map editor, ported from id Software's DoomEd for NeXTSTEP</summary>
+  <description>
+    <p>ReDoomEd is a port of DoomEd, id Software's Doom map editor for NeXTSTEP OS that was
+        used to design the levels of the original Doom games.</p>
+    <p>ReDoomEd is built from the publicly-released NeXTSTEP source-code for DoomEd & doombsp
+        (command-line tool), with additions & modifications in order to run on Cocoa. (Cocoa
+        is the native application programming interface for Mac OS X, the modern successor to
+        NeXTSTEP. Cocoa is also supported on other platforms via the GNUstep framework).</p>
+  </description>
+  <categories>
+    <category>Development</category>
+    <category>Maps</category>
+    <category>Shooter</category>
+    <category>Building</category>
+    <category>X-GNUstep</category>
+  </categories>
+  <launchable type="desktop-id">ReDoomEd.desktop</launchable>
+  <releases>
+    <release version="0.92.1 BETA1" date="2019-12-31" />
+  </releases>
+  <url type="homepage">http://twilightedge.com/mac/redoomed/</url>
+  <developer_name>Josh Freeman</developer_name>
+  <update_contact>redoomed_appdata_AT_twilightedge.com</update_contact>
+</component>
+

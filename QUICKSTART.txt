@@ -1,0 +1,62 @@
+QUICKSTART for ReDoomEd:
+
+You'll need: ReDoomEd binary (downloaded or built from source), doom-maps.zip (from Romero's
+Doom Dump), and doom.wad (iWad from retail Doom)
+
+- Unzip the 'doom-maps.zip' archive
+- Run ReDoomEd & select menu item: Project > Open
+- On the Open panel: Navigate to the unzipped "doom-maps" directory, then to the subdirectory,
+"DoomMaps", and open the file called, "project.dpr"
+- An error dialog will appear because ReDoomEd can't find the project's WADfile at the
+hard-coded filepath; Click the 'Locate "doom.wad"' button, navigate to the doom.wad file,
+& Click 'Open'
+- After the project finishes loading, you should see a "Project Inspector" panel with a list of
+map names
+- Click on 'e1m1' to open the first level map
+- It will open at 100% zoom; You can change the zoom using the zoom popup button in the lower
+right of the map window, or use the zoom tool
+
+TOOLS:
+Select:
+  - Click on a line, thing (colored box), or point to select it (turns it red)
+  - Click on an empty area & drag to make a selection rectangle (selects everything it
+  intersects)
+  - Hold down the shift key when clicking to add to an existing selection
+  - Click on a selected item & drag to move the entire set of selected items
+
+Poly line:
+  - Click & release the mouse to set a starting point for a set of connected lines
+  - Move the mouse to another point (line will follow), then click to set an
+  endpoint/new-line-startpoint
+  - To exit poly line mode, click on an endpoint twice (make a zero-length line)
+
+Line:
+  - Click & drag to make a single line
+
+Zoom:
+  - Click on the map to zoom in
+  - Right-click on the map to zoom out
+
+Move:
+  - Click & drag to pan the map view
+
+Sector get/fill:
+  - Click on a map sector to load its settings into the Sector Editor panel
+  - Right-click on a map sector to change its settings to those currently displayed in the
+  Sector Editor panel (changing the settings in the panel will not automatically update the
+  selected sector)
+
+New Thing:
+  - Click on the map to add a thing matching the current settings in the Thing panel (selecting
+  a thing with the Select tool will update the Thing panel settings)
+
+Launch & Save:
+  - Clicking on the map will generate a wad file (containing only the current map) with the
+  player start location (thing) at the point you clicked - the map wad will be saved in the
+  same directory as the project.dpr file
+
+---
+
+ You can also save the current map to a wad file using the menu item:
+ 'Map > Save DoomEd map/BSP map' (the menu item, 'Map > Save DoomEd map' will only save the
+ map's text file - it won't generate a wad).
