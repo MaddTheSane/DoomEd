@@ -15,31 +15,32 @@
 - initTitle:(char *)title
 {
 #ifdef REDOOMED
-	self = [super init];
-
-	if (!self)
-		return nil;
-
-	// Bugfix: [NXApp loadNibSection:...] returns BOOL, not object
-	[NXApp loadNibSection: "TextLog.nib"
-	        owner: self
-	        withNames: NO];
+	return self = [self initWithTitle:RDE_NSStringFromCString(title)];
 #else // Original
 	window_i =	[NXApp 
 				loadNibSection:	"TextLog.nib"
 				owner:			self
 				withNames:		NO
 				];
-#endif
-
-#ifdef REDOOMED
-	[window_i	setTitle:RDE_NSStringFromCString(title) ];
-#else // Original
+	
 	[window_i	setTitle:title ];
+
 #endif
 
 	return self;
 }
+
+#ifdef REDOOMED
+- (instancetype)initWithTitle:(NSString*)title;
+{
+	if (self = [super init]) {
+		[NSBundle loadNibNamed: @"TextLog" owner: self];
+		
+		[window_i setTitle:title];
+	}
+	return self;
+}
+#endif
 
 - msg:(char *)string
 {
@@ -48,26 +49,26 @@
 	len = [text_i textLength];
 	[text_i setSel:len :len];
 	[text_i replaceSel:string];
-	[text_i	scrollSelToVisible];
+	[text_i scrollRangeToVisible: [text_i selectedRange]];
 
 	return self;
 }
 
-- display:sender
+- (void)addMessage:(NSString*)string
+{
+	NSInteger len = [text_i string].length;
+	[text_i insertText:string replacementRange:NSMakeRange(len, 0)];
+}
+
+- (IBAction)display:sender
 {
 	[window_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- clear:sender
+- (IBAction)clear:sender
 {
-	int		len;
-
-	len = [text_i textLength];
-	[text_i setSel:0 :len];
-	[text_i replaceSel:"\0"];
-
-	return self;
+    [text_i replaceCharactersInRange: NSMakeRange(0, text_i.string.length)
+						  withString: @""];
 }
 
 @end

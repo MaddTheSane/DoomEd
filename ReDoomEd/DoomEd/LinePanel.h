@@ -29,7 +29,7 @@ extern	id	lineSpecialPanel_i;
 	id	monsterblock_i;
 	
 	id	sideradio_i;
-	NSForm	*sideform_i;
+	IBOutlet NSForm	*sideform_i;
 	id	tagField_i;
 	id	linelength_i;
 	

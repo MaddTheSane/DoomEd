@@ -23,7 +23,7 @@ typedef struct
 	int	oldIndex;
 } texpal_t;
 
-@interface TexturePalette:Object
+@interface TexturePalette:Object <NSWindowDelegate>
 {
 	IBOutlet NSWindow *window_i;
 	IBOutlet TexturePalView *texturePalView_i;

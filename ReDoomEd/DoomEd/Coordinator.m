@@ -38,15 +38,16 @@ BOOL	debugflag = NO;
 
 - (void)redraw: sender
 {
-	int	i;
-	id	list, win;
+	NSInteger	i;
+	NSArray<NSWindow*> *list;
+	MapWindow *win;
 	
 // update all windows
-	list = [NXApp windowList];
+	list = [NXApp windows];
 	i = [list count];
 	while (--i >= 0)
 	{
-		win = [list objectAtIndex: i];
+		win = (id)[list objectAtIndex: i];
 		if ([win class] == [MapWindow class])
 			[[win mapView] display];
 	}
