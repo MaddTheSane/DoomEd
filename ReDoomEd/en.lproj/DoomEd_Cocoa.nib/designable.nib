@@ -500,6 +500,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-245" y="164"/>
         </menu>
         <customObject id="55" userLabel="ThingPanel" customClass="ThingPanel"/>
         <customObject id="69" userLabel="SectorEditor" customClass="SectorEditor"/>
@@ -880,7 +881,7 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="makeKeyAndOrderFront:" target="132" id="288"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Preferences..." id="223">
+                            <menuItem title="Preferences..." keyEquivalent="," id="223">
                                 <connections>
                                     <action selector="menuTarget:" target="124" id="289"/>
                                 </connections>
@@ -918,6 +919,11 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                 <menuItem title="Project" id="239">
                     <menu key="submenu" title="Project" id="240">
                         <items>
+                            <menuItem title="New" id="246">
+                                <connections>
+                                    <action selector="newProject:" target="125" id="298"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="Open" keyEquivalent="o" id="242">
                                 <connections>
                                     <action selector="openProject:" target="125" id="296"/>
@@ -926,11 +932,6 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                             <menuItem title="Save" id="245">
                                 <connections>
                                     <action selector="saveProject:" target="125" id="297"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="New" id="246">
-                                <connections>
-                                    <action selector="newProject:" target="125" id="298"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Reload" keyEquivalent="r" id="244">
@@ -963,6 +964,11 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                         </menuItem>
                                     </items>
                                 </menu>
+                            </menuItem>
+                            <menuItem title="Close Window" keyEquivalent="w" id="210">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="275"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -1021,14 +1027,15 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="paste:" target="-1" id="272"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Find line" id="253">
-                                <connections>
-                                    <action selector="menuTarget:" target="22" id="295"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Delete" id="256">
                                 <connections>
                                     <action selector="delete:" target="-1" id="270"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="BTB-nT-ts9"/>
+                            <menuItem title="Find line" id="253">
+                                <connections>
+                                    <action selector="menuTarget:" target="22" id="295"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Flip Lines" keyEquivalent="f" id="255">
@@ -1131,28 +1138,36 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Windows" id="207">
-                    <menu key="submenu" title="Windows" systemMenu="window" id="208">
+                <menuItem title="Window" id="207">
+                    <menu key="submenu" title="Window" systemMenu="window" id="208">
                         <items>
-                            <menuItem title="Arrange in Front" id="211">
-                                <connections>
-                                    <action selector="arrangeInFront:" target="-1" id="271"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Miniaturize Window" keyEquivalent="m" id="209">
+                            <menuItem title="Minimize" keyEquivalent="m" id="209">
                                 <connections>
                                     <action selector="performMiniaturize:" target="-1" id="277"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Close Window" keyEquivalent="w" id="210">
+                            <menuItem title="Bring All To Front" id="211">
                                 <connections>
-                                    <action selector="performClose:" target="-1" id="275"/>
+                                    <action selector="arrangeInFront:" target="-1" id="271"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Help" id="D55-xY-vh0">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Help" systemMenu="help" id="4LP-zy-K1S">
+                        <items>
+                            <menuItem title="Application Help" keyEquivalent="?" id="bjV-Kj-bSt">
+                                <connections>
+                                    <action selector="showHelp:" target="-1" id="ToE-0n-VZp"/>
                                 </connections>
                             </menuItem>
                         </items>
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="139" y="397"/>
         </menu>
     </objects>
     <resources>
