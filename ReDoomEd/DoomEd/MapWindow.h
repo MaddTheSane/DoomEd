@@ -10,7 +10,7 @@
 
 @interface MapWindow: Window
 {
-	IBOutlet id		scrollview_i;
+	IBOutlet NSScrollView	*scrollview_i;
 	IBOutlet MapView		*mapview_i;
 	
 #ifdef REDOOMED
@@ -28,12 +28,12 @@
 	NXPoint	presizeorigin;			// map view origin before resize
 }
 
-- initFromEditWorld;
+- (instancetype)initFromEditWorld;
 @property (readonly, assign) MapView* mapView;
 
-- scalemenu;
+@property (readonly, assign) PopUpList *scalemenu;
 - scalebutton;
-- gridmenu;
+@property (readonly, assign) PopUpList *gridmenu;
 - gridbutton;
 
 - reDisplay: (NXRect *)dirty;

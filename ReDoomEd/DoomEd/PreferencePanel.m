@@ -4,7 +4,7 @@
 #import "MapWindow.h"
 #import "DoomProject.h"
 
-id	prefpanel_i;
+PreferencePanel *prefpanel_i;
 
 char		*ucolornames[NUMCOLORS] =
 {
@@ -304,7 +304,7 @@ int			openupValues[NUMOPENUP];
 #endif
 			
 		for (i = 0;i < NUMOPENUP;i++)
-			[[openupDefaults_i	findCellWithTag:i]
+			[[openupDefaults_i	cellWithTag:i]
 				setIntValue:openupValues[i]];
 	}
 
@@ -329,12 +329,11 @@ int			openupValues[NUMOPENUP];
 
 - (IBAction)colorChanged:sender
 {
-	int	i;
-	id	list, win;
+	NSArray *list;
 	
 // get current colors
 
-	for (i=0 ; i<NUMCOLORS ; i++)
+	for (NSInteger i=0 ; i<NUMCOLORS ; i++)
 #ifdef REDOOMED
 		color[i] = RDE_NXColorFromNSColor([colorwell[i] color]);
 #else // Original
@@ -342,13 +341,10 @@ int			openupValues[NUMOPENUP];
 #endif
 
 // update all windows
-	list = [NXApp windowList];
-	i = [list count];
-	while (--i >= 0)
-	{
-		win = [list objectAtIndex: i];
+	list = [NSApp windows];
+	for (NSWindow *win in list.reverseObjectEnumerator) {
 		if ([win class] == [MapWindow class])
-			[[win mapView] display];
+			[[(MapWindow*)win mapView] display];
 	}
 }
 
@@ -364,8 +360,10 @@ int			openupValues[NUMOPENUP];
 
 - (int)getLaunchThingType
 {
-	return	launchThingType;
+	return self.launchThingType;
 }
+
+@synthesize launchThingType;
 
 - (IBAction)projectPathChanged:sender
 {
@@ -404,7 +402,7 @@ int			openupValues[NUMOPENUP];
 	openupValues[[cell tag]] = [cell intValue];
 }
 
-- (char *)getProjectPath
+- (const char *)getProjectPath
 {
 	return	projectPath;
 }

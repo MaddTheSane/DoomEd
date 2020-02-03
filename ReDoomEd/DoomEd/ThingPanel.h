@@ -31,17 +31,17 @@ typedef struct
 #define DIFF_HARD	2
 #define DIFF_ALL	3
 
-@interface ThingPanel:Object
+@interface ThingPanel:NSObject <NSWindowDelegate>
 {
 	IBOutlet NSForm	*fields_i;
- 	IBOutlet NSWindow	*window_i;
-	id	addButton_i;
-	id	updateButton_i;
-	id	nameField_i;
-	id	thingBrowser_i;
-	id	thingColor_i;
-	id	thingAngle_i;
-	id	masterList_i;
+ 	IBOutlet NSPanel *window_i;
+	IBOutlet id	addButton_i;
+	IBOutlet id	updateButton_i;
+	IBOutlet id	nameField_i;
+	IBOutlet id	thingBrowser_i;
+	IBOutlet id	thingColor_i;
+	IBOutlet id	thingAngle_i;
+	IBOutlet id	masterList_i;
 	IBOutlet NSTextField	*iconField_i;
 	IBOutlet NSButton	*ambush_i;		// switch
 	IBOutlet NSButton	*network_i;		// switch
@@ -71,15 +71,15 @@ typedef struct
 - fillDataFromThing:(thinglist_t *)thing;
 - fillAllDataFromThing:(thinglist_t *)thing;
 - (IBAction)addThing:sender;
-- (int)findThing:(char *)string;
-- (thinglist_t *)getThingData:(int)index;
+- (NSInteger)findThing:(char *)string;
+- (thinglist_t *)getThingData:(NSInteger)index;
 - (IBAction)chooseThing:sender;
 - (IBAction)confirmCorrectNameEntry:sender;
 - getThing:(worldthing_t	*)thing;
 - setThing:(worldthing_t *)thing;
-- (int)searchForThingType:(int)type;
+- (NSInteger)searchForThingType:(int)type;
 - (IBAction)suggestNewType:sender;
-- scrollToItem:(int)which;
+- scrollToItem:(NSInteger)which;
 - getThingList;
 
 - (IBAction)verifyIconName:sender;

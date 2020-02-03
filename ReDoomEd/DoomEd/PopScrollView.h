@@ -8,10 +8,12 @@
 
 @interface PopScrollView : ScrollView
 {
-	id	button1, button2;
+	__unsafe_unretained NSButton *button1, *button2;
 }
 
-- initFrame:(const NXRect *)frameRect button1: b1 button2: b2;
+- (id)initFrame:(const NXRect *)frameRect button1: b1 button2: b2 API_DEPRECATED_WITH_REPLACEMENT("-initWithFrame:button1:button2:", macos(10.0, 10.0));
+
+- (instancetype)initWithFrame:(NSRect)frameRect button1:(NSButton*)b1 button2:(NSButton*)b2;
 
 #ifdef REDOOMED
 // Cocoa version

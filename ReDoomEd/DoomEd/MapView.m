@@ -64,7 +64,7 @@ BOOL	linecross[9][9];
 #ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (gridsize, scale)
 	NXSetRect (&aRect, 0,0, 100,100);	// call -setOrigin after installing in clip view
-	self = [super initFrame: &aRect];	// to set the proper rectangle
+	self = [super initWithFrame: aRect];	// to set the proper rectangle
 
 	if (!self)
 		return nil;

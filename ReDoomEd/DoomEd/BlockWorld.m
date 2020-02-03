@@ -56,7 +56,7 @@ id		pan;
 		[editworld_i selectPoint: lines[line2].p2];
 	}
 	[editworld_i redrawWindows];
-	NXRunAlertPanel ("Sector error",msg,NULL,NULL,NULL);
+	NXRunAlertPanel ("Sector error","%s",NULL,NULL,NULL, msg);
 	return self;
 }
 

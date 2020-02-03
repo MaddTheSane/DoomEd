@@ -4,7 +4,7 @@
 #import	"ThingPanel.h"
 #import	"ThingRemapper.h"
 
-id	thingRemapper_i;
+ThingRemapper *thingRemapper_i;
 
 @implementation ThingRemapper
 //===================================================================
@@ -23,12 +23,12 @@ id	thingRemapper_i;
 
 	thingRemapper_i = self;
 	
-	remapper_i = [ [ Remapper	alloc ]
-				setFrameName:"ThingRemapper"
-				setPanelTitle:"Thing Remapper"
-				setBrowserTitle:"List of things to be remapped"
-				setRemapString:"Thing"
-				setDelegate:self ];
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i setFrameName:@"ThingRemapper"
+				  panelTitle:@"Thing Remapper"
+				browserTitle:@"List of things to be remapped"
+				 remapString:@"Thing"
+					delegate:self];
 	return self;
 }
 
@@ -37,10 +37,9 @@ id	thingRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
 - addToList:(char *)orgname to:(char *)newname;
@@ -54,7 +53,7 @@ id	thingRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (char *)getOriginalName
+- (const char *)getOriginalName
 {
 	thinglist_t	*t;
 	
@@ -64,7 +63,7 @@ id	thingRemapper_i;
 	return t->name;
 }
 
-- (char *)getNewName
+- (const char *)getNewName
 {
 	thinglist_t	*t;
 	
@@ -97,10 +96,9 @@ id	thingRemapper_i;
 	return thingnum;
 }
 
-- finishUp
+- (void)finishUp
 {
 	[editworld_i	redrawWindows];
-	return self;
 }
 
 @end

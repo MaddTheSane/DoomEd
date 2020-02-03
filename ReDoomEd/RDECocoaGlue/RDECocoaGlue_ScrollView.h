@@ -31,10 +31,10 @@
 
 - (id) initFrame: (const NSRect *) frameRectPtr;
 
-- (id) setDocView: (NSView *) aView;
+- (id) setDocView: (NSView *) aView API_DEPRECATED_WITH_REPLACEMENT("-setDocumentView:", macos(10.0, 10.0));
 
-- (id) setHorizScrollerRequired: (BOOL) flag;
-- (id) setVertScrollerRequired: (BOOL) flag;
+- (id) setHorizScrollerRequired: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setHasHorizontalScroller:", macos(10.0, 10.0));
+- (id) setVertScrollerRequired: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setHasVerticalScroller:", macos(10.0, 10.0));
 
 - (id) getDocVisibleRect: (NSRect *) aRect;
 

@@ -47,9 +47,13 @@ typedef struct
 
 //============================================================================
 
-extern	id	doomproject_i;
-extern	id	wadfile_i;
-extern	id	log_i;
+@class DoomProject;
+@class Wadfile;
+@class TextLog;
+
+extern DoomProject *doomproject_i;
+extern Wadfile *wadfile_i;
+extern TextLog *log_i;
 
 extern	int	numtextures;
 extern	worldtexture_t		*textures;
@@ -96,7 +100,7 @@ extern	char	bsphost[32];		// bsp host machine
 
 - init;
 - (IBAction)displayLog:sender;
-- (BOOL)loaded;
+@property (readonly) BOOL loaded;
 - (char *)wadfile;
 - (char const *)directory;
 
@@ -131,14 +135,14 @@ extern	char	bsphost[32];		// bsp host machine
 - updateThings;
 - updateSectorSpecials;
 - updateLineSpecials;
-- saveFrame;
+- (void)saveFrame;
 - changeWADfile:(char *)string;
 - quit;
-- setDirtyProject:(BOOL)truth;
-- setDirtyMap:(BOOL)truth;
-- (BOOL)projectDirty;
-- (BOOL)mapDirty;
-- checkDirtyProject;
+- setDirtyProject:(BOOL)truth API_DEPRECATED_WITH_REPLACEMENT("-setProjectDirty:", macos(10.0, 10.0));
+- setDirtyMap:(BOOL)truth API_DEPRECATED_WITH_REPLACEMENT("-setMapDirty:", macos(10.0, 10.0));
+@property (nonatomic) BOOL projectDirty;
+@property (nonatomic) BOOL mapDirty;
+- (void)checkDirtyProject;
 
 - (IBAction)printPrefs:sender;
 - (IBAction)togglePanel:sender;

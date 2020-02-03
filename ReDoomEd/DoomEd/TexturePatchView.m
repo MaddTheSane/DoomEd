@@ -14,11 +14,11 @@
 //	Init the storage for the Patch Palette dividers
 //
 //==============================================================
-- initFrame:(const NXRect *)frameRect
+- initWithFrame:(NSRect)frameRect
 {
 #ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (dividers_i)
-	self = [super initFrame: frameRect];
+	self = [super initWithFrame: frameRect];
 
 	if (!self)
 		return nil;

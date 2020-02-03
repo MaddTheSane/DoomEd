@@ -5,11 +5,11 @@
 #import "FlatsView.h"
 
 @implementation FlatsView
-- initFrame:(const NXRect *)frameRect
+- initWithFrame:(NSRect)frameRect
 {
 #ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (dividers_i)
-	self = [super initFrame: frameRect];
+	self = [super initWithFrame: frameRect];
 
 	if (!self)
 		return nil;
@@ -48,7 +48,7 @@
 - drawSelf:(const NXRect *)rects :(int)rectCount
 {
 	flat_t	*f;
-	int	max, i, cf;
+	NSInteger	max, i, cf;
 	NXRect	r;
 	divider_t	*d;
 #ifdef REDOOMED
@@ -56,7 +56,7 @@
 	NSRect bounds = [self bounds];
 #endif
 	
-	cf = [sectorEdit_i	getCurrentFlat];
+	cf = [sectorEdit_i	currentFlat];
 	if (cf >= 0)
 	{
 		f = [sectorEdit_i	getFlat:cf];
@@ -68,7 +68,7 @@
 		DE_DrawOutline(&r);
 	}
 	
-	max = [sectorEdit_i	getNumFlats];
+	max = [sectorEdit_i	countOfFlats];
 	for (i = 0; i < max; i++)
 	{
 		f = [sectorEdit_i	getFlat:i];

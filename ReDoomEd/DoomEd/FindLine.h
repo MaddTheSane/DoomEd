@@ -23,7 +23,7 @@
 #   define	PREFNAME	"FindLinePanel"
 #endif
 
-- (int)getRealLineNum:(int)num;
+- (NSInteger)getRealLineNum:(int)num;
 - (IBAction)findLine:sender;
 - (IBAction)deleteLine:sender;
 - (IBAction)menuTarget:sender;

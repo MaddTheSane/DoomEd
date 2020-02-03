@@ -16,28 +16,24 @@
 
 - initFrame:(const NXRect *)frameRect button1:b1 button2:b2
 {
-#ifdef REDOOMED
-	self =
-#endif
-	[super  initFrame: frameRect];	
-
-#ifdef REDOOMED
-	if (!self)
-		return nil;
-#endif
-
-	[self addSubview: b1];
-	[self addSubview: b2];
-
-	button1 = b1;
-	button2 = b2;
-
-	[self setHorizScrollerRequired: YES];
-	[self setVertScrollerRequired: YES];
-		
-	return self;
+	return self = [self initWithFrame:*frameRect button1:button1 button2:button2];
 }
 
+- (instancetype)initWithFrame:(NSRect)frameRect button1:(NSButton*)b1 button2:(NSButton*)b2
+{
+	if (self = [super initWithFrame: frameRect]) {
+		[self addSubview: b1];
+		[self addSubview: b2];
+
+		button1 = b1;
+		button2 = b2;
+
+		[self setHasHorizontalScroller: YES];
+		[self setHasVerticalScroller: YES];
+	}
+			
+	return self;
+}
 
 /*
 ================

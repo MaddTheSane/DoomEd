@@ -8,14 +8,16 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern	id	thingRemapper_i;
+@class ThingRemapper;
+extern ThingRemapper *thingRemapper_i;
 
-@interface ThingRemapper:Object <Remapper>
+/// REMAP FLATS IN MAP
+@interface ThingRemapper:NSObject <Remapper>
 {
-	id	remapper_i;
+	Remapper *remapper_i;
 }
 
-- menuTarget:sender;
+- (IBAction)menuTarget:sender;
 - addToList:(char *)orgname to:(char *)newname;
 
 @end

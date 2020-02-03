@@ -26,20 +26,20 @@
 
 @interface NSMatrix (RDECocoaGlue_MatrixMethods)
 
-- (id) getNumRows: (int *) rowCount numCols: (int *) colCount;
+- (id) getNumRows: (int *) rowCount numCols: (int *) colCount API_DEPRECATED_WITH_REPLACEMENT("-getNumberOfRows:columns:", macos(10.0, 10.0));
 
-- (NSCell *) cellAt: (int) row : (int) col;
+- (NSCell *) cellAt: (int) row : (int) col API_DEPRECATED_WITH_REPLACEMENT("-cellAtRow:column:", macos(10.0, 10.0));
 
-- (id) selectCellAt: (int) row : (int) col;
+- (id) selectCellAt: (int) row : (int) col API_DEPRECATED_WITH_REPLACEMENT("-selectCellAtRow:column:", macos(10.0, 10.0));
 
-- (int) selectedCol;
+- (int) selectedCol API_DEPRECATED_WITH_REPLACEMENT("-selectedColumn", macos(10.0, 10.0));
 
-- (id) findCellWithTag: (int) anInt;
+- (id) findCellWithTag: (int) anInt API_DEPRECATED_WITH_REPLACEMENT("-cellWithTag:", macos(10.0, 10.0));
 
 - (id) removeRowAt: (int) row andFree: (BOOL) flag;
 
-- (id) scrollCellToVisible: (int) row : (int) col;
+- (id) scrollCellToVisible: (int) row : (int) col API_DEPRECATED_WITH_REPLACEMENT("-scrollCellToVisibleAtRow:column:", macos(10.0, 10.0));
 
-- (id) insertRowAt: (int) row;
+- (id) insertRowAt: (int) row API_DEPRECATED_WITH_REPLACEMENT("-insertRow:", macos(10.0, 10.0));
 
 @end

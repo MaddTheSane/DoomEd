@@ -86,7 +86,7 @@
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
 	NSWindow *window = [self window];
-	unsigned int eventType;
+	NSEventType eventType;
 #endif
 			
 #ifdef REDOOMED
@@ -101,11 +101,11 @@
 	
 	do 
 	{
-		event = [NXApp getNextEvent: NX_MOUSEUPMASK | NX_RMOUSEUPMASK | NX_MOUSEDRAGGEDMASK | NX_RMOUSEDRAGGEDMASK];
+		event = [NXApp getNextEvent: NSLeftMouseUpMask | NSRightMouseUpMask | NSLeftMouseDraggedMask | NSRightMouseDraggedMask];
 
 #ifdef REDOOMED
 		eventType = [event type];
-		if (eventType == NX_MOUSEUP || eventType == NX_RMOUSEUP)
+		if (eventType == NSLeftMouseUp || eventType == NSRightMouseUp)
 			break;
 
 		pt = [event locationInWindow];
@@ -164,7 +164,8 @@
 	char	const	*item;
 	float			nscale;
 	id			itemlist;
-	int			selected, numrows, numcollumns;
+	NSInteger	selected;
+	int numrows, numcollumns;
 	NXPoint		origin;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
@@ -1110,7 +1111,7 @@
 	int	i,player1Type;
 	worldthing_t	oldthing,newthing;
 	
-	player1Type = [prefpanel_i	getLaunchThingType];
+	player1Type = [prefpanel_i	launchThingType];
 	[self getPoint: &pt from: event];
 	for (i=0;i < numthings; i++)
 		if (things[i].type == player1Type)

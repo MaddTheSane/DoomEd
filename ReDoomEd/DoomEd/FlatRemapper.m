@@ -4,7 +4,7 @@
 #import	"SectorEditor.h"
 #import	"FlatRemapper.h"
 
-id	flatRemapper_i;
+FlatRemapper *flatRemapper_i;
 
 @implementation FlatRemapper
 //===================================================================
@@ -23,12 +23,12 @@ id	flatRemapper_i;
 
 	flatRemapper_i = self;
 	
-	remapper_i = [ [ Remapper	alloc ]
-				setFrameName:"FlatRemapper"
-				setPanelTitle:"Flat Remapper"
-				setBrowserTitle:"List of flats to be remapped"
-				setRemapString:"Flat"
-				setDelegate:self ];
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i setFrameName:@"FlatRemapper"
+				  panelTitle:@"Flat Remapper"
+				browserTitle:@"List of flats to be remapped"
+				 remapString:@"Flat"
+					delegate:self];
 	return self;
 }
 
@@ -54,14 +54,14 @@ id	flatRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (char *)getOriginalName
+- (const char *)getOriginalName
 {
-	return [sectorEdit_i	flatName:[sectorEdit_i getCurrentFlat] ];
+	return [sectorEdit_i	flatName:[sectorEdit_i currentFlat] ];
 }
 
-- (char *)getNewName
+- (const char *)getNewName
 {
-	return [sectorEdit_i	flatName:[sectorEdit_i getCurrentFlat] ];
+	return [sectorEdit_i	flatName:[sectorEdit_i currentFlat] ];
 }
 
 - (int)doRemap:(char *)oldname to:(char *)newname
@@ -116,9 +116,8 @@ id	flatRemapper_i;
 	return linenum;
 }
 
-- finishUp
+- (void)finishUp
 {
-	return self;
 }
 
 @end

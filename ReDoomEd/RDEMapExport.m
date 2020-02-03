@@ -292,7 +292,7 @@ ERROR:
     }
     else if (panelReturnCode == NSAlertOtherReturn) // Lose Changes
     {
-        [self setDirtyMap: FALSE];
+        [self setMapDirty: FALSE];
     }
     else // Cancel Export
     {

@@ -27,9 +27,9 @@
 @implementation NSWindow (RDECocoaGlue_WindowMethods)
 
 - (id) initContent: (const NSRect *) contentRectPtr
-        style: (unsigned int) styleMask
+        style: (NSUInteger) styleMask
         backing: (NSBackingStoreType) backingStoreType
-        buttonMask: (unsigned int) buttonMask
+        buttonMask: (NSUInteger) buttonMask
         defer: (BOOL) flag
 {
     return [self initWithContentRect: *contentRectPtr
@@ -92,16 +92,11 @@
 
 - (id) setTitleAsFilename: (const char *) aString
 {
-    NSString *filename = [RDE_NSStringFromCString(aString) lastPathComponent];
+    NSString *fullName = RDE_NSStringFromCString(aString);
+    NSString *filename = [fullName lastPathComponent];
 
+    [self setRepresentedURL:[NSURL fileURLWithPath:fullName]];
     [self setTitle: filename];
-
-    return self;
-}
-
-- (id) setDocEdited: (BOOL) flag
-{
-    [self setDocumentEdited: flag];
 
     return self;
 }

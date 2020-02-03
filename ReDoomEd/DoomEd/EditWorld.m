@@ -315,13 +315,13 @@ int LineByPoint (NXPoint *ptin, int *side)
 {
 	if ([doomproject_i	mapDirty])
 	{
-		int	val;
+		NSInteger val;
 		
 		val = NXRunAlertPanel("Hey!","Your map has been modified! Save it?",
 			"Yes","No",NULL);
 		if (val == NX_ALERTDEFAULT)
-			[self	saveWorld:NULL];
-		[doomproject_i	setDirtyMap:FALSE];
+			[self saveWorld:NULL];
+		[doomproject_i setMapDirty:FALSE];
 	}	
 
 	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
@@ -331,8 +331,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 	[[windowlist_i	objectAtIndex:0] performClose: self];
 #endif
 
-	[windowlist_i makeObjectsPerform: @selector(free)];
-	[windowlist_i free];
+	[windowlist_i removeAllObjects];
+	[windowlist_i release];
 	windowlist_i = [[List alloc] init];
 		
 	numpoints = numlines = numthings = 0;
@@ -357,20 +357,20 @@ int LineByPoint (NXPoint *ptin, int *side)
 =====================
 */
 
-- newWindow:sender
+- (IBAction)newWindow:sender
 {
 	id	win;
 	
 	if (!loaded)
 	{
 		NXRunAlertPanel ("Error","No world open",NULL,NULL,NULL);
-		return nil;
+		return;
 	}
 	
 			
 	win = [[MapWindow alloc] initFromEditWorld];
 	if (!win)
-		return NULL;
+		return;
 		
 	[windowlist_i addObject: win];
 
@@ -382,8 +382,6 @@ int LineByPoint (NXPoint *ptin, int *side)
 	[win	setFrameUsingName:WORLDNAME];
 	[win display];
 	[win makeKeyAndOrderFront:self];
-		
-	return self;
 }
 
 //===============================================================
@@ -391,7 +389,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 //	Save DoomEd map and run BSP program
 //
 //===============================================================
-- saveDoomEdMapBSP:sender
+- (IBAction)saveDoomEdMapBSP:sender
 {
 	char		string[1024];
 #ifdef REDOOMED
@@ -412,7 +410,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	if (!loaded)
 	{
 		NXRunAlertPanel ("Error","No world open",NULL,NULL,NULL);
-		return nil;
+		return;
 	}
 
 	printf ("Saving DoomEd map\n");
@@ -434,7 +432,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 #endif
 		"Map: %s\nMapWADdir: %s\nBSPprogram:%s\nHost: %s",
 		fromPath,toPath,bspprogram,bsphost);
-	panel = NXGetAlertPanel("Wait...",string,NULL,NULL,NULL);
+	panel = NXGetAlertPanel("Wait...","%s",NULL,NULL,NULL, string);
 	[panel	orderFront:NULL];
 	NXPing();
 
@@ -456,7 +454,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		NXFreeAlertPanel(panel);
 
 #ifdef REDOOMED
-		return self;
+		return;
 #else // Original
 		sprintf(string,"rsh attempt returned:%d\n",err);
 		panel = NXGetAlertPanel("rsh error!",string,NULL,NULL,NULL);
@@ -467,10 +465,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 	[panel	orderOut:NULL];
 	NXFreeAlertPanel(panel);
-	[doomproject_i	setDirtyMap:FALSE];
+			 [doomproject_i	setMapDirty:FALSE];
 	[saveSound	play];
-
-	return self;
 }
 
 
@@ -482,7 +478,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 =====================
 */
 
-- saveWorld:sender
+- (IBAction)saveWorld:sender
 {
 	FILE			*stream;
 	id			pan;
@@ -490,7 +486,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	if (!loaded)
 	{
 		NXRunAlertPanel ("Error","No world open",NULL,NULL,NULL);
-		return nil;
+		return;
 	}
 	
 	pan = NXGetAlertPanel ("One moment","Saving",NULL,NULL,NULL);
@@ -504,12 +500,10 @@ int LineByPoint (NXPoint *ptin, int *side)
 	[self saveFile: stream];
 	fclose (stream);
 //	dirty = NO;
-	[doomproject_i	setDirtyMap:FALSE];
+	[doomproject_i	setMapDirty:FALSE];
 	
 	[pan	orderOut:NULL];
 	NXFreeAlertPanel	(pan);
-
-	return self;
 }
 
 
@@ -521,7 +515,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 =====================
 */
 
-- print: sender
+- (IBAction)print: sender
 {
 #ifdef REDOOMED
 	// use MapWindow* typecast so compiler finds correct signature for mapView method
@@ -529,8 +523,6 @@ int LineByPoint (NXPoint *ptin, int *side)
 #else // Original
 	[[[NXApp mainWindow] mapView] printPSCode: sender];
 #endif
-	
-	return self;
 }
 
 
@@ -659,7 +651,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 {
 	if ([doomproject_i	mapDirty])
 	{
-		int	val;
+		NSInteger	val;
 		
 		val = NXRunAlertPanel("Hey!","Your map has been modified! Save it?",
 			"Yes","No",NULL);
@@ -669,7 +661,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 #ifdef REDOOMED
 		// clear the mapdirty flag, otherwise another "map has been modified" alert
 		// will display when -[EditWorld closeWorld] is called
-		[doomproject_i	setDirtyMap:FALSE];
+		[doomproject_i	setMapDirty:FALSE];
 #endif
 	}
 	
@@ -681,31 +673,27 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 }
 
 
-- updateWindows
+- (void)updateWindows
 {
-	int	count;
-	
 	if (!dirtyrect.size.width)
-		return self;		// nothing to update
+		return;		// nothing to update
 
-	count = [windowlist_i count];
-	while (--count > -1)
-		[[windowlist_i objectAtIndex: count] reDisplay: &dirtyrect];
+	for (MapWindow *win in windowlist_i.reverseObjectEnumerator) {
+		[win reDisplay: &dirtyrect];
+	}
 		
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
 	[thingpanel_i updateThingInspector];
-	return self;
 }
 
-- redrawWindows
+- (void)redrawWindows
 {
-	[windowlist_i makeObjectsPerform: @selector(display)];
+	[windowlist_i makeObjectsPerformSelector: @selector(display)];
 
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	[linepanel_i updateLineInspector];
 	[thingpanel_i updateThingInspector];
-	return self;
 }
 
 - getMainWindow
@@ -939,14 +927,14 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- flipSelectedLines: sender
+- (IBAction)flipSelectedLines: sender
 {
 	worldline_t	line;
 	int			i;
 	NXPoint		p1,p2;
 	
 	if (!loaded)
-		return self;
+		return;
 	
 // FIXME: much easier now
 	
@@ -963,8 +951,6 @@ FIXME: make these scan for deleted entries
 		}
 		
 	[self updateWindows];
-
-	return self;
 }
 
 /*
@@ -977,7 +963,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- fusePoints: sender
+- (IBAction)fusePoints: sender
 {
 	int	i, j, k;
 	NXPoint	*p1, *p2;
@@ -1021,8 +1007,6 @@ FIXME: make these scan for deleted entries
 	}
 	
 	[self updateWindows];
-
-	return self;
 }
 
 
@@ -1036,7 +1020,7 @@ FIXME: make these scan for deleted entries
 ========================
 */
 
-- seperatePoints: sender
+- (IBAction)seperatePoints: sender
 {
 	int	i, k;
 	worldline_t	*line;
@@ -1070,8 +1054,6 @@ FIXME: make these scan for deleted entries
 	}
 	
 	[self updateWindows];
-
-	return self;
 }
 
 /*
@@ -1187,13 +1169,12 @@ FIXME: make these scan for deleted entries
 	return p;
 }
 
-- cut: sender
+- (IBAction)cut: sender
 {
 	[self	storeCopies];
 	[self	delete:NULL];
 	[self	copyDeselect];
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1205,12 +1186,11 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- copy: sender
+- (IBAction)copy: sender
 {
 	[self	storeCopies];
 	[self	copyDeselect];
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1222,7 +1202,7 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- paste: sender
+- (IBAction)paste: sender
 {
 	int		xadd,yadd,i,max, index;
 	NXRect	r;
@@ -1271,7 +1251,6 @@ FIXME: make these scan for deleted entries
 	}
 	
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1283,7 +1262,7 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-- delete: sender
+- (IBAction)delete: sender
 {
 	int	i;
 	worldline_t	line;
@@ -1311,7 +1290,6 @@ FIXME: make these scan for deleted entries
 		}
 
 	[self updateWindows];
-	return self;
 }
 
 
@@ -1336,7 +1314,7 @@ Updates dirty rect based on old and new positions
 - changePoint: (int) num to: (worldpoint_t *) data
 {
 	int	i;
-	BOOL	moved;
+	BOOL	moved = NO;
 	
 	boundsdirty = YES;
 //printf ("changePoint: %i\n",num);
@@ -1413,7 +1391,7 @@ Updates dirty rect based on old and new positions
 	{
 		if (![doomproject_i mapDirty])
 		{
-			[doomproject_i setDirtyMap: TRUE];
+			[doomproject_i setMapDirty: TRUE];
 		}
 	}
 #endif

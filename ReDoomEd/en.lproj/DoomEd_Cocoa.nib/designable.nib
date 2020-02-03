@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -881,6 +881,7 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="makeKeyAndOrderFront:" target="132" id="288"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="ixr-ob-9gb"/>
                             <menuItem title="Preferences..." keyEquivalent="," id="223">
                                 <connections>
                                     <action selector="menuTarget:" target="124" id="289"/>
@@ -889,6 +890,11 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                             <menuItem isSeparatorItem="YES" id="278">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
+                            <menuItem title="Services" id="CJZ-Xo-hte">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Services" id="2fC-xs-ROA"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="mOU-Z0-QXM"/>
                             <menuItem title="Hide ReDoomEd" keyEquivalent="h" id="280">
                                 <connections>
                                     <action selector="hide:" target="-2" id="291"/>
@@ -1158,7 +1164,7 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="4LP-zy-K1S">
                         <items>
-                            <menuItem title="Application Help" keyEquivalent="?" id="bjV-Kj-bSt">
+                            <menuItem title="ReDoomEd Help" keyEquivalent="?" id="bjV-Kj-bSt">
                                 <connections>
                                     <action selector="showHelp:" target="-1" id="ToE-0n-VZp"/>
                                 </connections>

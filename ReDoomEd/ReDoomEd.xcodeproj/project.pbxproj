@@ -431,6 +431,7 @@
 			);
 			name = ReDoomEd;
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		034DD85C21EED4A4005E2BC0 /* Utilities (from PikoPixel) */ = {
 			isa = PBXGroup;

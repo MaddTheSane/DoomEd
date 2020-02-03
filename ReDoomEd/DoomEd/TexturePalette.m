@@ -90,7 +90,7 @@ TexturePalette	*texturePalette_i;
 		return self;
 }
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (![doomproject_i loaded])
 	{
@@ -98,7 +98,7 @@ TexturePalette	*texturePalette_i;
 						"There must be a project loaded before you even\n"
 						"THINK about choosing textures!",
 						"OK",NULL,NULL,NULL);
-		return self;
+		return;
 	}
 		
 	if (!window_i)
@@ -114,7 +114,6 @@ TexturePalette	*texturePalette_i;
 	}
 
 	[window_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - unused)
@@ -174,8 +173,8 @@ TexturePalette	*texturePalette_i;
 	t.WADindex = textures[which].WADindex;
 	strcpy(t.name,textures[which].name);
 	t.patchamount = textures[which].patchcount;
-	t.image = [[NXImage alloc]
-			initSize:	&s];
+	t.image = [[NSImage alloc]
+			   initWithSize:s];
 	[t.image	 useCacheWithDepth:NX_TwelveBitRGBDepth];
 	[t.image	lockFocusOn:[t.image lastRepresentation]];
 	
@@ -228,7 +227,7 @@ TexturePalette	*texturePalette_i;
 
 	[self	computePalViewSize];
 	[self	selectTexture:which];
-	[doomproject_i	setDirtyProject:TRUE];
+	[doomproject_i	setProjectDirty:TRUE];
 	
 	return self;
 }
@@ -310,7 +309,7 @@ TexturePalette	*texturePalette_i;
 		
 		t->r.origin.x = x;
 		t->r.origin.y = y;
-		[t->image	getSize:&imagesize];
+		imagesize = t->image.size;
 		if (imagesize.width > maxwidth)
 			maxwidth = imagesize.width;
 
@@ -459,7 +458,7 @@ TexturePalette	*texturePalette_i;
 	return self;
 }
 
-- searchForTexture:sender
+- (IBAction)searchForTexture:sender
 {
 	int	i, max, slen,j;
 	const char *string;
@@ -481,7 +480,7 @@ TexturePalette	*texturePalette_i;
 			if (!strncasecmp(string,t->name+j,slen))
 			{
 				[self	setSelTexture:t->name];
-				return self;
+				return;
 			}
 	}
 	
@@ -492,12 +491,11 @@ TexturePalette	*texturePalette_i;
 			if (!strncasecmp(string,t->name+j,slen))
 			{
 				[self	setSelTexture:t->name];
-				return self;
+				return;
 			}
 	}
 	
 	NXBeep();
-	return self;
 }
 
 - (int) currentSelection
@@ -505,14 +503,14 @@ TexturePalette	*texturePalette_i;
 	return selectedTexture;
 }
 
-- (int) getNumTextures
+- (NSInteger) getNumTextures
 {
 	return [allTextures	count];
 }
 
-- (int) getTextureIndex:(char *)name
+- (NSInteger) getTextureIndex:(const char *)name
 {
-	int	i,max;
+	NSInteger	i,max;
 	texpal_t	*t;
 	
 	if ((name[0]=='-') || (!name[0] ))
@@ -533,7 +531,7 @@ TexturePalette	*texturePalette_i;
 //	Search for specific width
 //
 //========================================================
-- searchWidth:sender
+- (IBAction)searchWidth:sender
 {
 	int	i, max,width;
 	texpal_t	*t;
@@ -546,7 +544,7 @@ TexturePalette	*texturePalette_i;
 		if (t->r.size.width == width)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
@@ -556,12 +554,11 @@ TexturePalette	*texturePalette_i;
 		if (t->r.size.width == width)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
-	NXBeep();
-	return self;
+	NSBeep();
 }
 
 //========================================================
@@ -569,12 +566,12 @@ TexturePalette	*texturePalette_i;
 //	Search for specific height
 //
 //========================================================
-- searchHeight:sender
+- (IBAction)searchHeight:sender
 {
-	int	i, max,height;
+	NSInteger	i, max,height;
 	texpal_t	*t;
 	
-	height = [heightSearch_i	intValue];
+	height = [heightSearch_i	integerValue];
 	max = [allTextures	count];
 	for (i = selectedTexture + 1;i < max;i++)
 	{
@@ -582,7 +579,7 @@ TexturePalette	*texturePalette_i;
 		if (t->r.size.height == height)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
@@ -592,12 +589,11 @@ TexturePalette	*texturePalette_i;
 		if (t->r.size.height == height)
 		{
 			[self	setSelTexture:t->name];
-			return self;
+			return;
 		}
 	}
 	
-	NXBeep();
-	return self;
+	NSBeep();
 }
 
 //========================================================
@@ -605,7 +601,7 @@ TexturePalette	*texturePalette_i;
 //	Show current texture in map by highlighting all lines that use it
 //
 //========================================================
-- showTextureInMap:sender
+- (IBAction)showTextureInMap:sender
 {
 	int		i;
 	int		found;
@@ -621,7 +617,7 @@ TexturePalette	*texturePalette_i;
 
 	strupr(name);
 	found = 0;
-	[log_i	msg:"Searching for texture in lines...\n"];
+	[log_i addMessage:@"Searching for texture in lines...\n"];
 	
 	for (i = 0;i < numlines;i++)
 		if ((!strcasecmp(lines[i].side[0].bottomtexture,name) ||
@@ -635,15 +631,15 @@ TexturePalette	*texturePalette_i;
 			[editworld_i	selectLine:i];
 			[editworld_i	selectPoint:lines[i].p1];
 			[editworld_i	selectPoint:lines[i].p2];
-			sprintf(string,"Showing line #%d\n",i);
-			[log_i	msg:string];
+			snprintf(string,sizeof(string),"Showing line #%d\n",i);
+			[log_i msg:string];
 			found = 1;
 		}
 
 	[editworld_i	redrawWindows];
 	if (found)
-		NXBeep();
-	return self;
+		NSBeep();
+	return;
 }
 
 //========================================================
@@ -652,20 +648,20 @@ TexturePalette	*texturePalette_i;
 //	and also save out .LS file for graphic
 //
 //========================================================
-- saveTextureLBM:sender
+- (IBAction)saveTextureLBM:sender
 {
 	int		cs;
 	char	lbmname[1024];
 	char	lsname[1024];
 	char	waddir[1024];
-	int		i;
+	size_t	i;
 	FILE	*fp;
 	
 	cs = [self	currentSelection];
 	if (cs < 0)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 
 	strcpy(waddir,[doomproject_i wadfile]);
@@ -690,7 +686,7 @@ TexturePalette	*texturePalette_i;
 	if (fp == NULL)
 	{
 		printf ("Error creating %s file!\n",lsname);
-		return self;
+		return;
 	}
 
 #ifdef REDOOMED
@@ -702,8 +698,6 @@ TexturePalette	*texturePalette_i;
 
 	createAndSaveLBM(lbmname, cs, fp);	
 	fclose (fp);
-	
-	return self;
 }
 
 //========================================================
@@ -712,13 +706,12 @@ TexturePalette	*texturePalette_i;
 //	and also save out .LS file for each graphic
 //
 //========================================================
-- saveAllTexturesAsLBM:sender
+- (IBAction)saveAllTexturesAsLBM:sender
 {
 	[lsPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
-- doSaveAllTexturesAsLBM:sender
+- (IBAction)doSaveAllTexturesAsLBM:sender
 {
 	char	lbmname[1024];
 	char	lsEnteredName[24];
@@ -740,8 +733,8 @@ TexturePalette	*texturePalette_i;
 
 	if ((!lsEnteredName[0]) || strlen(lsEnteredName)>12)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
 	strcpy(waddir,[doomproject_i wadfile]);
@@ -768,7 +761,7 @@ TexturePalette	*texturePalette_i;
 	if (fp == NULL)
 	{
 		printf ("Error creating %s file!\n",lsname);
-		return self;
+		return;
 	}
 	
 	for (j = 0; j < numtextures; j++)
@@ -797,7 +790,6 @@ TexturePalette	*texturePalette_i;
 	fclose (fp);
 	
 	[lsPanel_i	close];
-	return self;
 }
 
 

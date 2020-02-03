@@ -27,26 +27,26 @@
 @interface Storage : NSObject
 {
     unsigned char *_dataPtr;
-    unsigned int _numElements;
-    unsigned int _maxNumElements;
-    unsigned int _elementSize;
+    NSUInteger _numElements;
+    NSUInteger _maxNumElements;
+    NSUInteger _elementSize;
 }
 
-- (id) initCount: (unsigned int) count
-        elementSize: (unsigned int) sizeInBytes
+- (id) initCount: (NSInteger) count
+        elementSize: (NSInteger) sizeInBytes
         description: (char *) string;
 
-- (NSUInteger) count;
+@property (readonly) NSUInteger count;
 
-- (void *) elementAt: (unsigned int) index;
+- (void *) elementAt: (NSInteger) index;
 
 - (id) addElement: (void *) anElement;
 
-- (id) insertElement: (void *) anElement at: (unsigned int) index;
+- (id) insertElement: (void *) anElement at: (NSInteger) index;
 
-- (id) replaceElementAt: (unsigned int) index with: (void *) anElement;
+- (id) replaceElementAt: (NSInteger) index with: (void *) anElement;
 
-- (id) removeElementAt: (unsigned int) index;
+- (id) removeElementAt: (NSInteger) index;
 
 - (id) empty;
 

@@ -10,12 +10,13 @@
 
 @class TexturePalette;
 @class TexturePalView;
+@class Storage;
 
 extern TexturePalette *texturePalette_i;
 
 typedef struct
 {
-	id	image;
+	NSImage	*image;
 	int	patchamount;
 	char	 name[9];
 	NXRect	r;
@@ -37,7 +38,7 @@ typedef struct
 	IBOutlet NSTextField	*heightSearch_i;
 	
 	id	texturePatches;
-	id	allTextures;
+	Storage	*allTextures;
 	id	newTextures;
 	int	selectedTexture;
 	IBOutlet NSTextField	*lsTextField_i;
@@ -49,8 +50,8 @@ typedef struct
 - initTextures;
 - finishInit;
 - (IBAction)searchForTexture:sender;
-- (int) getNumTextures;
-- (int) getTextureIndex:(char *)name;
+- (NSInteger) getNumTextures;
+- (NSInteger) getTextureIndex:(const char *)name;
 - createAllTextureImages;
 - (texpal_t) createTextureImage:(int)which;
 

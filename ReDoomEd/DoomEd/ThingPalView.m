@@ -20,7 +20,7 @@
 	NSRect bounds = [self bounds];
 #endif
 	
-	ci = [thingPalette_i	getCurrentIcon];
+	ci = [thingPalette_i currentIcon];
 	if (ci >= 0)
 	{
 		icon = [thingPalette_i	getIcon:ci];

@@ -70,7 +70,7 @@ static NSString *CocoaNibNameForNibSection(char *nibSection);
     *returnedScreenSize = [[NSScreen mainScreen] visibleFrame].size;
 }
 
-- (unsigned int) runModalFor: (NSWindow *) theWindow
+- (NSModalResponse) runModalFor: (NSWindow *) theWindow
 {
     return [self runModalForWindow: theWindow];
 }

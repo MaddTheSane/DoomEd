@@ -31,8 +31,8 @@
 
 @implementation Storage
 
-- (id) initCount: (unsigned int) count
-        elementSize: (unsigned int) sizeInBytes
+- (id) initCount: (NSInteger) count
+        elementSize: (NSInteger) sizeInBytes
         description: (char *) string
 {
     self = [super init];
@@ -70,12 +70,9 @@ ERROR:
     [super dealloc];
 }
 
-- (NSUInteger) count
-{
-    return _numElements;
-}
+@synthesize count=_numElements;
 
-- (void *) elementAt: (unsigned int) index
+- (void *) elementAt: (NSInteger) index
 {
     if (index >= _numElements)
     {
@@ -93,7 +90,7 @@ ERROR:
     return [self insertElement: anElement at: _numElements];
 }
 
-- (id) insertElement: (void *) anElement at: (unsigned int) index
+- (id) insertElement: (void *) anElement at: (NSInteger) index
 {
     unsigned char *storageElement;
 
@@ -131,7 +128,7 @@ ERROR:
     return self;
 }
 
-- (id) replaceElementAt: (unsigned int) index with: (void *) anElement
+- (id) replaceElementAt: (NSInteger) index with: (void *) anElement
 {
     unsigned char *storageElement;
 
@@ -150,7 +147,7 @@ ERROR:
     return self;
 }
 
-- (id) removeElementAt: (unsigned int) index
+- (id) removeElementAt: (NSInteger) index
 {
     unsigned char *element;
 

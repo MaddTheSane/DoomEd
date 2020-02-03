@@ -23,7 +23,18 @@
   setRemapString:(char *)rstring
   setDelegate:(id)delegate
 {
-	strcpy(frameName,fname);
+	[self setFrameName:RDE_NSStringFromCString(fname) panelTitle:RDE_NSStringFromCString(ptitle) browserTitle:RDE_NSStringFromCString(btitle) remapString:RDE_NSStringFromCString(rstring) delegate:delegate];
+	return self;
+}
+
+- (void)setFrameName:(NSString *)fname
+  panelTitle:(NSString *)ptitle
+browserTitle:(NSString *)btitle
+ remapString:(NSString *)rstring
+	delegate:(id<Remapper>)delegate
+{
+	[frameName release];
+	frameName = [fname copy];
 	
 	if (! remapPanel_i )
 	{
@@ -39,7 +50,7 @@
 					description:	NULL];
 		
 #ifdef REDOOMED		
-		[remapPanel_i	setFrameUsingName:RDE_NSStringFromCString(fname)];
+		[remapPanel_i	setFrameUsingName:fname];
 		[status_i		setStringValue:@" "];
 #else // Original
 		[remapPanel_i	setFrameUsingName:fname];
@@ -48,9 +59,9 @@
 	}
 	
 #ifdef REDOOMED
-	[remapString_i	setStringValue:RDE_NSStringFromCString(rstring)];
-	[browser_i		setTitle:RDE_NSStringFromCString(btitle) ofColumn:0];
-	[remapPanel_i	setTitle:RDE_NSStringFromCString(ptitle)];
+	[remapString_i	setStringValue:rstring];
+	[browser_i		setTitle:btitle ofColumn:0];
+	[remapPanel_i	setTitle:ptitle];
 #else // Original
 	[remapString_i	setStringValue:rstring];
 	[browser_i		setTitle:btitle ofColumn:0];
@@ -58,8 +69,6 @@
 #endif	
 
 	delegate_i = delegate;
-	
-	return self;
 }
 
 //===================================================================
@@ -78,7 +87,7 @@
 //	Make delegate return string from source depending on which Get button was used
 //
 //===================================================================
-- remapGetButtons:sender
+- (IBAction)remapGetButtons:sender
 {
 	switch([sender	tag])
 	{
@@ -97,7 +106,6 @@
 #endif
 			break;
 	}
-	return self;
 }
 
 //===================================================================
@@ -123,10 +131,10 @@
 	return self;
 }
 
-- addToList:sender
+- (IBAction)addToList:sender
 {
 	type_t	r,	*r2;
-	int		i, max;
+	NSInteger i, max;
 		
 #ifdef REDOOMED
 	// prevent buffer overflows: strcpy() -> macroRDE_SafeCStringCopy()
@@ -159,14 +167,12 @@
 			(!strcmp(r2->newname,r.newname))  )
 			{
 				NXBeep ();
-				return self;
+				return;
 			}
 	}
 	
 	[storage_i	addElement:&r];
 	[browser_i	reloadColumn:0];
-	
-	return self;
 }
 
 //===================================================================
@@ -174,21 +180,19 @@
 //	Delete list entry
 //
 //===================================================================
-- deleteFromList:sender
+- (IBAction)deleteFromList:sender
 {
-	int	selRow;
+	NSInteger	selRow;
 	
 	matrix_i = [browser_i	matrixInColumn:0];
 	selRow = [matrix_i		selectedRow];
 	if (selRow < 0)
-		return self;
-	[matrix_i		removeRowAt:selRow andFree:YES ];
+		return;
+	[matrix_i		removeRow:selRow];
 	[matrix_i		sizeToCells];
-	[matrix_i		selectCellAt:-1 :-1];
+	[matrix_i		selectCellAtRow:-1 column:-1];
 	[storage_i	removeElementAt:selRow];
 	[browser_i	reloadColumn:0];
-	
-	return self;
 }
 
 //===================================================================
@@ -196,16 +200,16 @@
 //	Clear out the entire list
 //
 //===================================================================
-- clearList:sender
+- (IBAction)clearList:sender
 {
 	if (NXRunAlertPanel("Warning!",
 		"Are you sure you want\n"
 		"to clear the remapping list?",
 		"OK","Cancel",NULL) == NX_ALERTALTERNATE)
-		return self;
+		return;
 		
 #ifdef REDOOMED
-	[remapPanel_i	saveFrameUsingName:RDE_NSStringFromCString(frameName)];
+	[remapPanel_i	saveFrameUsingName:frameName];
 #else // Original		
 	[remapPanel_i	saveFrameUsingName:frameName];
 #endif
@@ -221,8 +225,6 @@
 #endif
 
 	[browser_i	reloadColumn:0];
-	
-	return self;
 }
 
 //===================================================================
@@ -230,10 +232,10 @@
 //	Actually do the remapping for current map
 //
 //===================================================================
-- doRemappingOneMap:sender
+- (IBAction)doRemappingOneMap:sender
 {
 	type_t	*r;
-	int		index, max;
+	NSInteger		index, max;
 	unsigned int		linenum;
 	char		*oldname, *newname, string[64];
 	
@@ -241,7 +243,7 @@
 	if (!max)
 	{
 		NXBeep ();
-		return self;
+		return;
 	}
 
 	linenum = 0;
@@ -263,9 +265,7 @@
 #endif
 
 	[ delegate_i	finishUp ];
-	[ doomproject_i	setDirtyMap:TRUE];
-	
-	return self;
+	[ doomproject_i	setMapDirty:TRUE];
 }
 
 //===================================================================
@@ -273,10 +273,10 @@
 //	Actually do the remapping for ALL MAPS
 //
 //===================================================================
-- doRemappingAllMaps:sender
+- (IBAction)doRemappingAllMaps:sender
 {
 	type_t	*r;
-	int		index, max;
+	NSInteger		index, max;
 	unsigned int		linenum, total;
 	char		*oldname, *newname, string[64];
 	
@@ -286,7 +286,7 @@
 	if (!max)
 	{
 		NXBeep ();
-		return self;
+		return;
 	}
 	total = 0;
 	
@@ -326,8 +326,6 @@
 #endif
 
 	[ delegate_i	finishUp ];
-	
-	return self;
 }
 
 //===================================================================
@@ -390,6 +388,14 @@
 #ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
 	return max;
 #endif
+}
+
+- (void)dealloc
+{
+	[frameName release];
+	frameName = nil;
+	
+	[super dealloc];
 }
 
 @end

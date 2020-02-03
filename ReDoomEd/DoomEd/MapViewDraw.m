@@ -280,7 +280,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 - drawPoints: (const NXRect *)rect
 {
 	NXRect	*unselected, *selected, *unsel_p, *sel_p, *use;
-	int		count;
+	NSInteger	count;
 	float		offset;
 	float		left, right, top, bottom;
 	worldpoint_t	const	*wp, *stop;

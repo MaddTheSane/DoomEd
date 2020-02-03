@@ -17,29 +17,31 @@ typedef struct
 #define	SPACING		10
 #define	ICONSIZE	48
 
+@class Storage;
+@class ThingPalView;
 @class ThingPalette;
 extern ThingPalette *thingPalette_i;
 
-@interface ThingPalette:Object
+@interface ThingPalette:NSObject <NSWindowDelegate>
 {
-	IBOutlet id		window_i;			// outlet
-	IBOutlet id		thingPalView_i;		// outlet
-	IBOutlet id		thingPalScrView_i;	// outlet
-	IBOutlet id		nameField_i;		// outlet
+	IBOutlet NSPanel		*window_i;			// outlet
+	IBOutlet ThingPalView	*thingPalView_i;	// outlet
+	IBOutlet NSScrollView	*thingPalScrView_i;	// outlet
+	IBOutlet NSTextField	*nameField_i;		// outlet
 	
-	id		thingImages;		// Storage for icons
+	Storage	*thingImages;		// Storage for icons
 	int		currentIcon;		// currently selected icon
 }
 
 - (IBAction)menuTarget:sender;
-- (int)findIcon:(char *)name;
-- (icon_t *)getIcon:(int)which;
+- (NSInteger)findIcon:(const char *)name;
+- (icon_t *)getIcon:(NSInteger)which;
 @property (nonatomic) int currentIcon;
 - (int)getCurrentIcon API_DEPRECATED_WITH_REPLACEMENT("-currentIcon", macos(10.0, 10.0));
 - (int)getNumIcons;
-- computeThingDocView;
-- initIcons;
-- dumpAllIcons;
+- (void)computeThingDocView;
+- (void)initIcons;
+- (void)dumpAllIcons;
 
 
 @end

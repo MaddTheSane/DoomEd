@@ -9,7 +9,7 @@
 #import	"DoomProject.h"
 
 LinePanel *linepanel_i;
-id	lineSpecialPanel_i;
+SpecialList *lineSpecialPanel_i;
 
 @implementation LinePanel
 
@@ -49,10 +49,10 @@ id	lineSpecialPanel_i;
 #ifdef REDOOMED
 	// - Added missing init call
 	// - Added (SpecialList *) typecast so the compiler uses the correct method signature
-	lineSpecialPanel_i = [(SpecialList *) [[[[SpecialList alloc] init]
-					setSpecialTitle:"Line Inspector - Specials"]
-					setFrameName:"LineSpecialPanel"]
-					setDelegate:self];
+	lineSpecialPanel_i = [[SpecialList alloc] init];
+	[lineSpecialPanel_i setSpecialTitle:"Line Inspector - Specials"];
+	[lineSpecialPanel_i setFrameName:"LineSpecialPanel"];
+	[lineSpecialPanel_i setDelegate:self];
 #else // Original
 	lineSpecialPanel_i = [[[[SpecialList	alloc]
 					setSpecialTitle:"Line Inspector - Specials"]
@@ -69,7 +69,7 @@ id	lineSpecialPanel_i;
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	[lineSpecialPanel_i	saveFrame];
 
@@ -84,8 +84,6 @@ id	lineSpecialPanel_i;
 	if (window_i)
 		[window_i	saveFrameUsingName:"LineInspector"];
 #endif
-
-	return self;
 }
 
 - specialChosen:(int)value
@@ -235,7 +233,7 @@ id	lineSpecialPanel_i;
 
 - updateInspector: (BOOL)force
 {
-	int		side;
+	NSInteger		side;
 	worldline_t	*line;
 	int		xlen;
 	int		ylen;
@@ -269,7 +267,7 @@ id	lineSpecialPanel_i;
 	[bottompeg_i setState:  (line->flags&ML_DONTPEGBOTTOM) > 0];
 	[twosided_i setState:  (line->flags&ML_TWOSIDED) > 0];
 
-	side = [sideradio_i selectedCol];	
+	side = [sideradio_i selectedColumn];
 	[self setSide: &line->side[side]];
 	
 	//
@@ -448,11 +446,11 @@ id	lineSpecialPanel_i;
 
 - (IBAction)sideChanged: sender
 {
-	int		i,side;
+	NSInteger		i,side;
 	worldside_t	new;
 	worldline_t	*line;
 	
-	side = [sideradio_i selectedCol];
+	side = [sideradio_i selectedColumn];
 	[self getSide: &new];
 	for (i=0 ; i<numlines ; i++)
 		if (lines[i].selected > 0)
@@ -461,7 +459,7 @@ id	lineSpecialPanel_i;
 			new.ends = line->side[side].ends;
 			line->side[side] = new;
 			[editworld_i changeLine: i to: line];
-			[doomproject_i	setDirtyMap:TRUE];
+			[doomproject_i	setMapDirty:TRUE];
 		}
 	
 	[editworld_i updateWindows];
@@ -469,12 +467,12 @@ id	lineSpecialPanel_i;
 
 - (IBAction)getFromTP:sender
 {
-	int	tag;
+	NSInteger	tag;
 	
 	tag = [[sender selectedCell] tag];
 
 #ifdef REDOOMED
-	[[sideform_i	cellAt:2+tag :0]
+	[[sideform_i	cellAtRow:2+tag column:0]
 		setStringValue:RDE_NSStringFromCString([texturePalette_i  getSelTextureName])];
 #else // Original
 	[[sideform_i	cellAt:2+tag :0]
@@ -486,14 +484,14 @@ id	lineSpecialPanel_i;
 
 - (IBAction)setTP:sender
 {
-	int	tag;
+	NSInteger	tag;
 	
 	tag = [[sender selectedCell] tag];
 
 #ifdef REDOOMED
 	[texturePalette_i
 	    setSelTexture:
-	            (char *)RDE_CStringFromNSString([[sideform_i cellAt:2+tag :0] stringValue])];
+	 (char *)RDE_CStringFromNSString([[sideform_i cellAtRow:2+tag column:0] stringValue])];
 #else // Original
 	[texturePalette_i	setSelTexture:(char *)[[sideform_i cellAt:2+tag :0] stringValue]];
 #endif
@@ -501,7 +499,7 @@ id	lineSpecialPanel_i;
 
 - (IBAction)zeroEntry:sender
 {
-	int	tag;
+	NSInteger tag;
 	
 	tag = [[sender selectedCell] tag];
 
@@ -559,7 +557,7 @@ id	lineSpecialPanel_i;
 
 - (IBAction)setFCVal:sender
 {
-	[fc_currentVal_i  setIntValue:[[sideform_i  cellAtRow:1 column:0]  intValue]];
+	[fc_currentVal_i setIntValue:[[sideform_i cellAtRow:1 column:0] intValue]];
 }
 
 - (IBAction)incFirstCol:sender

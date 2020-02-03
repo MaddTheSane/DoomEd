@@ -9,9 +9,10 @@
 #import "EditWorld.h"
 
 @class LinePanel;
+@class SpecialList;
 
-extern	LinePanel *linepanel_i;
-extern	id	lineSpecialPanel_i;
+extern LinePanel *linepanel_i;
+extern SpecialList *lineSpecialPanel_i;
 
 @interface LinePanel:Object
 {
@@ -72,6 +73,7 @@ extern	id	lineSpecialPanel_i;
 
 -baseLine: (worldline_t *)line;
 
+- (void)saveFrame;
 - (void)updateLineSpecial;
 - (IBAction)activateSpecialList:sender;
 - updateLineSpecialsDSP:(FILE *)stream;

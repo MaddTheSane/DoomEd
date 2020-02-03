@@ -24,12 +24,12 @@ id	textureRemapper_i;
 
 	textureRemapper_i = self;
 	
-	remapper_i = [ [ Remapper	alloc ]
-				setFrameName:"TextureRemapper"
-				setPanelTitle:"Texture Remapper"
-				setBrowserTitle:"List of textures to be remapped"
-				setRemapString:"Texture"
-				setDelegate:self ];
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i setFrameName:@"TextureRemapper"
+				  panelTitle:@"Texture Remapper"
+				browserTitle:@"List of textures to be remapped"
+				 remapString:@"Texture"
+					delegate:self];
 	return self;
 }
 
@@ -38,16 +38,14 @@ id	textureRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 {
 	[remapper_i	addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================
@@ -55,12 +53,12 @@ id	textureRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (char *)getOriginalName
+- (const char *)getOriginalName
 {
 	return [texturePalette_i	getSelTextureName];
 }
 
-- (char *)getNewName
+- (const char *)getNewName
 {
 	return [texturePalette_i	getSelTextureName];
 }
@@ -126,9 +124,8 @@ id	textureRemapper_i;
 	return linenum;
 }
 
-- finishUp
+- (void)finishUp
 {
-	return self;
 }
 
 @end

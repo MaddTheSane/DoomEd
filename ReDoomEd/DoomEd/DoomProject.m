@@ -23,9 +23,9 @@
 #   import "../RDEMapExport.h"
 #endif
 
-id	doomproject_i;
-id	wadfile_i;
-id	log_i;
+DoomProject *doomproject_i;
+Wadfile *wadfile_i;
+TextLog *log_i;
 
 int	pp_panel;
 int	pp_monsters;
@@ -79,32 +79,30 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	numtextures = 0;
 	texturessize = BASELISTSIZE;
 	textures = malloc (texturessize*sizeof(worldtexture_t));
-	log_i = [[TextLog	alloc] initTitle:"DoomEd Error Log" ];
+	log_i = [[TextLog	alloc] initWithTitle:@"DoomEd Error Log" ];
 	projectdirty = mapdirty = FALSE;
 	
 	return self;
 }
 
-- checkDirtyProject
+- (void)checkDirtyProject
 {
 	int	val;
 	
 #ifdef REDOOMED
 	// don't display a save prompt if there's no project loaded
 	if (!loaded)
-		return self;
+		return;
 #endif
 
 	if ([self	projectDirty] == FALSE)
-		return self;
+		return;
 		
 	val = NXRunAlertPanel("Important",
 		"Do you wish to save your project before exiting?",
 		"Yes", "No",NULL);
 	if (val == NX_ALERTDEFAULT)
 		[self	saveProject:self];
-		
-	return self;
 }
 
 //
@@ -120,15 +118,23 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 - setDirtyProject:(BOOL)truth
 {
-	projectdirty = truth;
+	self.projectDirty = truth;
 	return self;
 }
 
 - setDirtyMap:(BOOL)truth
 {
-	mapdirty = truth;
-	[[editworld_i	getMainWindow] setDocEdited:truth];
+	self.mapDirty = truth;
 	return self;
+}
+
+@synthesize mapDirty=mapdirty;
+@synthesize projectDirty=projectdirty;
+
+- (void)setMapDirty:(BOOL)mapDirty
+{
+	mapdirty = mapDirty;
+	[[editworld_i getMainWindow] setDocumentEdited:mapDirty];
 }
 
 - (BOOL)mapDirty
@@ -141,16 +147,12 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	return projectdirty;
 }
 
-- displayLog:sender
+- (IBAction)displayLog:sender
 {
 	[log_i	display:NULL];
-	return self;
 }
 
-- (BOOL)loaded
-{
-	return loaded;
-}
+@synthesize loaded;
 
 - (char *)wadfile
 {
@@ -260,12 +262,12 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- menuTarget: sender
+- (IBAction)menuTarget: sender
 {
 	if (!loaded)
 	{
 		NXRunAlertPanel ("Error","No project loaded",NULL,NULL,NULL);
-		return nil;
+		return;
 	}
 	
 	if (!window_i)
@@ -281,15 +283,12 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	[self updatePanel];
 	[window_i orderFront:self];
-
-	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:DOOMNAME];
-	return self;
 }
 
 
@@ -301,7 +300,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- openProject: sender
+- (IBAction)openProject: sender
 {
 	id			openpanel;
 #ifdef REDOOMED
@@ -322,7 +321,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 #endif
 
 	if (![openpanel runModalForTypes:suffixlist] )
-		return NULL;
+		return;
 
 	printf("Purging existing texture patches.\n");
 	[ textureEdit_i	dumpAllPatches ];	
@@ -354,10 +353,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		[ wadfile_i	close ];
 #endif
 		
-		return nil;
+		return;
 	}
-
-	return self;
 }
 
 /*
@@ -368,7 +365,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- newProject: sender
+- (IBAction)newProject: sender
 {
 	FILE		*stream;
 	id			panel;
@@ -404,7 +401,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	[panel setCanChooseDirectories:YES];
 	if (! [panel runModal] )
-		return self;
+		return;
 		
 	filename = [panel filename];
 
@@ -419,14 +416,14 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel("Nope.","I need a directory for projects to"
 			" create one.","OK",NULL,NULL);
-		return self;
+		return;
 	}
 		
 #ifdef REDOOMED
 	if ([filename length] > RDE_MAX_FILEPATH_LENGTH)
 	{
 		NXRunAlertPanel("Nope.","Project directory path is too long.","OK",NULL,NULL);
-		return self;
+		return;
 	}
 
 	strcpy (projectdirectory, RDE_CStringFromNSString(filename));
@@ -443,9 +440,9 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[panel setTitle: "Wadfile"];
 #endif
 
-	[panel chooseDirectories:NO];
+	[panel setCanChooseDirectories:NO];
 	if (! [panel runModalForTypes: fileTypes] )
-		return self;
+		return;
 		
 	filename = [panel filename];
 
@@ -458,14 +455,14 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel("Nope.","I need a WADfile for this project.",
 			"OK",NULL,NULL);
-		return self;
+		return;
 	}
 		
 #ifdef REDOOMED
 	if ([filename length] > RDE_MAX_FILEPATH_LENGTH)
 	{
 		NXRunAlertPanel("Nope.","WADfile path is too long.","OK",NULL,NULL);
-		return self;
+		return;
 	}
 
 	strcpy (wadfile, RDE_CStringFromNSString(filename));
@@ -488,7 +485,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel ("Error","Couldn't create %s.",
 			NULL,NULL,NULL, projpath);
-		return self;	
+		return;
 	}
 	fprintf (stream, "Doom Project version 1\n\n");
 	fprintf (stream, "wadfile: %s\n\n",wadfile);
@@ -502,7 +499,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel ("Error","Couldn't create %s.",
 			NULL,NULL,NULL,texturepath);
-		return self;	
+		return;
 	}
 	fprintf (stream, "numtextures: 0\n");
 	fclose (stream);
@@ -520,7 +517,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	loaded = YES;
 	
 	if ( !wadfile_i )
-		wadfile_i = [ Wadfile alloc ];
+		wadfile_i = [[ Wadfile alloc ] init];
 
 	[editworld_i	closeWorld];
 
@@ -558,11 +555,9 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	
 	[ wadfile_i	close ];
 	
-	[self	setDirtyMap:FALSE];
-	[self	setDirtyProject:FALSE];
+	[self setMapDirty:FALSE];
+	[self setProjectDirty:FALSE];
 	[self menuTarget: self];		// bring the panel to front
-
-	return self;
 }
 
 
@@ -596,7 +591,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[self	updateLineSpecials];
 	[texturePalette_i	finishInit];
 	[self	saveDoomLumps];
-	[self	setDirtyProject:FALSE];
+	[self setProjectDirty:FALSE];
 }
 
 
@@ -617,7 +612,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[self	updateThings];
 	[self	updateSectorSpecials];
 	[self	updateLineSpecials];
-	[self	setDirtyProject:FALSE];
+	[self	setProjectDirty:FALSE];
 }
 
 
@@ -780,10 +775,10 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		
 	[wadfile_i close];
 	
-	[self	setDirtyMap:FALSE];
+	[self	setMapDirty:FALSE];
 
 #ifdef REDOOMED
-	[self	setDirtyProject:didChangeWADfilepath];
+	[self	setProjectDirty:didChangeWADfilepath];
 #else // Original
 	[self	setDirtyProject:FALSE];
 #endif
@@ -877,7 +872,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	for (i=0 ; i<nummaps ; i++)
 	{
 		[matrix addRow];
-		cell = [matrix cellAt: i : 0];
+		cell = [matrix cellAtRow: i column: 0];
 
 #ifdef REDOOMED
 		[cell setStringValue: RDE_NSStringFromCString(mapnames[i])];
@@ -1010,7 +1005,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 #ifdef REDOOMED
 	// EditWorld's changeLine:to: & changeThing:to: methods now set the mapdirty flag, so
 	// reset it after opening a map
-	[self setDirtyMap: FALSE];
+	[self setMapDirty: FALSE];
 #endif
 }
 
@@ -1247,14 +1242,15 @@ typedef struct
 
 - (IBAction)printSingleMapStatistics:sender
 {
-	int		i,nt,k;
+	NSInteger		i,nt,k;
 	int		tset;
-	int		*textureCount, indx;
+	int		*textureCount;
+	NSInteger indx;
 	FILE		*stream;
 	char		filename[]="/tmp/tempstats.txt\0";
 	texpal_t	*t;
-	id		openMatrix;
-	int		selRow;
+	NSMatrix	*openMatrix;
+	NSInteger	selRow;
 	char		string[80];
 	int		numth;
 	tc_t	*thingCount;
@@ -1297,7 +1293,7 @@ typedef struct
 			for (j = 0;j < numth;j++)
 				if (!thingCount[j].type)
 				{
-					int	index;
+					NSInteger	index;
 					thinglist_t *thing;
 					
 					thingCount[j].type = type;
@@ -1334,8 +1330,8 @@ typedef struct
 				getTextureIndex:lines[k].side[0].bottomtexture];
 		if (indx >= nt)
 			NXRunAlertPanel("Programming Error?",
-				"Returned a bad texture index: %d",
-				"Continue",NULL,NULL,indx);
+							"Returned a bad texture index: %ld",
+							"Continue",NULL,NULL,(long)indx);
 		
 		if (indx >= 0)
 			textureCount[indx]++;
@@ -1346,8 +1342,8 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[0].bottomtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
-				k, lines[k].side[0].bottomtexture);
+			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
+					(long)k, lines[k].side[0].bottomtexture);
 			[log_i	msg:string];
 			return;
 		}
@@ -1359,19 +1355,19 @@ typedef struct
 				getTextureIndex:lines[k].side[0].midtexture];
 		if (indx >= nt)
 			NXRunAlertPanel("Programming Error?",
-				"Returned a bad texture index: %d",
-				"Continue",NULL,NULL,indx);
+							"Returned a bad texture index: %ld",
+							"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
-		if (indx == -2)
+		if (indx == NSNotFound)
 		{
 			NXRunAlertPanel("Error!",
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[0].midtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
-				k, lines[k].side[0].midtexture);
+			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
+					(long)k, lines[k].side[0].midtexture);
 			[log_i	msg:string];
 			return;
 		}
@@ -1383,20 +1379,18 @@ typedef struct
 				getTextureIndex:lines[k].side[0].toptexture];
 		if (indx >= nt)
 			NXRunAlertPanel("Programming Error?",
-				"Returned a bad texture index: %d",
-				"Continue",NULL,NULL,indx);
+							"Returned a bad texture index: %ld",
+							"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
-		if (indx == -2)
+		if (indx == NSNotFound)
 		{
 			NXRunAlertPanel("Error!",
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[0].toptexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
-				k, lines[k].side[0].toptexture);
-			[log_i	msg:string];
+			[log_i	addMessage:[NSString stringWithFormat:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture]];
 			return;
 		}
 
@@ -1408,8 +1402,8 @@ typedef struct
 				getTextureIndex:lines[k].side[1].bottomtexture];
 		if (indx >= nt)
 			NXRunAlertPanel("Programming Error?",
-				"Returned a bad texture index: %d",
-				"Continue",NULL,NULL,indx);
+							"Returned a bad texture index: %ld",
+							"Continue",NULL,NULL,(long)indx);
 		
 		if (indx >= 0)
 			textureCount[indx]++;
@@ -1420,8 +1414,8 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[1].bottomtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
-				k, lines[k].side[0].bottomtexture);
+			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
+					(long)k, lines[k].side[0].bottomtexture);
 			[log_i	msg:string];
 			return;
 		}
@@ -1433,8 +1427,8 @@ typedef struct
 				getTextureIndex:lines[k].side[1].midtexture];
 		if (indx >= nt)
 			NXRunAlertPanel("Programming Error?",
-				"Returned a bad texture index: %d",
-				"Continue",NULL,NULL,indx);
+							"Returned a bad texture index: %ld",
+							"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
@@ -1444,8 +1438,8 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL,lines[k].side[1].midtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
-				k, lines[k].side[0].midtexture);
+			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
+					(long)k, lines[k].side[0].midtexture);
 			[log_i	msg:string];
 			return;
 		}
@@ -1457,19 +1451,19 @@ typedef struct
 				getTextureIndex:lines[k].side[1].toptexture];
 		if (indx >= nt)
 			NXRunAlertPanel("Programming Error?",
-				"Returned a bad texture index: %d",
-				"Continue",NULL,NULL,indx);
+							"Returned a bad texture index: %ld",
+							"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
-		if (indx == -2)
+		if (indx == NSNotFound)
 		{
 			NXRunAlertPanel("Error!",
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[1].toptexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %d: texture '%s' nonexistent!\n",
-				k, lines[k].side[0].toptexture);
+			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
+					(long)k, lines[k].side[0].toptexture);
 			[log_i	msg:string];
 			return;
 		}
@@ -1484,7 +1478,7 @@ typedef struct
 	stream = fopen (filename,"w");
 	fprintf(stream,"DoomEd Map Statistics for %s\n\n",
 #ifdef REDOOMED
-		RDE_CStringFromNSString([[openMatrix cellAt:selRow :0] stringValue]));
+			RDE_CStringFromNSString([[openMatrix cellAtRow:selRow column:0] stringValue]));
 #else // Original
 		[[openMatrix cellAt:selRow :0] stringValue]);
 #endif
@@ -1533,9 +1527,9 @@ typedef struct
 // 							PRINT ALL MAP STATISTICS
 //
 //===================================================================
-- printStatistics:sender
+- (IBAction)printStatistics:sender
 {
-	id		openMatrix;
+	NSMatrix *openMatrix;
 
 	int		numPatches;
 	int		*patchCount;
@@ -1544,12 +1538,13 @@ typedef struct
 	int		i;
 	int		k;
 	int		j;
-	int		nt;
-	int		selRow;
+	NSInteger nt;
+	NSInteger selRow;
 	int		nf;
 	int		flat;
 	int		errors;
-	int		*textureCount, indx, *flatCount;
+	int		*textureCount, *flatCount;
+	NSInteger indx;
 	FILE	*stream;
 	char	filename[]="/tmp/tempstats.txt\0";
 	char	string[80];
@@ -1574,7 +1569,7 @@ typedef struct
 	textureCount = malloc(sizeof(int) * nt);
 	bzero(textureCount,sizeof(int)*nt);
 	
-	nf = [sectorEdit_i	getNumFlats];
+	nf = [sectorEdit_i	countOfFlats];
 	flatCount = malloc ( sizeof(*flatCount) * nf );
 	bzero (flatCount, sizeof (*flatCount) * nf );
 
@@ -1608,7 +1603,7 @@ typedef struct
 #endif
 
 		[log_i	msg:string ];
-		[openMatrix	selectCellAt:i :0];
+		[openMatrix	selectCellAtRow:i column:0];
 		[self	openMap:openMatrix];
 		
 		//
@@ -1637,7 +1632,7 @@ typedef struct
 				for (j = 0;j < numth;j++)
 					if (!thingCount[j].type)
 					{
-						int	index;
+						NSInteger	index;
 						thinglist_t *thing;
 						
 						thingCount[j].type = type;
@@ -1663,8 +1658,8 @@ typedef struct
 
 			if (indx >= nt)
 				NXRunAlertPanel("Programming Error?",
-					"Returned a bad texture index: %d",
-					"Continue",NULL,NULL,indx);
+								"Returned a bad texture index: %ld",
+								"Continue",NULL,NULL,(long)indx);
 			
 			if (indx >= 0)
 				textureCount[indx]++;
@@ -1680,8 +1675,8 @@ typedef struct
 					getTextureIndex:lines[k].side[0].midtexture];
 			if (indx >= nt)
 				NXRunAlertPanel("Programming Error?",
-					"Returned a bad texture index: %d",
-					"Continue",NULL,NULL,indx);
+								"Returned a bad texture index: %ld",
+								"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1696,8 +1691,8 @@ typedef struct
 					getTextureIndex:lines[k].side[0].toptexture];
 			if (indx >= nt)
 				NXRunAlertPanel("Programming Error?",
-					"Returned a bad texture index: %d",
-					"Continue",NULL,NULL,indx);
+								"Returned a bad texture index: %ld",
+								"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1740,8 +1735,8 @@ typedef struct
 					getTextureIndex:lines[k].side[1].bottomtexture];
 			if (indx >= nt)
 				NXRunAlertPanel("Programming Error?",
-					"Returned a bad texture index: %d",
-					"Continue",NULL,NULL,indx);
+								"Returned a bad texture index: %ld",
+								"Continue",NULL,NULL,(long)indx);
 			
 			if (indx >= 0)
 				textureCount[indx]++;
@@ -1757,8 +1752,8 @@ typedef struct
 					getTextureIndex:lines[k].side[1].midtexture];
 			if (indx >= nt)
 				NXRunAlertPanel("Programming Error?",
-					"Returned a bad texture index: %d",
-					"Continue",NULL,NULL,indx);
+								"Returned a bad texture index: %ld",
+								"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1773,8 +1768,8 @@ typedef struct
 					getTextureIndex:lines[k].side[1].toptexture];
 			if (indx >= nt)
 				NXRunAlertPanel("Programming Error?",
-					"Returned a bad texture index: %d",
-					"Continue",NULL,NULL,indx);
+								"Returned a bad texture index: %ld",
+								"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1828,7 +1823,7 @@ typedef struct
 	stream = fopen (filename,"w");
 	fprintf(stream,"DoomEd Map Statistics\n\n");
 
-	fprintf(stream,"Number of textures in project:%d\n",nt);
+	fprintf(stream,"Number of textures in project:%ld\n",(long)nt);
 	fprintf(stream,"Texture count:\n");
 	for (i=0;i<nt;i++)
 	{
@@ -1862,7 +1857,7 @@ typedef struct
 	//	Count patch usage
 	//
 	[log_i	addMessage:@"Calculating patch usage: " ];
-	numPatches = [textureEdit_i	getNumPatches];
+	numPatches = [textureEdit_i	countOfPatches];
 	patchCount = malloc(sizeof(*patchCount) * numPatches);
 	bzero(patchCount,sizeof(*patchCount)* numPatches);
 	
@@ -1900,11 +1895,9 @@ typedef struct
 	
 	if (selRow >=0)
 	{
-		[openMatrix	selectCellAt:selRow :0];
+		[openMatrix	selectCellAtRow:selRow column:0];
 		[self	openMap:openMatrix];
 	}
-	
-	return self;
 }
 
 //======================================================================
@@ -2048,7 +2041,7 @@ typedef struct
 	worldtexture_t	*t2;
 	worldtexture_t	m;
 	worldtexture_t	m2;
-	int		max;
+	NSInteger		max;
 	int		windex;
 	id		list;
 	
@@ -2647,7 +2640,7 @@ static	byte		*buffer, *buf_p;
 			if (wtex->WADindex != windex )
 				continue;
 	
-			*list_p++ = LongSwap (buf_p-buffer);
+			*list_p++ = LongSwap ((unsigned int)(buf_p-buffer));
 			tex = (maptexture_t *)buf_p;
 			buf_p += sizeof(*tex) - sizeof(tex->patches);
 			
@@ -2897,7 +2890,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
                                             char *returnedStr, int maxReturnedStrLength)
 {
 	char fileLineStr[1024], *remainderStr;
-	int matchStrLength, remainderStrLength;
+	size_t matchStrLength, remainderStrLength;
 
 	if (!stream
 	    || !matchStr

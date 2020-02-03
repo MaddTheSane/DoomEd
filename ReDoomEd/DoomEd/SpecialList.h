@@ -22,7 +22,7 @@ typedef struct
 	id	specialPanel_i;
 	Storage	*specialList_i;
 	
-	id	delegate;
+	__unsafe_unretained id	delegate;
 	char		title[32];
 	char		frameString[32];
 }
@@ -35,7 +35,7 @@ typedef struct
 
 #ifdef REDOOMED
 // Declare setDelegate: publicly
-- setDelegate:(id)dg;
+- (void)setDelegate:(id)dg;
 #endif
 
 - displayPanel;
@@ -43,7 +43,7 @@ typedef struct
 - (IBAction)suggestValue:sender;
 - (IBAction)chooseSpecial:sender;
 - updateSpecialsDSP:(FILE *)stream;
-- (int)findSpecial:(int)value;
+- (NSInteger)findSpecial:(int)value;
 - validateSpecialString:sender;
 - setSpecial:(int)which;
 - fillSpecialData:(speciallist_t *)special;

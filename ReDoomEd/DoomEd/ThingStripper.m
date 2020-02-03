@@ -15,7 +15,7 @@
 //	Load the .nib (if needed) and display the panel
 //
 //===================================================================
-- displayPanel:sender
+- (IBAction)displayPanel:sender
 {
 	if (!thingStripPanel_i)
 	{
@@ -34,7 +34,6 @@
 	}
 	[thingBrowser_i	reloadColumn:0];
 	[thingStripPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - unused)
@@ -69,15 +68,15 @@
 //	Do actual Thing stripping from all maps
 //
 //===================================================================
-- doStrippingOneMap:sender
+- (IBAction)doStrippingOneMap:sender
 {
 	int		k,j;
-	int		listMax;
+	NSInteger		listMax;
 	thingstrip_t	*ts;
 	
 	listMax = [thingList_i	count];
 	if (!listMax)
-		return self;
+		return;
 	
 	//
 	//	Strip all things in list
@@ -91,9 +90,7 @@
 		}
 
 	[editworld_i	redrawWindows];
-	[doomproject_i	setDirtyMap:TRUE];
-	
-	return self;
+	[doomproject_i	setMapDirty:TRUE];
 }
 
 //===================================================================
@@ -101,15 +98,15 @@
 //	Do actual Thing stripping from all maps
 //
 //===================================================================
-- doStrippingAllMaps:sender
+- (IBAction)doStrippingAllMaps:sender
 {
 	int		k,j;
-	int		listMax;
+	NSInteger		listMax;
 	thingstrip_t	*ts;
 	
 	listMax = [thingList_i	count];
 	if (!listMax)
-		return self;
+		return;
 	
 	[editworld_i	closeWorld];
 	[doomproject_i	beginOpenAllMaps];
@@ -134,7 +131,6 @@
 
 		[doomproject_i	saveDoomEdMapBSP:NULL];
 	}
-	return self;
 }
 
 //===================================================================
@@ -142,23 +138,21 @@
 //	Delete thing from Thing Stripping Panel
 //
 //===================================================================
-- deleteThing:sender
+- (IBAction)deleteThing:sender
 {
-	id	matrix;
-	int	selRow;
+	NSMatrix *matrix;
+	NSInteger selRow;
 	
 	matrix = [thingBrowser_i	matrixInColumn:0];
 	selRow = [matrix	selectedRow];
 	if (selRow >= 0)
 	{
-		[matrix	removeRowAt:selRow andFree:YES];
+		[matrix	removeRow:selRow];
 		[thingList_i	removeElementAt:selRow];
 	}
 	[matrix	sizeToCells];
-	[matrix	selectCellAt:-1 :-1];
+	[matrix	selectCellAtRow:-1 column:-1];
 	[thingBrowser_i	reloadColumn:0];
-
-	return self;
 }
 
 //===================================================================
@@ -166,7 +160,7 @@
 //	Add thing in Thing Panel to this list
 //
 //===================================================================
-- addThing:sender
+- (IBAction)addThing:sender
 {
 	thinglist_t		*t;
 	thingstrip_t	ts;
@@ -175,13 +169,12 @@
 	if (t == NULL)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 	ts.value = t->value;
 	strcpy(ts.desc,t->name);
 	[thingList_i	addElement:&ts];
 	[thingBrowser_i	reloadColumn:0];
-	return self;
 }
 
 //===================================================================
@@ -198,7 +191,7 @@
 - (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
 #endif
 {
-	int	max, i;
+	NSInteger	max, i;
 	id	cell;
 	thingstrip_t	*t;
 	
@@ -213,8 +206,8 @@
 	for (i = 0; i < max; i++)
 	{
 		t = [thingList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
+		[matrix	insertRow:i];
+		cell = [matrix	cellAtRow:i	column:0];
 
 #ifdef REDOOMED
 		[cell	setStringValue:RDE_NSStringFromCString(t->desc)];

@@ -24,12 +24,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-int NXRunAlertPanel(const char *titleCStr, const char *messageFormatCStr,
-                    const char *defaultButtonCStr, const char *alternateButtonCStr,
-                    const char *otherButtonCStr, ...);
+NSInteger NXRunAlertPanel(const char *titleCStr, const char *messageFormatCStr,
+						  const char *defaultButtonCStr, const char *alternateButtonCStr,
+						  const char *otherButtonCStr, ...) __printflike(2, 6);
 
 id NXGetAlertPanel(const char *titleCStr, const char *messageFormatCStr,
                     const char *defaultButtonCStr, const char *alternateButtonCStr,
-                    const char *otherButtonCStr, ...);
+                    const char *otherButtonCStr, ...) __printflike(2, 6);
 
 void NXFreeAlertPanel(id panel);

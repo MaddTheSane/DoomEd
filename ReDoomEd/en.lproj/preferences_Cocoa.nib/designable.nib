@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,24 +25,24 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="30" userLabel="Inspector Window" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="401" y="318" width="370" height="376"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="9">
                 <rect key="frame" x="0.0" y="0.0" width="370" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box title="Colors" id="11">
+                    <box fixedFrame="YES" title="Colors" translatesAutoresizingMaskIntoConstraints="NO" id="11">
                         <rect key="frame" x="12" y="177" width="348" height="192"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <view key="contentView" id="lUp-ks-Cyf">
-                            <rect key="frame" x="3" y="3" width="342" height="173"/>
+                            <rect key="frame" x="3" y="3" width="342" height="174"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <colorWell id="17">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                                     <rect key="frame" x="8" y="72" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -50,7 +50,7 @@
                                         <action selector="colorChanged:" target="-2" id="42"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="31">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="31">
                                     <rect key="frame" x="64" y="72" width="41" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Tile" id="81">
@@ -59,7 +59,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="40">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="40">
                                     <rect key="frame" x="184" y="104" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,7 +67,7 @@
                                         <action selector="colorChanged:" target="-2" id="43"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="18">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                                     <rect key="frame" x="240" y="104" width="91" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="One sided" id="82">
@@ -76,7 +76,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="3">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                                     <rect key="frame" x="184" y="72" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,7 +84,7 @@
                                         <action selector="colorChanged:" target="-2" id="45"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="4">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                                     <rect key="frame" x="240" y="72" width="93" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Two sided" id="83">
@@ -93,7 +93,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="7">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                                     <rect key="frame" x="184" y="40" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -101,7 +101,7 @@
                                         <action selector="colorChanged:" target="-2" id="44"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="28">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="28">
                                     <rect key="frame" x="240" y="40" width="48" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Area" id="84">
@@ -110,7 +110,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="14">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="14">
                                     <rect key="frame" x="8" y="136" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -118,7 +118,7 @@
                                         <action selector="colorChanged:" target="-2" id="47"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="5">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                                     <rect key="frame" x="64" y="136" width="107" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Background" id="85">
@@ -127,7 +127,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="34">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34">
                                     <rect key="frame" x="8" y="40" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -135,7 +135,7 @@
                                         <action selector="colorChanged:" target="-2" id="49"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="6">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                                     <rect key="frame" x="64" y="40" width="80" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Selected" id="86">
@@ -144,7 +144,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="22">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22">
                                     <rect key="frame" x="184" y="136" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -152,7 +152,7 @@
                                         <action selector="colorChanged:" target="-2" id="48"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="24">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
                                     <rect key="frame" x="240" y="136" width="49" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Point" id="87">
@@ -161,7 +161,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="36">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="36">
                                     <rect key="frame" x="8" y="104" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -169,7 +169,7 @@
                                         <action selector="colorChanged:" target="-2" id="50"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="32">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                                     <rect key="frame" x="64" y="104" width="80" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Grid" id="88">
@@ -178,7 +178,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="16">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                                     <rect key="frame" x="184" y="8" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -186,7 +186,7 @@
                                         <action selector="colorChanged:" target="-2" id="65"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="33">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33">
                                     <rect key="frame" x="240" y="8" width="53" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Thing" id="89">
@@ -195,7 +195,7 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <colorWell id="13">
+                                <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                                     <rect key="frame" x="8" y="8" width="53" height="30"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -203,7 +203,7 @@
                                         <action selector="colorChanged:" target="-2" id="66"/>
                                     </connections>
                                 </colorWell>
-                                <textField verticalHuggingPriority="750" id="27">
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="27">
                                     <rect key="frame" x="64" y="8" width="107" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Special Line" id="90">
@@ -216,7 +216,7 @@
                         </view>
                         <font key="titleFont" metaFont="user"/>
                     </box>
-                    <textField verticalHuggingPriority="750" id="38">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38">
                         <rect key="frame" x="8" y="151" width="249" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" alignment="left" title="Type of thing for launch coordinate change:" id="80">
@@ -225,7 +225,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="15">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
                         <rect key="frame" x="256" y="151" width="56" height="21"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="79">
@@ -237,7 +237,7 @@
                             <action selector="launchThingTypeChanged:" target="-2" id="61"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="10">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                         <rect key="frame" x="8" y="130" width="143" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" alignment="left" title="Default project directory:" id="77">
@@ -246,7 +246,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="12">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                         <rect key="frame" x="8" y="106" width="352" height="21"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="78">
@@ -258,14 +258,14 @@
                             <action selector="projectPathChanged:" target="-2" id="63"/>
                         </connections>
                     </textField>
-                    <box title="Opened upon launch" id="23">
+                    <box fixedFrame="YES" title="Opened upon launch" translatesAutoresizingMaskIntoConstraints="NO" id="23">
                         <rect key="frame" x="69" y="7" width="234" height="95"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <view key="contentView" id="LdF-d1-f5I">
-                            <rect key="frame" x="3" y="3" width="228" height="76"/>
+                            <rect key="frame" x="3" y="3" width="228" height="77"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <matrix verticalHuggingPriority="750" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" id="25">
+                                <matrix verticalHuggingPriority="750" fixedFrame="YES" mode="highlight" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                                     <rect key="frame" x="5" y="4" width="220" height="72"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -347,6 +347,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="41"/>
             </connections>
+            <point key="canvasLocation" x="139" y="147"/>
         </window>
     </objects>
 </document>

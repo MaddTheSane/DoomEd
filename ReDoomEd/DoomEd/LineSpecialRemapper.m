@@ -24,12 +24,12 @@ id	lineSpecialRemapper_i;
 
 	lineSpecialRemapper_i = self;
 	
-	remapper_i = [ [ Remapper	alloc ]
-				setFrameName:"LineSpecialRemapper"
-				setPanelTitle:"Line Special Remapper"
-				setBrowserTitle:"List of line specials to be remapped"
-				setRemapString:"Special"
-				setDelegate:self ];
+	remapper_i = [[Remapper alloc] init];
+	[remapper_i setFrameName:@"LineSpecialRemapper"
+				  panelTitle:@"Line Special Remapper"
+				browserTitle:@"List of line specials to be remapped"
+				 remapString:@"Special"
+					delegate:self];
 	return self;
 }
 
@@ -38,16 +38,14 @@ id	lineSpecialRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 {
 	[remapper_i	addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================
@@ -55,7 +53,7 @@ id	lineSpecialRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (char *)getOriginalName
+- (const char *)getOriginalName
 {
 #ifdef REDOOMED
 	// Bugfix: make 'string' static so the return value doesn't point to
@@ -71,7 +69,7 @@ id	lineSpecialRemapper_i;
 	return string;
 }
 
-- (char *)getNewName
+- (const char *)getNewName
 {
 	return [self getOriginalName];
 }
@@ -115,9 +113,8 @@ id	lineSpecialRemapper_i;
 	return linenum;
 }
 
-- finishUp
+- (void)finishUp
 {
-	return self;
 }
 
 

@@ -58,7 +58,7 @@
 
 - (id) selectedCell
 {
-    int selectedRow = [self selectedRow];
+    NSInteger selectedRow = [self selectedRow];
     NSCell *selectedCell = nil;
 
     if (selectedRow >= 0)
@@ -71,7 +71,7 @@
 
 - (id) selectCellAt: (int) row : (int) col
 {
-    int numItems, index, state;
+    NSInteger numItems, index, state;
 
     numItems = [self numberOfItems];
 

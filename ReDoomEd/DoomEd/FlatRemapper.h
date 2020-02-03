@@ -8,11 +8,13 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern	id	flatRemapper_i;
+@class FlatRemapper;
+
+extern FlatRemapper *flatRemapper_i;
 
 @interface FlatRemapper:Object <Remapper>
 {
-	id	remapper_i;
+	Remapper *remapper_i;
 }
 
 - addToList:(char *)orgname to:(char *)newname;

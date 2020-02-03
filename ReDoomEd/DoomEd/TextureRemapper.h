@@ -8,13 +8,14 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern	id	textureRemapper_i;
+@class TextureRemapper;
+extern TextureRemapper *textureRemapper_i;
 
 @interface TextureRemapper:Object <Remapper>
 {
-	id	remapper_i;
+	Remapper *remapper_i;
 }
 
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 
 @end

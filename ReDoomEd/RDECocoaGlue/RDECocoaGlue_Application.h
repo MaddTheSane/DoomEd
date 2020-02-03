@@ -30,7 +30,7 @@
 
 @interface NSApplication (RDECocoaGlue_ApplicationMethods)
 
-- (NSArray *) windowList;
+- (NSArray *) windowList API_DEPRECATED_WITH_REPLACEMENT("-windows", macos(10.0, 10.0));
 
 - (BOOL) loadNibSection: (char *) section
             owner: (id) owner
@@ -42,6 +42,6 @@
 
 - (void) getScreenSize: (NSSize *) returnedScreenSize;
 
-- (unsigned int) runModalFor: (NSWindow *) theWindow;
+- (NSModalResponse) runModalFor: (NSWindow *) theWindow API_DEPRECATED_WITH_REPLACEMENT("-runModalForWindow:", macos(10.0, 10.0));
 
 @end

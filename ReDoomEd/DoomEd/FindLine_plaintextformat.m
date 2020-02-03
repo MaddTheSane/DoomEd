@@ -32,7 +32,7 @@
 //	Pop up the window from the menu
 //
 //=============================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (!window_i)
 	{
@@ -50,16 +50,10 @@
 		[window_i	setFrameUsingName:PREFNAME];
 	}
 	[window_i	makeKeyAndOrderFront:self];
-	
-	return self;
 }
 
-//=============================================================
-//
-//	Find the line and scroll it to center
-//
-//=============================================================
-- findLine:sender
+/// Find the line and scroll it to center
+- (IBAction)findLine:sender
 {
 	int				linenum;
 	NXRect			r;
@@ -84,7 +78,7 @@
 #else // Original
 		[status_i	setStringValue:"No such line!"];
 #endif
-		return self;
+		return;
 	}
 	
 	[editworld_i	selectLine:linenum];
@@ -109,16 +103,10 @@
 	[editworld_i	redrawWindows];
 	[status_i	setStringValue:"Found it!"];
 #endif
-	
-	return self;
 }
 
-//=============================================================
-//
-//	Delete the line
-//
-//=============================================================
-- deleteLine:sender
+/// Delete the line
+- (IBAction)deleteLine:sender
 {
 	int		linenum;
 #ifdef REDOOMED
@@ -144,7 +132,7 @@
 		[status_i	setStringValue:"No such line!"];
 #endif
 
-		return self;
+		return;
 	}
 	
 	[editworld_i	selectLine:linenum];
@@ -169,16 +157,10 @@
 #endif
 
 	[delSound play];
-	
-	return self;
 }
 
-//=============================================================
-//
-//	Skip all the deleted lines in the list and find the correct one
-//
-//=============================================================
-- (int)getRealLineNum:(int)num
+///	Skip all the deleted lines in the list and find the correct one
+- (NSInteger)getRealLineNum:(int)num
 {
 	int	index;
 	int	i;
@@ -192,14 +174,10 @@
 			index++;
 	}
 	
-	return -1;
+	return NSNotFound;
 }
 
-//=============================================================
-//
-//	Wow, this needed to be written.
-//
-//=============================================================
+///	Wow, this needed to be written.
 - (void)rectFromPoints:(NXRect *)r p1:(NXPoint)p1 p2:(NXPoint)p2
 {
 	if (p1.x < p2.x)

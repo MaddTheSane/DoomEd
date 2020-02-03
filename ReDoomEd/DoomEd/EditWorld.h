@@ -95,7 +95,7 @@ extern	worldthing_t	*things;
 
 //===========================================================================
 
-@interface EditWorld : Object
+@interface EditWorld : NSObject <NSWindowDelegate>
 {
 	BOOL	loaded;
 	
@@ -105,7 +105,7 @@ extern	worldthing_t	*things;
 	BOOL	boundsdirty;
 	char		pathname[1024];
 	NXRect	dirtyrect;	
-	id		windowlist_i;			// all windows that display this world
+	NSMutableArray	*windowlist_i;			// all windows that display this world
 	
 	id		copyThings_i;			// cut/copy/paste info
 	id		copyLines_i;
@@ -146,12 +146,12 @@ extern	worldthing_t	*things;
 //
 // dealing with map windows
 //
-- windowWillClose: sender;
-- updateWindows;
+//- windowWillClose: sender;
+- (void)updateWindows;
 - addToDirtyRect: (int)p1 : (int)p2;
 - updateLineNormal:(int) num;
-- redrawWindows;
-- getMainWindow;	// returns window id
+- (void)redrawWindows;
+- (NSWindow*)getMainWindow;	//!< returns window id
 
 //
 // get info

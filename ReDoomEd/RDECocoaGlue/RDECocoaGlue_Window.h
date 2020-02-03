@@ -30,9 +30,9 @@
 @interface NSWindow (RDECocoaGlue_WindowMethods)
 
 - (id) initContent: (const NSRect *) contentRectPtr
-        style: (unsigned int) styleMask
+        style: (NSUInteger) styleMask
         backing: (NSBackingStoreType) backingStoreType
-        buttonMask: (unsigned int) buttonMask
+        buttonMask: (NSUInteger) buttonMask
         defer: (BOOL) flag;
 
 - (unsigned int) setEventMask: (unsigned int) mask;
@@ -47,7 +47,5 @@
 - (id) setAvoidsActivation: (BOOL) flag;
 
 - (id) setTitleAsFilename: (const char *) aString;
-
-- (id) setDocEdited: (BOOL) flag;
 
 @end

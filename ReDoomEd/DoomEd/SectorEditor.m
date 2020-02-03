@@ -21,7 +21,7 @@
 
 SectorEditor	*sectorEdit_i;
 
-- init
+- (id)init
 {
 #ifdef REDOOMED
 	self = [super init];
@@ -37,10 +37,10 @@ SectorEditor	*sectorEdit_i;
 #ifdef REDOOMED
 	// - Added missing init call
 	// - Added (SpecialList *) typecast so the compiler uses the correct method signature
-	specialPanel_i = [(SpecialList *) [[[[SpecialList alloc] init]
-					setSpecialTitle:"Sector Editor - Specials"]
-					setFrameName:"SectorSpecialPanel"]
-					setDelegate:self];
+	specialPanel_i = [[SpecialList alloc] init];
+	[specialPanel_i setSpecialTitle:"Sector Editor - Specials"];
+	[specialPanel_i setFrameName:"SectorSpecialPanel"];
+	[specialPanel_i setDelegate:self];
 #else // Original
 	specialPanel_i = [[[[SpecialList	alloc]
 					setSpecialTitle:"Sector Editor - Specials"]
@@ -51,7 +51,7 @@ SectorEditor	*sectorEdit_i;
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	[specialPanel_i	saveFrame];
 	if (window_i)
@@ -60,14 +60,11 @@ SectorEditor	*sectorEdit_i;
 #else // Original
 		[window_i	saveFrameUsingName:"SectorEditor"];
 #endif
-
-	return self;
 }
 
-- setKey:sender
+- (IBAction)setKey:sender
 {
 	[[editworld_i	getMainWindow] makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 - pgmTarget
@@ -178,20 +175,18 @@ SectorEditor	*sectorEdit_i;
 //	Clicked on little arrow adjusters
 //
 //============================================================
-- ceilingAdjust:sender
+- (IBAction)ceilingAdjust:sender
 {
 	[cheightfield_i	setIntegerValue:[cheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
-	return self;
 }
 
-- floorAdjust:sender
+- (IBAction)floorAdjust:sender
 {
 	[fheightfield_i	setIntegerValue:[fheightfield_i	intValue] +
 			[[sender	selectedCell]	tag]];
 	[self	CorFheightChanged:NULL];
-	return self;
 }
 
 //============================================================
@@ -199,12 +194,10 @@ SectorEditor	*sectorEdit_i;
 //	Get tag value from line panel tag field
 //
 //============================================================
-- getTagValue:sender
+- (IBAction)getTagValue:sender
 {
 	[tag_i	setIntValue:[linepanel_i	getTagValue]];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -212,7 +205,7 @@ SectorEditor	*sectorEdit_i;
 //	Light level arrow clicks
 //
 //============================================================
-- lightLevelDown:sender
+- (IBAction)lightLevelDown:sender
 {
 	int	level;
 	
@@ -225,11 +218,9 @@ SectorEditor	*sectorEdit_i;
 	[lightLevel_i	setIntValue:level];
 	[lightSlider_i	setIntValue:level];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
-- lightLevelUp:sender
+- (IBAction)lightLevelUp:sender
 {
 	int	level;
 	
@@ -240,8 +231,6 @@ SectorEditor	*sectorEdit_i;
 	[lightLevel_i	setIntValue:level];
 	[lightSlider_i	setIntValue:level];
 	[self	setKey:NULL];
-
-	return self;
 }
 
 //============================================================
@@ -311,7 +300,7 @@ SectorEditor	*sectorEdit_i;
 	return self;
 }
 
-- lightChanged:sender
+- (IBAction)lightChanged:sender
 {
 	int	val;
 	val = [lightLevel_i	intValue];
@@ -320,10 +309,9 @@ SectorEditor	*sectorEdit_i;
 	[lightLevel_i	setIntValue:val];
 	[lightSlider_i	setIntValue:val];
 	[self	setKey:NULL];
-	return self;
 }
 
-- lightSliderChanged:sender
+- (IBAction)lightSliderChanged:sender
 {
 	int	val;
 	val = [lightSlider_i	intValue];
@@ -332,19 +320,16 @@ SectorEditor	*sectorEdit_i;
 	[lightLevel_i	setIntValue:val];
 	[lightSlider_i	setIntValue:val];
 	[self	setKey:NULL];
-	return self;
 }
 
-- selectFloor
+- (void)selectFloor
 {
-	[floorAndCeiling_i	selectCellAt:0 :1];
-	return self;
+	[floorAndCeiling_i	selectCellAtRow:0 column:1];
 }
 
-- selectCeiling
+- (void)selectCeiling
 {
-	[floorAndCeiling_i	selectCellAt:0 :0];
-	return self;
+	[floorAndCeiling_i	selectCellAtRow:0 column:0];
 }
 
 - setCeiling:(int) what
@@ -371,7 +356,7 @@ SectorEditor	*sectorEdit_i;
 //	Floor height remains the same; adjust ceilingheight.
 //
 //============================================================
-- totalHeightAdjust:sender
+- (IBAction)totalHeightAdjust:sender
 {
 	int	val;
 	val = [fheightfield_i		intValue];
@@ -381,8 +366,6 @@ SectorEditor	*sectorEdit_i;
 	sector.ceilingheight = val;
 	[sectorEditView_i	display];
 	[self	setKey:NULL];
-	
-	return self;
 }
 
 //============================================================
@@ -691,7 +674,7 @@ SectorEditor	*sectorEdit_i;
 	return self;
 }
 
-- (char *)flatName:(int) flat
+- (const char *)flatName:(NSInteger) flat
 {
 	flat_t	*f;
 	f = [flatImages	elementAt:flat];
@@ -700,9 +683,9 @@ SectorEditor	*sectorEdit_i;
 	return	f->name;
 }
 
-- (int) findFlat:(const char *)name
+- (NSInteger) findFlat:(const char *)name
 {
-	int	max,i;
+	NSInteger	max,i;
 	flat_t	*f;
 	
 	max = [flatImages	count];
@@ -712,7 +695,7 @@ SectorEditor	*sectorEdit_i;
 		if (!strcasecmp(f->name,name))
 			return i;
 	}
-	return -1;
+	return NSNotFound;
 }
 
 - (flat_t *) getCeilingFlat
@@ -725,7 +708,7 @@ SectorEditor	*sectorEdit_i;
 	return	[flatImages	elementAt:floor_flat];
 }
 
-- selectFlat:(int) which
+- (void)selectFlat:(NSInteger) which
 {
 	flat_t	*f;
 	
@@ -769,10 +752,9 @@ SectorEditor	*sectorEdit_i;
 	[flatScrPalView_i	display];
 	[sectorEditView_i	display];
 	[self	setKey:NULL];
-	return self;
 }
 
-- setCurrentFlat:(int)which
+- (void)setCurrentFlat:(NSInteger)which
 {
 	flat_t	*f;
 	NXRect	r;
@@ -800,21 +782,26 @@ SectorEditor	*sectorEdit_i;
 #endif
 
 	[flatScrPalView_i	display];
-	
-	return self;
 }
+
+@synthesize currentFlat;
 
 - (int) getCurrentFlat
 {
-	return	currentFlat;
+	return self.currentFlat;
+}
+
+- (NSInteger)countOfFlats
+{
+	return [flatImages	count];
 }
 
 - (int) getNumFlats
 {
-	return	[flatImages	count];
+	return	[self countOfFlats];
 }
 
-- (flat_t *) getFlat:(int) which
+- (flat_t *) getFlat:(NSInteger) which
 {
 	return	[flatImages	elementAt:which];
 }
@@ -840,7 +827,7 @@ SectorEditor	*sectorEdit_i;
 		}
 
 	if (!found)
-		NXBeep ();
+		NSBeep();
 	else
 		[editworld_i	updateWindows];
 		
@@ -867,7 +854,7 @@ SectorEditor	*sectorEdit_i;
 		}
 
 	if (!found)
-		NXBeep ();
+		NSBeep ();
 	else
 		[editworld_i	updateWindows];
 		

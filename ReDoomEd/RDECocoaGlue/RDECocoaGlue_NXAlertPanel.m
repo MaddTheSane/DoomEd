@@ -30,9 +30,9 @@
 #define kMaxAlertMessageLength 512
 
 
-int NXRunAlertPanel(const char *titleCStr, const char *messageFormatCStr,
-                    const char *defaultButtonCStr, const char *alternateButtonCStr,
-                    const char *otherButtonCStr, ...)
+NSInteger NXRunAlertPanel(const char *titleCStr, const char *messageFormatCStr,
+                          const char *defaultButtonCStr, const char *alternateButtonCStr,
+                          const char *otherButtonCStr, ...)
 {
     NSString *title, *defaultButton, *alternateButton, *otherButton;
     va_list variadicArgsList;

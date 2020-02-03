@@ -6,6 +6,8 @@
 #   import <appkit/appkit.h>
 #endif
 
+@class Storage;
+
 typedef struct
 {
 	char		orgname[40],newname[40];
@@ -15,26 +17,26 @@ typedef struct
 //	Methods to be implemented by the delegate
 //
 @protocol Remapper <NSObject>
-- (char *)getOriginalName;
-- (char *)getNewName;
+- (const char *)getOriginalName;
+- (const char *)getNewName;
 - (int)doRemap:(char *)oldname to:(char *)newname;
-- finishUp;
+- (void)finishUp;
 @end
 
 
 @interface Remapper:Object <NSBrowserDelegate>
 {
-	id		original_i;
-	id		new_i;
-	id		remapPanel_i;
-	id		remapString_i;
-	id		status_i;
-	id		browser_i;
-	id		matrix_i;
+	IBOutlet NSTextField *original_i;
+	IBOutlet NSTextField *new_i;
+	IBOutlet NSWindow *remapPanel_i;
+	IBOutlet NSTextField *remapString_i;
+	IBOutlet NSTextField *status_i;
+	IBOutlet NSBrowser *browser_i;
+	IBOutlet NSMatrix *matrix_i;
 	
-	id		storage_i;
-	id		delegate_i;
-	char		frameName[32];
+	Storage		*storage_i;
+	id<Remapper>		delegate_i;
+	NSString *frameName;
 }
 
 //	EXTERNAL USE
@@ -42,7 +44,13 @@ typedef struct
   setPanelTitle:(char *)ptitle
   setBrowserTitle:(char *)btitle
   setRemapString:(char *)rstring
-  setDelegate:(id)delegate;
+  setDelegate:(id<Remapper>)delegate API_DEPRECATED_WITH_REPLACEMENT("-setFrameName:panelTitle:browserTitle:remapString:delegate:", macos(10.0, 10.0));
+
+- (void)setFrameName:(NSString *)fname
+		  panelTitle:(NSString *)ptitle
+		browserTitle:(NSString *)btitle
+		 remapString:(NSString *)rstring
+			delegate:(id<Remapper>)delegate;
 
 //extern - (int)doRemap:(char *)oldname to:(char *)newname;
 
@@ -51,11 +59,11 @@ typedef struct
 - addToList:(char *)orgname to:(char *)newname;
 
 //	INTERNAL USE
-- remapGetButtons:sender;
-- doRemappingOneMap:sender;
-- doRemappingAllMaps:sender;
-- addToList:sender;
-- deleteFromList:sender;
-- clearList:sender;
+- (IBAction)remapGetButtons:sender;
+- (IBAction)doRemappingOneMap:sender;
+- (IBAction)doRemappingAllMaps:sender;
+- (IBAction)addToList:sender;
+- (IBAction)deleteFromList:sender;
+- (IBAction)clearList:sender;
 
 @end

@@ -19,7 +19,7 @@ typedef NS_ENUM(NSInteger, tool_t)
 };
 
 @class ToolPanel;
-extern	ToolPanel	*toolpanel_i;
+extern ToolPanel *toolpanel_i;
 
 @interface ToolPanel:Object
 {

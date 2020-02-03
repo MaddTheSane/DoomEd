@@ -70,10 +70,9 @@
 	return self;
 }
 
-- setDelegate:(id)dg
+- (void)setDelegate:(id)dg
 {
 	delegate = dg;
-	return self;
 }
 
 //===================================================================
@@ -115,12 +114,12 @@
 //===================================================================
 - scrollToItem:(int)i
 {
-	id	matrix;
+	NSMatrix *matrix;
 	
 	[specialBrowser_i	reloadColumn:0];
 	matrix = [specialBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:i :0];
-	[matrix	scrollCellToVisible:i :0];
+	[matrix	selectCellAtRow:i column:0];
+	[matrix	scrollCellToVisibleAtRow:i column:0];
 	return self;
 }
 			
@@ -213,35 +212,33 @@
 //	Take data in textfields and add that data to the list
 //
 //===================================================================
-- addSpecial:sender
+- (IBAction)addSpecial:sender
 {
 	speciallist_t		t;
-	int	which;
-	id	matrix;
+	NSInteger	which;
+	NSMatrix *matrix;
 
 	[self	fillSpecialData:&t];
 	
 	//
 	// check for duplicate name
 	//
-	if ([self	findSpecial:t.value] >= 0)
+	if ([self	findSpecial:t.value] != NSNotFound)
 	{
 		NXBeep();
 		NXRunAlertPanel("Oops!",
 					"You already have a LINE SPECIAL by that "
 					"name!","OK",NULL,NULL,NULL);
-		return self;
+		return;
 	}
 	
 	[specialList_i	addElement:&t];
 	[specialBrowser_i	reloadColumn:0];
 	which = [self	findSpecial:t.value];
 	matrix = [specialBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:which :0];
-	[matrix	scrollCellToVisible:which :0];
-	[doomproject_i	setDirtyProject:TRUE];
-	
-	return self;
+	[matrix	selectCellAtRow:which column:0];
+	[matrix	scrollCellToVisibleAtRow:which column:0];
+	[doomproject_i setProjectDirty:TRUE];
 }
 
 //===================================================================
@@ -249,9 +246,9 @@
 //	Based on a string, find the value that represents it
 //
 //===================================================================
-- (int)findSpecialString:(char *)string
+- (NSInteger)findSpecialString:(const char *)string
 {
-	int	max, i;
+	NSInteger	max, i;
 	speciallist_t		*t;
 	
 	max = [specialList_i	count];
@@ -261,7 +258,7 @@
 		if (!strcmp(string,t->desc))
 			return i;
 	}
-	return -1;
+	return NSNotFound;
 }
 
 //===================================================================
@@ -287,15 +284,15 @@
 //	Clicked on browser entry.  Tell delegate which value was selected.
 //
 //===================================================================
-- chooseSpecial:sender
+- (IBAction)chooseSpecial:sender
 {
 	id	cell;
-	int	which;
+	NSInteger	which;
 	speciallist_t		*t;
 	
 	cell = [sender	selectedCell];
 	if (!cell)
-		return self;
+		return;
 		
 #ifdef REDOOMED
 	which = [self	findSpecialString:(char *)RDE_CStringFromNSString([cell stringValue])];
@@ -303,17 +300,16 @@
 	which = [self	findSpecialString:(char *)[cell  stringValue]];
 #endif
 
-	if (which < 0)
+	if (which == NSNotFound)
 	{
 		NXBeep();
 		printf("Whoa! Can't find that special!\n");
-		return self;
+		return;
 	}
 
 	t = [specialList_i	elementAt:which];
 	[self	fillDataFromSpecial:t];
 	[delegate		specialChosen:t->value];
-	return self;
 }
 
 //===================================================================
@@ -323,9 +319,9 @@
 //===================================================================
 - setSpecial:(int)which
 {
-	int	i,max;
+	NSInteger	i,max;
 	speciallist_t	*s;
-	id	matrix;
+	NSMatrix	*matrix;
 	
 	max = [specialList_i	count];
 	matrix = [specialBrowser_i	matrixInColumn:0];
@@ -334,8 +330,8 @@
 		s = [specialList_i	elementAt:i];
 		if (s->value == which)
 		{
-			[matrix	selectCellAt:i :0];
-			[matrix	scrollCellToVisible:i :0];
+			[matrix	selectCellAtRow:i column:0];
+			[matrix	scrollCellToVisibleAtRow:i column:0];
 			[self	fillDataFromSpecial:s];
 			return self;
 		}
@@ -359,8 +355,9 @@
 //===================================================================
 - sortSpecials
 {
-	id	cell, matrix;
-	int	max,i,j,flag, which;
+	id	cell;
+	NSMatrix *matrix;
+	NSInteger	max,i,j,flag, which;
 	speciallist_t		*t1, *t2, tt1, tt2;
 	char		name[32] = "\0";
 	
@@ -401,8 +398,8 @@
 	if (which >= 0)
 	{
 		matrix = [specialBrowser_i	matrixInColumn:0];
-		[matrix	selectCellAt:which  :0];
-		[matrix	scrollCellToVisible:which :0];
+		[matrix	selectCellAtRow:which column:0];
+		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}			
 	
 	return self;
@@ -422,7 +419,7 @@
 - (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
 #endif
 {
-	int	max, i;
+	NSInteger	max, i;
 	id	cell;
 	speciallist_t		*t;
 	
@@ -438,8 +435,8 @@
 	for (i = 0; i < max; i++)
 	{
 		t = [specialList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
+		[matrix	insertRow:i];
+		cell = [matrix cellAtRow:i column:0];
 
 #ifdef REDOOMED
 		[cell	setStringValue:RDE_NSStringFromCString(t->desc)];
@@ -483,9 +480,9 @@
 //
 // return index of special in masterList. value is used for search thru list.
 //
-- (int)findSpecial:(int)value
+- (NSInteger)findSpecial:(int)value
 {
-	int	max, i;
+	NSInteger	max, i;
 	speciallist_t		*t;
 	
 	max = [specialList_i	count];
@@ -495,13 +492,13 @@
 		if (value == t->value)
 			return i;
 	}
-	return -1;
+	return NSNotFound;
 }
 
 - updateSpecialsDSP:(FILE *)stream
 {
 	speciallist_t		t,*t2;
-	int	count, i, found;
+	NSInteger	count, i, found;
 	
 	//
 	// read specials out of the file, only adding new specials to the current list
@@ -512,16 +509,18 @@
 					elementSize:	sizeof(speciallist_t)
 					description:	NULL];
 
-	if (fscanf (stream, "numspecials: %d\n", &count) == 1)
+	int tmpInt;
+	if (fscanf (stream, "numspecials: %d\n", &tmpInt) == 1)
 	{
+		count = tmpInt;
 		for (i = 0; i < count; i++)
 		{
 			[self	readSpecial:&t	from:stream];
 			found = [self	findSpecial:t.value];
-			if (found < 0)
+			if (found != NSNotFound)
 			{
 				[specialList_i	addElement:&t];
-				[doomproject_i	setDirtyProject:TRUE];
+				[doomproject_i	setProjectDirty:YES];
 			}
 		}
 		[specialBrowser_i	reloadColumn:0];
@@ -531,7 +530,7 @@
 		//
 		count = [specialList_i	count];
 		fseek (stream, 0, SEEK_SET);
-		fprintf (stream, "numspecials: %d\n",count);
+		fprintf (stream, "numspecials: %ld\n",(long)count);
 		for (i = 0; i < count; i++)
 		{
 			t2 = [specialList_i	elementAt:i];

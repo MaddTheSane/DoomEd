@@ -17,12 +17,12 @@
 	return YES;
 }
 
-- initFrame:(const NXRect *)frameRect
+- initWithFrame:(NSRect)frameRect
 {
 #ifdef REDOOMED
 	self =
 #endif
-	[super initFrame:frameRect];
+	[super initWithFrame:frameRect];
 
 #ifdef REDOOMED
 	if (!self)

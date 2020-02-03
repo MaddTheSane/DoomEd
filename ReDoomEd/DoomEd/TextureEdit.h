@@ -11,46 +11,49 @@
 #import "EditWorld.h"
 #import	"TexturePatchView.h"
 
+@class Storage;
+@class TextureView;
+@class TexturePatchView;
 
 #define	SPACING				10
 
-@interface TextureEdit:Object
+@interface TextureEdit:NSObject <NSWindowDelegate, NSSplitViewDelegate>
 {
-	id	window_i;				// Texture Editor window
-	id	textureView_i;				// texture editing area
-	id	texturePatchWidthField_i;	// under Patch Palette (information)
-	id	texturePatchHeightField_i;	// . . .
-	id	texturePatchNameField_i;
-	id	texturePatchXField_i;
-	id	texturePatchYField_i;
-	id	textureWidthField_i;	// at top of window
-	id	textureHeightField_i;	// . . .
-	id	textureNameField_i;
-	id	patchWidthField_i;		// under Patch Palette
-	id	patchHeightField_i;		// . . .
-	id	patchNameField_i;
-	id	scrollView_i;			// texture editing area
-	id	outlinePatches_i;		// switch
-	id	lockedPatch_i;			// switch
-	id	centerPatch_i;			// switch
-	id	texturePatchScrollView_i;	// Patch Palette
-	id	texturePatchView_i;		// Patch Palette
-	id	dragWarning_i;			// warning for dragging selections outside
-	id	splitView_i;			// NXSplitView!
-	id	topView_i;
-	id	botView_i;
+	IBOutlet NSPanel *window_i;				// Texture Editor window
+	IBOutlet TextureView *textureView_i;	// texture editing area
+	IBOutlet NSTextField *texturePatchWidthField_i;		// under Patch Palette (information)
+	IBOutlet NSTextField *texturePatchHeightField_i;	// . . .
+	IBOutlet NSTextField *texturePatchNameField_i;
+	IBOutlet NSTextField *texturePatchXField_i;
+	IBOutlet NSTextField *texturePatchYField_i;
+	IBOutlet NSTextField *textureWidthField_i;	// at top of window
+	IBOutlet NSTextField *textureHeightField_i;	// . . .
+	IBOutlet NSTextField *textureNameField_i;
+	IBOutlet NSTextField *patchWidthField_i;		// under Patch Palette
+	IBOutlet NSTextField *patchHeightField_i;		// . . .
+	IBOutlet NSTextField *patchNameField_i;
+	IBOutlet NSScrollView *scrollView_i;			// texture editing area
+	IBOutlet NSButton *outlinePatches_i;			// switch
+	IBOutlet NSButton *lockedPatch_i;				// switch
+	IBOutlet NSButton *centerPatch_i;				// switch
+	IBOutlet NSScrollView *texturePatchScrollView_i;	// Patch Palette
+	IBOutlet TexturePatchView *texturePatchView_i;		// Patch Palette
+	IBOutlet NSTextField *dragWarning_i;			// warning for dragging selections outside
+	IBOutlet NSSplitView *splitView_i;			// NXSplitView!
+	IBOutlet NSBox *topView_i;
+	IBOutlet NSBox *botView_i;
 
-	id	createTexture_i;		// Create Texture window
-	id	createWidth_i;			// in Create Texture dialog
-	id	createHeight_i;			// . . .
-	id	createName_i;
-	id	createDone_i;			// "Create" button
-	id	setMatrix_i;			// Texture Set radio-button matrix
-	id	textureSetField_i;		// Texture Set field in Texture Editor
-	id	newSetButton_i;			// Create New Set button
-	id	patchSearchField_i;		// Search for patch string
+	IBOutlet NSPanel *createTexture_i;		// Create Texture window
+	IBOutlet NSTextField *createWidth_i;	// in Create Texture dialog
+	IBOutlet NSTextField *createHeight_i;	// . . .
+	IBOutlet NSTextField *createName_i;
+	IBOutlet NSButton *createDone_i;			// "Create" button
+	IBOutlet NSMatrix *setMatrix_i;				// Texture Set radio-button matrix
+	IBOutlet NSTextField *textureSetField_i;	// Texture Set field in Texture Editor
+	IBOutlet id	newSetButton_i;			// Create New Set button
+	IBOutlet NSTextField	*patchSearchField_i;// Search for patch string
 
-	id	patchImages;			// Patch Palette images
+	Storage	*patchImages;			// Patch Palette images
 	
 	int	selectedPatch;			// in the Patch Palette
 	id	selectedTexturePatches;	// in the Texture Editor View
@@ -109,19 +112,19 @@ typedef	struct
 
 
 
-extern	id	texturePatches;
-extern	id	textureEdit_i;
+extern Storage *texturePatches;
+extern TextureEdit *textureEdit_i;
 
 - (int)numSets;
-- findPatch:sender;
-- searchForPatch:sender;
-- changedWidthOrHeight:sender;
+- (IBAction)findPatch:sender;
+- (IBAction)searchForPatch:sender;
+- (IBAction)changedWidthOrHeight:sender;
 - setOldVars:(int)x :(int)y;
 - doLockToggle;
-- togglePatchLock:sender;
-- deleteCurrentPatch:sender;
-- sortUp:sender;
-- sortDown:sender;
+- (IBAction)togglePatchLock:sender;
+- (IBAction)deleteCurrentPatch:sender;
+- (IBAction)sortUp:sender;
+- (IBAction)sortDown:sender;
 
 - updateTexPatchInfo;
 - getSTP;
@@ -131,25 +134,25 @@ extern	id	textureEdit_i;
 - removeSelTextureEditPatch:(int)val;
 - (int)getCurrentEditPatch;
 - (int)findHighestNumberedPatch;
-- changePatchX:sender;
-- changePatchY:sender;
+- (IBAction)changePatchX:sender;
+- (IBAction)changePatchY:sender;
 
-- outlineWasSet:sender;
+- (IBAction)outlineWasSet:sender;
 - (apatch_t *)getPatch:(int)which;
-- (apatch_t *)getPatchImage:(char *)name;
-- finishTexture:sender;
+- (apatch_t *)getPatchImage:(const char *)name;
+- (IBAction)finishTexture:sender;
 - addPatch:(int)which;
-- sizeChanged:sender;
-- fillWithPatch:sender;
+- (IBAction)sizeChanged:sender;
+- (IBAction)fillWithPatch:sender;
 - (IBAction)menuTarget:sender;
 - (int)getCurrentTexture;
 - (int)getCurrentPatch;
 
-- makeNewTexture:sender;
-- createTextureDone:sender;
-- createTextureName:sender;
-- createTextureAbort:sender;
-- createNewSet:sender;
+- (IBAction)makeNewTexture:sender;
+- (IBAction)createTextureDone:sender;
+- (IBAction)createTextureName:sender;
+- (IBAction)createTextureAbort:sender;
+- (IBAction)createNewSet:sender;
 
 - newSelection:(int)which;
 - setSelectedPatch:(int)which;
@@ -162,15 +165,15 @@ extern	id	textureEdit_i;
 - setWarning:(BOOL)state;
 - saveFrame;
 
-- (int)getNumPatches;
-- (int)findPatchIndex:(char *)name;
-- (char *)getPatchName:(int)which;
+- (NSInteger)countOfPatches;
+- (NSInteger)findPatchIndex:(const char *)name;
+- (const char *)getPatchName:(NSInteger)which;
 
-- locatePatchInTextures:sender;
+- (IBAction)locatePatchInTextures:sender;
 
 @end
 
 id	patchToImage(patch_t *patchData, unsigned short *shortpal,
-	NXSize *size,char *name);
+	NXSize *size,const char *name);
 char *strupr(char *string);
 char *strlwr(char *string);

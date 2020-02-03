@@ -29,9 +29,9 @@
 
 @interface NSMutableArray (RDECocoaGlue_ListMethods)
 
-- (id) objectAt: (unsigned int) index;
+- (id) objectAt: (unsigned int) index API_DEPRECATED_WITH_REPLACEMENT("-objectAtIndex:", macos(10.0, 10.0));
 
-- (void) makeObjectsPerform: (SEL) aSelector;
+- (void) makeObjectsPerform: (SEL) aSelector API_DEPRECATED_WITH_REPLACEMENT("-makeObjectsPerformSelector", macos(10.0, 10.0));
 
 - (id) empty;
 

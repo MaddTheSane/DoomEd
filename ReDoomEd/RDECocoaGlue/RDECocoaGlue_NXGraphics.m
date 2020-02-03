@@ -27,7 +27,7 @@
 static NSAffineTransform *PixelCenteringTransform(void);
 
 
-void RDE_NXRectFillList(const NSRect *rects, int count)
+void RDE_NXRectFillList(const NSRect *rects, NSInteger count)
 {
     static NSAffineTransform *pixelCenteringTransform = nil;
 

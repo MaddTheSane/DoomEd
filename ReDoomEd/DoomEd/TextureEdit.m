@@ -7,8 +7,8 @@
 #import	<ctype.h>
 #import	"lbmfunctions.h"
 
-id	textureEdit_i;
-id	texturePatches;
+TextureEdit *textureEdit_i;
+Storage *texturePatches;
 
 @implementation TextureEdit
 
@@ -51,7 +51,7 @@ id	texturePatches;
 // user wants to activate the Texture Editor. If it hasn't been used yet,
 // init everything, otherwise just pull it back up.
 //
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (![doomproject_i loaded])
 	{
@@ -59,7 +59,7 @@ id	texturePatches;
 						"There must be a project loaded before you even\n"
 						"THINK about editing textures!",
 						"OK",NULL,NULL,NULL);
-		return self;
+		return;
 	}
 	
 	if (!window_i)
@@ -143,7 +143,6 @@ id	texturePatches;
 	
 	[self	newSelection:currentTexture];
 	[window_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 //
@@ -302,7 +301,7 @@ id	texturePatches;
 //
 // move a patch up in the patch hierarchy
 //
-- sortUp:sender
+- (IBAction)sortUp:sender
 {
 	int	newpatch;
 	texpatch_t	*t, t1, t2;
@@ -310,15 +309,15 @@ id	texturePatches;
 	if (	([self		getCurrentEditPatch] < 0) ||
 		([texturePatches	count] - 1 == [self	getCurrentEditPatch]))
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
 	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
 	if (t->patchLocked)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
 	newpatch = [self	getCurrentEditPatch];
@@ -328,8 +327,8 @@ id	texturePatches;
 		t = [texturePatches	elementAt:newpatch];
 		if (!t)
 		{
-			NXBeep();
-			return self;
+			NSBeep();
+			return;
 		}
 	} while (t->patchLocked);
 
@@ -343,28 +342,27 @@ id	texturePatches;
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
 	[textureView_i		display];
-	return self;
 }
 
 //
 // move a patch down in the patch hierarchy
 //
-- sortDown:sender
+- (IBAction)sortDown:sender
 {
 	int	newpatch;
 	texpatch_t	*t, t1, t2;
 
 	if ([self	getCurrentEditPatch] < 1)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
 	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
 	if (t->patchLocked)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
 	newpatch = [self	getCurrentEditPatch];
@@ -374,8 +372,8 @@ id	texturePatches;
 		t = [texturePatches	elementAt:newpatch];
 		if (!t)
 		{
-			NXBeep();
-			return self;
+			NSBeep();
+			return;
 		}
 	} while (t->patchLocked);
 
@@ -389,7 +387,6 @@ id	texturePatches;
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
 	[textureView_i		display];
-	return self;
 }
 
 //===============================================================
@@ -397,13 +394,13 @@ id	texturePatches;
 //	Set patch X manually
 //
 //===============================================================
-- changePatchX:sender
+- (IBAction)changePatchX:sender
 {
 	texpatch_t	*tp;
 	int			delta;
 	
 	if (![selectedTexturePatches	count])
-		return self;
+		return;
 		
 	tp = [texturePatches	elementAt:*(int *)
 		[selectedTexturePatches  elementAt:0]];
@@ -413,8 +410,6 @@ id	texturePatches;
 	tp->patchInfo.originx += delta/2;
 	
 	[textureView_i		display];
-	
-	return self;
 }
 
 //===============================================================
@@ -422,13 +417,13 @@ id	texturePatches;
 //	Set patch Y manually
 //
 //===============================================================
-- changePatchY:sender
+- (IBAction)changePatchY:sender
 {
 	texpatch_t	*tp;
 	int			delta;
 	
 	if (![selectedTexturePatches	count])
-		return self;
+		return;
 
 	tp = [texturePatches	elementAt:*(int *)
 		[selectedTexturePatches  elementAt:0]];
@@ -438,8 +433,6 @@ id	texturePatches;
 	tp->patchInfo.originy -= delta/2;
 	
 	[textureView_i		display];
-	
-	return self;
 }
 
 //===============================================================
@@ -477,7 +470,7 @@ id	texturePatches;
 //	Search for patch in Patch Palette
 //
 //===============================================================
-- searchForPatch:sender
+- (IBAction)searchForPatch:sender
 {
 	char		string[9];
 	apatch_t	*p;
@@ -506,7 +499,7 @@ id	texturePatches;
 			if (!strncasecmp(string,p->name+j,slen))
 			{
 				[self	setSelectedPatch:i];
-				return self;
+				return;
 			}
 	}
 	
@@ -517,27 +510,25 @@ id	texturePatches;
 			if (!strncasecmp(string,p->name+j,slen))
 			{
 				[self	setSelectedPatch:i];
-				return self;
+				return;
 			}
 	}
-	
-	return self;
 }
 
 //
 // find in the Patch Palette the single patch selected in the Texture Editor
 //
-- findPatch:sender
+- (IBAction)findPatch:sender
 {
 	apatch_t	*patch;
 	texpatch_t	*tp;
-	int		pnum, c, max;
+	NSInteger		pnum, c, max;
 	
 	c =[selectedTexturePatches	count];
 	if (!c || c > 1)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 	
 	tp = [texturePatches	elementAt:*(int *)[selectedTexturePatches  elementAt:0]];
@@ -550,7 +541,6 @@ id	texturePatches;
 	}
 	
 	[self	setSelectedPatch:pnum];
-	return self;
 }
 
 //
@@ -576,15 +566,15 @@ id	texturePatches;
 //
 // delete all patches selected in the Texture Editor
 //
-- deleteCurrentPatch:sender
+- (IBAction)deleteCurrentPatch:sender
 {
-	int	count, i;
+	NSInteger	count, i;
 	
 	count = [selectedTexturePatches	count];
 	if (!count)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 	
 	for (i = 0; i < count; i++)
@@ -592,7 +582,6 @@ id	texturePatches;
 	[selectedTexturePatches	empty];
 	
 	[textureView_i		display];
-	return self;
 }
 
 //
@@ -600,7 +589,7 @@ id	texturePatches;
 //
 - (int)getCurrentEditPatch
 {
-	int	amount;
+	NSInteger	amount;
 	
 	amount = [selectedTexturePatches	count];
 	if (!amount || amount > 1)
@@ -621,7 +610,7 @@ id	texturePatches;
 - updateTexPatchInfo
 {
 	texpatch_t	*t;
-	int	c = [selectedTexturePatches	count];
+	NSInteger	c = [selectedTexturePatches	count];
 
 	if (!c || c > 1)
 	{
@@ -703,20 +692,19 @@ id	texturePatches;
 	return self;
 }
 
-- togglePatchLock:sender
+- (IBAction)togglePatchLock:sender
 {
 	int	val;
 	texpatch_t	*t;
 	
 	if ([self	getCurrentEditPatch] < 0)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	val = [lockedPatch_i	intValue];
 	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
 	t->patchLocked = val;
-	return self;
 }
 
 //
@@ -730,10 +718,9 @@ id	texturePatches;
 //
 // the "outline patches" switch was modified, so redraw edit view
 //
-- outlineWasSet:sender
+- (IBAction)outlineWasSet:sender
 {
 	[window_i	display];
-	return self;
 }
 
 //
@@ -762,7 +749,7 @@ id	texturePatches;
 //
 // user changed the width/height/title of the texture. validate & change.
 //
-- changedWidthOrHeight:sender
+- (IBAction)changedWidthOrHeight:sender
 {
 	worldtexture_t		tex;
 	texpatch_t		*p;
@@ -776,7 +763,7 @@ id	texturePatches;
 		NXBeep();
 		[textureWidthField_i setIntValue: 0];
 		[textureHeightField_i setIntValue: 0];
-		return self;
+		return;
 	}
 
 	// Bugfix: verify width & height are >= 1 to avoid creating an invalid texture
@@ -818,7 +805,7 @@ id	texturePatches;
 								"OK",NULL,NULL);
 				[textureWidthField_i	setIntValue:textures[currentTexture].width];
 				[textureHeightField_i	setIntValue:textures[currentTexture].height];
-				return self;
+				return;
 			}
 		}
 		
@@ -830,13 +817,12 @@ id	texturePatches;
 	[doomproject_i	changeTexture:currentTexture to:&tex];
 	[texturePalette_i		storeTexture:currentTexture];
 	[self	newSelection:currentTexture];
-	return self;
 }
 
 //
 //	Create a new texture
 //
-- makeNewTexture:sender
+- (IBAction)makeNewTexture:sender
 {
 	int	textureNum;
 	NSModalResponse rcode;
@@ -844,7 +830,7 @@ id	texturePatches;
 	id	cell;
 	
 	if (![doomproject_i loaded])
-		return self;
+		return;
 		
 	//
 	// create a default new texture
@@ -853,7 +839,7 @@ id	texturePatches;
 	rcode = [NXApp	runModalForWindow:createTexture_i];
 	[createTexture_i	close];
 	if (rcode == NX_RUNABORTED)
-		return self;
+		return;
 
 	tex.width = [createWidth_i	intValue];
 	tex.height = [createHeight_i	intValue];
@@ -888,13 +874,12 @@ id	texturePatches;
 					description:	NULL];
 	[texturePalette_i	selectTexture:currentTexture];
 	oldx = oldy = 0;			
-	return self;
 }
 
 //
 // clicked the "create it!" button in the New Texture dialog
 //
-- createTextureDone:sender
+- (IBAction)createTextureDone:sender
 {
 	char name[9];
 	
@@ -921,7 +906,7 @@ id	texturePatches;
 		NXRunAlertPanel("Oops!",
 						"You already have a texture with the same name!",
 						"OK",NULL, NULL, NULL);
-		return self;
+		return;
 	}
 	
 	if (	[createWidth_i	intValue] &&
@@ -933,15 +918,13 @@ id	texturePatches;
 #endif
 		[NXApp	stopModal];
 	else
-		NXBeep();
-
-	return self;
+		NSBeep();
 }
 
 //
 // approve the name entered in the dialog
 //
-- createTextureName:sender
+- (IBAction)createTextureName:sender
 {
 	char name[9];
 	
@@ -969,13 +952,11 @@ id	texturePatches;
 						"You already have a texture with the same name!",
 						"OK",NULL, NULL, NULL);
 	}
-	return self;
 }
 
-- createTextureAbort:sender
+- (void)createTextureAbort:sender
 {
 	[NXApp	abortModal];
-	return self;
 }
 
 //======================================================
@@ -983,24 +964,24 @@ id	texturePatches;
 //	Allows selection of another texture set when creating new texture
 //
 //======================================================
-- createNewSet:sender
+- (IBAction)createNewSet:sender
 {
-	int		nr, nc;
+	NSInteger		nr, nc;
 	id		cell;
 	char		string[3];
 	
-	[setMatrix_i	getNumRows:&nr numCols:&nc ];
+	[setMatrix_i	getNumberOfRows:&nr columns:&nc ];
 	if (nr == 5)
 	{
 		[newSetButton_i	setEnabled:NO ];
 		NXBeep ();
-		return self;
+		return;
 	}
 	
 	[setMatrix_i	addRow ];
 	nr++;
-	cell = [setMatrix_i	cellAt:nr-1 :0 ];
-	sprintf (string, "%d",nr );
+	cell = [setMatrix_i	cellAtRow:nr-1 column:0 ];
+	sprintf (string, "%ld",(long)nr );
 
 #ifdef REDOOMED
 	[cell		setTitle:RDE_NSStringFromCString(string) ];
@@ -1012,16 +993,10 @@ id	texturePatches;
 	[setMatrix_i	sizeToCells ];
 	[setMatrix_i	selectCell:cell ];
 	[setMatrix_i	display ];
-	
-	return self;
 }
 
-//======================================================
-//
-//	Done editing texture. add to texture palette
-//
-//======================================================
-- finishTexture:sender
+/// Done editing texture. add to texture palette
+- (IBAction)finishTexture:sender
 {
 	int	count;
 	texpatch_t	*t;
@@ -1032,7 +1007,7 @@ id	texturePatches;
 	if (currentTexture < 0)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 #endif
 
@@ -1058,8 +1033,6 @@ id	texturePatches;
 	}
 	[doomproject_i	changeTexture:currentTexture to:&tex];
 	[texturePalette_i	storeTexture:currentTexture];
-	
-	return self;
 }
 
 //
@@ -1256,14 +1229,12 @@ id	texturePatches;
 	return self;
 }
 
-- fillWithPatch:sender
+- (IBAction)fillWithPatch:sender
 {
-	return self;
 }
 
-- sizeChanged:sender
+- (IBAction)sizeChanged:sender
 {
-	return self;
 }
 
 //=====================================================
@@ -1272,9 +1243,9 @@ id	texturePatches;
 //
 //=====================================================
 
-- (apatch_t *)getPatchImage:(char *)name
+- (apatch_t *)getPatchImage:(const char *)name
 {
-	int		i, max;
+	NSInteger	i, max;
 	apatch_t	*p;
 
 	max = [patchImages	count ];
@@ -1330,9 +1301,9 @@ id	texturePatches;
 //==========================================================
 - dumpAllPatches
 {
-	int			i, max;
-	apatch_t		*p;
-	id			panel;
+	NSInteger	i, max;
+	apatch_t	*p;
+	NSPanel		*panel;
 	
 	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
 		NULL,NULL,NULL);
@@ -1473,7 +1444,7 @@ id	texturePatches;
 //
 //	Return # of patches
 //
-- (int)getNumPatches
+- (NSInteger)countOfPatches
 {
 	return [patchImages	count];
 }
@@ -1481,9 +1452,9 @@ id	texturePatches;
 //
 //	Return index of patch from name
 //
-- (int)findPatchIndex:(char *)name
+- (NSInteger)findPatchIndex:(const char *)name
 {
-	int		i, max;
+	NSInteger i, max;
 	apatch_t	*p;
 	
 	max = [patchImages	count];
@@ -1494,13 +1465,13 @@ id	texturePatches;
 			return i;
 	}
 	
-	return -1;
+	return NSNotFound;
 }
 
 //
 //	Return name of patch from index
 //
-- (char *)getPatchName:(int)which;
+- (const char *)getPatchName:(NSInteger)which;
 {
 	apatch_t	*p;
 	
@@ -1513,13 +1484,13 @@ id	texturePatches;
 //
 //	Locate patch use in textures
 //
-- locatePatchInTextures:sender
+- (IBAction)locatePatchInTextures:sender
 {
-	int	i, j, max, cs;
-	char *pname;
+	NSInteger	i, j, max, cs;
+	const char *pname;
 	
 	if (selectedPatch < 0)
-		return self;
+		return;
 		
 	pname = [self	getPatchName:selectedPatch];
 	
@@ -1531,7 +1502,7 @@ id	texturePatches;
 			{
 				[texturePalette_i	selectTexture:i];
 				[texturePalette_i	setSelTexture:[texturePalette_i getSelTextureName]];
-				return self;
+				return;
 			}
 
 	for (i = 0;i <= cs; i++)
@@ -1540,11 +1511,10 @@ id	texturePatches;
 			{
 				[texturePalette_i	selectTexture:i];
 				[texturePalette_i	setSelTexture:[texturePalette_i getSelTextureName]];
-				return self;
+				return;
 			}
 			
-	NXBeep ();
-	return self;
+	NSBeep ();
 }
 
 //
@@ -1681,7 +1651,7 @@ id	texturePatches;
 //
 // convert a compressed patch to an NXImage with an alpha channel
 //
-id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,char *name)
+id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const char *name)
 {
 	byte			*dest_p;
 	NXImageRep *image_i;

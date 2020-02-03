@@ -7,7 +7,7 @@
 #endif
 
 @class Coordinator;
-extern	Coordinator	*coordinator_i;
+extern Coordinator *coordinator_i;
 
 extern	BOOL	debugflag;
 
@@ -19,9 +19,9 @@ extern	BOOL	debugflag;
 
 @interface Coordinator:Object
 {
-	id	toolPanel_i;
-	id	infoPanel_i;
-	id	startupSound_i;
+	IBOutlet NSPanel *toolPanel_i;
+	IBOutlet NSPanel *infoPanel_i;
+	NSSound	*startupSound_i;
 
 #ifdef REDOOMED
 	IBOutlet NSMenu *_mainMenu_OSX;

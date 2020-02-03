@@ -29,6 +29,6 @@
 
 @interface NSOpenPanel (RDECocoaGlue_OpenPanelMethods)
 
-- (id) chooseDirectories: (BOOL) flag;
+- (id) chooseDirectories: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setCanChooseDirectories:", macos(10.0, 10.0));
 
 @end

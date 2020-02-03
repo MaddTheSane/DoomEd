@@ -82,14 +82,14 @@ static	int	cornerx = 128, cornery = 64;
 	[scalemenu_i setTarget: mapview_i];
 	[scalemenu_i setAction: @selector(scaleMenuTarget:)];
 
-	[scalemenu_i addItem: "3.125%"];
-	[scalemenu_i addItem: "6.25%"];
-	[scalemenu_i addItem: "12.5%"];
-	[scalemenu_i addItem: "25%"];
-	[scalemenu_i addItem: "50%"];
-	[scalemenu_i addItem: "100%"];
-	[scalemenu_i addItem: "200%"];
-	[scalemenu_i addItem: "400%"];
+	[scalemenu_i addItemWithTitle: @"3.125%"];
+	[scalemenu_i addItemWithTitle: @"6.25%"];
+	[scalemenu_i addItemWithTitle: @"12.5%"];
+	[scalemenu_i addItemWithTitle: @"25%"];
+	[scalemenu_i addItemWithTitle: @"50%"];
+	[scalemenu_i addItemWithTitle: @"100%"];
+	[scalemenu_i addItemWithTitle: @"200%"];
+	[scalemenu_i addItemWithTitle: @"400%"];
 	[[scalemenu_i itemList] selectCellAt: 5 : 0];
 	
 	scalebutton_i = NXCreatePopUpListButton(scalemenu_i);
@@ -99,13 +99,13 @@ static	int	cornerx = 128, cornery = 64;
 	[gridmenu_i setTarget: mapview_i];
 	[gridmenu_i setAction: @selector(gridMenuTarget:)];
 
-	[gridmenu_i addItem: "grid 1"];
-	[gridmenu_i addItem: "grid 2"];
-	[gridmenu_i addItem: "grid 4"];
-	[gridmenu_i addItem: "grid 8"];
-	[gridmenu_i addItem: "grid 16"];
-	[gridmenu_i addItem: "grid 32"];
-	[gridmenu_i addItem: "grid 64"];
+	[gridmenu_i addItemWithTitle: @"grid 1"];
+	[gridmenu_i addItemWithTitle: @"grid 2"];
+	[gridmenu_i addItemWithTitle: @"grid 4"];
+	[gridmenu_i addItemWithTitle: @"grid 8"];
+	[gridmenu_i addItemWithTitle: @"grid 16"];
+	[gridmenu_i addItemWithTitle: @"grid 32"];
+	[gridmenu_i addItemWithTitle: @"grid 64"];
 	
 	[[gridmenu_i itemList] selectCellAt: 3 : 0];
 	
@@ -114,7 +114,7 @@ static	int	cornerx = 128, cornery = 64;
 // initialize the scroll view
 	wframe.origin.x = wframe.origin.y = 0;
 	scrollview_i = [[PopScrollView alloc] 
-		initFrame: 	&wframe 
+		initWithFrame: 	wframe 
 		button1: 		scalebutton_i
 		button2:		gridbutton_i
 	];
@@ -123,7 +123,8 @@ static	int	cornerx = 128, cornery = 64;
 // link objects together
 	[self setDelegate: self];
 	
-	oldobj_i = [scrollview_i setDocView: mapview_i];
+	oldobj_i = nil;
+	[scrollview_i setDocumentView: mapview_i];
 	if (oldobj_i)
 		[oldobj_i free];
 
@@ -146,22 +147,14 @@ static	int	cornerx = 128, cornery = 64;
 }
 
 @synthesize mapView=mapview_i;
-
-- scalemenu
-{
-	return scalemenu_i;
-}
+@synthesize scalemenu=scalemenu_i;
 
 - scalebutton
 {
 	return scalebutton_i;
 }
 
-
-- gridmenu
-{
-	return gridmenu_i;
-}
+@synthesize gridmenu=gridmenu_i;
 
 - gridbutton
 {

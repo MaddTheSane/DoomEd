@@ -26,7 +26,7 @@
 #import "RDECocoaGlue_DisplayPostScript.h"
 
 
-void RDE_NXRectFillList(const NSRect *rects, int count);
+void RDE_NXRectFillList(const NSRect *rects, NSInteger count);
 
 
 #define NXRectFill(rectPtr)                                 \

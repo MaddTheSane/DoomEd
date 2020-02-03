@@ -62,7 +62,7 @@ id	thingpanel_i;
 ==============
 */
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (!window_i)
 	{
@@ -84,7 +84,7 @@ id	thingpanel_i;
 		[window_i	setFrameUsingName:THINGNAME];
 		[window_i	setDelegate:self];
 		[thingBrowser_i	reloadColumn:0];
-		[diffDisplay_i	selectCellAt:diffDisplay :0];
+		[diffDisplay_i	selectCellAtRow:diffDisplay column:0];
 
 #ifdef REDOOMED
 		[count_i	setStringValue:@" "];
@@ -108,8 +108,6 @@ id	thingpanel_i;
 #endif
 
 	[window_i makeKeyAndOrderFront:self];
-
-	return self;
 }
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - unused)
@@ -209,7 +207,7 @@ id	thingpanel_i;
 //===================================================================
 - (void)countCurrentThings
 {
-	int				max;
+	NSInteger		max;
 	int				j;
 	thinglist_t		*t;
 	worldthing_t	*thing;
@@ -260,7 +258,7 @@ id	thingpanel_i;
 	int				max;
 	int				i;
 	thinglist_t		*t;
-	id				matrix;
+	NSMatrix		*matrix;
 	
 	max = [masterList_i	count];
 	for (i = 0;i < max; i++)
@@ -270,8 +268,8 @@ id	thingpanel_i;
 		{
 			[self	fillDataFromThing:t];
 			matrix = [thingBrowser_i	matrixInColumn:0];
-			[matrix	selectCellAt:i :0];
-			[matrix	scrollCellToVisible:i :0];
+			[matrix	selectCellAtRow:i column:0];
+			[matrix	scrollCellToVisibleAtRow:i column:0];
 			return self;
 		}
 	}
@@ -400,7 +398,7 @@ id	thingpanel_i;
 - (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
 #endif
 {
-	int	max, i;
+	NSInteger	max, i;
 	id	cell;
 	thinglist_t		*t;
 	
@@ -416,8 +414,8 @@ id	thingpanel_i;
 	for (i = 0; i < max; i++)
 	{
 		t = [masterList_i	elementAt:i];
-		[matrix	insertRowAt:i];
-		cell = [matrix	cellAt:i	:0];
+		[matrix	insertRow:i];
+		cell = [matrix cellAtRow:i column:0];
 
 #ifdef REDOOMED
 		[cell	setStringValue:RDE_NSStringFromCString(t->name)];
@@ -440,8 +438,9 @@ id	thingpanel_i;
 //
 - sortThings
 {
-	id	cell, matrix;
-	int	max,i,j,flag, which;
+	id	cell;
+	NSMatrix *matrix;
+	NSInteger	max,i,j,flag, which;
 	thinglist_t		*t1, *t2, tt1, tt2;
 	char		name[32] = "\0";
 	
@@ -479,11 +478,11 @@ id	thingpanel_i;
 	} while(flag);
 	
 	which = [self	findThing:name];
-	if (which >= 0)
+	if (which != NSNotFound)
 	{
-		matrix = [thingBrowser_i	matrixInColumn:0];
-		[matrix	selectCellAt:which  :0];
-		[matrix	scrollCellToVisible:which :0];
+		matrix = [thingBrowser_i matrixInColumn:0];
+		[matrix	selectCellAtRow:which column:0];
+		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}			
 	
 	return self;
@@ -494,9 +493,9 @@ id	thingpanel_i;
 //
 - (IBAction)updateThingData:sender
 {
-	id	cell;
-	int	which;
-	thinglist_t		*t;
+	id			cell;
+	NSInteger	which;
+	thinglist_t	*t;
 #ifdef REDOOMED
 	NXColor oldColor, newColor;
 #endif
@@ -528,8 +527,8 @@ id	thingpanel_i;
 
 	[thingBrowser_i	reloadColumn:0];
 	[[thingBrowser_i	matrixInColumn:0]
-					selectCellAt:which  :0];
-	[doomproject_i	setDirtyProject:TRUE];
+	 selectCellAtRow:which == NSNotFound ? -1 : which  column:0];
+	[doomproject_i	setProjectDirty:TRUE];
 
 #ifdef REDOOMED
 	if (memcmp(&oldColor, &newColor, sizeof(NXColor)))
@@ -558,9 +557,9 @@ id	thingpanel_i;
 
 	thing->option = [ambush_i	intValue]<<3;
 	thing->option |= ([network_i	intValue]&1)<<4;
-	thing->option |= [[difficulty_i cellAt:0 :0] intValue]&1;
-	thing->option |= ([[difficulty_i cellAt:1 :0] intValue]&1)<<1;
-	thing->option |= ([[difficulty_i cellAt:2 :0] intValue]&1)<<2;
+	thing->option |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
+	thing->option |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
+	thing->option |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
 
 #ifdef REDOOMED
 	thing->color = RDE_NXColorFromNSColor([thingColor_i color]);
@@ -619,9 +618,9 @@ id	thingpanel_i;
 	thing->type = [fields_i	intValueAt:1];
 	thing->options = [ambush_i	intValue]<<3;
 	thing->options |= ([network_i	intValue]&1)<<4;
-	thing->options |= [[difficulty_i	cellAt:0 :0] intValue]&1;
-	thing->options |= ([[difficulty_i	cellAt:1 :0] intValue]&1)<<1;
-	thing->options |= ([[difficulty_i	cellAt:2 :0] intValue]&1)<<2;
+	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
+	thing->options |= ([[difficulty_i	cellAtRow:1 column:0] intValue]&1)<<1;
+	thing->options |= ([[difficulty_i	cellAtRow:2 column:0] intValue]&1)<<2;
 	
 	return self;
 }
@@ -654,13 +653,13 @@ id	thingpanel_i;
 	return masterList_i;
 }
 
-- scrollToItem:(int)which
+- scrollToItem:(NSInteger)which
 {
-	id	matrix;
+	NSMatrix *matrix;
 	
 	matrix = [thingBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:which :0];
-	[matrix	scrollCellToVisible:which :0];
+	[matrix	selectCellAtRow:which column:0];
+	[matrix	scrollCellToVisibleAtRow:which column:0];
 	return self;
 }
 
@@ -672,10 +671,10 @@ id	thingpanel_i;
 
 - (NXColor)getThingColor:(int)type
 {
-	int	index;
+	NSInteger	index;
 	
 	index = [self  searchForThingType:type];
-	if (index < 0)
+	if (index != NSNotFound)
 		return [prefpanel_i colorFor: SELECTED_C];
 	return	((thinglist_t *)[masterList_i	elementAt:index])->color;
 }
@@ -683,9 +682,9 @@ id	thingpanel_i;
 //
 // you know the thing's type, but don't know the name!
 //
-- (int)searchForThingType:(int)type
+- (NSInteger)searchForThingType:(int)type
 {
-	int	max,i;
+	NSInteger	max,i;
 	thinglist_t		*t;
 	
 	max = [masterList_i	count];
@@ -695,7 +694,7 @@ id	thingpanel_i;
 		if (t->value == type)
 			return i;
 	}
-	return -1;
+	return NSNotFound;
 }
 
 //
@@ -730,9 +729,9 @@ id	thingpanel_i;
 	[fields_i	setIntValue:thing->angle	at:0];
 	[ambush_i	setIntValue:((thing->option)>>3)&1];
 	[network_i	setIntValue:((thing->option)>>4)&1];
-	[[difficulty_i cellAt:0 :0] setIntValue:(thing->option)&1];
-	[[difficulty_i cellAt:1 :0] setIntValue:((thing->option)>>1)&1];
-	[[difficulty_i cellAt:2 :0] setIntValue:((thing->option)>>2)&1];
+	[[difficulty_i cellAtRow:0 column:0] setIntValue:(thing->option)&1];
+	[[difficulty_i cellAtRow:1 column:0] setIntValue:((thing->option)>>1)&1];
+	[[difficulty_i cellAtRow:2 column:0] setIntValue:((thing->option)>>2)&1];
 	
 	basething.angle = thing->angle;
 	basething.options = thing->option;
@@ -743,34 +742,32 @@ id	thingpanel_i;
 //
 // Add "type" to thing list
 //
-- addThing:sender
+- (IBAction)addThing:sender
 {
 	thinglist_t		t;
-	int	which;
-	id	matrix;
+	NSInteger	which;
+	NSMatrix	*matrix;
 
 	[self	fillThingData:&t];
 	
 	//
 	// check for duplicate name
 	//
-	if ([self	findThing:t.name] >= 0)
+	if ([self	findThing:t.name] != NSNotFound)
 	{
 		NXBeep();
 		NXRunAlertPanel("Oops!",
 			"You already have a THING by that name!","OK",NULL,NULL,NULL);
-		return self;
+		return;
 	}
 	
 	[masterList_i	addElement:&t];
 	[thingBrowser_i	reloadColumn:0];
 	which = [self	findThing:t.name];
 	matrix = [thingBrowser_i	matrixInColumn:0];
-	[matrix	selectCellAt:which :0];
-	[matrix	scrollCellToVisible:which :0];
-	[doomproject_i	setDirtyProject:TRUE];
-	
-	return self;
+	[matrix	selectCellAtRow:which column:0];
+	[matrix	scrollCellToVisibleAtRow:which column:0];
+	[doomproject_i	setProjectDirty:TRUE];
 }
 
 #if 0
@@ -794,9 +791,9 @@ id	thingpanel_i;
 //
 // return index of thing in masterList. "string" is used for search thru list.
 //
-- (int)findThing:(char *)string
+- (NSInteger)findThing:(char *)string
 {
-	int	max, i;
+	NSInteger	max, i;
 	thinglist_t		*t;
 	
 	max = [masterList_i	count];
@@ -806,10 +803,10 @@ id	thingpanel_i;
 		if (!strcasecmp(t->name,string))
 			return i;
 	}
-	return -1;
+	return NSNotFound;
 }
 
-- (thinglist_t *)getThingData:(int)index
+- (thinglist_t *)getThingData:(NSInteger)index
 {
 	return [masterList_i	elementAt:index];		
 }
@@ -818,15 +815,15 @@ id	thingpanel_i;
 // user chose an item in the thingBrowser_i.
 // stick the info in the "name" and "type" fields.
 //
-- chooseThing:sender
+- (IBAction)chooseThing:sender
 {
-	id		cell;
-	int		which;
-	thinglist_t		*t;
+	id			cell;
+	NSInteger	which;
+	thinglist_t	*t;
 	
 	cell = [sender	selectedCell];
 	if (!cell)
-		return self;
+		return;
 		
 #ifdef REDOOMED
 	which = [self findThing:(char *)RDE_CStringFromNSString([cell stringValue])];
@@ -834,20 +831,19 @@ id	thingpanel_i;
 	which = [self	findThing:(char *)[cell	stringValue]];
 #endif
 
-	if (which < 0)
+	if (which == NSNotFound)
 	{
 		NXBeep();
 		printf("Whoa! Can't find that thing!\n");
-		return self;
+		return;
 	}
 
 	t = [masterList_i	elementAt:which];
 	[self	fillDataFromThing:t];
 	[self	formTarget:NULL];
 	which = [thingPalette_i	findIcon:t->iconname];
-	if (which >= 0)
+	if (which != NSNotFound)
 		[thingPalette_i	setCurrentIcon:which];
-	return self;
 }
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream
@@ -883,21 +879,23 @@ id	thingpanel_i;
 - updateThingsDSP:(FILE *)stream
 {
 	thinglist_t		t,*t2;
-	int	count, i, found;
+	NSInteger	count, i, found;
 	
 	//
 	// read things out of the file, only adding new things to the current list
 	//
-	if (fscanf (stream, "numthings: %d\n", &count) == 1)
+	int tmpInt;
+	if (fscanf (stream, "numthings: %d\n", &tmpInt) == 1)
 	{
+		count = tmpInt;
 		for (i = 0; i < count; i++)
 		{
 			[self	readThing:&t	from:stream];
 			found = [self	findThing:t.name];
-			if (found < 0)
+			if (found == NSNotFound)
 			{
 				[masterList_i	addElement:&t];
-				[doomproject_i	setDirtyProject:TRUE];
+				[doomproject_i	setProjectDirty:TRUE];
 			}
 		}
 		[thingBrowser_i	reloadColumn:0];
@@ -907,7 +905,7 @@ id	thingpanel_i;
 		//
 		count = [masterList_i	count];
 		fseek (stream, 0, SEEK_SET);
-		fprintf (stream, "numthings: %d\n",count);
+		fprintf (stream, "numthings: %ld\n",(long)count);
 		for (i = 0; i < count; i++)
 		{
 			t2 = [masterList_i	elementAt:i];
@@ -942,9 +940,9 @@ id	thingpanel_i;
 	[fields_i setIntValue: basething.type at: 1];
 	[ambush_i	setIntValue:((basething.options)>>3)&1];
 	[network_i	setIntValue:((basething.options)>>4)&1];
-	[[difficulty_i	cellAt:0 :0] setIntValue:(basething.options)&1];
-	[[difficulty_i	cellAt:1 :0] setIntValue:((basething.options)>>1)&1];
-	[[difficulty_i	cellAt:2 :0] setIntValue:((basething.options)>>2)&1];
+	[[difficulty_i	cellAtRow:0 column:0] setIntValue:(basething.options)&1];
+	[[difficulty_i	cellAtRow:1 column:0] setIntValue:((basething.options)>>1)&1];
+	[[difficulty_i	cellAtRow:2 column:0] setIntValue:((basething.options)>>2)&1];
 	
 	[window_i reenableFlushWindow];
 
@@ -968,7 +966,7 @@ id	thingpanel_i;
 ==============
 */
 
-- formTarget: sender
+- (IBAction)formTarget: sender
 {
 	int			i;
 	worldthing_t	*thing;
@@ -977,9 +975,9 @@ id	thingpanel_i;
 	basething.type = [fields_i intValueAt: 1];
 	basething.options = [ambush_i	intValue]<<3;
 	basething.options |= ([network_i	intValue]&1)<<4;
-	basething.options |= [[difficulty_i cellAt:0 :0] intValue]&1;
-	basething.options |= ([[difficulty_i cellAt:1 :0] intValue]&1)<<1;
-	basething.options |= ([[difficulty_i cellAt:2 :0] intValue]&1)<<2;
+	basething.options |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;
+	basething.options |= ([[difficulty_i cellAtRow:1 column:0] intValue]&1)<<1;
+	basething.options |= ([[difficulty_i cellAtRow:2 column:0] intValue]&1)<<2;
 	
 	thing = &things[0];
 	for (i=0 ; i<numthings ; i++, thing++)
@@ -989,11 +987,8 @@ id	thingpanel_i;
 			thing->type = basething.type;
 			thing->options = basething.options;
 			[editworld_i changeThing: i to: thing];
-			[doomproject_i	setDirtyMap:TRUE];
+			[doomproject_i	setMapDirty:TRUE];
 		}
-		
-	
-	return self;
 }
 
 

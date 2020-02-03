@@ -31,12 +31,12 @@ BOOL	debugflag = NO;
 	return self;
 }
 
-- (void)toggleDebug: sender
+- (IBAction)toggleDebug: sender
 {
 	debugflag ^= 1;
 }
 
-- (void)redraw: sender
+- (IBAction)redraw: sender
 {
 	NSInteger	i;
 	NSArray<NSWindow*> *list;
@@ -101,7 +101,7 @@ BOOL	debugflag = NO;
 #ifdef REDOOMED
 	// -[PreferencePanel getProjectPath] no longer defaults to a hard-coded project path,
 	// so it may return an empty string - added logic to check for this
-	char *defaultProjectPath = [prefpanel_i getProjectPath];
+	const char *defaultProjectPath = [prefpanel_i getProjectPath];
 
 	if (![doomproject_i loaded]
 		&& strlen(defaultProjectPath))

@@ -32,7 +32,7 @@
 
 - (id) initSize: (NSSize *) aSize;
 
-- (id) composite: (int) operation toPoint: (const NSPoint *) pointPtr;
+- (id) composite: (NSCompositingOperation) operation toPoint: (const NSPoint *) pointPtr;
 
 - (BOOL) useRepresentation: (NSImageRep *) imageRep;
 

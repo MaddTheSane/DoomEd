@@ -3,7 +3,7 @@
 #import	"ThingPanel.h"
 #import "ToolPanel.h"
 
-id	toolpanel_i;
+ToolPanel *toolpanel_i;
 
 @implementation ToolPanel
 

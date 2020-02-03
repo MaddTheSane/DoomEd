@@ -18,10 +18,10 @@ typedef struct
 #   define	THINGSTRIPNAME	"ThingStripper"
 #endif
 
-@interface ThingStripper:Object
+@interface ThingStripper:Object <NSWindowDelegate>
 {
 	IBOutlet id	thingBrowser_i;		// nib outlets
-	IBOutlet id	thingStripPanel_i;
+	IBOutlet NSWindow *thingStripPanel_i;
 
 	id	thingList_i;
 }

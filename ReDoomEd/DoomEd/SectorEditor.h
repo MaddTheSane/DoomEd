@@ -21,6 +21,8 @@ typedef struct
 #define	FLATSIZE	64
 
 @class SectorEditor;
+@class SpecialList;
+@class Storage;
 
 extern SectorEditor *sectorEdit_i;
 
@@ -35,9 +37,9 @@ extern SectorEditor *sectorEdit_i;
 	id	lightSlider_i;
 	id	special_i;
 	id	tag_i;
-	NSMatrix	*floorAndCeiling_i;		// radio button matrix
-	NSButton	*ceiling_i;				// radio button
-	NSButton	*floor_i;				// radio button
+	IBOutlet NSMatrix	*floorAndCeiling_i;		// radio button matrix
+	IBOutlet NSButton	*ceiling_i;				// radio button
+	IBOutlet NSButton	*floor_i;				// radio button
 	id	cheightfield_i;
 	id	fheightfield_i;
 	id	cflatname_i;
@@ -48,47 +50,48 @@ extern SectorEditor *sectorEdit_i;
 	int	ceiling_flat,floor_flat;
 	sectordef_t	sector;
 	
-	id	flatImages;
-	int	currentFlat;
+	Storage	*flatImages;
+	NSInteger	currentFlat;
 	
-	id	specialPanel_i;
+	SpecialList	*specialPanel_i;
 }
 
-- setKey:sender;
+- (IBAction)setKey:sender;
 - setupEditor;
 - pgmTarget;
-- ceilingAdjust:sender;
-- floorAdjust:sender;
-- totalHeightAdjust:sender;
-- getTagValue:sender;
-- lightLevelDown:sender;
-- lightLevelUp:sender;
+- (IBAction)ceilingAdjust:sender;
+- (IBAction)floorAdjust:sender;
+- (IBAction)totalHeightAdjust:sender;
+- (IBAction)getTagValue:sender;
+- (IBAction)lightLevelDown:sender;
+- (IBAction)lightLevelUp:sender;
 - setSector:(sectordef_t *)s;
 - (sectordef_t *) getSector;
-- selectFloor;
-- selectCeiling;
-- lightChanged:sender;
-- lightSliderChanged:sender;
+- (void)selectFloor;
+- (void)selectCeiling;
+- (IBAction)lightChanged:sender;
+- (IBAction)lightSliderChanged:sender;
 - (flat_t *) getCeilingFlat;
 - (flat_t *) getFloorFlat;
 - setCeiling:(int) what;
 - setFloor:(int) what;
 - (IBAction)CorFheightChanged:sender;
 - (IBAction)locateFlat:sender;
-- (int) getNumFlats;
-- (char *)flatName:(int) flat;
-- (flat_t *) getFlat:(int) which;
-- selectFlat:(int) which;
-- setCurrentFlat:(int)which;
-- (int) getCurrentFlat;
+- (int) getNumFlats API_DEPRECATED_WITH_REPLACEMENT("-countOfFlats", macos(10.0, 10.0));
+@property (readonly) NSInteger countOfFlats;
+- (const char *)flatName:(NSInteger) flat;
+- (flat_t *) getFlat:(NSInteger) which;
+- (void)selectFlat:(NSInteger) which;
+@property (nonatomic) NSInteger currentFlat;
+- (int) getCurrentFlat API_DEPRECATED_WITH_REPLACEMENT("-currentFlat", macos(10.0, 10.0));
 - (IBAction)menuTarget:sender;
 - dumpAllFlats;
 - emptySpecialList;
 - (int)loadFlats;
 - computeFlatDocView;
-- (int) findFlat:(const char *)name;
+- (NSInteger) findFlat:(const char *)name;
 - error:(const char *)string;
-- saveFrame;
+- (void)saveFrame;
 
 - (IBAction)searchForTaggedSector:sender;
 - (IBAction)searchForTaggedLine:sender;
@@ -100,4 +103,5 @@ extern SectorEditor *sectorEdit_i;
 - updateSectorSpecialsDSP:(FILE *)stream;
 @end
 
-id	flatToImage(byte *rawData, unsigned short *shortpal);
+/// Convert a raw 64x64 to an \c NXImage without an alpha channel
+NSImage *flatToImage(byte *rawData, unsigned short *shortpal);

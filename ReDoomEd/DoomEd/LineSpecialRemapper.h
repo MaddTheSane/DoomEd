@@ -8,14 +8,15 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern	id	lineSpecialRemapper_i;
+@class LineSpecialRemapper;
+extern LineSpecialRemapper *lineSpecialRemapper_i;
 
-@interface LineSpecialRemapper:Object <Remapper>
+@interface LineSpecialRemapper:NSObject <Remapper>
 {
-	id	remapper_i;
+	Remapper *remapper_i;
 }
 
-- addToList:(char *)orgname to:(char *)newname;
-- menuTarget:sender;
+- (void)addToList:(char *)orgname to:(char *)newname;
+- (IBAction)menuTarget:sender;
 
 @end

@@ -26,7 +26,7 @@ id	thingPalette_i;
 #endif
 
 	thingPalette_i = self;
-	thingImages = window_i = NULL;
+	thingImages = nil; window_i = NULL;
 	currentIcon = -1;
 	return self;
 }
@@ -36,13 +36,13 @@ id	thingPalette_i;
 //	Menu target
 //
 //============================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	if (![thingImages	count])
 	{
 		NXRunAlertPanel("Nope!",
 			"You haven't grabbed any icons!","OK",NULL,NULL);
-		return self;
+		return;
 	}
 
 	if (!window_i)
@@ -64,20 +64,14 @@ id	thingPalette_i;
 	}
 
 	[window_i	makeKeyAndOrderFront:self];
-	
-	return self;
 }
 
-//============================================================
-//
-//	Find icon from name.  Returns index or -1 if not found.
-//
-//============================================================
-- (int)findIcon:(char *)name
+/// Find icon from name.  Returns index or \c NSNotFound if not found.
+- (NSInteger)findIcon:(const char *)name
 {
-	int		i;
-	int		max;
-	icon_t	*icon;
+	NSInteger	i;
+	NSInteger	max;
+	icon_t		*icon;
 	
 	max = [thingImages	count];
 	for (i = 0;i < max;i++)
@@ -87,7 +81,7 @@ id	thingPalette_i;
 			return i;
 	}
 	
-	return -1;
+	return NSNotFound;
 }
 
 //============================================================
@@ -95,7 +89,7 @@ id	thingPalette_i;
 //	Return icon data
 //
 //============================================================
-- (icon_t *)getIcon:(int)which
+- (icon_t *)getIcon:(NSInteger)which
 {
 	return [thingImages	elementAt:which];
 }
@@ -107,7 +101,7 @@ id	thingPalette_i;
 //============================================================
 - (int)getCurrentIcon
 {
-	return currentIcon;
+	return self.currentIcon;
 }
 
 @synthesize currentIcon;
@@ -163,10 +157,10 @@ id	thingPalette_i;
 //	Dump all icons
 //
 //============================================================
-- dumpAllIcons
+- (void)dumpAllIcons
 {
-	int		i;
-	int		max;
+	NSInteger	i;
+	NSInteger	max;
 	icon_t	*icon;
 	
 	max = [thingImages	count];
@@ -177,8 +171,6 @@ id	thingPalette_i;
 			free(icon->image);
 	}
 	[thingImages	empty];
-	
-	return self;
 }
 
 //============================================================
@@ -186,13 +178,13 @@ id	thingPalette_i;
 //	Set coords for all icons in the thingPalView
 //
 //============================================================
-- computeThingDocView
+- (void)computeThingDocView
 {
 	NXRect	dvr;
 	int		i;
 	int		x;
 	int		y;
-	int		max;
+	NSInteger		max;
 	icon_t	*icon;
 	int		maxwidth;
 	NXPoint	p;
@@ -262,8 +254,6 @@ id	thingPalette_i;
 #else // Original	
 	[thingPalView_i	scrollPoint:&p ];
 #endif
-
-	return self;
 }
 
 //==========================================================
@@ -271,7 +261,7 @@ id	thingPalette_i;
 //	Load in and init thingImages
 //
 //==========================================================
-- initIcons
+- (void)initIcons
 {
 	int		start;
 	int		end;
@@ -314,7 +304,7 @@ id	thingPalette_i;
 	if  (start == -1 || end == -1 )
 	{
 		[doomproject_i	closeThermo];
-		return self;		// no icons, no problem.
+		return;		// no icons, no problem.
 	}
 			
 	for (i = start; i < end; i++)
@@ -344,8 +334,6 @@ id	thingPalette_i;
 	
 	free(palLBM);
 	[doomproject_i	closeThermo];
-	
-	return 0;
 }
 
 @end
