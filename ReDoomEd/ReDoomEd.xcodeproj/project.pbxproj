@@ -59,7 +59,7 @@
 		033FAB3920E834C700CC584F /* ToolPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB0B20E834C700CC584F /* ToolPanel.m */; };
 		033FAB3A20E834C700CC584F /* Wadfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB0C20E834C700CC584F /* Wadfile.m */; };
 		033FAB7320E83CBC00CC584F /* RDECocoaGlue_Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4520E83CBC00CC584F /* RDECocoaGlue_Application.m */; };
-		033FAB7420E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4920E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m */; };
+		033FAB7420E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4920E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB7520E83CBC00CC584F /* RDECocoaGlue_Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4B20E83CBC00CC584F /* RDECocoaGlue_Form.m */; };
 		033FAB7620E83CBC00CC584F /* RDECocoaGlue_List.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4E20E83CBC00CC584F /* RDECocoaGlue_List.m */; };
 		033FAB7720E83CBC00CC584F /* RDECocoaGlue_Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5120E83CBC00CC584F /* RDECocoaGlue_Matrix.m */; };

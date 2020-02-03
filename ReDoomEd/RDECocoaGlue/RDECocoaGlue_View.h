@@ -57,9 +57,9 @@
 
 - (id) sizeTo: (float) width : (float) height;
 
-- (id) setAutosizing: (unsigned int) mask;
+- (id) setAutosizing: (unsigned int) mask API_DEPRECATED_WITH_REPLACEMENT("-setAutoresizingMask:", macos(10.0, 10.0));
 
-- (id) printPSCode: (id) sender;
+- (id) printPSCode: (id) sender API_DEPRECATED_WITH_REPLACEMENT("-print:", macos(10.0, 10.0));
 
 @end
 

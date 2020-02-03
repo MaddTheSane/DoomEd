@@ -16,9 +16,9 @@
 #ifdef REDOOMED
 	// specify scalemenu_i & gridmenu_i as PopUpList instances
 	IBOutlet PopUpList *scalemenu_i;
-	IBOutlet id		scalebutton_i;
+	IBOutlet NSButton *scalebutton_i;
 	IBOutlet PopUpList *gridmenu_i;
-	IBOutlet id		gridbutton_i;
+	IBOutlet NSButton *gridbutton_i;
 #else // Original
 	id		scalemenu_i, scalebutton_i;
 	id		gridmenu_i, gridbutton_i;	
@@ -32,9 +32,9 @@
 @property (readonly, assign) MapView* mapView;
 
 @property (readonly, assign) PopUpList *scalemenu;
-- scalebutton;
+- (NSButton *)scalebutton;
 @property (readonly, assign) PopUpList *gridmenu;
-- gridbutton;
+- (NSButton *)gridbutton;
 
 - reDisplay: (NXRect *)dirty;
 

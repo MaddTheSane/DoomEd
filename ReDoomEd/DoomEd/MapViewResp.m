@@ -33,17 +33,13 @@
 ===============================================================================
 */
 
-/*
-===================
-=
-= addLineFrom: to:
-=
-= Adds a new line of the type specified in the various panels and selects it and its points
-= Called by lineDrag and polyDrag
-=
-====================
-*/
 
+/**
+ * addLineFrom: to:
+ *
+ * Adds a new line of the type specified in the various panels and selects it and its points
+ * Called by lineDrag and polyDrag
+ */
 - addLineFrom: (NXPoint *)fixedpoint  to: (NXPoint *)dragpoint
 {
 	worldline_t	newline;
@@ -179,7 +175,7 @@
 	if (selected >= numrows)
 		return NULL;
 		
-	[itemlist selectCellAt: selected : 0];
+	[itemlist selectItemAtIndex: selected ];
 	[[window scalebutton] setTitle: [[itemlist selectedCell] title]];
 
 // parse the scale from the title
@@ -810,14 +806,8 @@
 
 //============================================================================
 
-/*
-================
-=
-= pointSelect:
-=
-================
-*/
 
+/// pointSelect:
 - pointSelect:(NXEvent *)event
 {
 	int			i;

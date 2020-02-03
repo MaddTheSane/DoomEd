@@ -73,7 +73,7 @@ static	int	cornerx = 128, cornery = 64;
 
 // initialize the map view 
 	mapview_i = [[MapView alloc] initFromEditWorld];
-	[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
+	[scrollview_i setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
 	
 //		
 // initialize the pop up menus

@@ -75,7 +75,7 @@ typedef struct
 - (thinglist_t *)getThingData:(NSInteger)index;
 - (IBAction)chooseThing:sender;
 - (IBAction)confirmCorrectNameEntry:sender;
-- getThing:(worldthing_t	*)thing;
+- getThing:(worldthing_t *)thing;
 - setThing:(worldthing_t *)thing;
 - (NSInteger)searchForThingType:(int)type;
 - (IBAction)suggestNewType:sender;
@@ -88,7 +88,6 @@ typedef struct
 - selectThingWithIcon:(char *)name;
 
 - (thinglist_t *)getCurrentThingData;
-- currentThingCount API_DEPRECATED_WITH_REPLACEMENT("-countCurrentThings", macos(10.0, 10.0));
 - (void)countCurrentThings;
 
 

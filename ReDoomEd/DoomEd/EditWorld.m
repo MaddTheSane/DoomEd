@@ -324,11 +324,11 @@ int LineByPoint (NXPoint *ptin, int *side)
 		[doomproject_i setMapDirty:FALSE];
 	}	
 
-	[[windowlist_i	objectAtIndex:0] saveFrameUsingName:WORLDNAME];
+	[windowlist_i.firstObject saveFrameUsingName:WORLDNAME];
 
 #ifdef REDOOMED
 	// close the window
-	[[windowlist_i	objectAtIndex:0] performClose: self];
+	[windowlist_i.firstObject performClose: self];
 #endif
 
 	[windowlist_i removeAllObjects];
@@ -519,7 +519,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 {
 #ifdef REDOOMED
 	// use MapWindow* typecast so compiler finds correct signature for mapView method
-	[[(MapWindow *) [NXApp mainWindow] mapView] printPSCode: sender];
+	[[(MapWindow *) [NXApp mainWindow] mapView] print: sender];
 #else // Original
 	[[[NXApp mainWindow] mapView] printPSCode: sender];
 #endif
@@ -698,7 +698,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - getMainWindow
 {
-	return [windowlist_i	objectAtIndex:0];
+	return windowlist_i.firstObject;
 }
 
 /*

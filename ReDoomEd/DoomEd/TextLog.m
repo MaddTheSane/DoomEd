@@ -34,7 +34,7 @@
 - (instancetype)initWithTitle:(NSString*)title;
 {
 	if (self = [super init]) {
-		[NSBundle loadNibNamed: @"TextLog" owner: self];
+		[NSBundle loadNibNamed: @"TextLog_Cocoa" owner: self];
 		
 		[window_i setTitle:title];
 	}
@@ -44,7 +44,7 @@
 
 - msg:(char *)string
 {
-	int		len;
+	NSInteger		len;
 
 	len = [text_i textLength];
 	[text_i setSel:len :len];

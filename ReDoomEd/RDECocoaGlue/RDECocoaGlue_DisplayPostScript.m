@@ -107,7 +107,7 @@ void RDE_PSsetlinewidth(float width)
 {
     if (!gCurrentPath)
     {
-        gCurrentPath = [[NSBezierPath bezierPath] retain];
+        gCurrentPath = [NSBezierPath bezierPath];
     }
 
     if (width < 1)
@@ -148,7 +148,7 @@ void RDE_PSmoveto(float x, float y)
 {
     if (!gCurrentPath)
     {
-        gCurrentPath = [[NSBezierPath bezierPath] retain];
+        gCurrentPath = [NSBezierPath bezierPath];
     }
 
     [gCurrentPath moveToPoint: macroRDE_MakePixelCenteredPoint(x, y)];
@@ -277,17 +277,13 @@ void RDE_PSshow(char *string)
 
     if (!attributes)
     {
-        attributes = [[NSDictionary dictionaryWithObject: kDefaultFont
-                                    forKey: NSFontAttributeName]
-                                retain];
+        attributes = [[NSDictionary alloc] initWithObjectsAndKeys:kDefaultFont, NSFontAttributeName, nil];
     }
 
     nsString = [[NSString alloc] initWithCString: string encoding: NSUTF8StringEncoding];
 
     [nsString drawAtPoint: macroRDE_IntegralPoint([gCurrentPath currentPoint])
                 withAttributes: attributes];
-
-    [nsString release];
 
     RDE_PSnewpath();
 }
@@ -378,8 +374,7 @@ void RDE_DPSGlue_SetNSColor(NSColor *color)
         // store the latest non-drawRect color in gInstancePathColor, regardless of
         // instance mode, because -[MapView polyDrag:] sets the draw color for its
         // instance before entering instance mode
-        [gInstancePathColor release];
-        gInstancePathColor = [color retain];
+        gInstancePathColor = color;
     }
 }
 
@@ -420,7 +415,6 @@ static void ClearInstancePath(void)
 {
     if (gInstancePath)
     {
-        [gInstancePath release];
         gInstancePath = nil;
     }
 }

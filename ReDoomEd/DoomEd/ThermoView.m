@@ -11,7 +11,7 @@
 	NSRect bounds = [self bounds];
 #endif
 
-	thermoWidth = bounds.size.width*((float)current/(float)maximum);
+	thermoWidth = bounds.size.width*((CGFloat)current/(CGFloat)maximum);
 	return self;
 }
 

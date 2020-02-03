@@ -42,6 +42,4 @@
 
 - (void) getScreenSize: (NSSize *) returnedScreenSize;
 
-- (NSModalResponse) runModalFor: (NSWindow *) theWindow API_DEPRECATED_WITH_REPLACEMENT("-runModalForWindow:", macos(10.0, 10.0));
-
 @end
