@@ -147,7 +147,7 @@ id	thingPalette_i;
 //	Return amount of icons available
 //
 //============================================================
-- (int)getNumIcons
+- (int)countOfIcons
 {
 	return [thingImages	count];
 }

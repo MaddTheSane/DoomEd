@@ -12,9 +12,11 @@ typedef struct
 	texpatch_t *p;
 } delta_t;
 
+@class Storage;
+
 @interface TextureView:View
 {
-	id	deltaTable;
+	Storage *deltaTable;
 }
 
 

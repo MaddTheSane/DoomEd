@@ -6,14 +6,15 @@
 #   import <appkit/appkit.h>
 #endif
 
-extern	id	settingspanel_i;
+@class SettingsPanel;
+extern SettingsPanel *settingspanel_i;
 
-@interface SettingsPanel:Object
+@interface SettingsPanel:NSObject
 {
 	int	segmenttype;
 }
 
-- menuTarget:sender;
-- (int) segmentType;
+- (IBAction)menuTarget:sender;
+@property (readonly) int segmentType;
 
 @end

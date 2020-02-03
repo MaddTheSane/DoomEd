@@ -36,7 +36,7 @@
 
 - (id) findCellWithTag: (int) anInt API_DEPRECATED_WITH_REPLACEMENT("-cellWithTag:", macos(10.0, 10.0));
 
-- (id) removeRowAt: (int) row andFree: (BOOL) flag;
+- (id) removeRowAt: (int) row andFree: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-removeRow:", macos(10.0, 10.0)); 
 
 - (id) scrollCellToVisible: (int) row : (int) col API_DEPRECATED_WITH_REPLACEMENT("-scrollCellToVisibleAtRow:column:", macos(10.0, 10.0));
 

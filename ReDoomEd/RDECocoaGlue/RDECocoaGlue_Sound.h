@@ -29,7 +29,7 @@
 
 @interface NSSound (RDECocoaGlue_SoundMethods)
 
-- (id) initFromSection: (char *) section;
+- (instancetype) initFromSection: (const char *) section;
 
 @end
 

@@ -6,7 +6,7 @@
 #   import <appkit/appkit.h>
 #endif
 
-@interface FindLine:Object
+@interface FindLine:NSObject
 {
 	IBOutlet NSWindow	*window_i;
 	IBOutlet id	status_i;

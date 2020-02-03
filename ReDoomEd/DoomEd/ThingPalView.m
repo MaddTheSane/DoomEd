@@ -32,7 +32,7 @@
 		DE_DrawOutline(&r);
 	}
 	
-	max = [thingPalette_i	getNumIcons];
+	max = [thingPalette_i	countOfIcons];
 	for (i = 0; i < max; i++)
 	{
 		icon = [thingPalette_i	getIcon:i];
@@ -103,7 +103,7 @@
 	[self convertPoint:&loc	fromView:NULL];
 #endif
 	
-	max = [thingPalette_i	getNumIcons];
+	max = [thingPalette_i	countOfIcons];
 	for (i = 0;i < max; i++)
 	{
 		icon = [thingPalette_i		getIcon:i];

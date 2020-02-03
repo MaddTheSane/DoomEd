@@ -23,9 +23,9 @@ extern	BOOL	linecross[9][9];
 	int		gridsize;
 }
 
-- initFromEditWorld;
+- (instancetype)initFromEditWorld;
 
-- (float)currentScale;
+@property (readonly) float currentScale;
 - getCurrentOrigin: (NXPoint *)worldorigin;
 
 - scaleMenuTarget: sender;

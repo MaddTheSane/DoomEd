@@ -41,9 +41,9 @@ extern SpecialList *lineSpecialPanel_i;
 	worldline_t	baseline, oldline;
 }
 
-- emptySpecialList;
+- (void)emptySpecialList;
 - (IBAction)menuTarget:sender;
-- updateInspector: (BOOL)force;
+- (void)updateInspector: (BOOL)force;
 - (IBAction)sideRadioTarget:sender;
 - (void)updateLineInspector;
 

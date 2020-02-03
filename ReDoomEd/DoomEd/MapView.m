@@ -285,10 +285,7 @@ printf ("Done\n");
 	return YES;
 }
 
-- (float)currentScale
-{
-	return scale;
-}
+@synthesize currentScale=scale;
 
 
 /*

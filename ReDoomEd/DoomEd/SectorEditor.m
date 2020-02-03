@@ -67,7 +67,7 @@ SectorEditor	*sectorEdit_i;
 	[[editworld_i	getMainWindow] makeKeyAndOrderFront:NULL];
 }
 
-- pgmTarget
+- (void)pgmTarget
 {
 	if (![doomproject_i loaded])
 	{
@@ -75,20 +75,19 @@ SectorEditor	*sectorEdit_i;
 						"There must be a project loaded before you even\n"
 						"THINK about editing sectors!",
 						"OK",NULL,NULL,NULL);
-		return self;
+		return;
 	}
 	
 	if (!window_i)
 	{
 		[self	menuTarget:NULL];
-		return self;
+		return;
 	}
 	
 	[window_i	orderFront:NULL];
-	return self;
 }
 
-- setupEditor
+- (void)setupEditor
 {
 	[self	computeFlatDocView];
 	
@@ -113,7 +112,6 @@ SectorEditor	*sectorEdit_i;
 #endif
 
 	[self	setCurrentFlat:0];
-	return self;
 }
 
 - (IBAction)menuTarget:sender
@@ -238,7 +236,7 @@ SectorEditor	*sectorEdit_i;
 //	Set all Sector Editor info to what's being passed
 //
 //============================================================
-- setSector:(sectordef_t *) s
+- (void)setSector:(sectordef_t *) s
 {
 	int	val;
 	flat_t	*f;
@@ -297,7 +295,6 @@ SectorEditor	*sectorEdit_i;
 	[specialPanel_i		setSpecial:sector.special];
 
 	[sectorEditView_i	display];
-	return self;
 }
 
 - (IBAction)lightChanged:sender
@@ -332,22 +329,18 @@ SectorEditor	*sectorEdit_i;
 	[floorAndCeiling_i	selectCellAtRow:0 column:0];
 }
 
-- setCeiling:(int) what
+- (void)setCeiling:(int) what
 {
 	[cheightfield_i		setIntValue:what];
 	[totalHeight_i		setIntValue:what - [fheightfield_i  intValue]];
 	[self	setKey:NULL];
-
-	return self;
 }
 
-- setFloor:(int) what
+- (void)setFloor:(int) what
 {
 	[fheightfield_i		setIntValue:what];
 	[totalHeight_i		setIntValue:[cheightfield_i  intValue] - what];
 	[self	setKey:NULL];
-
-	return self;
 }
 
 //============================================================
@@ -459,7 +452,7 @@ SectorEditor	*sectorEdit_i;
 //	Get rid of all flats and their images
 //
 //==========================================================
-- dumpAllFlats
+- (void)dumpAllFlats
 {
 	int			i, max;
 	flat_t		*p;
@@ -480,14 +473,11 @@ SectorEditor	*sectorEdit_i;
 	[ flatImages	empty ];
 	[panel	orderOut:NULL];
 	NXFreeAlertPanel(panel);
-	
-	return self;
 }
 
-- emptySpecialList
+- (void)emptySpecialList
 {
 	[ specialPanel_i	empty ];
-	return self;
 }
 
 //============================================================
@@ -590,7 +580,7 @@ SectorEditor	*sectorEdit_i;
 //	Set coords for all flats in the flatView -- setup flatView
 //
 //============================================================
-- computeFlatDocView
+- (void)computeFlatDocView
 {
 	NXRect	dvr;
 	int		i,x,y,max;
@@ -670,8 +660,6 @@ SectorEditor	*sectorEdit_i;
 #endif
 
 	[flatScrPalView_i	display];
-
-	return self;
 }
 
 - (const char *)flatName:(NSInteger) flat
@@ -861,10 +849,9 @@ SectorEditor	*sectorEdit_i;
 	[self	setKey:NULL];
 }
 
-- error:(const char *)string
+- (void)error:(const char *)string
 {
-	NXRunAlertPanel("Oops!",string,"OK",NULL,NULL,NULL);
-	return self;
+	NSRunAlertPanel(@"Oops!",@"%s",@"OK",NULL,NULL, string);
 }
 
 //
@@ -892,10 +879,9 @@ SectorEditor	*sectorEdit_i;
 	return self;
 }
 
-- updateSectorSpecialsDSP:(FILE *)stream
+- (void)updateSectorSpecialsDSP:(FILE *)stream
 {
 	[specialPanel_i	updateSpecialsDSP:stream];
-	return self;
 }
 
 - (IBAction)activateSpecialList:sender

@@ -37,10 +37,9 @@ FlatRemapper *flatRemapper_i;
 //	Bring up panel
 //
 //===================================================================
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
 	[remapper_i	showPanel];
-	return self;
 }
 
 - addToList:(char *)orgname to:(char *)newname;

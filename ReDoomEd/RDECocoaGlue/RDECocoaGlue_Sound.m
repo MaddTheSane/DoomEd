@@ -32,7 +32,7 @@ static BOOL CanPlaySnds(void);
 
 @implementation NSSound (RDECocoaGlue_SoundMethods)
 
-- (id) initFromSection: (char *) section
+- (id) initFromSection: (const char *) section
 {
     static BOOL checkedCanPlaySnds = NO, canPlaySnds = NO;
     NSString *soundResourceFilepath;

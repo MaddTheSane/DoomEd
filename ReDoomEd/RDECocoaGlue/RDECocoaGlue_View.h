@@ -37,15 +37,15 @@
 
 @interface NSView (RDECocoaGlue_ViewMethods)
 
-- (id) getBounds: (NSRect *) theRect;
+- (id) getBounds: (NSRect *) theRect API_DEPRECATED("Call -bounds instead", macos(10.0, 10.0));
 
-- (id) getFrame: (NSRect *) theRect;
+- (id) getFrame: (NSRect *) theRect API_DEPRECATED("Call -frame instead", macos(10.0, 10.0));
 
-- (BOOL) getVisibleRect: (NXRect *) theRect;
+- (BOOL) getVisibleRect: (NXRect *) theRect API_DEPRECATED("Call -visibleRect instead", macos(10.0, 10.0));
 
 - (id) setDrawOrigin: (float) x : (float) y;
 
-- (id) setDrawSize: (float) width : (float) height;
+- (id) setDrawSize: (float) width : (float) height API_DEPRECATED("Call -setBoundsSize: instead", macos(10.0, 10.0));
 
 - (id) convertPointFromSuperview: (NSPoint *) aPoint;
 
@@ -55,7 +55,7 @@
 
 - (id) drawSelf: (const NSRect *) rectPtrs : (int) rectCount;
 
-- (id) sizeTo: (float) width : (float) height;
+- (id) sizeTo: (float) width : (float) height API_DEPRECATED("Call -setFrameSize: instead", macos(10.0, 10.0));
 
 - (id) setAutosizing: (unsigned int) mask API_DEPRECATED_WITH_REPLACEMENT("-setAutoresizingMask:", macos(10.0, 10.0));
 

@@ -63,10 +63,9 @@ SpecialList *lineSpecialPanel_i;
 	return self;
 }
 
-- emptySpecialList
+- (void)emptySpecialList
 {
 	[lineSpecialPanel_i	empty];
-	return self;
 }
 
 - (void)saveFrame
@@ -231,7 +230,7 @@ SpecialList *lineSpecialPanel_i;
 ==============
 */
 
-- updateInspector: (BOOL)force
+- (void)updateInspector: (BOOL)force
 {
 	NSInteger		side;
 	worldline_t	*line;
@@ -240,10 +239,10 @@ SpecialList *lineSpecialPanel_i;
 	int		dlen;
 
 	if (!window_i)
-		return self;
+		return;
 		
 	if (!force && ![window_i isVisible])
-		return self;
+		return;
 
 	[window_i disableFlushWindow];
 	
@@ -288,8 +287,6 @@ SpecialList *lineSpecialPanel_i;
 #else // Original
 	[window_i flushWindow];
 #endif
-	
-	return self;
 }
 
 //============================================================================

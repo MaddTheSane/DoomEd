@@ -161,7 +161,7 @@ void RDE_PSlineto(float x, float y)
 
 void RDE_PSrlineto(float x, float y)
 {
-    // unused codepath, just defined to avoid compile warning in DrawDivline() in saveconnect.m
+    [gCurrentPath relativeLineToPoint: macroRDE_MakePixelCenteredPoint(x, y)];
 }
 
 void RDE_PSclosepath(void)
@@ -288,13 +288,13 @@ void RDE_PSshow(char *string)
     RDE_PSnewpath();
 }
 
-void RDE_PScompositerect(float x, float y, float w, float h, int operation)
+void RDE_PScompositerect(float x, float y, float w, float h, NSCompositingOperation operation)
 {
     NSRectFillUsingOperation(macroRDE_MakePixelCenteredRect(x, y, w, h), operation);
 }
 
 void RDE_DPSDoUserPath(const float *coords, int numCoords, DPSNumberFormat numType,
-                            const char *ops, int numOps, void *bbox, DPSUserPathAction action)
+                            const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
 {
     NSBezierPath *userPath = [NSBezierPath bezierPath];
 

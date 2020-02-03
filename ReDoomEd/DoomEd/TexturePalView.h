@@ -6,7 +6,8 @@
 #   import <appkit/appkit.h>
 #endif
 
-#if 0
+#ifndef	H_DIVIDERT
+#define	H_DIVIDERT
 typedef struct
 {
 	int		x,y;

@@ -6,6 +6,8 @@
 #   import <appkit/appkit.h>
 #endif
 
+@class Storage;
+
 typedef struct
 {
 	int		value;
@@ -20,10 +22,10 @@ typedef struct
 
 @interface ThingStripper:Object <NSWindowDelegate>
 {
-	IBOutlet id	thingBrowser_i;		// nib outlets
+	IBOutlet NSBrowser *thingBrowser_i;		// nib outlets
 	IBOutlet NSWindow *thingStripPanel_i;
 
-	id	thingList_i;
+	Storage *thingList_i;
 }
 
 - (IBAction)displayPanel:sender;

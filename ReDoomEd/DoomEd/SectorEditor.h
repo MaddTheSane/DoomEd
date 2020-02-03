@@ -57,15 +57,15 @@ extern SectorEditor *sectorEdit_i;
 }
 
 - (IBAction)setKey:sender;
-- setupEditor;
-- pgmTarget;
+- (void)setupEditor;
+- (void)pgmTarget;
 - (IBAction)ceilingAdjust:sender;
 - (IBAction)floorAdjust:sender;
 - (IBAction)totalHeightAdjust:sender;
 - (IBAction)getTagValue:sender;
 - (IBAction)lightLevelDown:sender;
 - (IBAction)lightLevelUp:sender;
-- setSector:(sectordef_t *)s;
+- (void)setSector:(sectordef_t *)s;
 - (sectordef_t *) getSector;
 - (void)selectFloor;
 - (void)selectCeiling;
@@ -73,8 +73,8 @@ extern SectorEditor *sectorEdit_i;
 - (IBAction)lightSliderChanged:sender;
 - (flat_t *) getCeilingFlat;
 - (flat_t *) getFloorFlat;
-- setCeiling:(int) what;
-- setFloor:(int) what;
+- (void)setCeiling:(int) what;
+- (void)setFloor:(int) what;
 - (IBAction)CorFheightChanged:sender;
 - (IBAction)locateFlat:sender;
 - (int) getNumFlats API_DEPRECATED_WITH_REPLACEMENT("-countOfFlats", macos(10.0, 10.0));
@@ -85,12 +85,12 @@ extern SectorEditor *sectorEdit_i;
 @property (nonatomic) NSInteger currentFlat;
 - (int) getCurrentFlat API_DEPRECATED_WITH_REPLACEMENT("-currentFlat", macos(10.0, 10.0));
 - (IBAction)menuTarget:sender;
-- dumpAllFlats;
-- emptySpecialList;
+- (void)dumpAllFlats;
+- (void)emptySpecialList;
 - (int)loadFlats;
-- computeFlatDocView;
+- (void)computeFlatDocView;
 - (NSInteger) findFlat:(const char *)name;
-- error:(const char *)string;
+- (void)error:(const char *)string;
 - (void)saveFrame;
 
 - (IBAction)searchForTaggedSector:sender;
@@ -100,7 +100,7 @@ extern SectorEditor *sectorEdit_i;
 // sector special list
 //
 - (IBAction)activateSpecialList:sender;
-- updateSectorSpecialsDSP:(FILE *)stream;
+- (void)updateSectorSpecialsDSP:(FILE *)stream;
 @end
 
 /// Convert a raw 64x64 to an \c NXImage without an alpha channel

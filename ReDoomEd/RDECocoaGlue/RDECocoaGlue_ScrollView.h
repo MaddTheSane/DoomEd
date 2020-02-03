@@ -29,15 +29,15 @@
 
 @interface NSScrollView (RDECocoaGlue_ScrollViewMethods)
 
-- (id) initFrame: (const NSRect *) frameRectPtr;
+- (id) initFrame: (const NSRect *) frameRectPtr API_DEPRECATED_WITH_REPLACEMENT("-initWithFrame:", macos(10.0, 10.0));
 
 - (id) setDocView: (NSView *) aView API_DEPRECATED_WITH_REPLACEMENT("-setDocumentView:", macos(10.0, 10.0));
 
 - (id) setHorizScrollerRequired: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setHasHorizontalScroller:", macos(10.0, 10.0));
 - (id) setVertScrollerRequired: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setHasVerticalScroller:", macos(10.0, 10.0));
 
-- (id) getDocVisibleRect: (NSRect *) aRect;
+- (id) getDocVisibleRect: (NSRect *) aRect API_DEPRECATED("Call -documentVisibleRect instead", macos(10.0, 10.0));
 
-- (id) getContentSize: (NSSize *) theSize;
+- (id) getContentSize: (NSSize *) theSize API_DEPRECATED("Call -contentSize instead", macos(10.0, 10.0));
 
 @end

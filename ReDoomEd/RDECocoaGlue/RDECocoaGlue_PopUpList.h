@@ -31,11 +31,11 @@
 {
 }
 
-- (id) itemList;
+- (id) itemList API_DEPRECATED("Just call against this object.", macos(10.0, 10.0));
 
 - (id) getNumRows: (int *) returnedRows numCols: (int *) returnedCols;
 
-- (NSInteger) selectedRow;
+- (NSInteger) selectedRow API_DEPRECATED_WITH_REPLACEMENT("-indexOfSelectedItem", macos(10.0, 10.0));
 
 - (id) selectedCell;
 

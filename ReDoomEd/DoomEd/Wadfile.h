@@ -6,16 +6,17 @@
 #   import <appkit/appkit.h>
 #endif
 
+@class Storage;
 
 @interface Wadfile : Object
 {
 	int		handle;
 	char		*pathname;
-	id		info;
+	Storage	*info;
 	BOOL	dirty;
 }
 
-- initFromFile: (char const *)path;
+- (instancetype)initFromFile: (char const *)path;
 - initNew: (char const *)path;
 
 #ifdef REDOOMED

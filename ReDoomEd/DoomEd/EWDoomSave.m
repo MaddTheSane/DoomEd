@@ -43,16 +43,14 @@ int		linecrunch[8192];
 ================
 */
 
-- writeBuffer: (char const *)filename
+- (void)writeBuffer: (char const *)filename
 {
-	int		size;
+	size_t		size;
 	
 	size = buf_p - buffer;
-	[mapwad_i addName: filename data: buffer size: size];
-	printf ("%s:  %i bytes\n", filename, size);
+	[mapwad_i addName: filename data: buffer size: (int)size];
+	printf ("%s:  %zu bytes\n", filename, size);
 	worldsize += size;
-		
-	return self;
 }
 
 
@@ -259,8 +257,7 @@ int		linecrunch[8192];
 					if (mtex != -1)
 					{
 						[editworld_i selectLine: i]; // FIXME: until mid textures work
-						sprintf(string,"LINE %d: Two-sided line has a midtexture!\n",i);
-						[log_i	msg:string];
+						[log_i addMessage:[NSString stringWithFormat:@"LINE %d: Two-sided line has a midtexture!\n", i]];
 					}
 				}
 				else

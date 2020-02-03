@@ -11,7 +11,7 @@
 @class TextureRemapper;
 extern TextureRemapper *textureRemapper_i;
 
-@interface TextureRemapper:Object <Remapper>
+@interface TextureRemapper:NSObject <Remapper>
 {
 	Remapper *remapper_i;
 }

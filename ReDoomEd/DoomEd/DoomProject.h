@@ -98,7 +98,7 @@ extern	char	bsphost[32];		// bsp host machine
 }
 
 
-- init;
+- (instancetype)init;
 - (IBAction)displayLog:sender;
 @property (readonly) BOOL loaded;
 - (char *)wadfile;

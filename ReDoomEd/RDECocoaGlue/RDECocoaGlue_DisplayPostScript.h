@@ -31,13 +31,20 @@ typedef enum
 
 } DPSNumberFormat;
 
-typedef enum
-{
+typedef NS_ENUM(unsigned char, DPSUserPathOp) {
+    dps_setbbox = 0,
     dps_moveto,
+    dps_rmoveto,
     dps_lineto,
-    dps_closepath
-
-} DPSUserPathOp;
+    dps_rlineto,
+    dps_curveto,
+    dps_rcurveto,
+    dps_arc,
+    dps_arcn,
+    dps_arct,
+    dps_closepath,
+    dps_ucache
+};
 
 typedef enum
 {
@@ -80,11 +87,11 @@ void RDE_PSinstroke(float x, float y, int *pflag);
 void RDE_PSshow(char *string);
 
 
-void RDE_PScompositerect(float x, float y, float w, float h, int operation);
+void RDE_PScompositerect(float x, float y, float w, float h, NSCompositingOperation operation);
 
 
 void RDE_DPSDoUserPath(const float *coords, int numCoords, DPSNumberFormat numType,
-                        const char *ops, int numOps, void *bbox, DPSUserPathAction action);
+                        const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
 
 
 void RDE_DPSGlue_DrawInstanceIfNeeded(void);

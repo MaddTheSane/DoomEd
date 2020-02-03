@@ -12,7 +12,7 @@
 
 extern FlatRemapper *flatRemapper_i;
 
-@interface FlatRemapper:Object <Remapper>
+@interface FlatRemapper:NSObject <Remapper>
 {
 	Remapper *remapper_i;
 }

@@ -61,7 +61,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 #ifdef REDOOMED
 	if (!pathname)
 	{
-		[self free];
+		[self release];
 		return nil;
 	}
 #endif
@@ -81,7 +81,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 	if (strncmp(wad.identification,"IWAD",4))
 	{
 		close (handle);
-		[self free];
+		[self release];
 		return nil;
 	}
 	wad.numlumps = LongSwap (wad.numlumps);
@@ -129,7 +129,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 #ifdef REDOOMED
 	if (!pathname)
 	{
-		[self free];
+		[self release];
 		return nil;
 	}
 #endif
@@ -142,7 +142,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 #ifdef REDOOMED
 	{
 		// prevent memory leaks
-		[self free];
+		[self release];
 #endif
 		return nil;
 #ifdef REDOOMED

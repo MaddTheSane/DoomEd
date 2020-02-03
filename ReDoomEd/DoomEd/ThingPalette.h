@@ -38,7 +38,7 @@ extern ThingPalette *thingPalette_i;
 - (icon_t *)getIcon:(NSInteger)which;
 @property (nonatomic) int currentIcon;
 - (int)getCurrentIcon API_DEPRECATED_WITH_REPLACEMENT("-currentIcon", macos(10.0, 10.0));
-- (int)getNumIcons;
+- (int)countOfIcons;
 - (void)computeThingDocView;
 - (void)initIcons;
 - (void)dumpAllIcons;

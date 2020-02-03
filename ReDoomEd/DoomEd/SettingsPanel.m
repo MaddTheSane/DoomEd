@@ -22,14 +22,10 @@ id	settingspanel_i;
 }
 
 
-- menuTarget:sender
+- (IBAction)menuTarget:sender
 {
-    return self;
 }
 
-- (int) segmentType
-{
-	return segmenttype;
-}
+@synthesize segmentType=segmenttype;
 
 @end

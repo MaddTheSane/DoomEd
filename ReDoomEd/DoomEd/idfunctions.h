@@ -43,4 +43,4 @@ void StripExtension (char *path);
 void StripFilename (char *path);
 void ExtractFileName (char *path, char *dest);
 
-void IdException (char const *format, ...);
+void IdException (char const *format, ...) __printflike(1, 2);

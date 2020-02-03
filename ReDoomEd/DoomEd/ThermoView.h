@@ -8,7 +8,7 @@
 
 @interface ThermoView:View
 {
-	float		thermoWidth;
+	CGFloat		thermoWidth;
 }
 
 - setThermoWidth:(int)current max:(int)maximum;

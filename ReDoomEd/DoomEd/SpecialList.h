@@ -16,10 +16,10 @@ typedef struct
 
 @interface SpecialList:Object
 {
-	id	specialDesc_i;
-	id	specialBrowser_i;
-	id	specialValue_i;
-	id	specialPanel_i;
+	IBOutlet id	specialDesc_i;
+	IBOutlet id	specialBrowser_i;
+	IBOutlet id	specialValue_i;
+	IBOutlet id	specialPanel_i;
 	Storage	*specialList_i;
 	
 	__unsafe_unretained id	delegate;
