@@ -892,7 +892,7 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                             </menuItem>
                             <menuItem title="Services" id="CJZ-Xo-hte">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Services" id="2fC-xs-ROA"/>
+                                <menu key="submenu" title="Services" systemMenu="services" id="2fC-xs-ROA"/>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="mOU-Z0-QXM"/>
                             <menuItem title="Hide ReDoomEd" keyEquivalent="h" id="280">
@@ -1152,6 +1152,13 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="performMiniaturize:" target="-1" id="277"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Zoom" id="Ax3-Du-3is">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="performZoom:" target="-1" id="kue-cX-6fd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="HjI-lZ-GJP"/>
                             <menuItem title="Bring All To Front" id="211">
                                 <connections>
                                     <action selector="arrangeInFront:" target="-1" id="271"/>

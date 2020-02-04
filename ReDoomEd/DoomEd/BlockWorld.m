@@ -107,7 +107,7 @@ void selectline (unsigned line)
 ===============
 */
 
-void floodline (int startx, int y)
+static void floodline (int startx, int y)
 {
 	int		x, firstx, lastx;
 	int		line;
@@ -244,7 +244,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- drawBlockLine: (int) linenum
+- (void)drawBlockLine: (int) linenum
 {
 	worldline_t	*line;
 	int			x1, y1, x2, y2;
@@ -287,7 +287,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 			dest -= brow;
 			y1++;
 		}
-		return self;
+		return;
 	}
 	
 	if (y1 == y2)
@@ -314,7 +314,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 			dest += WLSIZE;
 			x1++;
 		}
-		return self;
+		return;
 	}
 	
 	// sloping line
@@ -363,8 +363,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		x+= xstep;
 		y+= ystep;
 	} while (--ilength > 0);
-
-	return self;
 }
 
 
@@ -376,7 +374,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- displayBlockMap
+- (void)displayBlockMap
 {
 	NXRect	aRect;
 	id		window;
@@ -441,7 +439,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	NXPing();
 
 	free (planes[0]);
-	return self;
 }
 
 
@@ -453,7 +450,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- createBlockMap
+- (void)createBlockMap
 {
 	int	i, size;
 	
@@ -478,8 +475,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		if (lines[i].selected != -1)
 			[self drawBlockLine: i];
 	}
-
-	return self;
 }
 
 
@@ -491,14 +486,14 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 ================
 */
 
-- floodFillSector: (NXPoint *)pt
+- (void)floodFillSector: (NSPoint)pt
 {
 	int	x1, y1;
 	
 	[self createBlockMap];
 	[editworld_i deselectAll];
-	x1 = (pt->x - wbounds.origin.x)/8;
-	y1 = (pt->y - wbounds.origin.y)/8;
+	x1 = (pt.x - wbounds.origin.x)/8;
+	y1 = (pt.y - wbounds.origin.y)/8;
 #if SHOWFILL
 [self displayBlockMap];
 [blockview lockFocus];
@@ -509,8 +504,6 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 #endif
 	[editworld_i redrawWindows];
 //	free(bmap);
-	
-	return self;
 }
 
 /*

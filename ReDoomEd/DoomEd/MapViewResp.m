@@ -1039,7 +1039,7 @@
 	fillends = [sectorEdit_i getSector];
 	
 	[self getPoint: &pt from: event];
-	[blockworld_i floodFillSector: &pt];
+	[blockworld_i floodFillSector: pt];
 	
 	for (i=0 ; i<numlines ; i++)
 	{
@@ -1049,7 +1049,7 @@
 		side = line->selected-1;
 		line->side[side].ends = *fillends;
 	}
-	[doomproject_i	setDirtyMap:TRUE];
+	[doomproject_i setMapDirty:TRUE];
 	
 	return self;
 }
