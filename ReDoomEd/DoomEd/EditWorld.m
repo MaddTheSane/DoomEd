@@ -156,15 +156,9 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 @implementation EditWorld
 
-- (BOOL)loaded
-{
-	return loaded;
-}
+@synthesize loaded;
 
-- (BOOL)dirty
-{
-	return dirty;
-}
+@synthesize dirty;
 
 - (BOOL)dirtyPoints
 {
@@ -217,7 +211,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 					elementSize:	sizeof(copyline_t)
 					description:	NULL];
 
-	saveSound = [[Sound alloc] initFromSection:"DESave"];
+	saveSound = [[NSSound soundNamed:@"DESave"] retain];
 	
 	return self;
 }
@@ -243,10 +237,10 @@ int LineByPoint (NXPoint *ptin, int *side)
 - loadWorldFile: (char const *)path
 {
 	FILE		*stream;
-	id		ret;
+	BOOL		ret;
 	int		version;
 
-	strcpy (pathname,path);
+	strncpy(pathname,path,sizeof(pathname));
 	dirtyrect.size.width = dirtyrect.size.height = 0;
 	boundsdirty = YES;
 	
@@ -269,7 +263,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	if (version == 0)
 	{	// empty file -- clear stuf out
 		
-		ret = self;
+		ret = YES;
 	}
 	else if (version == 4)
 		ret = [self loadV4File: stream];
@@ -311,7 +305,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 ==================
 */
 
-- closeWorld
+- (void)closeWorld
 {
 	if ([doomproject_i	mapDirty])
 	{
@@ -337,7 +331,6 @@ int LineByPoint (NXPoint *ptin, int *side)
 		
 	numpoints = numlines = numthings = 0;
 	loaded = NO;
-	return self;
 }
 
 
@@ -544,7 +537,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 ====================
 */
 
-- updateLineNormal:(int) num
+- (void)updateLineNormal:(int) num
 {
 	worldline_t	*line;
 	NXPoint	*p1, *p2;
@@ -564,8 +557,6 @@ int LineByPoint (NXPoint *ptin, int *side)
 	line->mid.y = p1->y + dy/2;
 	line->norm.x = line->mid.x + dy/length;
 	line->norm.y = line->mid.y - dx/length;
-	
-	return self;
 }
 
 
@@ -647,7 +638,7 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 ===============================================================================
 */
 
-- windowWillClose: sender
+- (void)windowWillClose: sender
 {
 	if ([doomproject_i	mapDirty])
 	{
@@ -669,7 +660,6 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 	[windowlist_i removeObject: sender];
 
 //	[self	closeWorld];
-	return self;
 }
 
 
@@ -1067,13 +1057,13 @@ FIXME: make these scan for deleted entries
 //
 // store copies of all stuff to be copied!
 //
-- storeCopies
+- (void)storeCopies
 {
 	int	i;
 	NXRect	r;
 	copyline_t	cl;
 	
-	[[[NXApp mainWindow]	contentView]	getDocVisibleRect:&r];
+	r = [[[NXApp mainWindow] contentView] documentVisibleRect];
 	copyCoord = r.origin;
 	[copyThings_i		empty];
 	[copyLines_i		empty];
@@ -1091,13 +1081,12 @@ FIXME: make these scan for deleted entries
 		}
 	
 	copyLoaded = 0;
-	return self;
 }
 
 //
 // deselect everything after copying
 //
-- copyDeselect
+- (void)copyDeselect
 {
 	int	i;
 
@@ -1110,22 +1099,6 @@ FIXME: make these scan for deleted entries
 	for (i=0;i<numpoints;i++)
 		if (points[i].selected == 1)
 			[self	deselectPoint:i];
-			
-	return self;
-}
-
-- (int)findMin:(int)num0	:(int)num1
-{
-	if (num1 < num0)
-		return num1;
-	return num0;
-}
-
-- (int)findMax:(int)num0	:(int)num1
-{
-	if (num1 > num0)
-		return num1;
-	return num0;
 }
 
 //
@@ -1136,32 +1109,32 @@ FIXME: make these scan for deleted entries
 	worldthing_t	*t;
 	copyline_t	*L;
 	NXPoint	p;
-	int	i,max,xmin,ymin,xmax,ymax;
+	NSInteger	i,max,xmin,ymin,xmax,ymax;
 	
 	xmin  = ymin  = xmax = ymax = 0;
 	max = [copyThings_i	count];
 	for (i=0;i < max;i++)
 	{
 		t = [copyThings_i	elementAt:i];
-		xmin = [self	findMin:xmin	:t->origin.x];
-		ymin = [self	findMin:ymin	:t->origin.y];
-		xmax = [self	findMax:xmax	:t->origin.x];
-		ymax = [self	findMax:ymax	:t->origin.y];
+		xmin = MIN(xmin, t->origin.x);
+		ymin = MIN(ymin, t->origin.y);
+		xmax = MAX(xmax, t->origin.x);
+		ymax = MAX(ymax, t->origin.y);
 	}
 	
 	max = [copyLines_i	count];
 	for (i=0;i < max;i++)
 	{
 		L = [copyLines_i	elementAt:i];
-		xmin = [self	findMin:xmin	:L->p1.x];
-		ymin = [self	findMin:ymin	:L->p1.y];
-		xmax = [self	findMax:xmax	:L->p1.x];
-		ymax = [self	findMax:ymax	:L->p1.y];
+		xmin = MIN(xmin, L->p1.x);
+		ymin = MIN(ymin, L->p1.y);
+		xmax = MAX(xmax, L->p1.x);
+		ymax = MAX(ymax, L->p1.y);
 		
-		xmin = [self	findMin:xmin	:L->p2.x];
-		ymin = [self	findMin:ymin	:L->p2.y];
-		xmax = [self	findMax:xmax	:L->p2.x];
-		ymax = [self	findMax:ymax	:L->p2.y];
+		xmin = MIN(xmin, L->p2.x);
+		ymin = MIN(ymin, L->p2.y);
+		xmax = MAX(xmax, L->p2.x);
+		ymax = MAX(ymax, L->p2.y);
 	}
 
 	p.x = (xmax + xmin) / 2;
@@ -1204,14 +1177,15 @@ FIXME: make these scan for deleted entries
 
 - (IBAction)paste: sender
 {
-	int		xadd,yadd,i,max, index;
+	int		xadd,yadd,i, index;
+	NSInteger max;
 	NXRect	r;
 	worldthing_t	*t, t1;
 	copyline_t	*L;
 	NXPoint	p1,p2;
 
-	[self	copyDeselect];	
-	[[[NXApp	mainWindow]	contentView]	getDocVisibleRect:&r];
+	[self	copyDeselect];
+	r = [[[NXApp mainWindow] contentView] documentVisibleRect];
 	if (copyLoaded)
 	{
 		copyCoord = [self	findCopyCenter];
@@ -1451,7 +1425,7 @@ Updates dirty rect based on old and new positions
 	{
 		if (![doomproject_i mapDirty])
 		{
-			[doomproject_i setDirtyMap: TRUE];
+			[doomproject_i setMapDirty: TRUE];
 		}
 	}
 #endif
@@ -1496,133 +1470,126 @@ Updates dirty rect based on old and new positions
 ================
 */
 
-- selectPoint: (int)num
+- (void)selectPoint: (int)num
 {
 	worldpoint_t	*data;
 	
 	if (num >= numpoints)
 	{
 		printf ("selectPoint: num >= numpoints\n");
-		return self;
+		return;
 	}
 	data = &points[num];
 	if (data->selected == -1)
 	{
 		printf ("selectPoint: deleted point\n");
-		return self;
+		return;
 	}
 	data->selected = 1;
 	[self changePoint: num to:data];
-	return self;
 }
 
 
-- deselectPoint: (int)num
+- (void)deselectPoint: (int)num
 {
 	worldpoint_t	*data;
 	
 	if (num >= numpoints)
 	{
 		printf ("deselectPoint: num >= numpoints\n");
-		return self;
+		return;
 	}
 	data = &points[num];
 	if (data->selected == -1)
 	{
 		printf ("deselectPoint: deleted\n");
-		return self;
+		return;
 	}
 	data->selected = 0;
 	[self changePoint: num to:data];
-	return self;
 }
 
 
-- selectLine: (int)num
+- (void)selectLine: (int)num
 {
 	worldline_t	*data;
 	
 	if (num >= numlines)
 	{
 		printf ("selectLine: num >= numlines\n");
-		return self;
+		return;
 	}
 	data = &lines[num];
 	if (data->selected == -1)
 	{
 		printf ("selectLine: deleted\n");
-		return self;
+		return;
 	}
 	data->selected = 1;
 	[self changeLine: num to:data];
 	
 //	[ log_i	msg:"Selecting line!\n" ];
-	
-	return self;
 }
 
 
-- deselectLine: (int)num
+- (void)deselectLine: (int)num
 {
 	worldline_t	*data;
 	
 	if (num >= numlines)
 	{
 		printf ("deselectLines: num >= numliness\n");
-		return self;
+		return;
 	}
 	data = &lines[num];
 	if (data->selected == -1)
 	{
 		printf ("deselectLine: deleted point\n");
-		return self;
+		return;
 	}
 	data->selected = 0;
 	[self changeLine: num to:data];
-	return self;
 }
 
 
-- selectThing: (int)num
+- (void)selectThing: (int)num
 {
 	worldthing_t	*data;
 	
 	if (num >= numthings)
 	{
 		printf ("selectThing: num >= numthings\n");
-		return self;
+		return;
 	}
 	data = &things[num];
 	if (data->selected == -1)
 	{
 		printf ("selectThing: deleted\n");
-		return self;
+		return;
 	}
 	data->selected = 1;
 	[self changeThing: num to:data];
 	[thingpanel_i	setThing:data];
-	return self;
 }
 
 
-- deselectThing: (int)num
+- (void)deselectThing: (int)num
 {
 	worldthing_t	*data;
 	
 	if (num >= numthings)
 	{
 		printf ("deselectThing: num >= numthings\n");
-		return self;
+		return;
 	}
 	data = &things[num];
 	if (data->selected == -1)
 	{
 		printf ("deselectThing: deleted point\n");
-		return self;
+		return;
 	}
 	data->selected = 0;
 	[self changeThing: num to:data];
-	return self;
 }
 
 
@@ -1635,7 +1602,7 @@ Updates dirty rect based on old and new positions
 =====================
 */
 
-- deselectAllPoints
+- (void)deselectAllPoints
 {
 	int	p;	
 	for (p=0; p<numpoints ; p++)
@@ -1644,10 +1611,9 @@ Updates dirty rect based on old and new positions
 			points[p].selected = 0;
 			[self changePoint: p to: &points[p]];
 		}
-	return self;
 }
 
-- deselectAllLines
+- (void)deselectAllLines
 {
 	int	p;
 	for (p=0; p<numlines ; p++)
@@ -1656,10 +1622,9 @@ Updates dirty rect based on old and new positions
 			lines[p].selected = 0;
 			[self changeLine: p to: &lines[p]];
 		}
-	return self;
 }
 
-- deselectAllThings
+- (void)deselectAllThings
 {
 	int	p;
 	for (p=0; p<numthings ; p++)
@@ -1668,15 +1633,13 @@ Updates dirty rect based on old and new positions
 			things[p].selected = 0;
 			[self changeThing: p to: &things[p]];
 		}
-	return self;
 }
 
-- deselectAll
+- (void)deselectAll
 {
 	[self deselectAllPoints];
 	[self deselectAllLines];
 	[self deselectAllThings];
-	return self;
 }
 
 

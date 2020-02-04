@@ -618,7 +618,7 @@ SectorEditor	*sectorEdit_i;
 		x += FLATSIZE + SPACING;
 	}
 	
-	[flatPalView_i	sizeTo:dvr.size.width	:y + FLATSIZE + SPACING];
+	[flatPalView_i setFrameSize:NSMakeSize(dvr.size.width, y + FLATSIZE + SPACING)];
 	p.x = 0;
 	p.y = y + FLATSIZE*2 + SPACING*2;
 	x = SPACING;

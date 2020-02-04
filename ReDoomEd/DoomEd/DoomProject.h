@@ -163,5 +163,5 @@ extern	char	bsphost[32];		// bsp host machine
 
 @end
 
-void IO_Error (char *error, ...);
+void IO_Error (char *error, ...) __printflike(1, 2);
 void DE_DrawOutline(NXRect *r);

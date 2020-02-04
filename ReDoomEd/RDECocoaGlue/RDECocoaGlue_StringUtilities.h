@@ -23,6 +23,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
-NSString *RDE_NSStringFromCString(const char *cString);
-const char *RDE_CStringFromNSString(NSString *string);
+NSString *RDE_NSStringFromCString(const char *__nullable cString);
+const char *RDE_CStringFromNSString(NSString *__nullable string);
+
+NS_ASSUME_NONNULL_END

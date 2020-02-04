@@ -164,7 +164,6 @@ int		linecrunch[8192];
 	int		length;
 	float		dx, dy;
 	NXPoint	*p1, *p2;
-	char		string[80];
 	
 	count = 0;
 
@@ -205,8 +204,7 @@ int		linecrunch[8192];
 				if (wside->ends.floorheight > wside->ends.ceilingheight)
 				{
 					[editworld_i selectLine: i];
-					sprintf( string, "LINE %d ERROR: Floor higher than ceiling!\n",i );
-					[log_i	msg:string ];
+					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Floor higher than ceiling!\n", i]];
 				}
 					
 				side->flags = ShortSwap (wside->flags);
@@ -216,27 +214,21 @@ int		linecrunch[8192];
 				if (ttex == -2)
 				{
 					[editworld_i selectLine: i];
-					sprintf( string, "LINE %d ERROR: "
-						"Can't find top texture '%s'!\n",i,wside->toptexture);
-					[log_i	msg:string ];
+					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Can't find top texture '%s'!\n", i, wside->toptexture]];
 				}
 				side->toptexture = ShortSwap (ttex);
 				btex =  [doomproject_i textureNamed: wside->bottomtexture];
 				if (btex == -2)
 				{
 					[editworld_i selectLine: i];
-					sprintf( string, "LINE %d ERROR: "
-						"Can't find bottom texture '%s'!\n",i,wside->bottomtexture);
-					[log_i	msg:string ];
+					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Can't find bottom texture '%s'!\n", i, wside->bottomtexture]];
 				}
 				side->bottomtexture = ShortSwap (btex);
 				mtex =  [doomproject_i textureNamed: wside->midtexture];
 				if (mtex == -2)
 				{
 					[editworld_i selectLine: i];
-					sprintf( string, "LINE %d ERROR: "
-						"Can't find middle texture '%s'!\n",i,wside->midtexture);
-					[log_i	msg:string ];
+					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Can't find middle texture '%s'!\n",i,wside->midtexture]];
 				}
 				side->midtexture = ShortSwap (mtex);
 				
@@ -354,20 +346,20 @@ int		linecrunch[8192];
 {
 	int			i,j;
 	int			*linenum;
-	int			count, lcount;
+	NSInteger	count, lcount;
 	int			*list_p;
 	worldsector_t	*wsector;
 	mapsector_t	*msector;
 
 	count = [sectors count];
 		
-	*(int *)buffer = LongSwap (count);
+	*(int *)buffer = LongSwap ((unsigned int)count);
 	list_p = (int *)(buffer + 4);
 	buf_p = (byte *)(list_p+count);
 
 	for (i=0 ; i<count ; i++)		
 	{
-		*list_p++ = LongSwap (buf_p-buffer);
+		*list_p++ = LongSwap ((unsigned int)(buf_p-buffer));
 		wsector = [sectors elementAt: i];
 		lcount = [wsector->lines count];
 		
@@ -410,14 +402,14 @@ int		linecrunch[8192];
 */
 #define	MAXMAPSIZE	100000
 
-- saveDoomMap
+- (void)saveDoomMap
 {
 	char		path[1025];
 
 	[editworld_i deselectAll];
 	
 	if (![blockworld_i connectSectors])
-		return self;		// don't continue if there were sector errors
+		return;		// don't continue if there were sector errors
 	
 //
 // have the project save out the latest textures
@@ -453,14 +445,12 @@ int		linecrunch[8192];
 	[self writeThings];
 
 	[mapwad_i writeDirectory];
-	[mapwad_i free];
+	[mapwad_i release];
 	
 	free (buffer);
 	printf ("Save completed (%i bytes)\n", worldsize);
 	
 	[editworld_i updateWindows];
-	
-	return self;
 }
 
 @end

@@ -23,29 +23,31 @@ typedef struct
 @class SectorEditor;
 @class SpecialList;
 @class Storage;
+@class FlatsView;
+@class SectorEditView;
 
 extern SectorEditor *sectorEdit_i;
 
-@interface SectorEditor:Object
+@interface SectorEditor:NSObject
 {
-	id	window_i;
-	id	sectorEditView_i;
-	id	flatScrPalView_i;
-	id	flatPalView_i;
+	IBOutlet NSPanel		*window_i;
+	IBOutlet SectorEditView	*sectorEditView_i;
+	IBOutlet NSScrollView	*flatScrPalView_i;
+	IBOutlet FlatsView		*flatPalView_i;
 	
-	id	lightLevel_i;
-	id	lightSlider_i;
-	id	special_i;
-	id	tag_i;
-	IBOutlet NSMatrix	*floorAndCeiling_i;		// radio button matrix
-	IBOutlet NSButton	*ceiling_i;				// radio button
-	IBOutlet NSButton	*floor_i;				// radio button
-	id	cheightfield_i;
-	id	fheightfield_i;
-	id	cflatname_i;
-	id	fflatname_i;
-	id	totalHeight_i;
-	id	curFlat_i;
+	IBOutlet NSTextField	*lightLevel_i;
+	IBOutlet NSSlider		*lightSlider_i;
+	IBOutlet NSTextField	*special_i;
+	IBOutlet NSTextField	*tag_i;
+	IBOutlet NSMatrix		*floorAndCeiling_i;		// radio button matrix
+	IBOutlet NSButton		*ceiling_i;				// radio button
+	IBOutlet NSButton		*floor_i;				// radio button
+	IBOutlet NSTextField	*cheightfield_i;
+	IBOutlet NSTextField	*fheightfield_i;
+	IBOutlet NSTextField	*cflatname_i;
+	IBOutlet NSTextField	*fflatname_i;
+	IBOutlet NSTextField	*totalHeight_i;
+	IBOutlet NSTextField	*curFlat_i;
 	
 	int	ceiling_flat,floor_flat;
 	sectordef_t	sector;

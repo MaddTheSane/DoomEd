@@ -34,7 +34,7 @@
                             [NSString stringWithFormat: __VA_ARGS__])
 
 
-typedef enum
+typedef NS_ENUM(int, RDEExportMode)
 {
     kRDEExportMode_DrawingMapImage,
     kRDEExportMode_ConvertingToPNG,
@@ -42,7 +42,7 @@ typedef enum
 
     kNumRDEExportModes
 
-} RDEExportMode;
+};
 
 typedef struct
 {

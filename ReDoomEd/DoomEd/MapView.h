@@ -28,8 +28,8 @@ extern	BOOL	linecross[9][9];
 @property (readonly) float currentScale;
 - getCurrentOrigin: (NXPoint *)worldorigin;
 
-- scaleMenuTarget: sender;
-- gridMenuTarget: sender;
+- (IBAction)scaleMenuTarget: sender;
+- (IBAction)gridMenuTarget: sender;
 
 - zoomFrom:(NXPoint *)origin toScale:(float)newscale;
 

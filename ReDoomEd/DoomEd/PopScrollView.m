@@ -61,9 +61,9 @@
 #endif
 	
 	[super tile];
-	[button1 getFrame: &buttonframe];
-	[button2 getFrame: &buttonframe2];
-	[hScroller getFrame: &scrollerframe];
+	buttonframe = button1.frame;
+	buttonframe2 = button2.frame;
+	scrollerframe = hScroller.frame;
 
 	newframe.origin.y = scrollerframe.origin.y;
 

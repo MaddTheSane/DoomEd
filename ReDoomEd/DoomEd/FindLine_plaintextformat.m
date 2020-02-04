@@ -23,7 +23,7 @@
 #endif
 
 	window_i = NULL;
-	delSound = [[NSSound alloc] initFromSection:"D_EPain"];
+	delSound = [[NSSound soundNamed:@"D_EPain"] retain];
     return self;
 }
 
@@ -55,23 +55,23 @@
 /// Find the line and scroll it to center
 - (IBAction)findLine:sender
 {
-	int				linenum;
+	NSInteger		linenum;
 	NXRect			r;
 	worldline_t		*l;
 	id				window;
 	
 	linenum = [numfield_i	intValue];
 	if ([fromBSP_i	intValue])
-		linenum = [self	getRealLineNum:linenum];
+		linenum = [self	getRealLineNum:(int)linenum];
 #ifdef REDOOMED
 	// Bugfix: validate linenum value
 	else if (linenum >= numlines)
 	{
-		linenum = -1;
+		linenum = NSNotFound;
 	}
 #endif
 
-	if (linenum < 0)
+	if (linenum == NSNotFound)
 	{
 #ifdef REDOOMED
 		[status_i	setStringValue:@"No such line!"];
@@ -81,7 +81,7 @@
 		return;
 	}
 	
-	[editworld_i	selectLine:linenum];
+	[editworld_i	selectLine:(int)linenum];
 	[editworld_i	selectPoint:lines[linenum].p1];
 	[editworld_i	selectPoint:lines[linenum].p2];
 	
@@ -108,23 +108,23 @@
 /// Delete the line
 - (IBAction)deleteLine:sender
 {
-	int		linenum;
+	NSInteger	linenum;
 #ifdef REDOOMED
 	worldline_t	line;
 #endif
 	
 	linenum = [numfield_i	intValue];
 	if ([fromBSP_i	intValue])
-		linenum = [self	getRealLineNum:linenum];
+		linenum = [self	getRealLineNum:(int)linenum];
 #ifdef REDOOMED
 	// Bugfix: validate linenum value
 	else if (linenum >= numlines)
 	{
-		linenum = -1;
+		linenum = NSNotFound;
 	}
 #endif
 
-	if (linenum < 0)
+	if (linenum == NSNotFound)
 	{
 #ifdef REDOOMED
 		[status_i	setStringValue:@"No such line!"];
@@ -144,7 +144,7 @@
 	// decrements the reference counts of the line's endpoints, and redraws the mapview)
 	line = lines[linenum];
 	line.selected = -1;	// remove the line
-	[editworld_i changeLine: linenum to: &line];
+	[editworld_i changeLine: (int)linenum to: &line];
 	[editworld_i updateWindows];
 #else // Original
 	lines[linenum].selected = -1;

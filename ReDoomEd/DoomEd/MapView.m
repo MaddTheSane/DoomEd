@@ -76,7 +76,7 @@ BOOL	linecross[9][9];
 
 #ifdef REDOOMED
 		// prevent memory leaks
-		[self free];
+		 [self release];
 #endif
 
 		return NULL;
@@ -173,7 +173,7 @@ printf ("Done\n");
 ====================
 */
 
-- scaleMenuTarget: sender
+- (IBAction)scaleMenuTarget: sender
 {
 	char	const	*item;
 	float			nscale;
@@ -193,17 +193,15 @@ printf ("Done\n");
 	nscale /= 100;
 	
 	if (nscale == scale)
-		return NULL;
+		return;
 		
 // try to keep the center of the view constant
-	[superview getVisibleRect: &visrect];
-	[self convertRectFromSuperview: &visrect];
+	visrect = [superview visibleRect];
+	visrect = [self convertRect: visrect fromView: [self superview]];
 	visrect.origin.x += visrect.size.width/2;
 	visrect.origin.y += visrect.size.height/2;
 	
 	[self zoomFrom: &visrect.origin toScale: nscale];
-
-	return self;
 }
 
 
@@ -217,7 +215,7 @@ printf ("Done\n");
 ====================
 */
 
-- gridMenuTarget: sender
+- (IBAction)gridMenuTarget: sender
 {
 	char	const	*item;
 	int			grid;
@@ -231,12 +229,10 @@ printf ("Done\n");
 	sscanf (item,"grid %d",&grid);
 
 	if (grid == gridsize)
-		return NULL;
+		return;
 		
 	gridsize = grid;
 	[self display];
-
-	return self;
 }
 
 /*
@@ -464,7 +460,7 @@ printf ("Done\n");
 //
 // get the rects that is displayed in the superview
 //
-	[superview getVisibleRect: &newbounds];
+	newbounds = superview.visibleRect;
 	[self convertRectFromSuperview: &newbounds];
 	newbounds.origin = *org;
 	

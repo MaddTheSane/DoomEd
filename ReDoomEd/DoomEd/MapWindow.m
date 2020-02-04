@@ -90,7 +90,7 @@ static	int	cornerx = 128, cornery = 64;
 	[scalemenu_i addItemWithTitle: @"100%"];
 	[scalemenu_i addItemWithTitle: @"200%"];
 	[scalemenu_i addItemWithTitle: @"400%"];
-	[[scalemenu_i itemList] selectCellAt: 5 : 0];
+	[scalemenu_i selectCellAt: 5 : 0];
 	
 	scalebutton_i = NXCreatePopUpListButton(scalemenu_i);
 
@@ -107,7 +107,7 @@ static	int	cornerx = 128, cornery = 64;
 	[gridmenu_i addItemWithTitle: @"grid 32"];
 	[gridmenu_i addItemWithTitle: @"grid 64"];
 	
-	[[gridmenu_i itemList] selectCellAt: 3 : 0];
+	[gridmenu_i selectCellAt: 3 : 0];
 	
 	gridbutton_i = NXCreatePopUpListButton(gridmenu_i);
 
@@ -118,7 +118,7 @@ static	int	cornerx = 128, cornery = 64;
 		button1: 		scalebutton_i
 		button2:		gridbutton_i
 	];
-	[scrollview_i setAutosizing: NX_WIDTHSIZABLE | NX_HEIGHTSIZABLE];
+	[scrollview_i setAutoresizingMask: NSViewWidthSizable | NSViewHeightSizable];
 	
 // link objects together
 	[self setDelegate: self];
@@ -126,7 +126,7 @@ static	int	cornerx = 128, cornery = 64;
 	oldobj_i = nil;
 	[scrollview_i setDocumentView: mapview_i];
 	if (oldobj_i)
-		[oldobj_i free];
+		[oldobj_i release];
 
 #ifdef REDOOMED
 	// Cocoa compatibility: -[NSWindow setContentView:] doesn't return a value

@@ -27,7 +27,7 @@
 	return self;
 }
 
-- addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
 {
 	divider_t		d;
 	
@@ -35,8 +35,6 @@
 	d.y = y;
 	strcpy (d.string, string );
 	[dividers_i	addElement:&d ];
-	
-	return self;
 }
 
 - (void)dumpDividers
@@ -110,7 +108,8 @@
 #endif
 {
 	NXPoint	loc;
-	int	i,max,oldwindowmask;
+	NSInteger i,max;
+	int oldwindowmask;
 	flat_t	*f;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
@@ -127,7 +126,7 @@
 	[self convertPoint:&loc	fromView:NULL];
 #endif
 	
-	max = [sectorEdit_i	getNumFlats];
+	max = [sectorEdit_i	countOfFlats];
 	for (i = 0;i < max; i++)
 	{
 		f = [sectorEdit_i		getFlat:i];

@@ -72,7 +72,7 @@
 
 - (NSImageRep *) lastRepresentation
 {
-    return [self bestRepresentationForDevice: nil];
+    return [self representations].lastObject;
 }
 
 - (id) getSize: (NSSize *) theSize

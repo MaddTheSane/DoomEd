@@ -14,6 +14,8 @@
 #   define	WORLDNAME	"EditWorld"
 #endif
 
+@class Storage;
+
 typedef struct
 {
 	int	selected;		// context that owns the point, 0 if unselected, or -1 if deleted
@@ -64,7 +66,7 @@ typedef struct
 typedef struct
 {
 	sectordef_t	s;
-	id	lines;			// storage object of line numbers
+	Storage	*lines;			// storage object of line numbers
 } worldsector_t;
 
 typedef struct
@@ -107,22 +109,22 @@ extern	worldthing_t	*things;
 	NXRect	dirtyrect;	
 	NSMutableArray	*windowlist_i;			// all windows that display this world
 	
-	id		copyThings_i;			// cut/copy/paste info
-	id		copyLines_i;
+	Storage *copyThings_i;			// cut/copy/paste info
+	Storage *copyLines_i;
 	NXPoint	copyCoord;
 	int		copyLoaded;
-	id		saveSound;				// Sound instance
+	NSSound	*saveSound;				// Sound instance
 }
 
 - appWillTerminate: sender;
 - loadWorldFile: (char const *)path;
 - (IBAction)saveDoomEdMapBSP:sender;
 
-- (BOOL)loaded;
-- (BOOL)dirty;
+@property (readonly) BOOL loaded;
+@property (readonly) BOOL dirty;
 - (BOOL)dirtyPoints;
 
-- closeWorld;
+- (void)closeWorld;
 
 //
 // menu targets
@@ -149,7 +151,7 @@ extern	worldthing_t	*things;
 //- windowWillClose: sender;
 - (void)updateWindows;
 - addToDirtyRect: (int)p1 : (int)p2;
-- updateLineNormal:(int) num;
+- (void)updateLineNormal:(int) num;
 - (void)redrawWindows;
 - (NSWindow*)getMainWindow;	//!< returns window id
 
@@ -161,16 +163,16 @@ extern	worldthing_t	*things;
 //
 // change info
 //
-- selectPoint: (int)num;
-- deselectPoint: (int)num;
-- selectLine: (int)num;
-- deselectLine: (int)num;
-- selectThing: (int)num;
-- deselectThing: (int)num;
-- deselectAllPoints;
-- deselectAllLines;
-- deselectAllThings;
-- deselectAll;
+- (void)selectPoint: (int)num;
+- (void)deselectPoint: (int)num;
+- (void)selectLine: (int)num;
+- (void)deselectLine: (int)num;
+- (void)selectThing: (int)num;
+- (void)deselectThing: (int)num;
+- (void)deselectAllPoints;
+- (void)deselectAllLines;
+- (void)deselectAllThings;
+- (void)deselectAll;
 
 
 - (int)allocatePoint: (NXPoint *)pt;
@@ -186,11 +188,9 @@ extern	worldthing_t	*things;
 //
 // Cut/copy/paste stuff
 //
-- storeCopies;
-- copyDeselect;
+- (void)storeCopies;
+- (void)copyDeselect;
 - (NXPoint)findCopyCenter;
-- (int)findMin:(int)num0	:(int)num1;
-- (int)findMax:(int)num0	:(int)num1;
 @end
 
 
@@ -200,12 +200,12 @@ extern	worldthing_t	*things;
 @interface EditWorld (EWLoadSave)
 
 - (BOOL)readLine: (NXPoint *)p1 : (NXPoint *)p2 : (worldline_t *)line from: (FILE *)file;
-- writeLine: (worldline_t *)line to: (FILE *)file;
+- (void)writeLine: (worldline_t *)line to: (FILE *)file;
 - (BOOL)readThing: (worldthing_t *)thing from: (FILE *)file;
-- writeThing: (worldthing_t *)thing to: (FILE *)file;
+- (void)writeThing: (worldthing_t *)thing to: (FILE *)file;
 
-- loadV4File: (FILE *)file;
-- saveFile: (FILE *)file;
+- (BOOL)loadV4File: (FILE *)file;
+- (void)saveFile: (FILE *)file;
 
 @end
 
@@ -214,7 +214,7 @@ extern	worldthing_t	*things;
 //
 @interface EditWorld (EWDoomSave)
 
-- saveDoomMap;
+- (void)saveDoomMap;
 
 @end
 

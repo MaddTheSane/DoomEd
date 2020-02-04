@@ -25,7 +25,6 @@
 
 	memset (line, 0, sizeof(*line));
 
-#ifdef REDOOMED
 	// scan coordinates using local float vars, because NXPoint's x/y members are now CGFloats
 	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
 		,&p1x, &p1y, &p2x, &p2y,&line->flags, &line->special, &line->tag) != 7)
@@ -33,32 +32,19 @@
 
 	*p1 = NSMakePoint(p1x, p1y);
 	*p2 = NSMakePoint(p2x, p2y);
-#else // Original
-	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
-		,&p1->x, &p1->y,&p2->x, &p2->y,&line->flags, &line->special, &line->tag) != 7)
-		return NO;
-#endif
 	
 	for (i=0 ; i<=  ( (line->flags&ML_TWOSIDED) != 0) ; i++)
 	{
 		s = &line->side[i];	
 
-#ifdef REDOOMED
 		// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 		if (fscanf (file,"    %d (%d : %8s / %8s / %8s )\n"
-#else // Original
-		if (fscanf (file,"    %d (%d : %s / %s / %s )\n"
-#endif
 			,&s->flags, &s->firstcollumn, s->toptexture, s->bottomtexture, s->midtexture) != 5)
 			return NO;
 		e = &s->ends;
 
-#ifdef REDOOMED
 		// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 		if (fscanf (file,"    %d : %8s %d : %8s %d %d %d\n"
-#else // Original
-		if (fscanf (file,"    %d : %s %d : %s %d %d %d\n"
-#endif
 			,&e->floorheight, e->floorflat, &e->ceilingheight
 			,e->ceilingflat,&e->lightlevel, &e->special, &e->tag) != 7)
 			return NO;
@@ -67,7 +53,7 @@
 	return YES;
 }
 
-- writeLine: (worldline_t *)line to: (FILE *)file
+- (void)writeLine: (worldline_t *)line to: (FILE *)file
 {
 	worldside_t	*s;
 	sectordef_t	*e;
@@ -99,8 +85,6 @@
 			,e->floorheight, e->floorflat, e->ceilingheight, e->ceilingflat
 			, e->lightlevel, e->special, e->tag);
 	}
-
-	return self;
 }
 
 /*
@@ -128,7 +112,7 @@
 	return YES;
 }
 
-- writeThing: (worldthing_t *)thing to: (FILE *)file
+- (void)writeThing: (worldthing_t *)thing to: (FILE *)file
 {
 	int		x,y;
 	
@@ -137,8 +121,6 @@
 	
 	fprintf (file,"(%d,%d, %d) :%d, %d\n"
 		,x, y, thing->angle,thing->type, thing->options);
-
-	return self;
 }
 
 
@@ -160,7 +142,7 @@
 ===================
 */
 
-- saveFile: (FILE *)file
+- (void)saveFile: (FILE *)file
 {
 	int	i, count;
 	
@@ -191,9 +173,6 @@
 	for (i=0 ; i<numthings ; i++)
 		if (things[i].selected != -1)
 			[self writeThing: &things[i] to: file];
-	
-
-	return self;
 }
 
 
@@ -205,7 +184,7 @@
 ===================
 */
 
-- loadV4File: (FILE *)file
+- (BOOL)loadV4File: (FILE *)file
 {
 	int			i;
 	int			linecount, thingcount;
@@ -219,12 +198,12 @@
 // read lines
 //	
 	if (fscanf (file,"\nlines:%d\n",&linecount) != 1)
-		return nil;
+		return NO;
 	printf ("%i lines\n", linecount);
 	for (i=0 ; i<linecount ; i++)
 	{
 		if (![self readLine: &p1 : &p2 : &line from: file])
-			return nil;
+			return NO;
 		[self newLine: &line from: &p1 to: &p2];
 	}
 		
@@ -232,20 +211,17 @@
 // read things
 //
 	if (fscanf (file,"\nthings:%d\n",&thingcount) != 1)
-		return nil;
+		return NO;
 	printf ( "%i things\n", thingcount);
 	for (i=0 ; i<thingcount ; i++)
 	{
 		if (![self readThing: &thing from: file])
-			return nil;
+			return NO;
 		[self newThing: &thing];
 	}
 
 
-	return self;
+	return YES;
 }
 
-
-
 @end
-

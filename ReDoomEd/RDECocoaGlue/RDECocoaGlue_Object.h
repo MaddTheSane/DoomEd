@@ -29,7 +29,7 @@
 
 @interface NSObject (RDECocoaGlue_ObjectMethods)
 
-- (id) free;
+- (id) free API_DEPRECATED_WITH_REPLACEMENT("-release", macos(10.0, 10.0)) OBJC_ARC_UNAVAILABLE;
 
 - (id) copyFromZone: (NSZone *) zone;
 

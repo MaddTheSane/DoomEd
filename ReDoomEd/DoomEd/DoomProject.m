@@ -2845,7 +2845,7 @@ void IO_Error (char *error, ...)
 #endif
 
 	va_end (argptr);
-	NXRunAlertPanel ("Error",string,NULL,NULL,NULL);
+	NXRunAlertPanel ("Error","%s",NULL,NULL,NULL, string);
 	[NXApp terminate: NULL];
 }
 

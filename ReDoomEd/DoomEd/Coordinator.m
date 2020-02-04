@@ -150,9 +150,8 @@ BOOL	debugflag = NO;
 	}
 #endif
 	
-	startupSound_i = [[Sound alloc] initFromSection:"D_Dbite"];
+	startupSound_i = [NSSound soundNamed:@"D_Dbite"];
 	[startupSound_i	play];
-	[startupSound_i	free];
 	
 #ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
 	return self;
