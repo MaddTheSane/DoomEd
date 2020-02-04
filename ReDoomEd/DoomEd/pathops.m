@@ -12,7 +12,7 @@
 #define MAXPOINTS	(MAXLINES*2)
 
 float		coords[LINETYPES][MAXPOINTS*2], *coord_p[LINETYPES];
-char		ops[LINETYPES][MAXPOINTS], *ops_p[LINETYPES], *stopop[LINETYPES];
+DPSUserPathOp		ops[LINETYPES][MAXPOINTS], *ops_p[LINETYPES], *stopop[LINETYPES];
 float		bbox[LINETYPES][4];
 
 void		FinishPath (int path);

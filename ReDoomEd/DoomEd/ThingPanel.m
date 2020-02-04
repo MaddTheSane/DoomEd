@@ -436,7 +436,7 @@ id	thingpanel_i;
 //
 // sort the thing list
 //
-- sortThings
+- (void)sortThings
 {
 	id	cell;
 	NSMatrix *matrix;
@@ -484,8 +484,6 @@ id	thingpanel_i;
 		[matrix	selectCellAtRow:which column:0];
 		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}			
-	
-	return self;
 }
 
 //

@@ -47,7 +47,7 @@ typedef struct
 	IBOutlet NSButton	*network_i;		// switch
 	IBOutlet NSMatrix	*difficulty_i;	// switch matrix
 	IBOutlet NSMatrix	*diffDisplay_i;	// radio matrix
-	id	count_i;		// display count
+	IBOutlet id	count_i;		// display count
 	
 	int	diffDisplay;
 	
@@ -64,7 +64,7 @@ typedef struct
 - updateInspector: (BOOL)force;
 - updateThingInspector;
 - (IBAction)updateThingData:sender;
-- sortThings;
+- (void)sortThings;
 - (IBAction)setAngle:sender;
 - (NXColor)getThingColor:(int)type;
 - fillThingData:(thinglist_t *)thing;

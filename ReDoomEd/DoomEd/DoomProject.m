@@ -87,7 +87,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 - (void)checkDirtyProject
 {
-	int	val;
+	NSInteger	val;
 	
 #ifdef REDOOMED
 	// don't display a save prompt if there's no project loaded
@@ -135,16 +135,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 {
 	mapdirty = mapDirty;
 	[[editworld_i getMainWindow] setDocumentEdited:mapDirty];
-}
-
-- (BOOL)mapDirty
-{
-	return mapdirty;
-}
-
-- (BOOL)projectDirty
-{
-	return projectdirty;
 }
 
 - (IBAction)displayLog:sender
@@ -237,7 +227,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- savePV1File: (FILE *)stream
+- (void)savePV1File: (FILE *)stream
 {
 	int	i;
 
@@ -249,8 +239,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		
 	for (i=0 ; i<nummaps ; i++)
 		fprintf (stream,"%s\n", mapnames[i]);
-
-	return self;
 }
 
 
@@ -302,7 +290,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 - (IBAction)openProject: sender
 {
-	id			openpanel;
+	NSOpenPanel	*openpanel;
 #ifdef REDOOMED
 	// Cocoa compatibility: -[NSOpenPanel runModalForTypes:] takes an NSArray
 	NSArray *suffixlist = [NSArray arrayWithObject: @"dpr"];
@@ -320,7 +308,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[openpanel autorelease];
 #endif
 
-	if (![openpanel runModalForTypes:suffixlist] )
+	[openpanel setAllowedFileTypes:suffixlist];
+	if (![openpanel runModal] )
 		return;
 
 	printf("Purging existing texture patches.\n");
@@ -368,7 +357,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 - (IBAction)newProject: sender
 {
 	FILE		*stream;
-	id			panel;
+	NSOpenPanel	*panel;
 #ifdef REDOOMED
 	NSString    *filename;
 	NSArray     *fileTypes = [NSArray arrayWithObject: @"wad"];
@@ -441,7 +430,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 #endif
 
 	[panel setCanChooseDirectories:NO];
-	if (! [panel runModalForTypes: fileTypes] )
+	[panel setAllowedFileTypes:fileTypes];
+	if (! [panel runModal] )
 		return;
 		
 	filename = [panel filename];
@@ -674,6 +664,13 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 - loadProject: (char const *)path
 {
+	if ([self loadProjectWithFileURL:[NSURL fileURLWithFileSystemRepresentation:path isDirectory:NO relativeToURL:nil]]) {
+		return self;
+	}
+	return nil;
+}
+- (BOOL)loadProjectWithFileURL:(NSURL *)path;
+{
 	FILE	*stream;
 	char	projpath[1024];
 	int		version, ret;
@@ -681,14 +678,14 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 #ifdef REDOOMED
 	BOOL    didChangeWADfilepath = NO;
 
-	if (strlen(path) > RDE_MAX_FILEPATH_LENGTH)
+	if (strlen(path.fileSystemRepresentation) > RDE_MAX_FILEPATH_LENGTH)
 	{
 		NXRunAlertPanel ("Error","Project filepath is too long.","OK",NULL,NULL);
-		return nil;	
+		return NO;
 	}
 #endif
 	
-	strcpy (projectdirectory, path);
+	strcpy (projectdirectory, path.fileSystemRepresentation);
 	StripFilename (projectdirectory);
 	
 	strcpy (projpath, projectdirectory);
@@ -698,7 +695,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (!stream)
 	{
 		NXRunAlertPanel ("Error","Couldn't open %s",NULL,NULL,NULL, projpath);
-		return nil;	
+		return NO;
 	}
 	version = -1;
 	fscanf (stream, "Doom Project version %d\n", &version);
@@ -709,14 +706,14 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		fclose (stream);
 		NXRunAlertPanel ("Error","Unknown file version for project %s",
 			NULL,NULL,NULL, projpath);
-		return nil;	
+		return NO;
 	}
 
 	if (!ret)
 	{
 		fclose (stream);
 		NXRunAlertPanel ("Error","Couldn't parse project file %s",NULL,NULL,NULL, projpath);
-		return nil;	
+		return NO;
 	}
 	
 	fclose (stream);
@@ -735,7 +732,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
         if (!didChangeWADfilepath)
         {
-            return nil;
+            return NO;
         }
     }
 #endif
@@ -745,7 +742,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	{
 		NXRunAlertPanel ("Error","Couldn't open wadfile %s",
 			NULL,NULL,NULL, wadfile);
-		return nil;	
+		return NO;
 	}
 	
 	[editworld_i	closeWorld];
@@ -783,7 +780,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[self	setDirtyProject:FALSE];
 #endif
 
-	return self;
+	return YES;
 }
 
 
@@ -815,7 +812,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 //	Sort the maps internally
 //
 //============================================================
-- sortMaps
+- (void)sortMaps
 {
 	int		i;
 	int		j;
@@ -837,7 +834,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 					break;
 				}
 	}
-	return self;
 }
 
 /*
@@ -2799,7 +2795,7 @@ static	byte		*buffer, *buf_p;
         }
     }
 
-    strcpy(wadfile, RDE_CStringFromNSString(pathToWADfile));
+    strcpy(wadfile, pathToWADfile.fileSystemRepresentation);
 
     return YES;
 }

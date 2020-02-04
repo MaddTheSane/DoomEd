@@ -20,7 +20,7 @@ typedef struct
 #   define	THINGSTRIPNAME	"ThingStripper"
 #endif
 
-@interface ThingStripper:Object <NSWindowDelegate>
+@interface ThingStripper:NSObject <NSWindowDelegate>
 {
 	IBOutlet NSBrowser *thingBrowser_i;		// nib outlets
 	IBOutlet NSWindow *thingStripPanel_i;

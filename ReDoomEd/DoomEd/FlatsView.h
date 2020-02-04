@@ -23,6 +23,6 @@ typedef struct
 }
 
 - addDividerX:(int)x Y:(int)y String:(char *)string;
-- dumpDividers;
+- (void)dumpDividers;
 
 @end

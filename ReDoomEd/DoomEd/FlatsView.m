@@ -39,10 +39,9 @@
 	return self;
 }
 
-- dumpDividers
+- (void)dumpDividers
 {
 	[dividers_i	empty];
-	return self;
 }
 
 - drawSelf:(const NXRect *)rects :(int)rectCount

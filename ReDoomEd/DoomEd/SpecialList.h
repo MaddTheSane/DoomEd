@@ -14,7 +14,14 @@ typedef struct
 
 @class Storage;
 
-@interface SpecialList:Object
+//
+//	Methods to be implemented by the delegate
+//
+@protocol SpecialList <NSObject>
+- specialChosen:(int)value;
+@end
+
+@interface SpecialList:NSObject
 {
 	IBOutlet id	specialDesc_i;
 	IBOutlet id	specialBrowser_i;
@@ -22,12 +29,12 @@ typedef struct
 	IBOutlet id	specialPanel_i;
 	Storage	*specialList_i;
 	
-	__unsafe_unretained id	delegate;
+	__unsafe_unretained id<SpecialList>	delegate;
 	char		title[32];
 	char		frameString[32];
 }
 
-- getSpecialList;
+@property (readonly, retain) Storage *specialList;
 - scrollToItem:(int)i;
 - setSpecialTitle:(char *)string;
 - setFrameName:(char *)string;
@@ -35,7 +42,7 @@ typedef struct
 
 #ifdef REDOOMED
 // Declare setDelegate: publicly
-- (void)setDelegate:(id)dg;
+@property (assign) id<SpecialList> delegate;
 #endif
 
 - displayPanel;
@@ -48,4 +55,5 @@ typedef struct
 - setSpecial:(int)which;
 - fillSpecialData:(speciallist_t *)special;
 
+- (void)empty;
 @end

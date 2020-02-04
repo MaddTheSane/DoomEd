@@ -92,10 +92,9 @@ SpecialList *lineSpecialPanel_i;
 	return self;
 }
 
-- updateLineSpecialsDSP:(FILE *)stream
+- (void)updateLineSpecialsDSP:(FILE *)stream
 {
 	[lineSpecialPanel_i	updateSpecialsDSP:stream];
-	return self;
 }
 
 - (IBAction)activateSpecialList:sender
@@ -649,10 +648,9 @@ SpecialList *lineSpecialPanel_i;
 ===================
 */
 
-- baseLine: (worldline_t *)line
+- (void)baseLine: (worldline_t *)line
 {
 	*line = baseline;
-	return self;
 }
 
 @end

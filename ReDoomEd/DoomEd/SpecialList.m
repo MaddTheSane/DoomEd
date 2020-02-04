@@ -7,12 +7,6 @@
 #   import "SpecialListWindow.h"
 #endif
 
-//
-//	Methods to be implemented by the delegate
-//
-@protocol SpecialList
-- specialChosen:(int)value;
-@end
 
 @implementation SpecialList
 
@@ -35,15 +29,11 @@
 	return self;
 }
 
-- getSpecialList
-{
-	return specialList_i;
-}
+@synthesize specialList=specialList_i;
 
-- empty
+- (void)empty
 {
 	[specialList_i	empty];
-	return self;
 }
 
 - saveFrame
@@ -70,10 +60,7 @@
 	return self;
 }
 
-- (void)setDelegate:(id)dg
-{
-	delegate = dg;
-}
+@synthesize delegate;
 
 //===================================================================
 //
@@ -128,7 +115,7 @@
 //	Suggest a new value for the list
 //
 //===================================================================
-- suggestValue:sender
+- (IBAction)suggestValue:sender
 {
 	int	max,i,num,found;
 	
@@ -136,16 +123,17 @@
 	for (num=1;num<10000;num++)
 	{
 		found = 0;
-		for (i=0;i<max;i++)
-			if (((speciallist_t *)[specialList_i	elementAt:i])->value == num)
+		for (i=0;i<max;i++) {
+			if (((speciallist_t *)[specialList_i	elementAt:i])->value == num) {
 				found = 1;
+			}
+		}
 		if (!found)
 		{
 			[specialValue_i	setIntValue:num];
 			break;
 		}
 	}
-	return self;
 }
 
 //===================================================================

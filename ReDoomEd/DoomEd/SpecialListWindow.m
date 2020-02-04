@@ -46,7 +46,7 @@
 	strupr(string);
 	size = strlen(string);
 		
-	specialList_i = [parent_i  getSpecialList];
+	specialList_i = [parent_i  specialList];
 	max = [specialList_i	count];
 	tries = 2;
 	while(tries)

@@ -116,6 +116,7 @@ extern	char	bsphost[32];		// bsp host machine
 - (IBAction)printAllMaps:sender;
 
 - loadProject: (char const *)path;
+- (BOOL)loadProjectWithFileURL:(NSURL *)path;
 - updateTextures;
 
 - updatePanel;

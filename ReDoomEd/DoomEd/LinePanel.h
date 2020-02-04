@@ -71,10 +71,10 @@ extern SpecialList *lineSpecialPanel_i;
 - (IBAction)incFirstCol:sender;
 - (IBAction)decFirstCol:sender;
 
--baseLine: (worldline_t *)line;
+-(void)baseLine: (worldline_t *)line;
 
 - (void)saveFrame;
 - (void)updateLineSpecial;
 - (IBAction)activateSpecialList:sender;
-- updateLineSpecialsDSP:(FILE *)stream;
+- (void)updateLineSpecialsDSP:(FILE *)stream;
 @end

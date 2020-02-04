@@ -17,6 +17,6 @@ extern FlatRemapper *flatRemapper_i;
 	Remapper *remapper_i;
 }
 
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 
 @end
