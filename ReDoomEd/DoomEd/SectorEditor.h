@@ -2,6 +2,7 @@
 
 #import	"DoomProject.h"
 #import	"idfunctions.h"
+#import "SpecialList.h"
 
 #ifdef REDOOMED
 #   import <Cocoa/Cocoa.h>
@@ -28,7 +29,7 @@ typedef struct
 
 extern SectorEditor *sectorEdit_i;
 
-@interface SectorEditor:NSObject
+@interface SectorEditor:NSObject <SpecialList>
 {
 	IBOutlet NSPanel		*window_i;
 	IBOutlet SectorEditView	*sectorEditView_i;

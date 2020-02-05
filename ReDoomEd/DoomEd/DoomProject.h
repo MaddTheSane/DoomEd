@@ -50,6 +50,8 @@ typedef struct
 @class DoomProject;
 @class Wadfile;
 @class TextLog;
+@class ThermoView;
+@class ThingPanel;
 
 extern DoomProject *doomproject_i;
 extern Wadfile *wadfile_i;
@@ -64,7 +66,7 @@ extern	char	bsphost[32];		// bsp host machine
 
 //============================================================================
 
-@interface DoomProject : Object
+@interface DoomProject : NSObject
 {
 	BOOL	loaded;
 	char	projectdirectory[1024];
@@ -75,15 +77,15 @@ extern	char	bsphost[32];		// bsp host machine
 	int		texturessize;
 	
 	IBOutlet NSWindow	*window_i;
-	id		projectpath_i;
-	id		wadpath_i;
-	id		maps_i;
-	IBOutlet id		thingPanel_i;
+	IBOutlet NSTextField	*projectpath_i;
+	IBOutlet NSTextField	*wadpath_i;
+	IBOutlet NSBrowser		*maps_i;
+	IBOutlet ThingPanel		*thingPanel_i;
 	id		findPanel_i;
-	id		mapNameField_i;
-	id		BSPprogram_i;
-	id		BSPhost_i;
-	id		mapwaddir_i;
+	IBOutlet NSTextField	*mapNameField_i;
+	IBOutlet NSTextField	*BSPprogram_i;
+	IBOutlet NSTextField	*BSPhost_i;
+	IBOutlet NSTextField	*mapwaddir_i;
 	
 	BOOL	projectdirty;
 	BOOL	texturesdirty;
@@ -91,10 +93,10 @@ extern	char	bsphost[32];		// bsp host machine
 	
 	IBOutlet NSTextField	*thermoTitle_i;
 	IBOutlet NSTextField	*thermoMsg_i;
-	IBOutlet id		thermoView_i;
+	IBOutlet ThermoView		*thermoView_i;
 	IBOutlet NSPanel	*thermoWindow_i;
 	
-	IBOutlet NSWindow	*printPrefWindow_i;
+	IBOutlet NSPanel	*printPrefWindow_i;
 }
 
 
@@ -119,7 +121,7 @@ extern	char	bsphost[32];		// bsp host machine
 - (BOOL)loadProjectWithFileURL:(NSURL *)path;
 - updateTextures;
 
-- updatePanel;
+- (void)updatePanel;
 
 - (int)textureNamed: (char const *)name;
 
@@ -127,7 +129,7 @@ extern	char	bsphost[32];		// bsp host machine
 - writeTexture: (worldtexture_t *)tex to: (FILE *)file;
 
 - (int)newTexture: (worldtexture_t *)tex;
-- changeTexture: (int)num to: (worldtexture_t *)tex;
+- (void)changeTexture: (int)num to: (worldtexture_t *)tex;
 
 - saveDoomLumps;
 - (IBAction)loadAndSaveAllMaps:sender;
@@ -152,9 +154,9 @@ extern	char	bsphost[32];		// bsp host machine
 - (IBAction)toggleWeapons:sender;
 
 // Thermometer functions
-- initThermo:(char *)title message:(char *)msg;
-- updateThermo:(int)current max:(int)maximum;
-- closeThermo;
+- (void)initThermo:(char *)title message:(char *)msg;
+- (void)updateThermo:(int)current max:(int)maximum;
+- (void)closeThermo;
 
 
 //	Map Loading Functions

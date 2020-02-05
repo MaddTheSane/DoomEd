@@ -610,7 +610,7 @@ id	thingpanel_i;
 //
 // fill-in the information for a worldthing_t
 //
-- getThing:(worldthing_t	*)thing
+- (void)getThing:(worldthing_t	*)thing
 {
 	thing->angle = [fields_i	intValueAt:0];
 	thing->type = [fields_i	intValueAt:1];
@@ -619,14 +619,12 @@ id	thingpanel_i;
 	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
 	thing->options |= ([[difficulty_i	cellAtRow:1 column:0] intValue]&1)<<1;
 	thing->options |= ([[difficulty_i	cellAtRow:2 column:0] intValue]&1)<<2;
-	
-	return self;
 }
 
 //
 // user selected a thing in the map; reflect the selection in the thingpanel
 //
-- setThing:(worldthing_t *)thing
+- (void)setThing:(worldthing_t *)thing
 {
 	int	which;
 	thinglist_t		*t;
@@ -642,20 +640,15 @@ id	thingpanel_i;
 		[self	scrollToItem:which];
 		[thingPalette_i	setCurrentIcon:[thingPalette_i	findIcon:t->iconname]];
 	}
-	
-	return self;
 }
 
-- getThingList
-{
-	return masterList_i;
-}
+@synthesize thingList=masterList_i;
 
 - scrollToItem:(NSInteger)which
 {
 	NSMatrix *matrix;
 	
-	matrix = [thingBrowser_i	matrixInColumn:0];
+	matrix = [thingBrowser_i matrixInColumn:0];
 	[matrix	selectCellAtRow:which column:0];
 	[matrix	scrollCellToVisibleAtRow:which column:0];
 	return self;
@@ -663,7 +656,7 @@ id	thingpanel_i;
 
 - (IBAction)setAngle:sender
 {
-	[fields_i setIntValue:[[sender	selectedCell]	tag] at:0];
+	[[fields_i cellAtIndex:0] setIntegerValue:[[sender selectedCell] tag]];
 	[self		formTarget:NULL];
 }
 
@@ -698,7 +691,7 @@ id	thingpanel_i;
 //
 // fill data from thing
 //
-- fillDataFromThing:(thinglist_t *)thing
+- (void)fillDataFromThing:(thinglist_t *)thing
 {
 	[fields_i	setIntValue:thing->value	at:1];
 
@@ -713,8 +706,6 @@ id	thingpanel_i;
 #endif
 	
 	basething.type = thing->value;
-	
-	return self;
 }
 
 //
@@ -861,20 +852,19 @@ id	thingpanel_i;
 	return YES;
 }
 
-- writeThing:(thinglist_t *)thing	from:(FILE *)stream
+- (void)writeThing:(thinglist_t *)thing	from:(FILE *)stream
 {
 	float	r,g,b;
 	
 	NXConvertColorToRGB(thing->color,&r,&g,&b);
 	fprintf(stream,"%s = %d %d %d (%f %f %f) %s\n",thing->name,thing->angle,thing->value,
 			thing->option,r,g,b,thing->iconname);
-	return self;
 }
 
 //
 // update the things.dsp file (when project is saved/loaded)
 //
-- updateThingsDSP:(FILE *)stream
+- (void)updateThingsDSP:(FILE *)stream
 {
 	thinglist_t		t,*t2;
 	NSInteger	count, i, found;
@@ -912,8 +902,6 @@ id	thingpanel_i;
 	}
 	else
 		fprintf(stream,"numthings: %d\n",0);
-	
-	return self;
 }
 	
 /*

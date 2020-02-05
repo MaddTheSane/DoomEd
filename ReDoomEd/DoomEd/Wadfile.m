@@ -43,7 +43,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 ============
 */
 
-- initFromFile: (char const *)path
+- (instancetype)initFromFile: (char const *)path
 {
 	wadinfo_t	wad;
 	lumpinfo_t	*lumps;
@@ -71,7 +71,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 	handle = open (pathname, O_RDWR, 0666);
 	if (handle== -1)
 	{
-		[self free];
+		[self release];
 		return nil;
 	}
 //
@@ -113,7 +113,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 ============
 */
 
-- initNew: (char const *)path
+- (instancetype)initNew: (char const *)path
 {
 	wadinfo_t	wad;
 
@@ -180,7 +180,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 		close (handle);
 	}
 
-	[info free];
+	[info release];
 
 	// pathname may be invalid (NULL)
 	if (pathname != NULL)

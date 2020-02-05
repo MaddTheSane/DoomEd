@@ -18,6 +18,6 @@ extern ThingRemapper *thingRemapper_i;
 }
 
 - (IBAction)menuTarget:sender;
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 
 @end

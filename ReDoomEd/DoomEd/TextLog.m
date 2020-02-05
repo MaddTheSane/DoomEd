@@ -60,6 +60,16 @@
 	[text_i insertText:string replacementRange:NSMakeRange(len, 0)];
 }
 
+- (void)addFormattedMessage:(NSString *)string, ...
+{
+	va_list args;
+	va_start(args, string);
+	NSString *ourStr = [[NSString alloc] initWithFormat:string arguments:args];
+	[self addMessage:ourStr];
+	[ourStr release];
+	va_end(args);
+}
+
 - (IBAction)display:sender
 {
 	[window_i	makeKeyAndOrderFront:NULL];

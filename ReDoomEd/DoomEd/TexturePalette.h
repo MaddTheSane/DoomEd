@@ -24,7 +24,7 @@ typedef struct
 	int	oldIndex;
 } texpal_t;
 
-@interface TexturePalette:Object <NSWindowDelegate>
+@interface TexturePalette:NSObject <NSWindowDelegate>
 {
 	IBOutlet NSWindow *window_i;
 	IBOutlet TexturePalView *texturePalView_i;
@@ -38,35 +38,35 @@ typedef struct
 	IBOutlet NSTextField	*heightSearch_i;
 	
 	id	texturePatches;
-	Storage	*allTextures;
-	id	newTextures;
+	Storage *allTextures;
+	Storage *newTextures;
 	int	selectedTexture;
 	IBOutlet NSTextField	*lsTextField_i;
-	IBOutlet NSPanel	*lsPanel_i;
+	IBOutlet NSPanel		*lsPanel_i;
 	IBOutlet NSTextField	*lsStatus_i;
 }
 
-- setupPalette;
-- initTextures;
-- finishInit;
+- (void)setupPalette;
+- (void)initTextures;
+- (void)finishInit;
 - (IBAction)searchForTexture:sender;
 - (NSInteger) getNumTextures;
 - (NSInteger) getTextureIndex:(const char *)name;
-- createAllTextureImages;
+- (void)createAllTextureImages;
 - (texpal_t) createTextureImage:(int)which;
 
-- computePalViewSize;
+- (void)computePalViewSize;
 - (texpal_t *)getNewTexture:(int)which;
 - (int)selectTextureNamed:(char *)name;
 
 - (texpal_t *)getTexture:(int)which;
-- storeTexture:(int)which;
-- (char *)getSelTextureName;
-- setSelTexture:(char *)name;
+- (void)storeTexture:(int)which;
+- (const char *)getSelTextureName;
+- (void)setSelTexture:(const char *)name;
 - (int) currentSelection;
-- selectTexture:(int)val;
+- (void)selectTexture:(int)val;
 - (IBAction)menuTarget:sender;
-- saveFrame;
+- (void)saveFrame;
 
 - (IBAction)searchWidth:sender;
 - (IBAction)searchHeight:sender;

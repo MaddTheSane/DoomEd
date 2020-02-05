@@ -9,8 +9,9 @@
 #import 	"DoomProject.h"
 #import		"EditWorld.h"
 
+@class Storage;
 @class ThingPanel;
-extern	ThingPanel	*thingpanel_i;
+extern ThingPanel *thingpanel_i;
 
 typedef struct
 {
@@ -35,19 +36,19 @@ typedef struct
 {
 	IBOutlet NSForm	*fields_i;
  	IBOutlet NSPanel *window_i;
-	IBOutlet id	addButton_i;
-	IBOutlet id	updateButton_i;
-	IBOutlet id	nameField_i;
-	IBOutlet id	thingBrowser_i;
-	IBOutlet id	thingColor_i;
-	IBOutlet id	thingAngle_i;
-	IBOutlet id	masterList_i;
+	IBOutlet NSButton *addButton_i;
+	IBOutlet NSButton	*updateButton_i;
+	IBOutlet NSTextField *nameField_i;
+	IBOutlet NSBrowser *thingBrowser_i;
+	IBOutlet NSColorWell *thingColor_i;
+	IBOutlet NSMatrix *thingAngle_i;
+	Storage	*masterList_i;
 	IBOutlet NSTextField	*iconField_i;
 	IBOutlet NSButton	*ambush_i;		// switch
 	IBOutlet NSButton	*network_i;		// switch
 	IBOutlet NSMatrix	*difficulty_i;	// switch matrix
 	IBOutlet NSMatrix	*diffDisplay_i;	// radio matrix
-	IBOutlet id	count_i;		// display count
+	IBOutlet NSTextField	*count_i;		// display count
 	
 	int	diffDisplay;
 	
@@ -68,19 +69,19 @@ typedef struct
 - (IBAction)setAngle:sender;
 - (NXColor)getThingColor:(int)type;
 - fillThingData:(thinglist_t *)thing;
-- fillDataFromThing:(thinglist_t *)thing;
+- (void)fillDataFromThing:(thinglist_t *)thing;
 - fillAllDataFromThing:(thinglist_t *)thing;
 - (IBAction)addThing:sender;
 - (NSInteger)findThing:(char *)string;
 - (thinglist_t *)getThingData:(NSInteger)index;
 - (IBAction)chooseThing:sender;
 - (IBAction)confirmCorrectNameEntry:sender;
-- getThing:(worldthing_t *)thing;
-- setThing:(worldthing_t *)thing;
+- (void)getThing:(worldthing_t *)thing;
+- (void)setThing:(worldthing_t *)thing;
 - (NSInteger)searchForThingType:(int)type;
 - (IBAction)suggestNewType:sender;
 - scrollToItem:(NSInteger)which;
-- getThingList;
+@property (readonly, retain) Storage *thingList;
 
 - (IBAction)verifyIconName:sender;
 - (IBAction)assignIcon:sender;
@@ -92,7 +93,7 @@ typedef struct
 
 
 - (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream;
-- writeThing:(thinglist_t *)thing	from:(FILE *)stream;
-- updateThingsDSP:(FILE *)stream;
+- (void)writeThing:(thinglist_t *)thing	from:(FILE *)stream;
+- (void)updateThingsDSP:(FILE *)stream;
 
 @end

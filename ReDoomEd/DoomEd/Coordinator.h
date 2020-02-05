@@ -17,7 +17,7 @@ extern	BOOL	debugflag;
 #   define	TOOLNAME	"ToolPanel"
 #endif
 
-@interface Coordinator:Object
+@interface Coordinator:NSObject <NSApplicationDelegate>
 {
 	IBOutlet NSPanel *toolPanel_i;
 	IBOutlet NSPanel *infoPanel_i;

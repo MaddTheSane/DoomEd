@@ -4,6 +4,7 @@
 #import	"TexturePalette.h"
 #import	"DoomProject.h"
 #import	"Wadfile.h"
+#import "TextureView.h"
 #import	<ctype.h>
 #import	"lbmfunctions.h"
 
@@ -86,7 +87,7 @@ Storage *texturePatches;
 		
 		[window_i	setDelegate:self];
 		[self		computePatchDocView:&dvf];
-		[texturePatchView_i	sizeTo:dvf.size.width :dvf.size.height];
+		[texturePatchView_i setFrameSize:dvf.size];
 
 		//
 		// start patches at top
@@ -102,8 +103,8 @@ Storage *texturePatches;
 		//
 		// start texture editor at top
 		//
-		[textureView_i		getFrame:&dvf];
-		[scrollView_i		getContentSize:&s];
+		dvf = textureView_i.frame;
+		s = scrollView_i.contentSize;
 		startPoint.y = dvf.size.height - s.height;
 
 #ifdef REDOOMED
@@ -215,9 +216,10 @@ Storage *texturePatches;
 //
 // sort the "selected patches" list so pasting looks correct
 //
-- sortSelectedList
+- (void)sortSelectedList
 {
-	int	i,max,found,*e1,*e2,temp;
+	int	found,*e1,*e2,temp;
+	NSInteger max, i;
 	
 	max = [selectedTexturePatches	count] - 1;
 	do
@@ -236,19 +238,19 @@ Storage *texturePatches;
 			}
 		}
 	} while(found);
-	return self;
 }
 
 //
 // copy patches
 //
-- copy:sender
+- (IBAction)copy:sender
 {
-	int	i,max;
+	NSInteger i,max;
 
 	if ([copyList	count])
 		[copyList	empty];
 	
+	[copyList release];
 	copyList = [[Storage	alloc]
 				initCount:		0
 				elementSize:	sizeof(texpatch_t)
@@ -261,26 +263,25 @@ Storage *texturePatches;
 			*(int *)[selectedTexturePatches elementAt:i]]];
 	
 	[selectedTexturePatches	empty];
-	[textureView_i		display];
-	return self;
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
 // paste patches
 //
-- paste:sender
+- (IBAction)paste:sender
 {
 	texpatch_t	p;
-	int	i,max = [copyList	count], val, xoff, yoff;
+	NSInteger	i,max = [copyList	count], val, xoff, yoff;
 	NXRect	dvr;
 	
 	if (!max)
 	{
 		NXBeep();
-		return self;
+		return;
 	}
 	
-	[scrollView_i	getDocVisibleRect:&dvr];
+	dvr = scrollView_i.documentVisibleRect;
 	xoff = dvr.origin.x - ((texpatch_t *)[copyList	elementAt:0])->r.origin.x;
 	yoff = dvr.origin.y - ((texpatch_t *)[copyList	elementAt:0])->r.origin.y;
 	
@@ -294,8 +295,7 @@ Storage *texturePatches;
 		val = [texturePatches count] - 1;
 		[selectedTexturePatches	addElement:&val];
 	}
-	[textureView_i		display];
-	return self;
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
@@ -341,7 +341,7 @@ Storage *texturePatches;
 	[texturePatches	insertElement:&t1	at:newpatch];
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
@@ -386,7 +386,7 @@ Storage *texturePatches;
 	[texturePatches	insertElement:&t2	at:[self getCurrentEditPatch]];
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -409,7 +409,7 @@ Storage *texturePatches;
 	tp->r.origin.x += delta;
 	tp->patchInfo.originx += delta/2;
 	
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -432,7 +432,7 @@ Storage *texturePatches;
 	tp->r.origin.y += delta;
 	tp->patchInfo.originy -= delta/2;
 	
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //===============================================================
@@ -461,7 +461,7 @@ Storage *texturePatches;
 	[texturePatchView_i	scrollRectToVisible:&r];
 #endif
 
-	[texturePatchScrollView_i	display];
+	[texturePatchScrollView_i setNeedsDisplay:YES];
 	return self;
 }
 
@@ -581,7 +581,7 @@ Storage *texturePatches;
 		[texturePatches	removeElementAt:[self findHighestNumberedPatch]];
 	[selectedTexturePatches	empty];
 	
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 }
 
 //
@@ -853,8 +853,8 @@ Storage *texturePatches;
 	strncpy(tex.name,[createName_i	stringValue],8);
 #endif
 
-	cell = [setMatrix_i	selectedCell ];
-	tex.WADindex = [cell	tag];
+	cell = [setMatrix_i selectedCell];
+	tex.WADindex = (int)[cell	tag];
 	
 	//
 	// add it to the world and edit it
@@ -867,7 +867,7 @@ Storage *texturePatches;
 	// load in all the texture patches
 	//
 	if (texturePatches)
-		[texturePatches	free];
+		[texturePatches	release];
 	texturePatches = [[	Storage	alloc]
 					initCount:		0
 					elementSize:	sizeof(texpatch_t)
@@ -1048,7 +1048,7 @@ Storage *texturePatches;
 		
 	currentTexture = which;
 	if (texturePatches)
-		[texturePatches	free];
+		[texturePatches	release];
 	
 	texturePatches = [[	Storage	alloc]
 					initCount:		0
@@ -1077,9 +1077,9 @@ Storage *texturePatches;
 	
 	[selectedTexturePatches	empty];
 	
-	[textureView_i		sizeTo:textures[currentTexture].width * 2
-					:textures[currentTexture].height * 2];
-	[textureView_i		display];
+	[textureView_i setFrameSize:NSMakeSize(textures[currentTexture].width * 2,
+										   textures[currentTexture].height * 2)];
+	[textureView_i setNeedsDisplay:YES];
 	
 	[textureWidthField_i	setIntValue:textures[currentTexture].width];
 	[textureHeightField_i	setIntValue:textures[currentTexture].height];
@@ -1138,7 +1138,7 @@ Storage *texturePatches;
 	texpatch_t	p;
 	apatch_t		*pi;
 	
-	[scrollView_i	getDocVisibleRect:&dvr];
+	dvr = scrollView_i.documentVisibleRect;
 	ct = currentTexture;
 	ox = oldx;
 	oy = oldy;
@@ -1225,7 +1225,7 @@ Storage *texturePatches;
 	[textureView_i		scrollRectToVisible:&p.r];
 #endif
 
-	[textureView_i		display];
+	[textureView_i setNeedsDisplay:YES];
 	return self;
 }
 
@@ -1261,7 +1261,7 @@ Storage *texturePatches;
 //
 // set patch selected in Patch Palette
 //
-- setSelectedPatch:(int)which
+- (void)setSelectedPatch:(int)which
 {
 	apatch_t	*t;
 	NXRect		r;
@@ -1290,8 +1290,7 @@ Storage *texturePatches;
 	[texturePatchView_i			scrollRectToVisible:&r];
 #endif
 
-	[texturePatchScrollView_i	display];
-	return self;
+	[texturePatchScrollView_i setNeedsDisplay:YES];
 }
 
 //==========================================================
@@ -1299,7 +1298,7 @@ Storage *texturePatches;
 //	Get rid of all patches and their images
 //
 //==========================================================
-- dumpAllPatches
+- (void)dumpAllPatches
 {
 	NSInteger	i, max;
 	apatch_t	*p;
@@ -1314,29 +1313,24 @@ Storage *texturePatches;
 	for (i = 0; i < max; i++)
 	{
 		p = [patchImages	elementAt: i ];
-		[ p->image	free ];
+		[ p->image	release ];
 		if (p->image_x2 )
-			[p->image_x2  free ];
+			[p->image_x2  release ];
 	}
 	
 	[ patchImages	empty ];
 	if (window_i)
 	{
-		[ window_i		free ];
+		[ window_i		release ];
 		window_i = NULL;
 	}
 	
 	[panel	orderOut:NULL];
 	NXFreeAlertPanel(panel);
-	return self;
 }
 
-//==========================================================
-//
-//	Load in all the patches and init storage array
-//
-//==========================================================
-- initPatches
+///	Load in all the patches and init storage array
+- (void)initPatches
 {
 	int		patchStart, patchEnd, i;
 	patch_t	*patch;
@@ -1415,7 +1409,6 @@ Storage *texturePatches;
 
 	free(palLBM);
 	[doomproject_i	closeThermo];
-	return self;
 }
 
 //
@@ -1531,8 +1524,8 @@ Storage *texturePatches;
 	NXRect	r;
 	
 	[self		computePatchDocView:&r];
-	[texturePatchView_i	sizeTo:r.size.width :r.size.height];
-	[window_i	display];
+	[texturePatchView_i setFrameSize:r.size];
+	[window_i	setViewsNeedDisplay:YES];
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
 	return self;
@@ -1543,7 +1536,7 @@ Storage *texturePatches;
 // compute the size of the docView and set the origin of all the patches
 // within the docView.
 //
-- computePatchDocView: (NXRect *)theframe
+- (void)computePatchDocView: (NXRect *)theframe
 {
 	NXRect	curWindowRect;
 	int		x, y, patchnum, maxheight;
@@ -1551,7 +1544,7 @@ Storage *texturePatches;
 	int		maxwindex;
 	char		string[32];
 	
-	[texturePatchScrollView_i		getDocVisibleRect:&curWindowRect];
+	curWindowRect = texturePatchScrollView_i.documentVisibleRect;
 	x = y =  SPACING;
 	maxheight = patchnum = maxwindex = 0;
 	while ((patch = [patchImages	elementAt:patchnum++]) != NULL)
@@ -1633,8 +1626,6 @@ Storage *texturePatches;
 		else
 			x += patch->r.size.width + SPACING;
 	}	
-
-	return self;
 }
 
 

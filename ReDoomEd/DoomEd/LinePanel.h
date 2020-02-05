@@ -7,14 +7,14 @@
 #endif
 
 #import "EditWorld.h"
+#import "SpecialList.h"
 
 @class LinePanel;
-@class SpecialList;
 
 extern LinePanel *linepanel_i;
 extern SpecialList *lineSpecialPanel_i;
 
-@interface LinePanel:Object
+@interface LinePanel:NSObject <SpecialList>
 {
 	IBOutlet NSTextField	*p1_i;
 	IBOutlet NSTextField	*p2_i;

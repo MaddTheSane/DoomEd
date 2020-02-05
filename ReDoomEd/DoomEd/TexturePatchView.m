@@ -86,7 +86,7 @@
 		if (NXIntersectsRect(&patch->r,&rects[0]))
 			[patch->image		composite:NX_SOVER toPoint:&patch->r.origin];
 	
-	[self	getFrame:&clipview];
+	clipview = self.frame;
 	if (selectedPatch >= 0)
 	{
 		patch = [textureEdit_i	getPatch:selectedPatch];

@@ -57,7 +57,7 @@
 	
 	int	selectedPatch;			// in the Patch Palette
 	id	selectedTexturePatches;	// in the Texture Editor View
-	id	copyList;				// list of copied patches
+	Storage	*copyList;			// list of copied patches
 	int	currentTexture;			// being edited
 	int	oldx,oldy;				// last texture x,y
 }
@@ -155,13 +155,13 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)createNewSet:sender;
 
 - newSelection:(int)which;
-- setSelectedPatch:(int)which;
+- (void)setSelectedPatch:(int)which;
 - selectPatchAndScroll:(int)patch;
 - (int)getOutlineFlag;
-- dumpAllPatches;
-- initPatches;
+- (void)dumpAllPatches;
+- (void)initPatches;
 - createPatchX2:(apatch_t *)p;
-- computePatchDocView: (NXRect *)theframe;
+- (void)computePatchDocView: (NXRect *)theframe;
 - setWarning:(BOOL)state;
 - saveFrame;
 

@@ -221,7 +221,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 // FIXME: prompt to save map if dirty
 	if ([windowlist_i	count] > 0)
 		[[windowlist_i	objectAtIndex:0]	saveFrameUsingName:WORLDNAME];
-	[self free];
+	[self release];
 	return self;
 }
 

@@ -5,6 +5,7 @@
 #import	"TextureEdit.h"
 #import	"Wadfile.h"
 #import	"lbmfunctions.h"
+#import "ThingPalView.h"
 
 id	thingPalette_i;
 
@@ -189,7 +190,7 @@ id	thingPalette_i;
 	int		maxwidth;
 	NXPoint	p;
 	
-	[thingPalScrView_i	getDocVisibleRect:&dvr];
+	dvr = thingPalScrView_i.documentVisibleRect;
 	max = [thingImages	count];
 	maxwidth = ICONSIZE*5 + SPACING*5;
 
@@ -216,7 +217,7 @@ id	thingPalette_i;
 		x += ICONSIZE + SPACING;
 	}
 	
-	[thingPalView_i	sizeTo:dvr.size.width	:y];
+	[thingPalView_i setFrameSize:NSMakeSize(dvr.size.width, y)];
 	p.x = 0;
 	p.y = y + ICONSIZE + SPACING;
 	x = SPACING;

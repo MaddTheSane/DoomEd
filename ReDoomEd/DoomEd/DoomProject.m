@@ -622,7 +622,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- updatePanel
+- (void)updatePanel
 {
 #ifdef REDOOMED
 	[projectpath_i setStringValue: RDE_NSStringFromCString(projectdirectory)];
@@ -639,7 +639,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 #endif
 
 	[maps_i reloadColumn: 0];	
-	return self;
 }
 
 - changeWADfile:(char *)string
@@ -680,7 +679,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	if (strlen(path.fileSystemRepresentation) > RDE_MAX_FILEPATH_LENGTH)
 	{
-		NXRunAlertPanel ("Error","Project filepath is too long.","OK",NULL,NULL);
+		NXRunAlertPanel ("Error","%s","OK",NULL,NULL, "Project filepath is too long.");
 		return NO;
 	}
 #endif
@@ -1011,7 +1010,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 //
 //===================================================================
 int	oldSelRow,curMap;
-id	openMatrix;
+NSMatrix *openMatrix;
 
 //	Init to start opening all maps
 - beginOpenAllMaps
@@ -1027,7 +1026,7 @@ id	openMatrix;
 {
 	if (curMap < nummaps)
 	{
-		[openMatrix	selectCellAt:curMap :0];
+		[openMatrix	selectCellAtRow:curMap column:0];
 		[self	openMap:openMatrix];
 		curMap++;
 		return YES;
@@ -1036,7 +1035,7 @@ id	openMatrix;
 	{
 		if (oldSelRow >= 0)
 		{
-			[openMatrix	selectCellAt:oldSelRow :0];
+			[openMatrix	selectCellAtRow:oldSelRow column:0];
 			[self	openMap:openMatrix];
 		}
 		return NO;
@@ -1247,7 +1246,6 @@ typedef struct
 	texpal_t	*t;
 	NSMatrix	*openMatrix;
 	NSInteger	selRow;
-	char		string[80];
 	int		numth;
 	tc_t	*thingCount;
 	
@@ -1338,9 +1336,7 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[0].bottomtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
-					(long)k, lines[k].side[0].bottomtexture);
-			[log_i	msg:string];
+			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].bottomtexture];
 			return;
 		}
 
@@ -1362,9 +1358,7 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[0].midtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
-					(long)k, lines[k].side[0].midtexture);
-			[log_i	msg:string];
+			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].midtexture];
 			return;
 		}
 
@@ -1386,7 +1380,7 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[0].toptexture);
 			[editworld_i	selectLine:k];
-			[log_i	addMessage:[NSString stringWithFormat:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture]];
+			[log_i	addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture];
 			return;
 		}
 
@@ -1410,9 +1404,8 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[1].bottomtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
-					(long)k, lines[k].side[0].bottomtexture);
-			[log_i	msg:string];
+			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n",
+			 (long)k, lines[k].side[0].bottomtexture];
 			return;
 		}
 
@@ -1434,9 +1427,7 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL,lines[k].side[1].midtexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
-					(long)k, lines[k].side[0].midtexture);
-			[log_i	msg:string];
+			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].midtexture];
 			return;
 		}
 
@@ -1458,9 +1449,7 @@ typedef struct
 				"Found a line with a texture that isn't present: '%s'",
 				"Continue",NULL,NULL, lines[k].side[1].toptexture);
 			[editworld_i	selectLine:k];
-			sprintf(string,"Line %ld: texture '%s' nonexistent!\n",
-					(long)k, lines[k].side[0].toptexture);
-			[log_i	msg:string];
+			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture];
 			return;
 		}
 	}
@@ -1485,7 +1474,7 @@ typedef struct
 	{
 		if (!textureCount[i])
 			continue;
-		t = [texturePalette_i	getTexture:i];
+		t = [texturePalette_i	getTexture:(int)i];
 		if (t->WADindex != tset)
 		{
 			fprintf(stream,"Texture set #%d\n",t->WADindex+1);
@@ -1529,21 +1518,20 @@ typedef struct
 
 	int		numPatches;
 	int		*patchCount;
-	char	*patchName;
+	const char *patchName;
 	
 	int		i;
 	int		k;
 	int		j;
 	NSInteger nt;
 	NSInteger selRow;
-	int		nf;
-	int		flat;
+	NSInteger nf;
+	NSInteger flat;
 	int		errors;
 	int		*textureCount, *flatCount;
 	NSInteger indx;
 	FILE	*stream;
 	char	filename[]="/tmp/tempstats.txt\0";
-	char	string[80];
 	texpal_t	*t;
 	int		numth;
 	tc_t	*thingCount;
@@ -1569,7 +1557,7 @@ typedef struct
 	flatCount = malloc ( sizeof(*flatCount) * nf );
 	bzero (flatCount, sizeof (*flatCount) * nf );
 
-	thingList_i = [thingPanel_i getThingList];
+	thingList_i = [thingPanel_i thingList];
 	numth = [thingList_i	count];
 	thingCount = malloc (numth * sizeof(*thingCount));
 	bzero(thingCount,sizeof(*thingCount)*numth);
@@ -1582,23 +1570,13 @@ typedef struct
 		strcpy(thingCount[k].name,thing->name);
 	}
 	
-	[log_i	addMessage:@"Starting to calculate multiple map statistics...\n" ];
+	[log_i addMessage:@"Starting to calculate multiple map statistics...\n"];
 	
 	errors = 0;
 	
 	for (i = 0;i < nummaps; i++)
 	{
-#ifdef REDOOMED
-		// prevent buffer overflows: *sprintf() -> *snprintf() in cases where input strings
-		// might be too long for the destination buffer
-		snprintf(string,sizeof(string),"Loading map %s.\n",
-			RDE_CStringFromNSString([[openMatrix selectedCell] stringValue]) );
-#else // Original
-		sprintf(string,"Loading map %s.\n",
-			[[openMatrix selectedCell] stringValue] );
-#endif
-
-		[log_i	msg:string ];
+		[log_i addFormattedMessage:@"Loading map %@.\n", [[openMatrix selectedCell] stringValue]];
 		[openMatrix	selectCellAtRow:i column:0];
 		[self	openMap:openMatrix];
 		
@@ -1701,9 +1679,9 @@ typedef struct
 			
 			if (lines[k].side[0].ends.floorflat[0])
 			{
-				flat = [ sectorEdit_i
+				flat = [sectorEdit_i
 					findFlat:lines[k].side[0].ends.floorflat ];
-				if (flat >= 0)
+				if (flat != NSNotFound)
 					flatCount[flat]++;
 				else
 				{
@@ -1716,7 +1694,7 @@ typedef struct
 			{
 				flat = [ sectorEdit_i
 					findFlat:lines[k].side[0].ends.ceilingflat ];
-				if (flat >= 0)
+				if (flat != NSNotFound)
 					flatCount[flat]++;
 				else
 				{
@@ -1830,7 +1808,7 @@ typedef struct
 	//
 	//	Count flat usage
 	//
-	fprintf( stream, "Number of flats in project:%d\n",nf );
+	fprintf( stream, "Number of flats in project:%ld\n",(long)nf );
 	fprintf( stream, "Flat count:\n" );
 	for (i = 0; i < nf; i++)
 		fprintf( stream, "Flat\x9\x9%d\x9\x9\x9%s\n",flatCount[i],
@@ -2467,12 +2445,11 @@ typedef struct
 ===============
 */
 
-- changeTexture: (int)num to: (worldtexture_t *)tex
+- (void)changeTexture: (int)num to: (worldtexture_t *)tex
 {
 	texturesdirty = YES;
 	textures[num] = *tex;
 	textures[num].dirty = YES;
-	return self;
 }
 
 
@@ -2505,14 +2482,14 @@ static	byte		*buffer, *buf_p;
 - writeBuffer: (char const *)filename
 {
 	int		size;
-	FILE		*stream;
-	char		directory[1024];
+	FILE	*stream;
+	char	directory[1024];
 	
 	strcpy (directory, wadfile);
 	StripFilename (directory);
 	chdir (directory);
 	
-	size = buf_p - buffer;
+	size = (int)(buf_p - buffer);
 	stream = fopen (filename,"w");
 	if (!stream)
 	{
@@ -2696,7 +2673,7 @@ static	byte		*buffer, *buf_p;
 //	Initialize and display the thermometer
 //
 //====================================================
-- initThermo:(char *)title message:(char *)msg
+- (void)initThermo:(char *)title message:(char *)msg
 {
 #ifdef REDOOMED
 	[thermoTitle_i	setStringValue:RDE_NSStringFromCString(title)];
@@ -2707,10 +2684,9 @@ static	byte		*buffer, *buf_p;
 #endif
 
 	[thermoView_i	setThermoWidth:0 max:1000];
-	[thermoView_i	display];
+	[thermoView_i	setNeedsDisplay:YES];
 	[thermoWindow_i	makeKeyAndOrderFront:NULL];
 	NXPing();
-	return self;
 }
 
 //====================================================
@@ -2718,12 +2694,10 @@ static	byte		*buffer, *buf_p;
 //	Update the thermometer
 //
 //====================================================
-- updateThermo:(int)current max:(int)maximum
+- (void)updateThermo:(int)current max:(int)maximum
 {
 	[thermoView_i	setThermoWidth:current	max:maximum];
 	[thermoView_i	display];
-	
-	return self;
 }
 
 //====================================================
@@ -2731,10 +2705,9 @@ static	byte		*buffer, *buf_p;
 //	Toast the thermometer
 //
 //====================================================
-- closeThermo
+- (void)closeThermo
 {
 	[thermoWindow_i	orderOut:self];
-	return self;
 }
 
 @end
@@ -2831,10 +2804,10 @@ static	byte		*buffer, *buf_p;
 void IO_Error (char *error, ...)
 {
 	va_list	argptr;
-	char		string[1024];
+	char	string[1024];
 
 
-	va_start (argptr,error);
+	va_start(argptr, error);
 
 #ifdef REDOOMED
 	// prevent buffer overflows: *sprintf() -> *snprintf() in cases where input strings
@@ -2845,7 +2818,7 @@ void IO_Error (char *error, ...)
 #endif
 
 	va_end (argptr);
-	NXRunAlertPanel ("Error","%s",NULL,NULL,NULL, string);
+	NXRunAlertPanel("Error","%s",NULL,NULL,NULL, string);
 	[NXApp terminate: NULL];
 }
 

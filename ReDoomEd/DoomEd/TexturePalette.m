@@ -33,7 +33,7 @@ TexturePalette	*texturePalette_i;
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 #ifdef REDOOMED
@@ -41,18 +41,15 @@ TexturePalette	*texturePalette_i;
 #else // Original
 		[window_i	saveFrameUsingName:"TexturePalette"];
 #endif
-
-	return self;
 }
 
-- initTextures
+- (void)initTextures
 {
 	[self	createAllTextureImages];
 	[self	finishInit];
-	return self;
 }
 
-- finishInit
+- (void)finishInit
 {
 		NXPoint	p;
 		NXRect	dvr;
@@ -61,7 +58,7 @@ TexturePalette	*texturePalette_i;
 		//
 		// start textures at top
 		//
-		[texturePalView_i		getFrame:&dvr];
+		dvr = texturePalView_i.frame;
 		p.x = 0;
 		p.y = dvr.size.height;
 
@@ -71,11 +68,9 @@ TexturePalette	*texturePalette_i;
 #else // Original
 		[texturePalView_i		scrollPoint:&p];
 #endif
-
-		return self;
 }
 
-- setupPalette
+- (void)setupPalette
 {
 		[self	finishInit];
 		if ([allTextures	count])
@@ -86,8 +81,6 @@ TexturePalette	*texturePalette_i;
 #else // Original
 		[window_i	setFrameUsingName:"TexturePalette"];
 #endif
-
-		return self;
 }
 
 - (IBAction)menuTarget:sender
@@ -130,18 +123,18 @@ TexturePalette	*texturePalette_i;
 // create all the texture images for the palette
 // NOTE: allTextures must have been created
 //
-- createAllTextureImages
+- (void)createAllTextureImages
 {
 	int		j;
 	texpal_t	t;
 
 #ifdef REDOOMED
 	// prevent memory leaks: free texture images pointed to by elements of allTextures
-	int allTexturesCount = [allTextures count];
+	NSInteger allTexturesCount = [allTextures count];
 
 	for (j=0; j<allTexturesCount; j++)
 	{
-		[((texpal_t *) [allTextures elementAt: j])->image free];
+		[((texpal_t *) [allTextures elementAt: j])->image release];
 	}
 #endif
 	
@@ -152,8 +145,6 @@ TexturePalette	*texturePalette_i;
 		t = [self	createTextureImage:j];
 		[allTextures	addElement:&t];
 	}
-
-	return self;
 }
 
 //
@@ -209,7 +200,7 @@ TexturePalette	*texturePalette_i;
 //
 // add/replace a texture image in palette
 //
-- storeTexture:(int)which
+- (void)storeTexture:(int)which
 {
 	texpal_t	*t,tex;
 	
@@ -219,7 +210,7 @@ TexturePalette	*texturePalette_i;
 	else
 	{
 		t = [allTextures	elementAt:which];
-		[t->image	free];
+		[t->image	release];
 	}
 	
 	tex = [self	createTextureImage:which];
@@ -228,8 +219,6 @@ TexturePalette	*texturePalette_i;
 	[self	computePalViewSize];
 	[self	selectTexture:which];
 	[doomproject_i	setProjectDirty:TRUE];
-	
-	return self;
 }
 
 //=========================================================
@@ -242,7 +231,7 @@ TexturePalette	*texturePalette_i;
 	return	[newTextures	elementAt:which];
 }
 
-- computePalViewSize
+- (void)computePalViewSize
 {
 	texpal_t	*t, *t2;
 	int		count,maxwidth,x,y;
@@ -324,9 +313,7 @@ TexturePalette	*texturePalette_i;
 	
 	s.width = maxwidth + SPACING*2;
 	s.height = y;
-	[texturePalView_i	sizeTo:s.width :s.height];
-
-	return self;
+	[texturePalView_i setFrameSize:s];
 }
 
 //
@@ -381,7 +368,7 @@ TexturePalette	*texturePalette_i;
 	return i;
 }
 
-- selectTexture:(int)val
+- (void)selectTexture:(int)val
 {
 	texpal_t	*t;
 	NXRect		r;
@@ -415,17 +402,16 @@ TexturePalette	*texturePalette_i;
 
 		[texturePalScrView_i	display];
 	}
-	return self;
 }
 
-- (char *)getSelTextureName
+- (const char *)getSelTextureName
 {
 	return	[self getTexture:selectedTexture]->name;
 }
 
-- setSelTexture:(char *)name
+- (void)setSelTexture:(const char *)name
 {
-	int	i, max;
+	NSInteger	i, max;
 	NXRect	r;
 	texpal_t	*t;
 	
@@ -451,11 +437,9 @@ TexturePalette	*texturePalette_i;
 			[texturePalView_i	scrollRectToVisible:&r];
 #endif
 
-			[texturePalScrView_i	display];
+			[texturePalScrView_i setNeedsDisplay:YES];
 			break;
 		}
-		
-	return self;
 }
 
 - (IBAction)searchForTexture:sender
@@ -596,17 +580,12 @@ TexturePalette	*texturePalette_i;
 	NSBeep();
 }
 
-//========================================================
-//
-//	Show current texture in map by highlighting all lines that use it
-//
-//========================================================
+/// Show current texture in map by highlighting all lines that use it
 - (IBAction)showTextureInMap:sender
 {
 	int		i;
-	int		found;
-	char	 name[32];
-	char	string[64];
+	BOOL	found = NO;
+	char	name[32];
 	
 #ifdef REDOOMED
 	// prevent buffer overflows: strcpy() -> macroRDE_SafeCStringCopy()
@@ -616,7 +595,6 @@ TexturePalette	*texturePalette_i;
 #endif
 
 	strupr(name);
-	found = 0;
 	[log_i addMessage:@"Searching for texture in lines...\n"];
 	
 	for (i = 0;i < numlines;i++)
@@ -631,9 +609,8 @@ TexturePalette	*texturePalette_i;
 			[editworld_i	selectLine:i];
 			[editworld_i	selectPoint:lines[i].p1];
 			[editworld_i	selectPoint:lines[i].p2];
-			snprintf(string,sizeof(string),"Showing line #%d\n",i);
-			[log_i msg:string];
-			found = 1;
+			[log_i addFormattedMessage:@"Showing line #%d\n", i];
+			found = YES;
 		}
 
 	[editworld_i	redrawWindows];
@@ -642,12 +619,8 @@ TexturePalette	*texturePalette_i;
 	return;
 }
 
-//========================================================
-//
-//	Save currently selected texture out as an LBM !!!
-//	and also save out .LS file for graphic
-//
-//========================================================
+/// Save currently selected texture out as an LBM !!!
+/// and also save out .LS file for graphic
 - (IBAction)saveTextureLBM:sender
 {
 	int		cs;
@@ -700,12 +673,8 @@ TexturePalette	*texturePalette_i;
 	fclose (fp);
 }
 
-//========================================================
-//
-//	Save ALL textures out as LBMs !!!
-//	and also save out .LS file for each graphic
-//
-//========================================================
+/// Save ALL textures out as LBMs !!!
+/// and also save out .LS file for each graphic
 - (IBAction)saveAllTexturesAsLBM:sender
 {
 	[lsPanel_i	makeKeyAndOrderFront:NULL];

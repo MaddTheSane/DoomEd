@@ -17,7 +17,7 @@
 }
 
 - (instancetype)initFromFile: (char const *)path;
-- initNew: (char const *)path;
+- (instancetype)initNew: (char const *)path;
 
 #ifdef REDOOMED
 // changed the close method to return void to match the close method signature used in

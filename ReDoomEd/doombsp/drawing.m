@@ -4,7 +4,8 @@
 
 #import "doombsp.h"
 
-id 			window_i, view_i;
+NSWindow 	*window_i;
+NSView		*view_i;
 float		scale = 0.125;
 NXRect		worldbounds;
 
@@ -92,9 +93,9 @@ void IDEnclosePoint (NXRect *rect, NXPoint const *point)
 ===========
 */
 
-void BoundLineStore (id lines_i, NXRect *r)
+void BoundLineStore (Storage *lines_i, NXRect *r)
 {
-	int				i,c;
+	NSInteger		i,c;
 	worldline_t		*line_p;
 	
 	c = [lines_i count];
@@ -123,9 +124,9 @@ void BoundLineStore (id lines_i, NXRect *r)
 ===========
 */
 
-void DrawLineStore (id lines_i)
+void DrawLineStore (Storage *lines_i)
 {
-	int				i,c;
+	NSInteger		i,c;
 	worldline_t		*line_p;
 	
 	if (!draw)
@@ -209,10 +210,8 @@ void DrawMap (void)
 	[window_i orderFront: nil];
 	view_i = [window_i contentView];
 	
+	[view_i setBoundsSize:worldbounds.size];
 	[view_i
-		setDrawSize:	worldbounds.size.width
-		:				worldbounds.size.height];
-	[view_i 
 		setDrawOrigin:	worldbounds.origin.x 
 		: 				worldbounds.origin.y];
 			

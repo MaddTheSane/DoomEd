@@ -35,12 +35,10 @@
 
 
 /**
- * addLineFrom: to:
- *
  * Adds a new line of the type specified in the various panels and selects it and its points
- * Called by lineDrag and polyDrag
+ * Called by \c lineDrag and \c polyDrag
  */
-- addLineFrom: (NXPoint *)fixedpoint  to: (NXPoint *)dragpoint
+- (void)addLineFrom: (NXPoint *)fixedpoint  to: (NXPoint *)dragpoint
 {
 	worldline_t	newline;
 	int			line;
@@ -52,8 +50,6 @@
 	[editworld_i selectLine: line];
 	[editworld_i selectPoint: lines[line].p1];
 	[editworld_i selectPoint: lines[line].p2];
-	
-	return self;
 }
 
 /*
@@ -74,7 +70,7 @@
 ===============
 */
 
-- slideView:(NXEvent *)event
+- (void)slideView:(NXEvent *)event
 {
 	int 		oldMask;
 	NXPoint	oldpt, pt, origin;
@@ -142,8 +138,6 @@
 	} while (1);
 	
 	[window setEventMask:oldMask];
-	
-	return self;
 }
 
 
@@ -155,7 +149,7 @@
 ================
 */
 
-- zoomIn:(NXEvent *)event
+- (void)zoomIn:(NXEvent *)event
 {
 	char	const	*item;
 	float			nscale;
@@ -173,7 +167,7 @@
 	
 	selected = [itemlist selectedRow] + 1;
 	if (selected >= numrows)
-		return NULL;
+		return;
 		
 	[itemlist selectItemAtIndex: selected ];
 	[[window scalebutton] setTitle: [[itemlist selectedCell] title]];
@@ -205,8 +199,6 @@
 // allow a drag while the mouse is still down
 //
 	[self slideView: event];
-	
-	return self;
 }
 
 /*
@@ -229,7 +221,7 @@
 	MapWindow *window = (MapWindow *) [self window];
 #endif
 
-	itemlist = [[window scalemenu] itemList];
+	itemlist = [window scalemenu];
 	selected = [itemlist selectedRow] - 1;
 	
 	if (selected < 0)
@@ -313,9 +305,9 @@
 		PSstroke ();
 		NXPing ();
 		
-		event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
+		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 #ifdef REDOOMED
-	} while ([event type] != NX_LMOUSEUP);
+	} while ([event type] != NSEventTypeLeftMouseUp);
 #else // Original
 	} while (event->type != NX_LMOUSEUP);
 #endif
@@ -335,7 +327,7 @@
 	[editworld_i deselectAll];
 	[self addLineFrom: &fixedpoint  to: &dragpoint];
 	[editworld_i updateWindows];	
-	[doomproject_i	setDirtyMap:TRUE];	
+	[doomproject_i setMapDirty:TRUE];
 
 	return self;
 }
@@ -419,7 +411,7 @@
 
 		[self addLineFrom: &fixedpoint  to: &dragpoint];
 		[editworld_i updateWindows];		
-		[doomproject_i	setDirtyMap:TRUE];
+		[doomproject_i setMapDirty:TRUE];
 	} while (1);
 	
 	[self unlockFocus];
@@ -616,7 +608,7 @@
 				}
 
 			if (moved.x || moved.y)
-				[doomproject_i	setDirtyMap:TRUE];
+				[doomproject_i setMapDirty:TRUE];
 				
 			moved = cursor;
 		}
@@ -660,7 +652,7 @@
 			points[p].pt.y -= totalmoved.y;
 			[editworld_i changePoint: p to: &newpoint];
 			if (totalmoved.x || totalmoved.y)
-				[doomproject_i	setDirtyMap:TRUE];
+				[doomproject_i setMapDirty:TRUE];
 		}
 
 	return self;
@@ -1013,7 +1005,7 @@
 	[thingpanel_i	getThing:&thing];
 	thing.selected = 0;
 	[editworld_i newThing: &thing];
-	[doomproject_i	setDirtyMap:TRUE];
+	[doomproject_i setMapDirty:TRUE];
 	
 	return self;
 }

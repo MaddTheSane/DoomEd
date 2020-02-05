@@ -467,7 +467,7 @@ SectorEditor	*sectorEdit_i;
 	for (i = 0; i < max; i++)
 	{
 		p = [ flatImages	elementAt: i ];
-		[ p->image	free ];
+		[ p->image	release ];
 	}
 	
 	[ flatImages	empty ];
@@ -583,7 +583,7 @@ SectorEditor	*sectorEdit_i;
 - (void)computeFlatDocView
 {
 	NXRect	dvr;
-	int		i,x,y,max;
+	NSInteger		i,x,y,max;
 	flat_t	*f;
 	int		maxwidth;
 	NXPoint	p;
@@ -591,7 +591,7 @@ SectorEditor	*sectorEdit_i;
 	char	string[32];
 	
 	[flatPalView_i	dumpDividers];
-	[flatScrPalView_i	getDocVisibleRect:&dvr];
+	dvr = flatScrPalView_i.documentVisibleRect;
 	max = [flatImages	count];
 	maxwidth = FLATSIZE*3 + SPACING*3;
 

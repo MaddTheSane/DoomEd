@@ -42,10 +42,9 @@ ThingRemapper *thingRemapper_i;
 	[remapper_i	showPanel];
 }
 
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 {
 	[remapper_i	addToList:orgname to:newname];
-	return self;
 }
 
 //===================================================================

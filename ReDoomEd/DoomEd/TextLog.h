@@ -21,6 +21,7 @@
 #ifdef REDOOMED
 - msg:(char *)string API_DEPRECATED_WITH_REPLACEMENT("-addMessage:", macos(10.0, 10.0));
 - (void)addMessage:(NSString*)string;
+- (void)addFormattedMessage:(NSString*)string, ... NS_FORMAT_FUNCTION(1,2);
 #else
 - msg:(char *)string;
 #endif

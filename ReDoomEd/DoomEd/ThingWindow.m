@@ -44,7 +44,7 @@
 	strcat(string,key);
 	size = strlen(string);
 		
-	thingList_i = [parent_i  getThingList];
+	thingList_i = [parent_i  thingList];
 	max = [thingList_i	count];
 	tries = 2;
 	

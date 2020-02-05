@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, tool_t)
 @class ToolPanel;
 extern ToolPanel *toolpanel_i;
 
-@interface ToolPanel:Object
+@interface ToolPanel:NSObject
 {
     IBOutlet NSMatrix	*toolmatrix_i;
 }

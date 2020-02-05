@@ -38,17 +38,14 @@ BOOL	debugflag = NO;
 
 - (IBAction)redraw: sender
 {
-	NSInteger	i;
 	NSArray<NSWindow*> *list;
 	MapWindow *win;
 	
 // update all windows
 	list = [NXApp windows];
-	i = [list count];
-	while (--i >= 0)
+	for (win in list.reverseObjectEnumerator)
 	{
-		win = (id)[list objectAtIndex: i];
-		if ([win class] == [MapWindow class])
+		if ([win isKindOfClass:[MapWindow class]])
 			[[win mapView] display];
 	}
 }
@@ -82,7 +79,7 @@ BOOL	debugflag = NO;
 		return NO;
 
 #ifdef REDOOMED
-	[doomproject_i loadProject: RDE_CStringFromNSString(filename)];
+	[doomproject_i loadProjectWithFileURL: [NSURL fileURLWithPath:filename]];
 #else // Original
 	[doomproject_i loadProject: filename];
 #endif

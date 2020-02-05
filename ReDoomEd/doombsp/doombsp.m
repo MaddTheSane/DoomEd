@@ -107,7 +107,7 @@ printf ("segment cuts: %i\n",cuts);
 	NS_ENDHANDLER
 #endif
 
-	[wad_i free];
+	[wad_i release];
 	
 //getchar();
 

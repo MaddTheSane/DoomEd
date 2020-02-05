@@ -4,7 +4,7 @@
 
 @implementation ThermoView
 
-- setThermoWidth:(int)current max:(int)maximum
+- (void)setThermoWidth:(int)current max:(int)maximum
 {
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'bounds' as an instance var, fake it using a local
@@ -12,29 +12,26 @@
 #endif
 
 	thermoWidth = bounds.size.width*((CGFloat)current/(CGFloat)maximum);
-	return self;
 }
 
-- drawSelf:(const NXRect *)rects :(int)rectCount
+-(void)drawRect:(NSRect)dirtyRect
 {
-#ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'bounds' as an instance var, fake it using a local
 	NSRect bounds = [self bounds];
-#endif
-
-	PSsetlinewidth(bounds.size.height);
-
-	PSsetrgbcolor(0.5,1.0,1.0);
-	PSmoveto(0,bounds.size.height/2);
-	PSlineto(thermoWidth,bounds.size.height/2);
-	PSstroke();
 	
-	PSsetgray(0.5);
-	PSmoveto(thermoWidth+1,bounds.size.height/2);
-	PSlineto(bounds.size.width,bounds.size.height/2);
-	PSstroke();
-
-	return self;
+	NSBezierPath *path = [NSBezierPath bezierPath];
+	path.lineWidth = bounds.size.height;
+	[[NSColor colorWithDeviceRed:0.5 green:1 blue:1 alpha:1] set];
+	[path moveToPoint:NSMakePoint(0, bounds.size.height/2)];
+	[path lineToPoint:NSMakePoint(thermoWidth, bounds.size.height/2)];
+	[path stroke];
+	
+	path = [NSBezierPath bezierPath];
+	path.lineWidth = bounds.size.height;
+	[NSColor colorWithWhite:0.5 alpha:0.9];
+	[path moveToPoint:NSMakePoint(thermoWidth+1,bounds.size.height/2)];
+	[path lineToPoint:NSMakePoint(bounds.size.width,bounds.size.height/2)];
+	[path stroke];
 }
 
 @end
