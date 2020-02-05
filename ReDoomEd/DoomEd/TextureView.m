@@ -145,7 +145,7 @@
 #endif
 {
 	[[textureEdit_i	getSTP]	empty];
-	[self	display];
+	[self setNeedsDisplay:YES];
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
 	return self;
@@ -212,7 +212,7 @@
 				[textureEdit_i	addSelectedTexturePatch:i];
 				[textureEdit_i	updateTexPatchInfo];
 			}
-			[self	display];
+			[self setNeedsDisplay:YES];
 			clicked = 1;
 			break;
 		}

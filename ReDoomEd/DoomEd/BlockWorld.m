@@ -391,7 +391,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		defer:		NO
 	];
 	
-	[window display];
+	[window setViewsNeedDisplay:YES];
 	[window orderFront:nil];
 	
 	blockview = [window contentView];

@@ -100,7 +100,7 @@
 					ny = s->floorheight;
 				ny &= -8;
 				s->ceilingheight = ny;
-				[self	display];
+				[self setNeedsDisplay:YES];
 				[sectorEdit_i	setCeiling:ny];
 				
 			} while (event->type != NX_MOUSEUP);
@@ -128,7 +128,7 @@
 					ny = s->ceilingheight;
 				ny &= -8;
 				s->floorheight = ny;
-				[self	display];
+				[self setNeedsDisplay:YES];
 				[sectorEdit_i	setFloor:ny];
 				
 			} while (event->type != NX_MOUSEUP);

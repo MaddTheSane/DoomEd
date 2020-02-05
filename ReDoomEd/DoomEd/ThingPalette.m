@@ -140,7 +140,7 @@ id	thingPalette_i;
 	[thingPalView_i		scrollRectToVisible:&r];
 #endif
 
-	[thingPalScrView_i	display];
+	[thingPalScrView_i setNeedsDisplay:YES];
 }
 
 //============================================================

@@ -352,7 +352,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 - (IBAction)newWindow:sender
 {
-	id	win;
+	MapWindow *win;
 	
 	if (!loaded)
 	{
@@ -373,7 +373,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 	[win setTitleAsFilename: pathname];
 	[win	setFrameUsingName:WORLDNAME];
-	[win display];
+	[win setViewsNeedDisplay:YES];
 	[win makeKeyAndOrderFront:self];
 }
 

@@ -364,7 +364,7 @@ TexturePalette	*texturePalette_i;
 	[texturePalView_i	scrollRectToVisible:&r];
 #endif
 
-	[texturePalScrView_i	display];
+	[texturePalScrView_i setNeedsDisplay:YES];
 	return i;
 }
 
@@ -400,7 +400,7 @@ TexturePalette	*texturePalette_i;
 		[texturePalView_i		scrollRectToVisible:&r];
 #endif
 
-		[texturePalScrView_i	display];
+		[texturePalScrView_i setNeedsDisplay:YES];
 	}
 }
 

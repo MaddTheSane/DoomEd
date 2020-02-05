@@ -12,6 +12,7 @@
 #endif
 
 	thermoWidth = bounds.size.width*((CGFloat)current/(CGFloat)maximum);
+	[self setNeedsDisplay:YES];
 }
 
 -(void)drawRect:(NSRect)dirtyRect

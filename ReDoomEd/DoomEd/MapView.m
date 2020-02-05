@@ -122,7 +122,7 @@ printf ("Display\n");
 	for (i=0 ; i<10 ; i++)
 	{
 		[t4 enter: WALLTIME];
-		[self display];
+		[self setNeedsDisplay:YES];
 		[t4 leave];
 	}
 	[t4 summary: stream];
@@ -132,7 +132,7 @@ printf ("No flush\n");
 	for (i=0 ; i<10 ; i++)
 	{
 		[t4 enter: WALLTIME];
-		[self display];
+		[self setNeedsDisplay:YES];
 		[t4 leave];
 	}
 	[window reenableFlushWindow];
@@ -232,7 +232,7 @@ printf ("Done\n");
 		return;
 		
 	gridsize = grid;
-	[self display];
+	[self setNeedsDisplay:YES];
 }
 
 /*

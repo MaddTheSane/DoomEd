@@ -46,7 +46,7 @@ BOOL	debugflag = NO;
 	for (win in list.reverseObjectEnumerator)
 	{
 		if ([win isKindOfClass:[MapWindow class]])
-			[[win mapView] display];
+			[[win mapView] setNeedsDisplay:YES];
 	}
 }
 

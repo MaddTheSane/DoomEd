@@ -343,8 +343,8 @@ int			openupValues[NUMOPENUP];
 // update all windows
 	list = [NSApp windows];
 	for (NSWindow *win in list.reverseObjectEnumerator) {
-		if ([win class] == [MapWindow class])
-			[[(MapWindow*)win mapView] display];
+		if ([win isKindOfClass:[MapWindow class]])
+			[[(MapWindow*)win mapView] setNeedsDisplay:YES];
 	}
 }
 

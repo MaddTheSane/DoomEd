@@ -9,6 +9,7 @@
 #import	"LinePanel.h"
 #import	"FlatsView.h"
 #import	"DoomProject.h"
+#import "SectorEditView.h"
 
 #ifdef REDOOMED
 #   if RDE_SDK_REQUIRES_PROTOCOL_FOR_WINDOW_DELEGATES
@@ -294,7 +295,7 @@ SectorEditor	*sectorEdit_i;
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[specialPanel_i		setSpecial:sector.special];
 
-	[sectorEditView_i	display];
+	[sectorEditView_i	setNeedsDisplay:YES];
 }
 
 - (IBAction)lightChanged:sender
@@ -357,7 +358,7 @@ SectorEditor	*sectorEdit_i;
 	val &= -8;
 	[self		setCeiling:val];
 	sector.ceilingheight = val;
-	[sectorEditView_i	display];
+	[sectorEditView_i setNeedsDisplay:YES];
 	[self	setKey:NULL];
 }
 
@@ -383,7 +384,7 @@ SectorEditor	*sectorEdit_i;
 		val = [cheightfield_i	intValue];
 	[fheightfield_i		setIntValue:val];
 	sector.floorheight = val;
-	[sectorEditView_i	display];
+	[sectorEditView_i setNeedsDisplay:YES];
 	[totalHeight_i		setIntValue:sector.ceilingheight - sector.floorheight];
 	[self	setKey:NULL];
 }
@@ -425,7 +426,7 @@ SectorEditor	*sectorEdit_i;
 	[flatPalView_i		scrollRectToVisible:&r];
 #endif
 
-	[flatPalView_i		display];
+	[flatPalView_i setNeedsDisplay:YES];
 	[self	setKey:NULL];
 }
 
@@ -659,7 +660,7 @@ SectorEditor	*sectorEdit_i;
 	[flatPalView_i	scrollPoint:&p ];
 #endif
 
-	[flatScrPalView_i	display];
+	[flatScrPalView_i setNeedsDisplay:YES];
 }
 
 - (const char *)flatName:(NSInteger) flat
@@ -737,8 +738,8 @@ SectorEditor	*sectorEdit_i;
 	[flatPalView_i	scrollRectToVisible:&f->r];
 #endif
 
-	[flatScrPalView_i	display];
-	[sectorEditView_i	display];
+	[flatScrPalView_i setNeedsDisplay:YES];
+	[sectorEditView_i setNeedsDisplay:YES];
 	[self	setKey:NULL];
 }
 
@@ -769,7 +770,7 @@ SectorEditor	*sectorEdit_i;
 	[flatPalView_i		scrollRectToVisible:&r];
 #endif
 
-	[flatScrPalView_i	display];
+	[flatScrPalView_i setNeedsDisplay:YES];
 }
 
 @synthesize currentFlat;
@@ -854,10 +855,10 @@ SectorEditor	*sectorEdit_i;
 	NSRunAlertPanel(@"Oops!",@"%s",@"OK",NULL,NULL, string);
 }
 
-//
-// user resized the Sector Editor window.
-// change the size of the flats/sector palettes.
-//
+///
+/// user resized the Sector Editor window.
+/// change the size of the flats/sector palettes.
+///
 #ifdef REDOOMED
 // Cocoa version
 - (void) windowDidResize: (NSNotification *) notification

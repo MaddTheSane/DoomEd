@@ -448,7 +448,7 @@ ERROR:
     message = [gThermoPanelState.messagePrefix stringByAppendingString: modeName];
 
     [thermoMsg_i setStringValue: message];
-    [thermoMsg_i display];
+    [thermoMsg_i setNeedsDisplay:YES];
 
     [self updateThermo: gThermoPanelState.indexedBaseThermoValue + exportMode
             max: gThermoPanelState.maxThermoValue];

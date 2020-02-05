@@ -2697,7 +2697,7 @@ static	byte		*buffer, *buf_p;
 - (void)updateThermo:(int)current max:(int)maximum
 {
 	[thermoView_i	setThermoWidth:current	max:maximum];
-	[thermoView_i	display];
+	[thermoView_i setNeedsDisplay:YES];
 }
 
 //====================================================
