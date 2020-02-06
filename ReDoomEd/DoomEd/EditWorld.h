@@ -117,7 +117,7 @@ extern	worldthing_t	*things;
 }
 
 - appWillTerminate: sender;
-- loadWorldFile: (char const *)path;
+- (BOOL)loadWorldFile: (char const *)path;
 - (IBAction)saveDoomEdMapBSP:sender;
 
 @property (readonly) BOOL loaded;
@@ -158,7 +158,7 @@ extern	worldthing_t	*things;
 //
 // get info
 //
-- getBounds: (NXRect *)theRect;
+- (void)getBounds: (NXRect *)theRect;
 
 //
 // change info

@@ -55,6 +55,12 @@
 
 @end
 
+@interface TextureEdit (RDEOSXGlue_ButtonImageAlignment)
+
+- (id) rdeOSXPatch_MenuTarget: (id) sender;
+
+@end
+
 @implementation NSObject (RDEOSXGlue_ButtonImageAlignment)
 
 + (void) rdeOSXGlue_ButtonImageAlignment_InstallPatches

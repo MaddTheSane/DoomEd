@@ -104,7 +104,7 @@ void RDE_PSshow(char *string);
 void RDE_PScompositerect(float x, float y, float w, float h, NSCompositingOperation operation);
 
 
-void RDE_DPSDoUserPath(const float *coords, int numCoords, DPSNumberFormat numType,
+void RDE_DPSDoUserPath(const void *coords, int numCoords, DPSNumberFormat numType,
                         const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
 
 

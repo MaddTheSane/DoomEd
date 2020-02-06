@@ -234,10 +234,10 @@ int LineByPoint (NXPoint *ptin, int *side)
 ==================
 */
 
-- loadWorldFile: (char const *)path
+- (BOOL)loadWorldFile: (char const *)path
 {
-	FILE		*stream;
-	BOOL		ret;
+	FILE	*stream;
+	BOOL	ret;
 	int		version;
 
 	strncpy(pathname,path,sizeof(pathname));
@@ -256,7 +256,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	if (!stream)
 	{
 		NXRunAlertPanel ("Error","Couldn't open %s",NULL,NULL,NULL,pathname);
-		return nil;	
+		return NO;
 	}
 	version = -1;
 	fscanf (stream, "WorldServer version %d\n", &version);
@@ -271,14 +271,14 @@ int LineByPoint (NXPoint *ptin, int *side)
 	{
 		fclose (stream);
 		NXRunAlertPanel ("Error","Unknown file version for %s",NULL,NULL,NULL,pathname);
-		return nil;	
+		return NO;
 	}
 
 	if (!ret)
 	{
 		fclose (stream);
 		NXRunAlertPanel ("Error","Couldn't parse file %s",NULL,NULL,NULL,pathname);
-		return nil;	
+		return NO;
 	}
 	
 	fclose (stream);
@@ -291,20 +291,11 @@ int LineByPoint (NXPoint *ptin, int *side)
 	[self newWindow:self];
 	copyLoaded = 1;
 
-	return self;
+	return YES;
 }
 
 
-/*
-==================
-=
-= closeWorld
-=
-= Frees all resources so another world can be loaded
-=
-==================
-*/
-
+/// Frees all resources so another world can be loaded
 - (void)closeWorld
 {
 	if ([doomproject_i	mapDirty])
@@ -334,13 +325,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 }
 
 
-/*
-===============================================================================
-
-								MENU TARGETS
-
-===============================================================================
-*/
+#pragma mark - MENU TARGETS
 
 /*
 =====================
@@ -377,11 +362,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	[win makeKeyAndOrderFront:self];
 }
 
-//===============================================================
-//
-//	Save DoomEd map and run BSP program
-//
-//===============================================================
+///	Save DoomEd map and run BSP program
 - (IBAction)saveDoomEdMapBSP:sender
 {
 	char		string[1024];
@@ -416,44 +397,28 @@ int LineByPoint (NXPoint *ptin, int *side)
 	strcpy( fromPath, pathname);
 	strcpy( toPath, mapwads);
 
-#ifdef REDOOMED
 	// prevent buffer overflows: *sprintf() -> *snprintf() in cases where input strings
 	// might be too long for the destination buffer
 	snprintf(string,sizeof(string),"Please wait while I BSP process this map.\n\n"
-#else // Original
-	sprintf(string,"Please wait while I BSP process this map.\n\n"
-#endif
 		"Map: %s\nMapWADdir: %s\nBSPprogram:%s\nHost: %s",
 		fromPath,toPath,bspprogram,bsphost);
 	panel = NXGetAlertPanel("Wait...","%s",NULL,NULL,NULL, string);
 	[panel	orderFront:NULL];
 	NXPing();
 
-#ifdef REDOOMED
 	// the doombsp tool's sources are embedded into ReDoomEd, and called via RDEdoombsp_main()
 	doombsp_args[0] = bspprogram;
 	doombsp_args[1] = fromPath;
 	doombsp_args[2] = toPath;
 
 	err = RDEdoombsp_main(3, doombsp_args);
-#else // Original
-	sprintf( string, "rsh %s %s %s %s",bsphost,bspprogram,fromPath,toPath);
-	err = system(string);
-#endif
 
 	if (err)
 	{
 		[panel	orderOut:NULL];
 		NXFreeAlertPanel(panel);
 
-#ifdef REDOOMED
 		return;
-#else // Original
-		sprintf(string,"rsh attempt returned:%d\n",err);
-		panel = NXGetAlertPanel("rsh error!",string,NULL,NULL,NULL);
-		[panel  orderFront:NULL];
-		NXPing();
-#endif
 	}
 
 	[panel	orderOut:NULL];
@@ -519,13 +484,9 @@ int LineByPoint (NXPoint *ptin, int *side)
 }
 
 
-/*
-===============================================================================
 
-					VISUAL RELATED METHODS
+#pragma mark - VISUAL RELATED METHODS
 	
-===============================================================================
-*/
 
 /*
 ====================
@@ -537,6 +498,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 ====================
 */
 
+/// Updates the coordinates of the line normal
 - (void)updateLineNormal:(int) num
 {
 	worldline_t	*line;
@@ -577,18 +539,9 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 
 
-/*
-================
-=
-= addToDirtyRect:
-=
-= The rect around the two points is added to the dirty rect.
-=
-= Update things adds directly to the dirty rect
-=
-================
-*/
-
+/// The rect around the two points is added to the dirty rect.
+///
+/// Update things adds directly to the dirty rect
 - addToDirtyRect: (int)p1 : (int)p2
 {
 	[self addPointToDirtyRect: &points[p1].pt];
@@ -630,13 +583,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 
 
-/*
-===============================================================================
-
-							WINDOW STUFF
-FIXME: Map window is its own delegate now, this needs to be done with a message
-===============================================================================
-*/
+#pragma mark - WINDOW STUFF
+// FIXME: Map window is its own delegate now, this needs to be done with a message
 
 - (void)windowWillClose: sender
 {
@@ -691,25 +639,21 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 	return windowlist_i.firstObject;
 }
 
-/*
-===============================================================================
 
-						RETURN INFORMATION
+#pragma mark - RETURN INFORMATION
 
-===============================================================================
-*/
 
 #define BOUNDSBORDER	128
 
-- getBounds: (NXRect *)theRect
+- (void)getBounds: (NXRect *)theRect
 {
 	int		p;
-	float		x,y,right, left, top, bottom;
+	CGFloat		x,y,right, left, top, bottom;
 	
 	if (boundsdirty)
 	{
-		right = top = -MAXFLOAT;
-		left = bottom = MAXFLOAT;
+		right = top = -CGFLOAT_MAX;
+		left = bottom = CGFLOAT_MAX;
 		
 		for (p=0 ; p<numpoints ; p++)
 		{
@@ -740,7 +684,6 @@ FIXME: Map window is its own delegate now, this needs to be done with a message
 	}
 	
 	*theRect = bounds;
-	return self;
 }
 
 
@@ -777,16 +720,7 @@ FIXME: make these scan for deleted entries
 }
 
 
-/*
-================
-=
-= newPoint:
-=
-= If an existing point can be used, it's refcount is incremented
-=
-=================
-*/
-
+/// If an existing point can be used, it's refcount is incremented
 - (int)newPoint: (NXPoint *)pt
 {
 	int	i;
@@ -811,16 +745,7 @@ FIXME: make these scan for deleted entries
 }
 
 
-/*
-================
-=
-= newLine:from:to:
-=
-= returns the slot the line was stuck in
-=
-================
-*/
-
+/// returns the slot the line was stuck in
 - (int)newLine:(worldline_t *)data from: (NXPoint *)p1 to:(NXPoint *)p2
 {	
 	if (numlines == linessize)
@@ -844,16 +769,7 @@ FIXME: make these scan for deleted entries
 }
 
 
-/*
-===============
-=
-= newThing
-=
-= The type and origin should be set so the dirty rects can be set
-=
-===============
-*/
-
+/// The type and origin should be set so the dirty rects can be set
 - (int)newThing: (worldthing_t *)thing
 {	
 	if (numthings == thingssize)
@@ -876,16 +792,7 @@ FIXME: make these scan for deleted entries
 
 
 
-/*
-=================
-=
-= dropPointRefCount
-=
-= If a point is not used any more, remove it
-=
-=================
-*/
-
+/// If a point is not used any more, remove it
 - dropPointRefCount: (int)p
 {
 	if (--points[p].refcount)
@@ -898,25 +805,9 @@ FIXME: make these scan for deleted entries
 }
 
 
+ #pragma mark - SELECTION MODIFICATION METHODS
 
-/*
-===============================================================================
-
-					SELECTION MODIFICATION METHODS
-						
-===============================================================================
-*/
-
-/*
-========================
-=
-= flipSelectedLines:
-=
-= deletes and recreates the selected lines with an oposite direction
-=
-========================
-*/
-
+/// deletes and recreates the selected lines with an oposite direction
 - (IBAction)flipSelectedLines: sender
 {
 	worldline_t	line;
@@ -943,16 +834,7 @@ FIXME: make these scan for deleted entries
 	[self updateWindows];
 }
 
-/*
-========================
-=
-= fusePoints:
-=
-= All selected points that are at the same location will be set to the same point
-=
-========================
-*/
-
+/// All selected points that are at the same location will be set to the same point
 - (IBAction)fusePoints: sender
 {
 	int	i, j, k;
@@ -1000,16 +882,7 @@ FIXME: make these scan for deleted entries
 }
 
 
-/*
-========================
-=
-= seperatePoints:
-=
-= All selected points that have a refcount greater than one will have clones made
-=
-========================
-*/
-
+/// All selected points that have a refcount greater than one will have clones made
 - (IBAction)seperatePoints: sender
 {
 	int	i, k;
@@ -1054,9 +927,9 @@ FIXME: make these scan for deleted entries
 ===============
 */
 
-//
-// store copies of all stuff to be copied!
-//
+///
+/// store copies of all stuff to be copied!
+///
 - (void)storeCopies
 {
 	int	i;
@@ -1083,9 +956,9 @@ FIXME: make these scan for deleted entries
 	copyLoaded = 0;
 }
 
-//
-// deselect everything after copying
-//
+///
+/// deselect everything after copying
+///
 - (void)copyDeselect
 {
 	int	i;
@@ -1101,9 +974,9 @@ FIXME: make these scan for deleted entries
 			[self	deselectPoint:i];
 }
 
-//
-// find center point of copied stuff
-//
+///
+/// find center point of copied stuff
+///
 - (NXPoint)findCopyCenter
 {
 	worldthing_t	*t;
@@ -1267,15 +1140,9 @@ FIXME: make these scan for deleted entries
 }
 
 
-/*
-===============================================================================
 
-						CHANGE METHODS
-						
-Updates dirty rect based on old and new positions
-
-===============================================================================
-*/
+/// MARK: - CHANGE METHODS
+/// Updates dirty rect based on old and new positions
 
 /*
 ====================
@@ -1334,16 +1201,7 @@ Updates dirty rect based on old and new positions
 	return nil;
 }
 
-/*
-====================
-=
-= changeLine: to:
-=
-= Updates midpoint / normal and dirty rect
-=
-====================
-*/
-
+/// Updates midpoint / normal and dirty rect
 - changeLine: (int) num to: (worldline_t *)data
 {
 	boundsdirty = YES;
@@ -1453,23 +1311,10 @@ Updates dirty rect based on old and new positions
 }
 
 
-/*
-===============================================================================
-
-						SELECTION METHODS
-
-===============================================================================
-*/
+ #pragma mark - SELECTION METHODS
 
 
-/*
-================
-=
-= select/deselect Point / Line / Thing
-=
-================
-*/
-
+/// select Point
 - (void)selectPoint: (int)num
 {
 	worldpoint_t	*data;
@@ -1490,6 +1335,7 @@ Updates dirty rect based on old and new positions
 }
 
 
+/// deselect Point
 - (void)deselectPoint: (int)num
 {
 	worldpoint_t	*data;
@@ -1510,6 +1356,7 @@ Updates dirty rect based on old and new positions
 }
 
 
+/// select Line
 - (void)selectLine: (int)num
 {
 	worldline_t	*data;
@@ -1532,6 +1379,7 @@ Updates dirty rect based on old and new positions
 }
 
 
+/// deselect Line
 - (void)deselectLine: (int)num
 {
 	worldline_t	*data;
@@ -1552,6 +1400,7 @@ Updates dirty rect based on old and new positions
 }
 
 
+/// select Thing
 - (void)selectThing: (int)num
 {
 	worldthing_t	*data;
@@ -1573,6 +1422,7 @@ Updates dirty rect based on old and new positions
 }
 
 
+/// deselect Thing
 - (void)deselectThing: (int)num
 {
 	worldthing_t	*data;
@@ -1641,7 +1491,5 @@ Updates dirty rect based on old and new positions
 	[self deselectAllLines];
 	[self deselectAllThings];
 }
-
-
 
 @end

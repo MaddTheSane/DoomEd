@@ -45,6 +45,11 @@
 #define RDE_MAC_OS_X_RUNTIME_CHECK__NSWINDOW_DISPLAY_DOESNT_AUTOMATICALLY_REDRAW_VIEWS  \
                 (_RDE_MAC_OS_X_RUNTIME_VERSION_IS_AT_LEAST_10_(11))
 
+@interface EditWorld (RDEOSXGlue_MapWindowRedrawing)
+
+- rdeOSXPatch_RedrawWindows;
+
+@end
 
 @interface MapWindow (RDEOSXGlue_MapWindowRedrawingUtilities)
 

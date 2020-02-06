@@ -36,6 +36,12 @@
                 (_RDE_MAC_OS_X_RUNTIME_VERSION_IS_AT_LEAST_10_(11))
 
 
+@interface NSOpenPanel (RDEOSXGlue_OpenPanelTitles)
+
+- (void) rdeOSXPatch_SetTitle: (NSString *) title;
+
+@end
+
 @implementation NSObject (RDEOSXGlue_OpenPanelTitles)
 
 + (void) rdeOSXGlue_OpenPanelTitles_InstallPatches

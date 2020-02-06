@@ -58,6 +58,12 @@ static void DrawCurrentPathAsTemporaryInstance(void);
 static void RefreshFocusViewAfterInstanceDrawing(void);
 static void FrameInstanceRectWithWidth(NSRect rect, float lineWidth);
 static float MapLineWidthForCurrentMapViewScale(void);
+static void RDE_DPSDoUserPathFloat(const float *coords, int numCoords,
+                                   const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
+static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
+                                  const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
+static void RDE_DPSDoUserPathShort(const int *coords, int numCoords,
+                                   const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
 
 
 #pragma mark RDE substitutes for Display Post Script functions
@@ -293,11 +299,115 @@ void RDE_PScompositerect(float x, float y, float w, float h, NSCompositingOperat
     NSRectFillUsingOperation(macroRDE_MakePixelCenteredRect(x, y, w, h), operation);
 }
 
-void RDE_DPSDoUserPath(const float *coords, int numCoords, DPSNumberFormat numType,
+void RDE_DPSDoUserPath(const void *coords, int numCoords, DPSNumberFormat numType,
+                            const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
+{
+    switch (numType) {
+        case dps_float:
+            RDE_DPSDoUserPathFloat(coords, numCoords, ops, numOps, bbox, action);
+            break;
+            
+        case dps_long:
+            RDE_DPSDoUserPathLong(coords, numCoords, ops, numOps, bbox, action);
+            break;
+            
+        case dps_short:
+            RDE_DPSDoUserPathShort(coords, numCoords, ops, numOps, bbox, action);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+void RDE_DPSDoUserPathFloat(const float *coords, int numCoords,
                             const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
 {
     NSBezierPath *userPath = [NSBezierPath bezierPath];
-    assert(numType == dps_float);
+
+    while (numOps > 0)
+    {
+        switch (*ops)
+        {
+            case dps_moveto:
+            {
+                [userPath moveToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+            }
+            break;
+
+            case dps_lineto:
+            {
+                [userPath lineToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+            }
+            break;
+
+            case dps_closepath:
+            {
+                [userPath closePath];
+            }
+            break;
+
+            default:
+            break;
+        }
+
+        ops++;
+        numOps--;
+    }
+
+    [userPath setLineWidth: [gCurrentPath lineWidth]];
+
+    [userPath stroke];
+}
+
+static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
+                                  const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
+{
+    NSBezierPath *userPath = [NSBezierPath bezierPath];
+
+    while (numOps > 0)
+    {
+        switch (*ops)
+        {
+            case dps_moveto:
+            {
+                [userPath moveToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+            }
+            break;
+
+            case dps_lineto:
+            {
+                [userPath lineToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+            }
+            break;
+
+            case dps_closepath:
+            {
+                [userPath closePath];
+            }
+            break;
+
+            default:
+            break;
+        }
+
+        ops++;
+        numOps--;
+    }
+
+    [userPath setLineWidth: [gCurrentPath lineWidth]];
+
+    [userPath stroke];
+}
+
+static void RDE_DPSDoUserPathShort(const int *coords, int numCoords,
+                                   const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
+{
+    NSBezierPath *userPath = [NSBezierPath bezierPath];
 
     while (numOps > 0)
     {
