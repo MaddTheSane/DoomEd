@@ -44,8 +44,8 @@ char	bsphost[32];		// bsp host machine
 
 #ifdef REDOOMED
 @interface DoomProject (RDEUtilities)
-- (bool) rdePromptUserForWADfileLocation;
-- (bool) rdePromptUserForPNGExport;
+- (BOOL) rdePromptUserForWADfileLocation;
+- (BOOL) rdePromptUserForPNGExport;
 @end
 
 static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
@@ -297,7 +297,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 #else // Original
 	static char	*suffixlist[] = {"dpr", 0};
 #endif
-	char		const	*filename;
 
 	[self	checkDirtyProject];
 	
@@ -318,13 +317,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	printf("Purging existing flats.\n");
 	[ sectorEdit_i	dumpAllFlats ];
 	
-#ifdef REDOOMED
-	filename = RDE_CStringFromNSString([openpanel filename]);
-#else // Original
-	filename = [openpanel filename];
-#endif
-	
-	if (![self loadProject: filename])
+	if (![self loadProjectWithFileURL: [openpanel URL]])
 	{
 		NXRunAlertPanel("Uh oh!","Couldn't load your project!",
 			"OK",NULL,NULL);
@@ -2010,14 +2003,14 @@ typedef struct
 	int		x;
 	int		y;
 	int		found;
-	id		store;
+	Storage		*store;
 	worldtexture_t	*t;
 	worldtexture_t	*t2;
 	worldtexture_t	m;
 	worldtexture_t	m2;
 	NSInteger		max;
 	int		windex;
-	id		list;
+	NSMutableArray	*list;
 	
 	printf("Alphabetize textures.\n");
 	printf("numtextures = %d\n",numtextures);
@@ -2091,7 +2084,7 @@ typedef struct
 		[store empty];
 	}
 	
-	[list empty];
+	[list removeAllObjects];
 	
 	return self;
 }
@@ -2718,7 +2711,7 @@ static	byte		*buffer, *buf_p;
 // rdePromptUserForWADfileLocation: ReDoomEd utility method to allow the user to locate a
 // local copy of the project's wadfile when the project's current wadfile path is invalid
 
-- (bool) rdePromptUserForWADfileLocation
+- (BOOL) rdePromptUserForWADfileLocation
 {
     NSString *nameOfWADfile, *locateButtonTitle, *openPanelTitle, *pathToWADfile = nil;
     NSInteger alertReturnCode;
@@ -2776,7 +2769,7 @@ static	byte		*buffer, *buf_p;
 // rdePromptUserForPNGExport: ReDoomEd utility method to notify the user that map printing is
 // unsupported in ReDoomEd, and to let them choose whether to export to PNG instead
 
-- (bool) rdePromptUserForPNGExport
+- (BOOL) rdePromptUserForPNGExport
 {
     NSInteger alertReturnCode;
 

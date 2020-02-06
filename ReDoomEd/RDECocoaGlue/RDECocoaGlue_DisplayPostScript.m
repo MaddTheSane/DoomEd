@@ -297,6 +297,7 @@ void RDE_DPSDoUserPath(const float *coords, int numCoords, DPSNumberFormat numTy
                             const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
 {
     NSBezierPath *userPath = [NSBezierPath bezierPath];
+    assert(numType == dps_float);
 
     while (numOps > 0)
     {

@@ -447,7 +447,7 @@ printf ("Done\n");
 	if (scl != scale)
 	{
 //printf ("changed scale\n");
-		[self setDrawSize: frame.size.width/scl : frame.size.height/scl];
+		[self setBoundsSize:NSMakeSize(frame.size.width/scl, frame.size.height/scl)];
 		scale = scl;
 
 #ifdef REDOOMED
@@ -474,7 +474,7 @@ printf ("Done\n");
 	)
 	{
 //printf ("changed size\n");
-		[self sizeTo: newbounds.size.width*scale : newbounds.size.height*scale];
+		[self setFrameSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
 	}
 
 	if (
@@ -556,7 +556,7 @@ printf ("Done\n");
 //
 // change scale
 //		
-	[self setDrawSize: frame.size.width/newscale : frame.size.height/newscale];
+	[self setBoundsSize:NSMakeSize(frame.size.width/newscale, frame.size.height/newscale)];
 	scale = newscale;
 
 //

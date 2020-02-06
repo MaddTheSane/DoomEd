@@ -19,9 +19,10 @@ static	int	cornerx = 128, cornery = 64;
 
 @implementation MapWindow
 
-- free
+- (void)dealloc
 {
-	return [super free];
+	
+	[super dealloc];
 }
 
 

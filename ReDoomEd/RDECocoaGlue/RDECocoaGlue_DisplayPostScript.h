@@ -25,11 +25,17 @@
 
 // DPS enums: only the values used by DoomEd are defined
 
-typedef enum
-{
-    dps_float
-
-} DPSNumberFormat;
+typedef NS_ENUM(unsigned char, DPSNumberFormat) {
+#ifdef __BIG_ENDIAN__
+    dps_float = 48,
+    dps_long = 0,
+    dps_short = 32
+#else
+    dps_float = 48+128,
+    dps_long = 0+128,
+    dps_short = 32+128
+#endif
+};
 
 typedef NS_ENUM(unsigned char, DPSUserPathOp) {
     dps_setbbox = 0,
@@ -46,11 +52,19 @@ typedef NS_ENUM(unsigned char, DPSUserPathOp) {
     dps_ucache
 };
 
-typedef enum
+typedef NS_ENUM(short, DPSUserPathAction)
 {
-    dps_ustroke
-
-} DPSUserPathAction;
+    dps_uappend = 176,
+    dps_ufill = 179,
+    dps_ueofill = 178,
+    dps_ustroke = 183,
+    dps_ustrokepath = 364,
+    dps_inufill = 93,
+    dps_inueofill = 92,
+    dps_inustroke = 312,
+    dps_def = 51,
+    dps_put = 120
+};
 
 
 void RDE_PSsetinstance(BOOL set);

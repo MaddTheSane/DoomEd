@@ -162,7 +162,7 @@
 	MapWindow *window = (MapWindow *) [self window];
 #endif
 	
-	itemlist = [[window scalemenu] itemList];
+	itemlist = [window scalemenu];
 	[itemlist getNumRows: &numrows numCols:&numcollumns];
 	
 	selected = [itemlist selectedRow] + 1;

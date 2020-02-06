@@ -80,8 +80,8 @@ static NSBitmapImageRep *gMapViewBitmap;
 
 - (NSData *) rdePNGDataAtScale: (float) pngScale;
 
-- (bool) rdeBeginDrawingToBitmapContextOfSize: (NSSize) contextSize;
-- (bool) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep **) returnedBitmap;
+- (BOOL) rdeBeginDrawingToBitmapContextOfSize: (NSSize) contextSize;
+- (BOOL) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep **) returnedBitmap;
 
 @end
 
@@ -111,9 +111,10 @@ static NSBitmapImageRep *gMapViewBitmap;
     pngFilename = [mapName stringByAppendingPathExtension: @"png"];
 
     savePanel = [NSSavePanel savePanel];
-    [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"png"]];
+    [savePanel setAllowedFileTypes: [NSArray arrayWithObject: (NSString*)kUTTypePNG]];
+    savePanel.nameFieldStringValue = pngFilename;
 
-    panelReturnCode = [savePanel runModalForDirectory: nil file: pngFilename];
+    panelReturnCode = [savePanel runModal];
 
     if (panelReturnCode != NSFileHandlingPanelOKButton)
     {
@@ -137,9 +138,9 @@ static NSBitmapImageRep *gMapViewBitmap;
 
     [self rdeUpdateExportThermoPanelWithExportMode: kRDEExportMode_SavingFile];
 
-    if (![pngData writeToFile: [savePanel filename] atomically: YES])
+    if (![pngData writeToURL:[savePanel URL] atomically:YES])
     {
-        macroPresentExportError(@"Failed to write file:\n%@", [savePanel filename]);
+        macroPresentExportError(@"Failed to write file:\n%@", [savePanel URL].path);
         goto ERROR;
     }
 
@@ -484,7 +485,7 @@ ERROR:
 
     if (!pngProperties)
     {
-        pngProperties = [[NSDictionary dictionary] retain];
+        pngProperties = [[NSDictionary alloc] init];
     }
 
     if (pngScale <= 0)
@@ -500,7 +501,7 @@ ERROR:
     }
 
     pngImageSize = NSMakeSize(MAX(round(mapBounds.size.width * pngScale), 1.0),
-                                MAX(round(mapBounds.size.height * pngScale), 1.0));
+                              MAX(round(mapBounds.size.height * pngScale), 1.0));
 
     if (![self rdeBeginDrawingToBitmapContextOfSize: pngImageSize])
     {
@@ -553,7 +554,7 @@ ERROR:
     return nil;
 }
 
-- (bool) rdeBeginDrawingToBitmapContextOfSize: (NSSize) contextSize
+- (BOOL) rdeBeginDrawingToBitmapContextOfSize: (NSSize) contextSize
 {
     NSBitmapImageRep *bitmap;
     NSGraphicsContext *bitmapContext = nil;
@@ -605,7 +606,7 @@ ERROR:
     return NO;
 }
 
-- (bool) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep **) returnedBitmap
+- (BOOL) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep **) returnedBitmap
 {
     NSBitmapImageRep *bitmap;
 
