@@ -47,9 +47,9 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                         <rect key="frame" x="21" y="159" width="102" height="16"/>
-                        <textFieldCell key="cell" alignment="right" title="New map name:" id="33">
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="right" title="New map name:" id="33">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

@@ -95,7 +95,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		}
 		launchThingType = Int32(defaults.integer(forKey: launchTypeName))
 
-		projectPath = defaults.url(forKey: projectPathName)
+		projectPath = defaults.url(forKey: projectPathName) ?? URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("DoomMaps/", isDirectory: true)
 		
 		
 		// openup defaults
@@ -229,7 +229,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	}
 
 	open func getProjectPath() -> UnsafePointer<Int8>! {
-		return (projectPath as NSURL?)?.fileSystemRepresentation
+		return (projectPath as NSURL?)?.fileSystemRepresentation ?? ("" as NSString).utf8String
 	}
 
 	@objc open func openUponLaunch(_ type: openup_e) -> Bool {
