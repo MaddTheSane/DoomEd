@@ -15,6 +15,7 @@
 #endif
 
 @class Storage;
+@class MapWindow;
 
 typedef struct
 {
@@ -107,7 +108,7 @@ extern	worldthing_t	*things;
 	BOOL	boundsdirty;
 	char		pathname[1024];
 	NXRect	dirtyrect;	
-	NSMutableArray	*windowlist_i;			// all windows that display this world
+	NSMutableArray<MapWindow*>	*windowlist_i;			// all windows that display this world
 	
 	Storage *copyThings_i;			// cut/copy/paste info
 	Storage *copyLines_i;

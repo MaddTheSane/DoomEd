@@ -2002,7 +2002,7 @@ typedef struct
 	worldtexture_t	m2;
 	NSInteger		max;
 	int		windex;
-	NSMutableArray	*list;
+	NSMutableArray<Storage*>	*list;
 	
 	printf("Alphabetize textures.\n");
 	printf("numtextures = %d\n",numtextures);
