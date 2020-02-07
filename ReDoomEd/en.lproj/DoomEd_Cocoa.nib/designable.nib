@@ -166,8 +166,8 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="480" y="354" width="129" height="106"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="101">
-                <rect key="frame" x="0.0" y="0.0" width="129" height="114"/>
+            <view key="contentView" misplaced="YES" id="101">
+                <rect key="frame" x="0.0" y="0.0" width="129" height="106"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66">
@@ -690,7 +690,7 @@
         </customObject>
         <customObject id="116" userLabel="ThingPalette" customClass="ThingPalette"/>
         <customObject id="120" userLabel="EditWorld" customClass="EditWorld"/>
-        <customObject id="124" userLabel="PreferencePanel" customClass="PreferencePanel"/>
+        <customObject id="124" userLabel="PreferencePanel" customClass="PreferencePanel" customModule="ReDoomEd" customModuleProvider="target"/>
         <customObject id="125" userLabel="DoomProject" customClass="DoomProject">
             <connections>
                 <outlet property="printPrefWindow_i" destination="18" id="202"/>
