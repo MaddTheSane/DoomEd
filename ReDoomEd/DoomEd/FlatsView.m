@@ -70,7 +70,7 @@
 	{
 		f = [sectorEdit_i	getFlat:i];
 		if (NXIntersectsRect(&rects[0],&f->r))
-			[f->image	composite:NX_COPY	toPoint:&f->r.origin];
+			[f->image drawAtPoint:f->r.origin fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1];
 	}
 
 	//

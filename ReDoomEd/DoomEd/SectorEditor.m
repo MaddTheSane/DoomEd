@@ -775,19 +775,9 @@ SectorEditor	*sectorEdit_i;
 
 @synthesize currentFlat;
 
-- (int) getCurrentFlat
-{
-	return self.currentFlat;
-}
-
 - (NSInteger)countOfFlats
 {
 	return [flatImages	count];
-}
-
-- (int) getNumFlats
-{
-	return	[self countOfFlats];
 }
 
 - (flat_t *) getFlat:(NSInteger) which
@@ -907,7 +897,7 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 	//
 	// make an NXimage to hold the data
 	//
-	image_i = [[NXBitmapImageRep alloc]
+	image_i = [[NSBitmapImageRep alloc]
 		initData:			NULL 
 		pixelsWide:		64 
 		pixelsHigh:		64
@@ -915,15 +905,10 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 		samplesPerPixel:	3 
 		hasAlpha:		NO
 		isPlanar:			NO 
-		colorSpace:		NX_RGBColorSpace 
+		colorSpace:		NSCalibratedRGBColorSpace
 		bytesPerRow:		128
 		bitsPerPixel: 		16
 	];
-
-#ifdef REDOOMED
-	// prevent memory leaks
-	[image_i autorelease];
-#endif
 
 	if (!image_i)
 		return nil;
@@ -932,7 +917,7 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 	// translate the picture
 	//
 #ifdef REDOOMED
-	dest_p = (short *) [(NXBitmapImageRep *)image_i data];
+	dest_p = (short *) [(NXBitmapImageRep *)image_i bitmapData];
 #else // Original
 	 (unsigned char *)dest_p =[(NXBitmapImageRep *)image_i data];
 #endif
@@ -942,8 +927,9 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 	for (i = 0;i < 64*64; i++)
 		*(dest_p++) = shortpal[*(rawData++)];
 
-	fastImage_i = [[NXImage	alloc]
+	fastImage_i = [[NSImage	alloc]
 							init];
-	[fastImage_i	useRepresentation:(NXImageRep *)image_i];	
+	[fastImage_i	addRepresentation:image_i];
+	[image_i release];
 	return fastImage_i;
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,9 +23,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="376" height="230"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                        <rect key="frame" x="154" y="3" width="64" height="64"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                        <rect key="frame" x="156" y="5" width="64" height="64"/>
                         <buttonCell key="cell" type="bevel" image="Delete" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="21">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="user"/>
@@ -34,20 +33,19 @@
                             <action selector="clear:" target="-2" id="9"/>
                         </connections>
                     </button>
-                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17">
-                        <rect key="frame" x="4" y="70" width="367" height="157"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" ambiguous="YES" id="zeP-YB-ekl">
-                            <rect key="frame" x="1" y="1" width="365" height="155"/>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                        <rect key="frame" x="-1" y="77" width="378" height="154"/>
+                        <clipView key="contentView" id="zeP-YB-ekl">
+                            <rect key="frame" x="1" y="1" width="376" height="152"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="18">
-                                    <rect key="frame" x="0.0" y="0.0" width="350" height="155"/>
+                                <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="18">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="152"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="350" height="155"/>
-                                    <size key="maxSize" width="367" height="10000000"/>
+                                    <size key="minSize" width="376" height="152"/>
+                                    <size key="maxSize" width="376" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
@@ -58,11 +56,19 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="23">
-                            <rect key="frame" x="350" y="1" width="16" height="155"/>
+                            <rect key="frame" x="361" y="1" width="16" height="152"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="17" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="-1" id="2J9-Rf-ABM"/>
+                    <constraint firstItem="5" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="8" symbolic="YES" id="G4k-aj-vqd"/>
+                    <constraint firstItem="17" firstAttribute="top" secondItem="6" secondAttribute="top" constant="-1" id="Prs-F6-lat"/>
+                    <constraint firstItem="5" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="eca-Qc-zSy"/>
+                    <constraint firstAttribute="trailing" secondItem="17" secondAttribute="trailing" constant="-1" id="onA-Mo-lF7"/>
+                    <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" constant="5" id="tTR-kR-ylQ"/>
+                </constraints>
             </view>
             <point key="canvasLocation" x="139" y="147"/>
         </window>

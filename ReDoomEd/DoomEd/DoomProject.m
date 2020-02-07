@@ -978,16 +978,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	strcat (fullpath,"/");
 	strcat (fullpath,title);
 	strcat (fullpath,".dwd");
-	
-#ifdef REDOOMED
-	// prevent buffer overflows: *sprintf() -> *snprintf() in cases where input strings
-	// might be too long for the destination buffer
-	snprintf( string, sizeof(string), "\nLoading map %s\n",title );
-#else // Original
-	sprintf( string, "\nLoading map %s\n",title );
-#endif
 
-	[ log_i	msg:string ];
+	[ log_i	addFormattedMessage:@"\nLoading map %s\n", title];
 	[editworld_i loadWorldFile: fullpath];
 	
 #ifdef REDOOMED
@@ -1297,7 +1289,7 @@ typedef struct
 	//
 	//	Texture report data
 	//
-	nt = [texturePalette_i	getNumTextures];
+	nt = [texturePalette_i	countOfTextures];
 	textureCount = malloc(sizeof(int) * nt);
 	bzero(textureCount,sizeof(int)*nt);
 	
@@ -1542,7 +1534,7 @@ typedef struct
 	openMatrix = [maps_i	matrixInColumn:0];
 	selRow = [openMatrix	selectedRow];
 	
-	nt = [texturePalette_i	getNumTextures];
+	nt = [texturePalette_i	countOfTextures];
 	textureCount = malloc(sizeof(int) * nt);
 	bzero(textureCount,sizeof(int)*nt);
 	
@@ -2017,7 +2009,7 @@ typedef struct
 
 #ifdef REDOOMED
 	// add missing init call, & autorelease to prevent memory leaks
-	list = [[[List alloc] init] autorelease];
+	list = [[[NSMutableArray alloc] init] autorelease];
 #else // Original
 	list = [List alloc];
 #endif

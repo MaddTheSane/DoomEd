@@ -194,7 +194,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 //
 // set up local structures
 //
-	windowlist_i = [[List alloc] init];
+	windowlist_i = [[NSMutableArray alloc] init];
 	numpoints = numlines = numthings = 0;
 	pointssize = linessize = thingssize = texturessize = BASELISTSIZE;
 
@@ -318,7 +318,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 	[windowlist_i removeAllObjects];
 	[windowlist_i release];
-	windowlist_i = [[List alloc] init];
+	windowlist_i = [[NSMutableArray alloc] init];
 		
 	numpoints = numlines = numthings = 0;
 	loaded = NO;

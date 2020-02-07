@@ -36,10 +36,10 @@
 	IBOutlet NSButton *outlinePatches_i;			// switch
 	IBOutlet NSButton *lockedPatch_i;				// switch
 	IBOutlet NSButton *centerPatch_i;				// switch
-	IBOutlet NSScrollView *texturePatchScrollView_i;	// Patch Palette
-	IBOutlet TexturePatchView *texturePatchView_i;		// Patch Palette
+	IBOutlet NSScrollView *texturePatchScrollView_i;// Patch Palette
+	IBOutlet TexturePatchView *texturePatchView_i;	// Patch Palette
 	IBOutlet NSTextField *dragWarning_i;			// warning for dragging selections outside
-	IBOutlet NSSplitView *splitView_i;			// NXSplitView!
+	IBOutlet NSSplitView *splitView_i;
 	IBOutlet NSBox *topView_i;
 	IBOutlet NSBox *botView_i;
 
@@ -47,19 +47,19 @@
 	IBOutlet NSTextField *createWidth_i;	// in Create Texture dialog
 	IBOutlet NSTextField *createHeight_i;	// . . .
 	IBOutlet NSTextField *createName_i;
-	IBOutlet NSButton *createDone_i;			// "Create" button
-	IBOutlet NSMatrix *setMatrix_i;				// Texture Set radio-button matrix
-	IBOutlet NSTextField *textureSetField_i;	// Texture Set field in Texture Editor
-	IBOutlet id	newSetButton_i;			// Create New Set button
-	IBOutlet NSTextField	*patchSearchField_i;// Search for patch string
+	IBOutlet NSButton *createDone_i;			//!< "Create" button
+	IBOutlet NSMatrix *setMatrix_i;				//!< Texture Set radio-button matrix
+	IBOutlet NSTextField *textureSetField_i;	//!< Texture Set field in Texture Editor
+	IBOutlet NSButton	*newSetButton_i;		//!< Create New Set button
+	IBOutlet NSTextField	*patchSearchField_i;//!< Search for patch string
 
-	Storage	*patchImages;			// Patch Palette images
+	Storage	*patchImages;			//!< Patch Palette images
 	
-	int	selectedPatch;			// in the Patch Palette
-	id	selectedTexturePatches;	// in the Texture Editor View
-	Storage	*copyList;			// list of copied patches
-	int	currentTexture;			// being edited
-	int	oldx,oldy;				// last texture x,y
+	int	selectedPatch;			//!< in the Patch Palette
+	Storage	*selectedTexturePatches;	//!< in the Texture Editor View
+	Storage	*copyList;			//!< list of copied patches
+	int	currentTexture;			//!< being edited
+	int	oldx,oldy;				//!< last texture x,y
 }
 
 typedef struct
@@ -67,16 +67,20 @@ typedef struct
 	int	sel;
 } store_t;
 
-// a patch holds one or more collumns
-// Some patches will be in native color, while be used with a color remap table
-typedef struct
-{
-	short	width;				// bounding box size
-	short	height;
-	short	leftoffset;			// pixels to the left of origin
-	short	bottomoffset;		// pixels below the origin
-	int		collumnofs[256];	// only [width] used, the [0] is
-								// &collumnofs[width]
+//! a patch holds one or more collumns.
+//! Some patches will be in native color, while be used with a color remap table
+typedef struct patch_t {
+	//! bounding box size
+	short	width, height;
+	
+	//! pixels to the left of origin
+	short	leftoffset;
+	
+	//! pixels below the origin
+	short	bottomoffset;
+	//! only [width] used, the [0] is
+	//! &collumnofs[width]
+	int		collumnofs[256];
 } patch_t;
 
 typedef struct
@@ -86,12 +90,12 @@ typedef struct
 // length data bytes follow
 } post_t;
 
-// collumn_t is a list of 0 or more post_t, (byte)-1 terminated
+/// \c collumn_t is a list of 0 or more post_t, (byte)-1 terminated
 typedef post_t	collumn_t;
 
-//
-// structure for loaded patches
-//
+///
+/// structure for loaded patches
+///
 typedef struct
 {
 	NXRect	r;
@@ -127,7 +131,7 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)sortDown:sender;
 
 - updateTexPatchInfo;
-- getSTP;
+@property (readonly, retain) Storage *selectedTexturePatches;
 - changeSelectedTexturePatch:(int)which	to:(int)val;
 - addSelectedTexturePatch:(int)val;
 - (BOOL) selTextureEditPatchExists:(int)val;
@@ -145,7 +149,7 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)sizeChanged:sender;
 - (IBAction)fillWithPatch:sender;
 - (IBAction)menuTarget:sender;
-- (int)getCurrentTexture;
+@property (readonly) int currentTexture;
 - (int)getCurrentPatch;
 
 - (IBAction)makeNewTexture:sender;
@@ -173,7 +177,7 @@ extern TextureEdit *textureEdit_i;
 
 @end
 
-id	patchToImage(patch_t *patchData, unsigned short *shortpal,
+NSImage	*patchToImage(patch_t *patchData, unsigned short *shortpal,
 	NXSize *size,const char *name);
 char *strupr(char *string);
 char *strlwr(char *string);

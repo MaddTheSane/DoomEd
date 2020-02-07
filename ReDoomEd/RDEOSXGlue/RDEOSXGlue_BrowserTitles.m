@@ -38,8 +38,9 @@
                 (_RDE_MAC_OS_X_RUNTIME_VERSION_IS_AT_LEAST_10_(6))
 
 
-@interface NSBrowser (RDEOSXGlue_BrowserTitlesUtilities)
+@interface NSBrowser (RDEOSXGlue_BrowserTitles)
 
+- (void) rdeOSXPatch_AwakeFromNib;
 - (void) rdeOSXGlue_UnhideTitle;
 
 @end

@@ -86,7 +86,7 @@
 	int		patchCount;
 	texpatch_t	*tpatch;
 	
-	ct = [textureEdit_i	getCurrentTexture];
+	ct = [textureEdit_i	currentTexture];
 	if (ct < 0)
 		return self;
 		
@@ -104,7 +104,7 @@
 	{
 		tpatch = [texturePatches	elementAt:i];
 //		if (NXIntersectsRect(&tpatch->r,&rects[0]) == YES)
-			[tpatch->patch->image_x2	composite:NX_SOVER toPoint:&tpatch->r.origin];
+			[tpatch->patch->image_x2 drawAtPoint:tpatch->r.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
 	}
 
 	//
@@ -121,14 +121,14 @@
 	//
 	// if multiple selections, draw their outlines
 	//
-	if ([[textureEdit_i	getSTP]		count])
+	if ([[textureEdit_i	selectedTexturePatches]		count])
 	{
 		int	max;
 		
-		max = [[textureEdit_i	getSTP]	count];
+		max = [[textureEdit_i	selectedTexturePatches]	count];
 		for (i = 0;i<max;i++)
 		{
-			tpatch = [texturePatches	elementAt:*(int *)[[textureEdit_i getSTP] elementAt:i]];
+			tpatch = [texturePatches	elementAt:*(int *)[[textureEdit_i selectedTexturePatches] elementAt:i]];
 			PSsetgray(NX_WHITE);
 			NXFrameRectWithWidth(&tpatch->r,5);
 		}
@@ -144,7 +144,7 @@
 - rightMouseDown:(NXEvent *)theEvent
 #endif
 {
-	[[textureEdit_i	getSTP]	empty];
+	[[textureEdit_i	selectedTexturePatches]	empty];
 	[self setNeedsDisplay:YES];
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
@@ -178,7 +178,7 @@
 	[self convertPoint:&loc	fromView:NULL];
 #endif
 
-	ct = [textureEdit_i	getCurrentTexture];
+	ct = [textureEdit_i	currentTexture];
 
 	//
 	// see if a patch was clicked on...
@@ -208,7 +208,7 @@
 			else
 			if (![textureEdit_i	selTextureEditPatchExists:i])
 			{
-				[[textureEdit_i	getSTP]	empty];
+				[[textureEdit_i	selectedTexturePatches]	empty];
 				[textureEdit_i	addSelectedTexturePatch:i];
 				[textureEdit_i	updateTexPatchInfo];
 			}
@@ -222,18 +222,18 @@
 	// Did user click outside area? If so, get rid of all selections
 	//
 	if (!clicked)
-		[[textureEdit_i	getSTP]	empty];
+		[[textureEdit_i	selectedTexturePatches]	empty];
 	
 	//
 	// move around texture patches
 	//
-	max = [[textureEdit_i getSTP]	count];
+	max = [[textureEdit_i selectedTexturePatches]	count];
 	[deltaTable	empty];
 	for (j = 0; j < max; j++)
 	{
 		delta_t	d;
 		d.p = [texturePatches	elementAt:
-				*(int *)[[textureEdit_i getSTP] elementAt:j]];
+				*(int *)[[textureEdit_i selectedTexturePatches] elementAt:j]];
 		d.xoff = loc.x - d.p->r.origin.x;
 		d.yoff = loc.y - d.p->r.origin.y;
 		[deltaTable	addElement:&d];
@@ -281,7 +281,7 @@
 	} while (event->type != NX_MOUSEUP);
 #endif
 
-	if ([[textureEdit_i	getSTP] count] == 1)
+	if ([[textureEdit_i	selectedTexturePatches] count] == 1)
 	{
 		delta_t *d;
 		d = [deltaTable elementAt:0];

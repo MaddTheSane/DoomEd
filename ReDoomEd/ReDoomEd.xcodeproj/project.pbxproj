@@ -61,7 +61,6 @@
 		033FAB7320E83CBC00CC584F /* RDECocoaGlue_Application.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4520E83CBC00CC584F /* RDECocoaGlue_Application.m */; };
 		033FAB7420E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4920E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB7520E83CBC00CC584F /* RDECocoaGlue_Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4B20E83CBC00CC584F /* RDECocoaGlue_Form.m */; };
-		033FAB7620E83CBC00CC584F /* RDECocoaGlue_List.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4E20E83CBC00CC584F /* RDECocoaGlue_List.m */; };
 		033FAB7720E83CBC00CC584F /* RDECocoaGlue_Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5120E83CBC00CC584F /* RDECocoaGlue_Matrix.m */; };
 		033FAB7820E83CBC00CC584F /* RDECocoaGlue_Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5320E83CBC00CC584F /* RDECocoaGlue_Menu.m */; };
 		033FAB7920E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5520E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m */; };
@@ -72,7 +71,6 @@
 		033FAB7E20E83CBC00CC584F /* RDECocoaGlue_Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6020E83CBC00CC584F /* RDECocoaGlue_Object.m */; };
 		033FAB8020E83CBC00CC584F /* RDECocoaGlue_PopUpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */; };
 		033FAB8120E83CBC00CC584F /* RDECocoaGlue_ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6720E83CBC00CC584F /* RDECocoaGlue_ScrollView.m */; };
-		033FAB8220E83CBC00CC584F /* RDECocoaGlue_Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6920E83CBC00CC584F /* RDECocoaGlue_Sound.m */; };
 		033FAB8320E83CBC00CC584F /* RDECocoaGlue_Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6B20E83CBC00CC584F /* RDECocoaGlue_Storage.m */; };
 		033FAB8420E83CBC00CC584F /* RDECocoaGlue_Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6D20E83CBC00CC584F /* RDECocoaGlue_Text.m */; };
 		033FAB8520E83CBC00CC584F /* RDECocoaGlue_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6F20E83CBC00CC584F /* RDECocoaGlue_View.m */; };
@@ -241,8 +239,6 @@
 		033FAB4A20E83CBC00CC584F /* RDECocoaGlue_Form.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Form.h; sourceTree = "<group>"; };
 		033FAB4B20E83CBC00CC584F /* RDECocoaGlue_Form.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_Form.m; sourceTree = "<group>"; };
 		033FAB4C20E83CBC00CC584F /* RDECocoaGlue_Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Functions.h; sourceTree = "<group>"; };
-		033FAB4D20E83CBC00CC584F /* RDECocoaGlue_List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_List.h; sourceTree = "<group>"; };
-		033FAB4E20E83CBC00CC584F /* RDECocoaGlue_List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_List.m; sourceTree = "<group>"; };
 		033FAB4F20E83CBC00CC584F /* RDECocoaGlue_Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Macros.h; sourceTree = "<group>"; };
 		033FAB5020E83CBC00CC584F /* RDECocoaGlue_Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Matrix.h; sourceTree = "<group>"; };
 		033FAB5120E83CBC00CC584F /* RDECocoaGlue_Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_Matrix.m; sourceTree = "<group>"; };
@@ -265,8 +261,6 @@
 		033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_PopUpList.m; sourceTree = "<group>"; };
 		033FAB6620E83CBC00CC584F /* RDECocoaGlue_ScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_ScrollView.h; sourceTree = "<group>"; };
 		033FAB6720E83CBC00CC584F /* RDECocoaGlue_ScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_ScrollView.m; sourceTree = "<group>"; };
-		033FAB6820E83CBC00CC584F /* RDECocoaGlue_Sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Sound.h; sourceTree = "<group>"; };
-		033FAB6920E83CBC00CC584F /* RDECocoaGlue_Sound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_Sound.m; sourceTree = "<group>"; };
 		033FAB6A20E83CBC00CC584F /* RDECocoaGlue_Storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Storage.h; sourceTree = "<group>"; };
 		033FAB6B20E83CBC00CC584F /* RDECocoaGlue_Storage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_Storage.m; sourceTree = "<group>"; };
 		033FAB6C20E83CBC00CC584F /* RDECocoaGlue_Text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Text.h; sourceTree = "<group>"; };
@@ -648,8 +642,6 @@
 				033FAB4920E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m */,
 				033FAB4A20E83CBC00CC584F /* RDECocoaGlue_Form.h */,
 				033FAB4B20E83CBC00CC584F /* RDECocoaGlue_Form.m */,
-				033FAB4D20E83CBC00CC584F /* RDECocoaGlue_List.h */,
-				033FAB4E20E83CBC00CC584F /* RDECocoaGlue_List.m */,
 				033FAB5020E83CBC00CC584F /* RDECocoaGlue_Matrix.h */,
 				033FAB5120E83CBC00CC584F /* RDECocoaGlue_Matrix.m */,
 				033FAB5220E83CBC00CC584F /* RDECocoaGlue_Menu.h */,
@@ -677,8 +669,6 @@
 				033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */,
 				033FAB6620E83CBC00CC584F /* RDECocoaGlue_ScrollView.h */,
 				033FAB6720E83CBC00CC584F /* RDECocoaGlue_ScrollView.m */,
-				033FAB6820E83CBC00CC584F /* RDECocoaGlue_Sound.h */,
-				033FAB6920E83CBC00CC584F /* RDECocoaGlue_Sound.m */,
 				033FAB6A20E83CBC00CC584F /* RDECocoaGlue_Storage.h */,
 				033FAB6B20E83CBC00CC584F /* RDECocoaGlue_Storage.m */,
 				032681F322CD947900529592 /* RDECocoaGlue_StringUtilities.h */,
@@ -867,7 +857,6 @@
 				033FAB7320E83CBC00CC584F /* RDECocoaGlue_Application.m in Sources */,
 				033FAB7420E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m in Sources */,
 				033FAB7520E83CBC00CC584F /* RDECocoaGlue_Form.m in Sources */,
-				033FAB7620E83CBC00CC584F /* RDECocoaGlue_List.m in Sources */,
 				033FAB7720E83CBC00CC584F /* RDECocoaGlue_Matrix.m in Sources */,
 				033FAB7820E83CBC00CC584F /* RDECocoaGlue_Menu.m in Sources */,
 				033FAB7920E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m in Sources */,
@@ -878,7 +867,6 @@
 				033FAB7E20E83CBC00CC584F /* RDECocoaGlue_Object.m in Sources */,
 				033FAB8020E83CBC00CC584F /* RDECocoaGlue_PopUpList.m in Sources */,
 				033FAB8120E83CBC00CC584F /* RDECocoaGlue_ScrollView.m in Sources */,
-				033FAB8220E83CBC00CC584F /* RDECocoaGlue_Sound.m in Sources */,
 				033FAB8320E83CBC00CC584F /* RDECocoaGlue_Storage.m in Sources */,
 				033FAB8420E83CBC00CC584F /* RDECocoaGlue_Text.m in Sources */,
 				033FAB8520E83CBC00CC584F /* RDECocoaGlue_View.m in Sources */,

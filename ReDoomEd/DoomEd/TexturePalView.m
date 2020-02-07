@@ -89,7 +89,7 @@
 	count = 0;
 	while ((t = [texturePalette_i	getNewTexture:count++]) != NULL)
 		if (NXIntersectsRect(&rects[0],&t->r) == YES)
-			[t->image	composite:NX_COPY	toPoint:&t->r.origin];
+			[t->image drawAtPoint:t->r.origin fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1];
 	
 	//
 	//	Draw texture set divider text
@@ -142,7 +142,7 @@
 	[self convertPoint:&loc	fromView:NULL];
 #endif
 	
-	texcount = [texturePalette_i	getNumTextures];
+	texcount = [texturePalette_i	countOfTextures];
 	for (i = texcount - 1;i >= 0;i--)
 	{
 		t = [texturePalette_i		getNewTexture:i];

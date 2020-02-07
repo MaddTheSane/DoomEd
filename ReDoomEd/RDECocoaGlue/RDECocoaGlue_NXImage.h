@@ -30,11 +30,11 @@
 
 @interface NSImage (RDECocoaGlue_NXImageMethods)
 
-- (id) initSize: (NSSize *) aSize;
+- (id) initSize: (NSSize *) aSize API_DEPRECATED_WITH_REPLACEMENT("-initWithSize:", macos(10.0, 10.0));
 
-- (id) composite: (NSCompositingOperation) operation toPoint: (const NSPoint *) pointPtr;
+- (id) composite: (NSCompositingOperation) operation toPoint: (const NSPoint *) pointPtr API_DEPRECATED("Use -drawAtPoint:fromRect:operation:fraction: instead", macos(10.0, 10.0));
 
-- (BOOL) useRepresentation: (NSImageRep *) imageRep;
+- (BOOL) useRepresentation: (NSImageRep *) imageRep API_DEPRECATED_WITH_REPLACEMENT("-addRepresentation:", macos(10.0, 10.0));
 
 - (id) setScalable: (BOOL) flag;
 
@@ -44,6 +44,6 @@
 
 - (NSImageRep *) lastRepresentation;
 
-- (id) getSize: (NSSize *) theSize;
+- (id) getSize: (NSSize *) theSize API_DEPRECATED("Use -size instead", macos(10.0, 10.0));
 
 @end

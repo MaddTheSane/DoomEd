@@ -41,7 +41,7 @@
 			p = icon->r.origin;
 			p.x += (ICONSIZE - icon->imagesize.width)/2;
 			p.y += (ICONSIZE - icon->imagesize.height)/2;
-			[icon->image	composite:NX_SOVER	toPoint:&p];
+			[icon->image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
 		}
 	}
 

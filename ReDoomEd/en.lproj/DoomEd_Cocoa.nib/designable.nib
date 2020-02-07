@@ -134,11 +134,11 @@
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="57">
-                        <rect key="frame" x="4" y="14" width="113" height="32"/>
+                        <rect key="frame" x="5" y="15" width="111" height="27"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="push" title="Separate Points" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="347">
+                        <buttonCell key="cell" type="push" title="Separate Points" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="347">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="seperatePoints:" target="120" id="169"/>
@@ -164,59 +164,70 @@
         <window title="Print Prefs" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="18" userLabel="PrintPrefs" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="480" y="354" width="112" height="97"/>
+            <rect key="contentRect" x="480" y="354" width="129" height="106"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="101">
-                <rect key="frame" x="0.0" y="0.0" width="112" height="97"/>
+                <rect key="frame" x="0.0" y="0.0" width="129" height="114"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66">
-                        <rect key="frame" x="7" y="73" width="81" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="355">
+                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66">
+                        <rect key="frame" x="18" y="78" width="79" height="18"/>
+                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="355">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="toggleMonsters:" target="125" id="199"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                        <rect key="frame" x="7" y="55" width="59" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Items" imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="356">
+                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
+                        <rect key="frame" x="18" y="58" width="56" height="18"/>
+                        <buttonCell key="cell" type="check" title="Items" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="356">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="toggleItems:" target="125" id="200"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
-                        <rect key="frame" x="7" y="36" width="74" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="354">
+                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                        <rect key="frame" x="18" y="38" width="79" height="18"/>
+                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="354">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="toggleWeapons:" target="125" id="201"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="136">
-                        <rect key="frame" x="7" y="6" width="74" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Panel" imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="357">
+                    <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="136">
+                        <rect key="frame" x="18" y="18" width="56" height="18"/>
+                        <buttonCell key="cell" type="check" title="Panel" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="357">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="smallSystem"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="togglePanel:" target="125" id="203"/>
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="66" secondAttribute="trailing" constant="20" symbolic="YES" id="0w9-tf-6RS"/>
+                    <constraint firstItem="99" firstAttribute="leading" secondItem="101" secondAttribute="leading" constant="20" symbolic="YES" id="HN8-f3-KAV"/>
+                    <constraint firstItem="136" firstAttribute="top" secondItem="17" secondAttribute="bottom" constant="6" symbolic="YES" id="K9g-Sk-NZw"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="17" secondAttribute="trailing" constant="20" symbolic="YES" id="KbB-j9-zFA"/>
+                    <constraint firstItem="66" firstAttribute="leading" secondItem="101" secondAttribute="leading" constant="20" symbolic="YES" id="MCh-z2-lwn"/>
+                    <constraint firstItem="66" firstAttribute="top" secondItem="101" secondAttribute="top" constant="20" symbolic="YES" id="QQG-cI-H7E"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="136" secondAttribute="trailing" constant="20" symbolic="YES" id="gQ5-AB-dki"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="99" secondAttribute="trailing" constant="20" symbolic="YES" id="rHk-Z4-b7l"/>
+                    <constraint firstItem="99" firstAttribute="top" secondItem="66" secondAttribute="bottom" constant="6" symbolic="YES" id="riC-VY-5rz"/>
+                    <constraint firstItem="136" firstAttribute="leading" secondItem="101" secondAttribute="leading" constant="20" symbolic="YES" id="rpJ-ur-GYe"/>
+                    <constraint firstItem="17" firstAttribute="leading" secondItem="101" secondAttribute="leading" constant="20" symbolic="YES" id="uZd-Su-gD4"/>
+                    <constraint firstItem="17" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="6" symbolic="YES" id="wfI-3m-y1R"/>
+                    <constraint firstAttribute="bottom" secondItem="136" secondAttribute="bottom" constant="20" symbolic="YES" id="xJf-Ls-Lm9"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="521" y="-563"/>
+            <point key="canvasLocation" x="529.5" y="-567"/>
         </window>
         <customObject id="22" userLabel="FindLine" customClass="FindLine"/>
         <customObject id="24" userLabel="SpecialList" customClass="SpecialList"/>

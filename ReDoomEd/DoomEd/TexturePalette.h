@@ -50,7 +50,7 @@ typedef struct
 - (void)initTextures;
 - (void)finishInit;
 - (IBAction)searchForTexture:sender;
-- (NSInteger) getNumTextures;
+- (NSInteger) countOfTextures;
 - (NSInteger) getTextureIndex:(const char *)name;
 - (void)createAllTextureImages;
 - (texpal_t) createTextureImage:(int)which;

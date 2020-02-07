@@ -36,11 +36,11 @@
         samplesPerPixel: (int) spp
         hasAlpha: (BOOL) hasAlpha
         isPlanar: (BOOL) isPlanar
-        colorSpace: (NSString *) colorSpaceName
+        colorSpace: (NSColorSpaceName) colorSpaceName
         bytesPerRow: (int) rowBytes
         bitsPerPixel: (int) pixelBits;
 
-- (unsigned char *) data;
+- (unsigned char *) data API_DEPRECATED_WITH_REPLACEMENT("-bitmapData", macos(10.0, 10.0));
 
 @end
 

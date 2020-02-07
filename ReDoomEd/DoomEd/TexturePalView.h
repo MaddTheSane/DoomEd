@@ -15,9 +15,11 @@ typedef struct
 } divider_t;
 #endif
 
+@class Storage;
+
 @interface TexturePalView:View
 {
-	id	dividers_i;
+	Storage *dividers_i;
 }
 
 - addDividerX:(int)x Y:(int)y String:(char *)string;

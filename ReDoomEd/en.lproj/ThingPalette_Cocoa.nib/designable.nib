@@ -25,11 +25,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="335" height="336"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2">
-                        <rect key="frame" x="8" y="29" width="320" height="300"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <clipView key="contentView" autoresizesSubviews="NO" ambiguous="YES" id="t5l-Pi-wfE">
-                            <rect key="frame" x="1" y="1" width="318" height="298"/>
+                    <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                        <rect key="frame" x="-1" y="49" width="337" height="288"/>
+                        <clipView key="contentView" autoresizesSubviews="NO" id="t5l-Pi-wfE">
+                            <rect key="frame" x="1" y="1" width="335" height="286"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6" customClass="ThingPalView">
@@ -43,20 +42,27 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="14">
-                            <rect key="frame" x="303" y="1" width="16" height="298"/>
+                            <rect key="frame" x="320" y="1" width="16" height="286"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                        <rect key="frame" x="68" y="2" width="197" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                        <rect key="frame" x="63" y="20" width="209" height="21"/>
                         <textFieldCell key="cell" alignment="center" title="********Warning*********" id="12">
-                            <font key="font" size="18" name="Helvetica"/>
+                            <font key="font" metaFont="system" size="18"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="2" secondAttribute="trailing" constant="-1" id="EcI-QO-hIV"/>
+                    <constraint firstItem="2" firstAttribute="top" secondItem="3" secondAttribute="top" constant="-1" id="Kyd-LK-xQn"/>
+                    <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="20" symbolic="YES" id="WCC-fT-aPE"/>
+                    <constraint firstItem="4" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="8" symbolic="YES" id="dUC-JH-eUB"/>
+                    <constraint firstItem="2" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="-1" id="jFM-xL-hxT"/>
+                    <constraint firstItem="4" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" id="w9K-h3-0OI"/>
+                </constraints>
             </view>
             <point key="canvasLocation" x="139" y="147"/>
         </window>

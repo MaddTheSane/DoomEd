@@ -699,7 +699,7 @@ id		Image16FromRawLBM (byte const *data, int width, int height, byte const *pale
 //
 // translate the picture
 //
-	dest_p = [(NXBitmapImageRep *)image_i data];
+	dest_p = [(NXBitmapImageRep *)image_i bitmapData];
 	LBMpaletteTo16 (palette, shortpal);
 	ConvertLBMTo16 (data, (unsigned short *)dest_p, width*height, shortpal);
 
@@ -735,7 +735,7 @@ id		Image32FromRawLBM (byte const *data, int width, int height, byte const *pale
 //
 // translate the picture
 //
-	dest_p = [(NXBitmapImageRep *)image_i data];
+	dest_p = [(NXBitmapImageRep *)image_i bitmapData];
 	LBMpaletteTo32 (palette, longpal);
 	ConvertLBMTo32 (data, (unsigned  *)dest_p, width*height, longpal);
 

@@ -474,10 +474,10 @@ Storage *texturePatches;
 {
 	char		string[9];
 	apatch_t	*p;
-	int			max;
-	int			i;
-	int			j;
-	int			slen;
+	NSInteger			max;
+	NSInteger			i;
+	NSInteger			j;
+	NSInteger			slen;
 	
 #ifdef REDOOMED
 	// prevent buffer overflows: strcpy() -> macroRDE_SafeCStringCopy()
@@ -498,7 +498,7 @@ Storage *texturePatches;
 		for (j = 0;j < strlen(p->name);j++)
 			if (!strncasecmp(string,p->name+j,slen))
 			{
-				[self	setSelectedPatch:i];
+				[self	setSelectedPatch:(int)i];
 				return;
 			}
 	}
@@ -509,7 +509,7 @@ Storage *texturePatches;
 		for (j = 0;j < strlen(p->name);j++)
 			if (!strncasecmp(string,p->name+j,slen))
 			{
-				[self	setSelectedPatch:i];
+				[self	setSelectedPatch:(int)i];
 				return;
 			}
 	}
@@ -540,7 +540,7 @@ Storage *texturePatches;
 			break;
 	}
 	
-	[self	setSelectedPatch:pnum];
+	[self	setSelectedPatch:(int)pnum];
 }
 
 //
@@ -662,10 +662,7 @@ Storage *texturePatches;
 	return self;
 }
 
-- getSTP
-{
-	return	selectedTexturePatches;
-}
+@synthesize selectedTexturePatches;
 
 - changeSelectedTexturePatch:(int)which	to:(int)val
 {
@@ -1095,13 +1092,10 @@ Storage *texturePatches;
 	return self;
 }
 
-//
-// return which texture we're working on
-//
-- (int)getCurrentTexture
-{
-	return currentTexture;
-}
+///
+/// return which texture we're working on
+///
+@synthesize currentTexture;
 
 - setOldVars:(int)x :(int)y
 {
@@ -1488,7 +1482,7 @@ Storage *texturePatches;
 	pname = [self	getPatchName:selectedPatch];
 	
 	cs = [texturePalette_i	currentSelection];
-	max = [texturePalette_i	getNumTextures];
+	max = [texturePalette_i	countOfTextures];
 	for (i = cs+1;i < max; i++)
 		for (j = 0; j < textures[i].patchcount; j++)
 			if (!strcasecmp(textures[i].patches[j].patchname,pname))
@@ -1644,9 +1638,9 @@ Storage *texturePatches;
 //
 id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const char *name)
 {
-	byte			*dest_p;
-	NXImageRep *image_i;
-	id			fastImage_i;
+	byte		*dest_p;
+	NSImageRep	*image_i;
+	NSImage		*fastImage_i;
 	int			width,height,count,topdelta;
 	byte const	*data;
 	int			i,index;
@@ -1658,7 +1652,7 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const 
 	
 	if (!width || !height)
 	{
-		printf("Can't create NXBitmapImage of %s!  "
+		printf("Can't create NSBitmapImage of %s!  "
 			"Width or height = 0.\n",name);
 		return NULL;
 	}
@@ -1678,18 +1672,13 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const 
 		bitsPerPixel: 		16
 	];
 
-#ifdef REDOOMED
-	// prevent memory leaks
-	[image_i autorelease];
-#endif
-
 	if (!image_i)
 		return nil;
 				
 	//
 	// translate the picture
 	//
-	dest_p = [(NXBitmapImageRep *)image_i data];
+	dest_p = [(NXBitmapImageRep *)image_i bitmapData];
 	memset(dest_p,0,width * height * 2);
 	
 	for (i = 0;i < width; i++)
@@ -1712,9 +1701,10 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const 
 		}
 	}
 
-	fastImage_i = [[NXImage	alloc]
+	fastImage_i = [[NSImage	alloc]
 							init];
-	[fastImage_i	useRepresentation:(NXImageRep *)image_i];	
+	[fastImage_i addRepresentation:image_i];
+	[image_i release];
 	return fastImage_i;
 }
 

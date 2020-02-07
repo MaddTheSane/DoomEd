@@ -351,11 +351,11 @@ DQ
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="60">
-                                                <rect key="frame" x="5" y="52" width="94" height="18"/>
+                                                <rect key="frame" x="4" y="51" width="95" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <buttonCell key="cell" type="check" title="Outline all     " imagePosition="trailing" alignment="left" imageScaling="proportionallyDown" inset="2" id="164">
+                                                <buttonCell key="cell" type="check" title="Outline all     " imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="164">
                                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="user"/>
+                                                    <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="outlineWasSet:" target="-2" id="89"/>
@@ -373,22 +373,22 @@ DQ
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="34">
-                                                <rect key="frame" x="5" y="34" width="94" height="18"/>
+                                                <rect key="frame" x="4" y="33" width="95" height="20"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <buttonCell key="cell" type="check" title="Patch locked" imagePosition="trailing" alignment="left" imageScaling="proportionallyDown" inset="2" id="166">
+                                                <buttonCell key="cell" type="check" title="Patch locked" imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="166">
                                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="user"/>
+                                                    <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="togglePatchLock:" target="-2" id="92"/>
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="59">
-                                                <rect key="frame" x="5" y="16" width="94" height="18"/>
+                                                <rect key="frame" x="4" y="15" width="95" height="20"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <buttonCell key="cell" type="check" title="Center new" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="167">
+                                                <buttonCell key="cell" type="check" title="Center new" imagePosition="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="167">
                                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                    <font key="font" metaFont="user"/>
+                                                    <font key="font" metaFont="smallSystem"/>
                                                 </buttonCell>
                                             </button>
                                         </subviews>
