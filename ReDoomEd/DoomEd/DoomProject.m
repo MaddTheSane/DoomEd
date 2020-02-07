@@ -300,7 +300,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	[self	checkDirtyProject];
 	
-	openpanel = [OpenPanel new];
+	openpanel = [NSOpenPanel new];
 
 #ifdef REDOOMED
 	// prevent memory leaks
@@ -367,7 +367,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	//
 	// get directory for project & files
 	//	
-	panel = [OpenPanel new];
+	panel = [NSOpenPanel new];
 
 #ifdef REDOOMED
 	// prevent memory leaks

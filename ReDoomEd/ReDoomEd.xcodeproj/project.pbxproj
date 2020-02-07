@@ -70,7 +70,6 @@
 		033FAB7C20E83CBC00CC584F /* RDECocoaGlue_NXImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5C20E83CBC00CC584F /* RDECocoaGlue_NXImage.m */; };
 		033FAB7D20E83CBC00CC584F /* RDECocoaGlue_NXStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5E20E83CBC00CC584F /* RDECocoaGlue_NXStream.m */; };
 		033FAB7E20E83CBC00CC584F /* RDECocoaGlue_Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6020E83CBC00CC584F /* RDECocoaGlue_Object.m */; };
-		033FAB7F20E83CBC00CC584F /* RDECocoaGlue_OpenPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6220E83CBC00CC584F /* RDECocoaGlue_OpenPanel.m */; };
 		033FAB8020E83CBC00CC584F /* RDECocoaGlue_PopUpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */; };
 		033FAB8120E83CBC00CC584F /* RDECocoaGlue_ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6720E83CBC00CC584F /* RDECocoaGlue_ScrollView.m */; };
 		033FAB8220E83CBC00CC584F /* RDECocoaGlue_Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6920E83CBC00CC584F /* RDECocoaGlue_Sound.m */; };
@@ -262,8 +261,6 @@
 		033FAB5E20E83CBC00CC584F /* RDECocoaGlue_NXStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_NXStream.m; sourceTree = "<group>"; };
 		033FAB5F20E83CBC00CC584F /* RDECocoaGlue_Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_Object.h; sourceTree = "<group>"; };
 		033FAB6020E83CBC00CC584F /* RDECocoaGlue_Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_Object.m; sourceTree = "<group>"; };
-		033FAB6120E83CBC00CC584F /* RDECocoaGlue_OpenPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_OpenPanel.h; sourceTree = "<group>"; };
-		033FAB6220E83CBC00CC584F /* RDECocoaGlue_OpenPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_OpenPanel.m; sourceTree = "<group>"; };
 		033FAB6420E83CBC00CC584F /* RDECocoaGlue_PopUpList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_PopUpList.h; sourceTree = "<group>"; };
 		033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_PopUpList.m; sourceTree = "<group>"; };
 		033FAB6620E83CBC00CC584F /* RDECocoaGlue_ScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_ScrollView.h; sourceTree = "<group>"; };
@@ -674,8 +671,6 @@
 				033FAB5E20E83CBC00CC584F /* RDECocoaGlue_NXStream.m */,
 				033FAB5F20E83CBC00CC584F /* RDECocoaGlue_Object.h */,
 				033FAB6020E83CBC00CC584F /* RDECocoaGlue_Object.m */,
-				033FAB6120E83CBC00CC584F /* RDECocoaGlue_OpenPanel.h */,
-				033FAB6220E83CBC00CC584F /* RDECocoaGlue_OpenPanel.m */,
 				0382390422B2D47C0035E7CB /* RDECocoaGlue_PanelUtilities.h */,
 				0382390522B2D47C0035E7CB /* RDECocoaGlue_PanelUtilities.m */,
 				033FAB6420E83CBC00CC584F /* RDECocoaGlue_PopUpList.h */,
@@ -881,7 +876,6 @@
 				033FAB7C20E83CBC00CC584F /* RDECocoaGlue_NXImage.m in Sources */,
 				033FAB7D20E83CBC00CC584F /* RDECocoaGlue_NXStream.m in Sources */,
 				033FAB7E20E83CBC00CC584F /* RDECocoaGlue_Object.m in Sources */,
-				033FAB7F20E83CBC00CC584F /* RDECocoaGlue_OpenPanel.m in Sources */,
 				033FAB8020E83CBC00CC584F /* RDECocoaGlue_PopUpList.m in Sources */,
 				033FAB8120E83CBC00CC584F /* RDECocoaGlue_ScrollView.m in Sources */,
 				033FAB8220E83CBC00CC584F /* RDECocoaGlue_Sound.m in Sources */,

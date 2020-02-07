@@ -44,7 +44,6 @@
 #import "RDECocoaGlue_NXImage.h"
 #import "RDECocoaGlue_NXStream.h"
 #import "RDECocoaGlue_Object.h"
-#import "RDECocoaGlue_OpenPanel.h"
 #import "RDECocoaGlue_PanelUtilities.h"
 #import "RDECocoaGlue_PopUpList.h"
 #import "RDECocoaGlue_ScrollView.h"
