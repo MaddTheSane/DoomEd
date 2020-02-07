@@ -8,7 +8,7 @@
 
 @class MapView;
 
-@interface MapWindow: Window
+@interface MapWindow: NSWindow
 {
 	IBOutlet NSScrollView	*scrollview_i;
 	IBOutlet MapView		*mapview_i;

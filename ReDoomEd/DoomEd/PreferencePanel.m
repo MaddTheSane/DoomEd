@@ -42,7 +42,7 @@ BOOL			openupValues[NUMOPENUP];
 @end
 #endif
 
-NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
+static NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
 {
 	id rawObj = [defaults objectForKey:defKey];
 	if ([rawObj isKindOfClass:[NSData class]]) {
@@ -50,10 +50,15 @@ NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
 		return aColor;
 	} else if ([rawObj isKindOfClass:[NSString class]]) {
 		//Old-style data
-		const char *string = [(NSString*)rawObj UTF8String];
-		float	r,g,b;
+		NSScanner *scanner = [NSScanner scannerWithString:rawObj];
+		float	r=0,g=0,b=0;
 		
-		sscanf (string,"%f:%f:%f",&r,&g,&b);
+		[scanner scanFloat:&r];
+		[scanner scanString:@":" intoString:nil];
+		[scanner scanFloat:&g];
+		[scanner scanString:@":" intoString:nil];
+		[scanner scanFloat:&b];
+
 		return [NSColor colorWithDeviceRed:r green:g blue:b alpha:1];
 	}
 	return nil;
@@ -65,15 +70,15 @@ NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
 + (void) initialize
 {
 	NSDictionary *defDict = @{@"back_c": 		@"1:1:1",
-							  @"grid_c": 		@"0.97:0.97:0.97",
-							  @"tile_c": 		@"0.93:0.93:0.93",
-							  @"selected_c": 	@"1:0:0",
-							  @"point_c":		@"0:0:0",
-							  @"onesided_c":	@"0:0:0",
-							  @"twosided_c":	@"0:0.69:0",
-							  @"area_c":		@"1:0:0",
-							  @"thing_c":		@"1:1:0",
-							  @"special_c":		@"0.5:1:0.5",
+							  @"grid_c": 		[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 0.97 green: 0.97 blue: 0.97 alpha: 1]],
+							  @"tile_c": 		[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 0.93 green: 0.93 blue: 0.93 alpha: 1]],
+							  @"selected_c": 	[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1]],
+							  @"point_c":		[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1]],
+							  @"onesided_c":	[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1]],
+							  @"twosided_c":	[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 0 green: 0.69 blue: 0 alpha: 1]],
+							  @"area_c":		[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1]],
+							  @"thing_c":		[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha: 1]],
+							  @"special_c":		[NSKeyedArchiver archivedDataWithRootObject:[NSColor colorWithDeviceRed: 0.5 green: 1 blue: 0.5 alpha: 1]],
 							  launchTypeName:			@1,
 							  projectPathName:			@"",
 							  @"texturePaletteOpen":	@NO,
@@ -104,7 +109,7 @@ NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
 	}
 #endif
 
-	sscanf(string,"%s",projectPath);
+	strncpy(projectPath, string, sizeof(projectPath));
 	return self;
 }
 

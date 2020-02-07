@@ -167,7 +167,7 @@
             <rect key="contentRect" x="480" y="354" width="129" height="106"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" misplaced="YES" id="101">
-                <rect key="frame" x="0.0" y="0.0" width="129" height="106"/>
+                <rect key="frame" x="0.0" y="0.0" width="129" height="114"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66">
@@ -546,7 +546,7 @@
                                     <rect key="frame" x="73" y="17" width="256" height="22"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <textFieldCell key="cell" alignment="left" title="Title" id="378">
-                                        <font key="font" size="18" name="Helvetica"/>
+                                        <font key="font" metaFont="system" size="18"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
@@ -559,7 +559,7 @@
                         <rect key="frame" x="8" y="62" width="320" height="30"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" alignment="center" title="Title" id="358">
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="system" size="12"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>

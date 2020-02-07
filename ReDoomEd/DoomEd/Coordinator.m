@@ -43,11 +43,11 @@ BOOL	debugflag = NO;
 	MapWindow *win;
 	
 // update all windows
-	list = [NXApp windows];
-	for (win in list.reverseObjectEnumerator)
-	{
-		if ([win isKindOfClass:[MapWindow class]])
+	list = [NSApp windows];
+	for (win in list.reverseObjectEnumerator) {
+		if ([win isKindOfClass:[MapWindow class]]) {
 			[[win mapView] setNeedsDisplay:YES];
+		}
 	}
 }
 
@@ -67,34 +67,18 @@ BOOL	debugflag = NO;
 	return NO;
 }
 	
-#ifdef REDOOMED
-// Cocoa version
 - (BOOL) application: (NSApplication *) app openFile: (NSString *) filename
-#else // Original
-- (int)app:			sender 
-	openFile:		(const char *)filename 
-	type:		(const char *)aType
-#endif
 {
 	if ([doomproject_i loaded])
 		return NO;
 
-#ifdef REDOOMED
 	[doomproject_i loadProjectWithFileURL: [NSURL fileURLWithPath:filename]];
-#else // Original
-	[doomproject_i loadProject: filename];
-#endif
 
 	return YES;
 }
 
 
-#ifdef REDOOMED
-// Cocoa version
 - (void) applicationDidFinishLaunching: (NSNotification *) aNotification
-#else // Original
-- appDidInit: sender
-#endif
 {
 #ifdef REDOOMED
 	// -[PreferencePanel getProjectPath] no longer defaults to a hard-coded project path,
@@ -150,18 +134,9 @@ BOOL	debugflag = NO;
 	
 	startupSound_i = [NSSound soundNamed:@"D_Dbite"];
 	[startupSound_i	play];
-	
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
 }
 
-#ifdef REDOOMED
-// Cocoa version
 - (void) applicationWillTerminate: (NSNotification *) aNotification
-#else // Original
-- appWillTerminate: sender
-#endif
 {
 	[doomproject_i	quit];
 	[prefpanel_i appWillTerminate: self];
@@ -177,9 +152,6 @@ BOOL	debugflag = NO;
 	
 	printf("DoomEd terminated.\n\n");
 
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
 }
 
 @end
