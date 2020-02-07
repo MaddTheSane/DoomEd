@@ -690,7 +690,7 @@
         </customObject>
         <customObject id="116" userLabel="ThingPalette" customClass="ThingPalette"/>
         <customObject id="120" userLabel="EditWorld" customClass="EditWorld"/>
-        <customObject id="124" userLabel="PreferencePanel" customClass="PreferencePanel" customModule="ReDoomEd" customModuleProvider="target"/>
+        <customObject id="124" userLabel="PreferencePanel" customClass="PreferencePanel"/>
         <customObject id="125" userLabel="DoomProject" customClass="DoomProject">
             <connections>
                 <outlet property="printPrefWindow_i" destination="18" id="202"/>

@@ -45,3 +45,52 @@ typedef NS_ENUM(int, openup_e)
 	textureEditor,
 	NUMOPENUP
 };
+
+@interface PreferencePanel:NSObject
+{
+    IBOutlet NSColorWell *backcolor;
+    IBOutlet NSColorWell *gridcolor;
+    IBOutlet NSColorWell *tilecolor;
+    IBOutlet NSColorWell *selectedcolor;
+    IBOutlet NSColorWell *pointcolor;
+    IBOutlet NSColorWell *onesidedcolor;
+    IBOutlet NSColorWell *twosidedcolor;
+    IBOutlet NSColorWell *areacolor;
+    IBOutlet NSColorWell *thingcolor;
+	IBOutlet NSColorWell *specialcolor;
+	
+	IBOutlet NSTextField *launchThingType_i;
+	IBOutlet NSTextField *projectDefaultPath;
+	IBOutlet NSMatrix	*openupDefaults;
+	
+    IBOutlet NSPanel *window;
+	
+	NSColorWell *colorwell[NUMCOLORS];
+	NSColor	*color[NUMCOLORS];
+	int		launchThingType;
+#ifdef REDOOMED
+	// increase buffer size to allow max-length filepaths
+	char	projectPath[RDE_MAX_FILEPATH_LENGTH+1];
+#else // Original
+	char	projectPath[128];
+#endif
+}
+
+- (IBAction)menuTarget:sender;
+- (IBAction)colorChanged:sender;
+- (IBAction)launchThingTypeChanged:sender;
+- (IBAction)projectPathChanged:sender;
+- (IBAction)openupChanged:sender;
+
+- appWillTerminate: sender;
+
+//
+//	DoomEd accessor methods
+//
+- (NXColor)colorFor: (int)ucolor API_DEPRECATED_WITH_REPLACEMENT("-colorForColor:", macos(10.0, 10.0));
+- (NSColor*)colorForColor: (ucolor_e)ucolor;
+- (const char *)getProjectPath;
+- (BOOL)openUponLaunch:(openup_e)type;
+@property (readonly) int launchThingType;
+
+@end

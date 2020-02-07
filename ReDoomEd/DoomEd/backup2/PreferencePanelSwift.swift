@@ -130,8 +130,8 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 			colorwell.append(thingcolor)
 			colorwell.append(specialcolor)
 
-			for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
-				colorwell[i].color = color[i]
+			for (well, color) in zip(colorwell, color) {
+				well.color = color
 			}
 			for i in 0 ..< Int(openup_e.NUMOPENUP.rawValue) {
 				openupDefaults.cell(withTag: i)?.state = openupValues[i] ? .on : .off

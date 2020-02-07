@@ -11,7 +11,7 @@
 #import	"TexturePalette.h"
 #import	"ThingPanel.h"
 #import	"DoomProject.h"
-#import "ReDoomEd-Swift.h"
+//#import "ReDoomEd-Swift.h"
 
 id	coordinator_i;
 

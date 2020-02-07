@@ -116,7 +116,6 @@
 		03F6BDAE231441DE00045261 /* PPSRGBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDAD231441DE00045261 /* PPSRGBUtilities.m */; };
 		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; };
 		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
-		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -861,7 +860,6 @@
 				033FAB3520E834C700CC584F /* ThingPanel.m in Sources */,
 				033FAB3620E834C700CC584F /* ThingRemapper.m in Sources */,
 				033FAB3720E834C700CC584F /* ThingStripper.m in Sources */,
-				55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */,
 				033FAB3820E834C700CC584F /* ThingWindow.m in Sources */,
 				033FAB3920E834C700CC584F /* ToolPanel.m in Sources */,
 				033FAB3A20E834C700CC584F /* Wadfile.m in Sources */,
