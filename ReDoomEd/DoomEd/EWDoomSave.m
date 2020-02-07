@@ -204,7 +204,7 @@ int		linecrunch[8192];
 				if (wside->ends.floorheight > wside->ends.ceilingheight)
 				{
 					[editworld_i selectLine: i];
-					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Floor higher than ceiling!\n", i]];
+					[log_i addFormattedMessage:@"LINE %d ERROR: Floor higher than ceiling!\n", i];
 				}
 					
 				side->flags = ShortSwap (wside->flags);
@@ -214,21 +214,21 @@ int		linecrunch[8192];
 				if (ttex == -2)
 				{
 					[editworld_i selectLine: i];
-					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Can't find top texture '%s'!\n", i, wside->toptexture]];
+					[log_i addFormattedMessage:@"LINE %d ERROR: Can't find top texture '%s'!\n", i, wside->toptexture];
 				}
 				side->toptexture = ShortSwap (ttex);
 				btex =  [doomproject_i textureNamed: wside->bottomtexture];
 				if (btex == -2)
 				{
 					[editworld_i selectLine: i];
-					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Can't find bottom texture '%s'!\n", i, wside->bottomtexture]];
+					[log_i addFormattedMessage:@"LINE %d ERROR: Can't find bottom texture '%s'!\n", i, wside->bottomtexture];
 				}
 				side->bottomtexture = ShortSwap (btex);
 				mtex =  [doomproject_i textureNamed: wside->midtexture];
 				if (mtex == -2)
 				{
 					[editworld_i selectLine: i];
-					[log_i addMessage:[NSString stringWithFormat:@"LINE %d ERROR: Can't find middle texture '%s'!\n",i,wside->midtexture]];
+					[log_i addFormattedMessage:@"LINE %d ERROR: Can't find middle texture '%s'!\n",i,wside->midtexture];
 				}
 				side->midtexture = ShortSwap (mtex);
 				
@@ -249,7 +249,7 @@ int		linecrunch[8192];
 					if (mtex != -1)
 					{
 						[editworld_i selectLine: i]; // FIXME: until mid textures work
-						[log_i addMessage:[NSString stringWithFormat:@"LINE %d: Two-sided line has a midtexture!\n", i]];
+						[log_i addFormattedMessage:@"LINE %d: Two-sided line has a midtexture!\n", i];
 					}
 				}
 				else

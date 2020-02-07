@@ -98,9 +98,9 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if ([self	projectDirty] == FALSE)
 		return;
 		
-	val = NXRunAlertPanel("Important",
-		"Do you wish to save your project before exiting?",
-		"Yes", "No",NULL);
+	val = NSRunAlertPanel(@"Important",
+		@"Do you wish to save your project before exiting?",
+		@"Yes", @"No",NULL);
 	if (val == NX_ALERTDEFAULT)
 		[self	saveProject:self];
 }
@@ -254,7 +254,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 {
 	if (!loaded)
 	{
-		NXRunAlertPanel ("Error","No project loaded",NULL,NULL,NULL);
+		NSRunAlertPanel (@"Error",@"No project loaded",NULL,NULL,NULL);
 		return;
 	}
 	
@@ -319,8 +319,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	
 	if (![self loadProjectWithFileURL: [openpanel URL]])
 	{
-		NXRunAlertPanel("Uh oh!","Couldn't load your project!",
-			"OK",NULL,NULL);
+		NSRunAlertPanel(@"Uh oh!",@"Couldn't load your project!",
+			@"OK",NULL,NULL);
 
 #ifdef REDOOMED
 		// after the failed call to loadProject:, the DoomProject's members are in an unknown
@@ -396,15 +396,15 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (!filename || !*filename)
 #endif
 	{
-		NXRunAlertPanel("Nope.","I need a directory for projects to"
-			" create one.","OK",NULL,NULL);
+		NSRunAlertPanel(@"Nope.",@"I need a directory for projects to"
+			" create one.",@"OK",NULL,NULL);
 		return;
 	}
 		
 #ifdef REDOOMED
 	if ([filename length] > RDE_MAX_FILEPATH_LENGTH)
 	{
-		NXRunAlertPanel("Nope.","Project directory path is too long.","OK",NULL,NULL);
+		NSRunAlertPanel(@"Nope.",@"Project directory path is too long.",@"OK",NULL,NULL);
 		return;
 	}
 
@@ -436,15 +436,15 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (!filename || !*filename)
 #endif
 	{
-		NXRunAlertPanel("Nope.","I need a WADfile for this project.",
-			"OK",NULL,NULL);
+		NSRunAlertPanel(@"Nope.",@"I need a WADfile for this project.",
+			@"OK",NULL,NULL);
 		return;
 	}
 		
 #ifdef REDOOMED
 	if ([filename length] > RDE_MAX_FILEPATH_LENGTH)
 	{
-		NXRunAlertPanel("Nope.","WADfile path is too long.","OK",NULL,NULL);
+		NSRunAlertPanel(@"Nope.",@"WADfile path is too long.",@"OK",NULL,NULL);
 		return;
 	}
 
@@ -466,7 +466,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	stream = fopen (projpath,"w+");
 	if (!stream)
 	{
-		NXRunAlertPanel ("Error","Couldn't create %s.",
+		NSRunAlertPanel (@"Error",@"Couldn't create %s.",
 			NULL,NULL,NULL, projpath);
 		return;
 	}
@@ -480,7 +480,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	stream = fopen (texturepath,"w+");
 	if (!stream)
 	{
-		NXRunAlertPanel ("Error","Couldn't create %s.",
+		NSRunAlertPanel (@"Error",@"Couldn't create %s.",
 			NULL,NULL,NULL,texturepath);
 		return;
 	}
@@ -638,9 +638,9 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 {
 	strcpy(wadfile,string);
 	[self	updatePanel];
-	NXRunAlertPanel("Note!", "The WADfile will be changed when you\n"
+	NSRunAlertPanel(@"Note!", @"The WADfile will be changed when you\n"
 		"restart DoomEd.  Make sure you SAVE YOUR PROJECT!",
-		"OK",NULL,NULL);
+		@"OK",NULL,NULL);
 	return self;
 }
 
@@ -672,7 +672,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	if (strlen(path.fileSystemRepresentation) > RDE_MAX_FILEPATH_LENGTH)
 	{
-		NXRunAlertPanel ("Error","%s","OK",NULL,NULL, "Project filepath is too long.");
+		NSRunAlertPanel (@"Error",@"%@",@"OK",NULL,NULL, @"Project filepath is too long.");
 		return NO;
 	}
 #endif
@@ -686,7 +686,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	stream = fopen (projpath,"r");
 	if (!stream)
 	{
-		NXRunAlertPanel ("Error","Couldn't open %s",NULL,NULL,NULL, projpath);
+		NSRunAlertPanel (@"Error",@"Couldn't open %s",NULL,NULL,NULL, projpath);
 		return NO;
 	}
 	version = -1;
@@ -696,7 +696,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	else
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Unknown file version for project %s",
+		NSRunAlertPanel (@"Error",@"Unknown file version for project %s",
 			NULL,NULL,NULL, projpath);
 		return NO;
 	}
@@ -704,7 +704,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (!ret)
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Couldn't parse project file %s",NULL,NULL,NULL, projpath);
+		NSRunAlertPanel (@"Error",@"Couldn't parse project file %s",NULL,NULL,NULL, projpath);
 		return NO;
 	}
 	
@@ -732,7 +732,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	wadfile_i = [[Wadfile alloc] initFromFile: wadfile];
 	if (!wadfile_i)
 	{
-		NXRunAlertPanel ("Error","Couldn't open wadfile %s",
+		NSRunAlertPanel (@"Error",@"Couldn't open wadfile %s",
 			NULL,NULL,NULL, wadfile);
 		return NO;
 	}
@@ -907,7 +907,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	len = strlen (title);
 	if (len < 1 || len > 8)
 	{
-		NXRunAlertPanel ("Error","Map names must be 1 to 8 characters",
+		NSRunAlertPanel (@"Error",@"Map names must be 1 to 8 characters",
 			NULL, NULL, NULL);
 		return;
 	}
@@ -915,7 +915,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	for (i=0 ; i<nummaps ; i++)
 		if (!strcmp(title, mapnames[i]))
 		{
-			NXRunAlertPanel ("Error","Map name in use",NULL, NULL, NULL);
+			NSRunAlertPanel (@"Error",@"Map name in use",NULL, NULL, NULL);
 			return;
 		}
 		
@@ -929,7 +929,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	stream = fopen (pathname,"w");
 	if (!stream)
 	{
-		NXRunAlertPanel ("Error","Could not open %s",
+		NSRunAlertPanel (@"Error",@"Could not open %s",
 			NULL, NULL, NULL, pathname);
 		return;
 	}
@@ -961,7 +961,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	id			cell;
 	const char	*title;
 	char			fullpath[1024];
-	char			string[80];
 
 	if ([editworld_i loaded])
 		[editworld_i closeWorld];
@@ -1183,7 +1182,7 @@ NSMatrix *openMatrix;
 	NSInteger	selRow;
 
 #if 0
-	rv = NXRunAlertPanel("Warning!",
+	rv = NSRunAlertPanel("Warning!",
 		"This may take awhile!  Make sure your map is saved!",
 		"Abort","Continue",NULL,NULL);
 	if (rv == 1)
@@ -1236,9 +1235,9 @@ typedef struct
 	
 	if ([editworld_i	loaded] == NO)
 	{
-		NXRunAlertPanel("Hey!",
-			"You don't have a world loaded!",
-			"Oops, what a dolt I am!",NULL,NULL);
+		NSRunAlertPanel(@"Hey!",
+			@"You don't have a world loaded!",
+			@"Oops, what a dolt I am!",NULL,NULL);
 		return;
 	}
 	
@@ -1308,18 +1307,18 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[0].bottomtexture];
 		if (indx >= nt)
-			NXRunAlertPanel("Programming Error?",
-							"Returned a bad texture index: %ld",
-							"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(@"Programming Error?",
+							@"Returned a bad texture index: %ld",
+							@"Continue",NULL,NULL,(long)indx);
 		
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NXRunAlertPanel("Error!",
-				"Found a line with a texture that isn't present: '%s'",
-				"Continue",NULL,NULL, lines[k].side[0].bottomtexture);
+			NSRunAlertPanel(@"Error!",
+				@"Found a line with a texture that isn't present: '%s'",
+				@"Continue",NULL,NULL, lines[k].side[0].bottomtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].bottomtexture];
 			return;
@@ -1331,17 +1330,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[0].midtexture];
 		if (indx >= nt)
-			NXRunAlertPanel("Programming Error?",
-							"Returned a bad texture index: %ld",
-							"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(@"Programming Error?",
+							@"Returned a bad texture index: %ld",
+							@"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == NSNotFound)
 		{
-			NXRunAlertPanel("Error!",
-				"Found a line with a texture that isn't present: '%s'",
-				"Continue",NULL,NULL, lines[k].side[0].midtexture);
+			NSRunAlertPanel(@"Error!",
+				@"Found a line with a texture that isn't present: '%s'",
+				@"Continue",NULL,NULL, lines[k].side[0].midtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].midtexture];
 			return;
@@ -1353,17 +1352,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[0].toptexture];
 		if (indx >= nt)
-			NXRunAlertPanel("Programming Error?",
-							"Returned a bad texture index: %ld",
-							"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(@"Programming Error?",
+							@"Returned a bad texture index: %ld",
+							@"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == NSNotFound)
 		{
-			NXRunAlertPanel("Error!",
-				"Found a line with a texture that isn't present: '%s'",
-				"Continue",NULL,NULL, lines[k].side[0].toptexture);
+			NSRunAlertPanel(@"Error!",
+				@"Found a line with a texture that isn't present: '%s'",
+				@"Continue",NULL,NULL, lines[k].side[0].toptexture);
 			[editworld_i	selectLine:k];
 			[log_i	addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture];
 			return;
@@ -1376,18 +1375,18 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[1].bottomtexture];
 		if (indx >= nt)
-			NXRunAlertPanel("Programming Error?",
-							"Returned a bad texture index: %ld",
-							"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(@"Programming Error?",
+							@"Returned a bad texture index: %ld",
+							@"Continue",NULL,NULL,(long)indx);
 		
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NXRunAlertPanel("Error!",
-				"Found a line with a texture that isn't present: '%s'",
-				"Continue",NULL,NULL, lines[k].side[1].bottomtexture);
+			NSRunAlertPanel(@"Error!",
+				@"Found a line with a texture that isn't present: '%s'",
+				@"Continue",NULL,NULL, lines[k].side[1].bottomtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n",
 			 (long)k, lines[k].side[0].bottomtexture];
@@ -1400,17 +1399,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[1].midtexture];
 		if (indx >= nt)
-			NXRunAlertPanel("Programming Error?",
-							"Returned a bad texture index: %ld",
-							"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(@"Programming Error?",
+							@"Returned a bad texture index: %ld",
+							@"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NXRunAlertPanel("Error!",
-				"Found a line with a texture that isn't present: '%s'",
-				"Continue",NULL,NULL,lines[k].side[1].midtexture);
+			NSRunAlertPanel(@"Error!",
+				@"Found a line with a texture that isn't present: '%s'",
+				@"Continue",NULL,NULL,lines[k].side[1].midtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].midtexture];
 			return;
@@ -1422,17 +1421,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[1].toptexture];
 		if (indx >= nt)
-			NXRunAlertPanel("Programming Error?",
-							"Returned a bad texture index: %ld",
-							"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(@"Programming Error?",
+							@"Returned a bad texture index: %ld",
+							@"Continue",NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == NSNotFound)
 		{
-			NXRunAlertPanel("Error!",
-				"Found a line with a texture that isn't present: '%s'",
-				"Continue",NULL,NULL, lines[k].side[1].toptexture);
+			NSRunAlertPanel(@"Error!",
+				@"Found a line with a texture that isn't present: '%s'",
+				@"Continue",NULL,NULL, lines[k].side[1].toptexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture];
 			return;
@@ -1523,7 +1522,7 @@ typedef struct
 	id		thingList_i;
 	
 #if 0
-	rv = NXRunAlertPanel("Warning!",
+	rv = NSRunAlertPanel("Warning!",
 		"This may take awhile!  Make sure your map is saved!",
 		"Abort","Continue",NULL,NULL);
 	if (rv == 1)
@@ -1616,9 +1615,9 @@ typedef struct
 					getTextureIndex:lines[k].side[0].bottomtexture];
 
 			if (indx >= nt)
-				NXRunAlertPanel("Programming Error?",
-								"Returned a bad texture index: %ld",
-								"Continue",NULL,NULL,(long)indx);
+				NSRunAlertPanel(@"Programming Error?",
+								@"Returned a bad texture index: %ld",
+								@"Continue",NULL,NULL,(long)indx);
 			
 			if (indx >= 0)
 				textureCount[indx]++;
@@ -1633,9 +1632,9 @@ typedef struct
 			indx = [texturePalette_i
 					getTextureIndex:lines[k].side[0].midtexture];
 			if (indx >= nt)
-				NXRunAlertPanel("Programming Error?",
-								"Returned a bad texture index: %ld",
-								"Continue",NULL,NULL,(long)indx);
+				NSRunAlertPanel(@"Programming Error?",
+								@"Returned a bad texture index: %ld",
+								@"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1649,9 +1648,9 @@ typedef struct
 			indx = [texturePalette_i
 					getTextureIndex:lines[k].side[0].toptexture];
 			if (indx >= nt)
-				NXRunAlertPanel("Programming Error?",
-								"Returned a bad texture index: %ld",
-								"Continue",NULL,NULL,(long)indx);
+				NSRunAlertPanel(@"Programming Error?",
+								@"Returned a bad texture index: %ld",
+								@"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1693,9 +1692,9 @@ typedef struct
 			indx = [texturePalette_i
 					getTextureIndex:lines[k].side[1].bottomtexture];
 			if (indx >= nt)
-				NXRunAlertPanel("Programming Error?",
-								"Returned a bad texture index: %ld",
-								"Continue",NULL,NULL,(long)indx);
+				NSRunAlertPanel(@"Programming Error?",
+								@"Returned a bad texture index: %ld",
+								@"Continue",NULL,NULL,(long)indx);
 			
 			if (indx >= 0)
 				textureCount[indx]++;
@@ -1710,9 +1709,9 @@ typedef struct
 			indx = [texturePalette_i
 					getTextureIndex:lines[k].side[1].midtexture];
 			if (indx >= nt)
-				NXRunAlertPanel("Programming Error?",
-								"Returned a bad texture index: %ld",
-								"Continue",NULL,NULL,(long)indx);
+				NSRunAlertPanel(@"Programming Error?",
+								@"Returned a bad texture index: %ld",
+								@"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1726,9 +1725,9 @@ typedef struct
 			indx = [texturePalette_i
 					getTextureIndex:lines[k].side[1].toptexture];
 			if (indx >= nt)
-				NXRunAlertPanel("Programming Error?",
-								"Returned a bad texture index: %ld",
-								"Continue",NULL,NULL,(long)indx);
+				NSRunAlertPanel(@"Programming Error?",
+								@"Returned a bad texture index: %ld",
+								@"Continue",NULL,NULL,(long)indx);
 			if (indx >= 0)
 				textureCount[indx]++;
 			else
@@ -1770,11 +1769,11 @@ typedef struct
 	}
 	
 	if (errors)
-		NXRunAlertPanel("Errors!",
-			"Found %d lines with textures or flats that aren't present.\n"
+		NSRunAlertPanel(@"Errors!",
+			@"Found %d lines with textures or flats that aren't present.\n"
 			"The Texture/Flat Remappers have these errors listed so you\n"
 			"can fix them.",
-			"Continue",NULL,NULL, errors);
+			@"Continue",NULL,NULL, errors);
 
 	//
 	// 	Create Stats file
@@ -1876,7 +1875,7 @@ typedef struct
 	handle = open (filename, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NXRunAlertPanel ("Error","Couldn't open %s",
+		NSRunAlertPanel (@"Error",@"Couldn't open %s",
 			NULL,NULL,NULL, filename);
 		return self;
 	}		
@@ -1887,7 +1886,7 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Could not stream to %s",
+		NSRunAlertPanel (@"Error",@"Could not stream to %s",
 			NULL,NULL,NULL, filename);
 		return self;
 	}
@@ -1917,7 +1916,7 @@ typedef struct
 	handle = open (filename, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NXRunAlertPanel ("Error","Couldn't open %s",
+		NSRunAlertPanel (@"Error",@"Couldn't open %s",
 			NULL,NULL,NULL, filename);
 		return self;
 	}		
@@ -1928,7 +1927,7 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Could not stream to %s",
+		NSRunAlertPanel (@"Error",@"Could not stream to %s",
 			NULL,NULL,NULL, filename);
 		return self;
 	}
@@ -1953,7 +1952,7 @@ typedef struct
 	handle = open (filename, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NXRunAlertPanel ("Error","Couldn't open %s",
+		NSRunAlertPanel (@"Error",@"Couldn't open %s",
 			NULL,NULL,NULL, filename);
 		return self;
 	}		
@@ -1964,7 +1963,7 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Could not stream to %s",
+		NSRunAlertPanel (@"Error",@"Could not stream to %s",
 			NULL,NULL,NULL, filename);
 		return self;
 	}
@@ -2200,8 +2199,8 @@ typedef struct
 	newtexture = windex = 0;
 	do
 	{
-		panel = NXGetAlertPanel("Wait...",
-			"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
+		panel = NSGetAlertPanel(@"Wait...",
+			@"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
 		NXPing();
 		
@@ -2214,16 +2213,16 @@ typedef struct
 			if (!windex)
 			{
 				[panel	orderOut:NULL];
-				NXFreeAlertPanel(panel);
+				NSReleaseAlertPanel(panel);
 				NXPing();
-				NXRunAlertPanel ("Error","Couldn't open %s",
+				NSRunAlertPanel (@"Error",@"Couldn't open %s",
 					NULL,NULL,NULL, filename);
 				return self;
 			}
 			else
 			{
 				[panel	orderOut:NULL];
-				NXFreeAlertPanel(panel);
+				NSReleaseAlertPanel(panel);
 				NXPing();
 				close(handle);
 				windex = -1;
@@ -2239,9 +2238,9 @@ typedef struct
 		{
 			close (handle);
 			[panel	orderOut:NULL];
-			NXFreeAlertPanel(panel);
+			NSReleaseAlertPanel(panel);
 			NXPing();
-			NXRunAlertPanel ("Error","Could not stream to %s",
+			NSRunAlertPanel (@"Error",@"Could not stream to %s",
 				NULL,NULL,NULL, filename);
 			return self;
 		}
@@ -2257,10 +2256,10 @@ typedef struct
 				{
 					fclose (stream);
 					[panel	orderOut:NULL];
-					NXFreeAlertPanel(panel);
+					NSReleaseAlertPanel(panel);
 					NXPing();
-					NXRunAlertPanel ("Error",
-						"Could not parse %s",NULL,NULL,NULL, filename);
+					NSRunAlertPanel (@"Error",
+						@"Could not parse %s",NULL,NULL,NULL, filename);
 					return self;
 				}
 
@@ -2295,7 +2294,7 @@ typedef struct
 		fclose (stream);
 		
 		[panel	orderOut:NULL];
-		NXFreeAlertPanel(panel);
+		NSReleaseAlertPanel(panel);
 		NXPing();
 
 	} while (windex >= 0);
@@ -2318,8 +2317,8 @@ typedef struct
 	//
 	for (windex = 0; windex <= winmax; windex++)
 	{
-		panel = NXGetAlertPanel("Wait...",
-			"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
+		panel = NSGetAlertPanel(@"Wait…",
+			@"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
 		NXPing();
 		
@@ -2333,16 +2332,16 @@ typedef struct
 			if (!windex)
 			{
 				[panel	orderOut:NULL];
-				NXFreeAlertPanel(panel);
+				NSReleaseAlertPanel(panel);
 				NXPing();
-				NXRunAlertPanel ("Error","Couldn't create %s",
+				NSRunAlertPanel (@"Error",@"Couldn't create %s",
 					NULL,NULL,NULL, filename);
 				return self;
 			}
 			else
 			{
 				[panel	orderOut:NULL];
-				NXFreeAlertPanel(panel);
+				NSReleaseAlertPanel(panel);
 				NXPing();
 				close(handle);
 				break;
@@ -2357,9 +2356,9 @@ typedef struct
 		{
 			fclose (stream);
 			[panel	orderOut:NULL];
-			NXFreeAlertPanel(panel);
+			NSReleaseAlertPanel(panel);
 			NXPing();
-			NXRunAlertPanel ("Error","Could not stream to %s",
+			NSRunAlertPanel (@"Error",@"Could not stream to %s",
 				NULL,NULL,NULL, filename);
 			return self;
 		}
@@ -2390,7 +2389,7 @@ typedef struct
 		fclose (stream);
 
 		[panel	orderOut:NULL];
-		NXFreeAlertPanel(panel);
+		NSReleaseAlertPanel(panel);
 		NXPing();
 	}		
 	
@@ -2478,8 +2477,8 @@ static	byte		*buffer, *buf_p;
 	stream = fopen (filename,"w");
 	if (!stream)
 	{
-		NXRunAlertPanel("ERROR!","Can't open %s! Someone must be"
-			" messing with it!","OK",NULL,NULL,filename);
+		NSRunAlertPanel(@"ERROR!",@"Can't open %s! Someone must be"
+			" messing with it!",@"OK",NULL,NULL,filename);
 		free(buffer);
 		return self;
 	}
@@ -2803,7 +2802,7 @@ void IO_Error (char *error, ...)
 #endif
 
 	va_end (argptr);
-	NXRunAlertPanel("Error","%s",NULL,NULL,NULL, string);
+	NSRunAlertPanel(@"Error",@"%s",NULL,NULL,NULL, string);
 	[NXApp terminate: NULL];
 }
 

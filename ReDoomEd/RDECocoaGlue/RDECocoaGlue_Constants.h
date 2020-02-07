@@ -54,7 +54,7 @@
 #define NX_ALERTDEFAULT             NSAlertDefaultReturn
 #define NX_ALERTALTERNATE           NSAlertAlternateReturn
 
-#define NX_RUNABORTED               NSRunAbortedResponse
+#define NX_RUNABORTED               NSModalResponseAbort
 
 #define NXLocalHandler              NSLocalHandler
 

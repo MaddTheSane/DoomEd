@@ -26,10 +26,10 @@
 
 NSInteger NXRunAlertPanel(const char *titleCStr, const char *messageFormatCStr,
 						  const char *defaultButtonCStr, const char *alternateButtonCStr,
-						  const char *otherButtonCStr, ...) __printflike(2, 6);
+						  const char *otherButtonCStr, ...) __printflike(2, 6) API_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
 
 id NXGetAlertPanel(const char *titleCStr, const char *messageFormatCStr,
                     const char *defaultButtonCStr, const char *alternateButtonCStr,
-                    const char *otherButtonCStr, ...) __printflike(2, 6);
+                    const char *otherButtonCStr, ...) __printflike(2, 6) API_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
 
-void NXFreeAlertPanel(id panel);
+void NXFreeAlertPanel(id panel) API_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
