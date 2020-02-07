@@ -26,7 +26,7 @@
 
 #define kFormatString_NibFilenameComponentsToCocoaNibName   @"%@_Cocoa.%@"
 
-static NSString *CocoaNibNameForNibSection(char *nibSection);
+static NSString *CocoaNibNameForNibSection(const char *nibSection);
 
 
 @implementation NSApplication (RDECocoaGlue_ApplicationMethods)
@@ -36,7 +36,7 @@ static NSString *CocoaNibNameForNibSection(char *nibSection);
     return [self windows];
 }
 
-- (BOOL) loadNibSection: (char *) section
+- (BOOL) loadNibSection: (const char *) section
             owner: (id) owner
             withNames: (BOOL) withNames
 {
@@ -45,7 +45,7 @@ static NSString *CocoaNibNameForNibSection(char *nibSection);
     return [NSBundle loadNibNamed: cocoaNibName owner: owner];
 }
 
-- (NSEvent *) getNextEvent: (unsigned int) eventMask
+- (NSEvent *) getNextEvent: (NSEventMask) eventMask
 {
     static NSDate *distantFutureDate = nil;
 
@@ -72,7 +72,7 @@ static NSString *CocoaNibNameForNibSection(char *nibSection);
 
 @end
 
-static NSString *CocoaNibNameForNibSection(char *nibSection)
+static NSString *CocoaNibNameForNibSection(const char *nibSection)
 {
     NSString *nibFilename = RDE_NSStringFromCString(nibSection);
 

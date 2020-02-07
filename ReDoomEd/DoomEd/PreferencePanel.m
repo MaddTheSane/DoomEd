@@ -7,6 +7,8 @@
 
 PreferencePanel *prefpanel_i;
 
+#if 0
+
 NSString		*const ucolornames[NUMCOLORS]  =
 {
 	@"back_c",
@@ -374,4 +376,5 @@ NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
 }
 
 @end
+#endif
 #endif

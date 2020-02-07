@@ -46,8 +46,10 @@ typedef NS_ENUM(int, openup_e)
 	NUMOPENUP
 };
 
+#if 0
 @interface PreferencePanel:NSObject
 {
+	@private
     IBOutlet NSColorWell *backcolor_i;
     IBOutlet NSColorWell *gridcolor_i;
     IBOutlet NSColorWell *tilecolor_i;
@@ -94,3 +96,4 @@ typedef NS_ENUM(int, openup_e)
 @property (readonly) int launchThingType;
 
 @end
+#endif

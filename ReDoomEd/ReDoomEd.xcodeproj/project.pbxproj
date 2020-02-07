@@ -116,6 +116,7 @@
 		03F6BDAE231441DE00045261 /* PPSRGBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDAD231441DE00045261 /* PPSRGBUtilities.m */; };
 		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; };
 		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
+		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -336,6 +337,8 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* ReDoomEd_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReDoomEd_Prefix.pch; sourceTree = "<group>"; };
 		552BAD0223CB935D00B3B658 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		55BAD36123ED5C1500DBE673 /* ReDoomEd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReDoomEd-Bridging-Header.h"; sourceTree = "<group>"; };
+		55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreferencePanelSwift.swift; path = backup2/PreferencePanelSwift.swift; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ReDoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReDoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -368,6 +371,7 @@
 				32CA4F630368D1EE00C91783 /* ReDoomEd_Prefix.pch */,
 				03ECE50F20D74C7D00178BFB /* RDEDefines.h */,
 				0326E01F219C9ADF00296897 /* RDEBuildEnvironmentMacros.h */,
+				55BAD36123ED5C1500DBE673 /* ReDoomEd-Bridging-Header.h */,
 			);
 			name = Prefix;
 			sourceTree = "<group>";
@@ -530,6 +534,7 @@
 				033FAAF420E834C700CC584F /* PopScrollView.m */,
 				033FAAC020E82BC300CC584F /* PreferencePanel.h */,
 				033FAAF520E834C700CC584F /* PreferencePanel.m */,
+				55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */,
 				033FAAC220E82BC300CC584F /* Remapper.h */,
 				033FAAF620E834C700CC584F /* Remapper.m */,
 				033FAAC120E82BC300CC584F /* R_mapdef.h */,
@@ -745,6 +750,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1130;
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						LastSwiftMigration = 1130;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ReDoomEd" */;
 			compatibilityVersion = "Xcode 3.1";
@@ -851,6 +861,7 @@
 				033FAB3520E834C700CC584F /* ThingPanel.m in Sources */,
 				033FAB3620E834C700CC584F /* ThingRemapper.m in Sources */,
 				033FAB3720E834C700CC584F /* ThingStripper.m in Sources */,
+				55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */,
 				033FAB3820E834C700CC584F /* ThingWindow.m in Sources */,
 				033FAB3920E834C700CC584F /* ToolPanel.m in Sources */,
 				033FAB3A20E834C700CC584F /* Wadfile.m in Sources */,
@@ -1014,6 +1025,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1023,8 +1035,12 @@
 				GCC_PREFIX_HEADER = ReDoomEd_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.twilightedge.ReDoomEd;
 				PRODUCT_NAME = ReDoomEd;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReDoomEd-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				ZERO_LINK = NO;
 			};
 			name = Debug;
@@ -1033,6 +1049,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -1041,8 +1058,11 @@
 				GCC_PREFIX_HEADER = ReDoomEd_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.twilightedge.ReDoomEd;
 				PRODUCT_NAME = ReDoomEd;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReDoomEd-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				ZERO_LINK = NO;
 			};
 			name = Release;

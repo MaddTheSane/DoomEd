@@ -7,6 +7,7 @@
 #import	"ThingPalette.h"
 #import	"ThingWindow.h"
 #import	"TextureEdit.h"		// for strupr()
+#import "ReDoomEd-Swift.h"
 
 id	thingpanel_i;
 

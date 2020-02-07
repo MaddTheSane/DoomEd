@@ -19,6 +19,7 @@
 #import "SettingsPanel.h"
 #import "BlockWorld.h"
 #import "ThingPanel.h"
+#import "ReDoomEd-Swift.h"
 
 #define FRAMEWIDTH		4
 #define SELECTIONGRAY	0.5

@@ -32,11 +32,11 @@
 
 - (NSArray *) windowList API_DEPRECATED_WITH_REPLACEMENT("-windows", macos(10.0, 10.0));
 
-- (BOOL) loadNibSection: (char *) section
+- (BOOL) loadNibSection: (const char *) section
             owner: (id) owner
             withNames: (BOOL) withNames;
 
-- (NSEvent *) getNextEvent: (unsigned int) eventMask;
+- (NSEvent *) getNextEvent: (NSEventMask) eventMask;
 
 + (NSWorkspace *) workspace;
 
