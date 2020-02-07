@@ -18,7 +18,7 @@ extern PreferencePanel *prefpanel_i;
 #   define	PREFNAME		"PrefPanel"
 #endif
 
-typedef enum
+typedef NS_ENUM(int, ucolor_e)
 {
 	BACK_C = 0,
 	GRID_C,
@@ -31,9 +31,9 @@ typedef enum
 	THING_C,
 	SPECIAL_C,
 	NUMCOLORS
-} ucolor_e;
+};
 
-typedef enum
+typedef NS_ENUM(int, openup_e)
 {
 	texturePalette,
 	lineInspector,
@@ -44,9 +44,9 @@ typedef enum
 	sectorSpecials,
 	textureEditor,
 	NUMOPENUP
-} openup_e;
+};
 
-@interface PreferencePanel:Object
+@interface PreferencePanel:NSObject
 {
     IBOutlet NSColorWell *backcolor_i;
     IBOutlet NSColorWell *gridcolor_i;
@@ -66,7 +66,7 @@ typedef enum
     IBOutlet NSPanel *window_i;
 	
 	NSColorWell *colorwell[NUMCOLORS];
-	NXColor	color[NUMCOLORS];
+	NSColor	*color[NUMCOLORS];
 	int		launchThingType;
 #ifdef REDOOMED
 	// increase buffer size to allow max-length filepaths
@@ -87,8 +87,8 @@ typedef enum
 //
 //	DoomEd accessor methods
 //
-- (NXColor)colorFor: (int)ucolor;
-- (int)getLaunchThingType API_DEPRECATED_WITH_REPLACEMENT("-launchThingType", macos(10.0, 10.0));
+- (NXColor)colorFor: (int)ucolor API_DEPRECATED_WITH_REPLACEMENT("-colorForColor:", macos(10.0, 10.0));
+- (NSColor*)colorForColor: (ucolor_e)ucolor;
 - (const char *)getProjectPath;
 - (BOOL)openUponLaunch:(openup_e)type;
 @property (readonly) int launchThingType;

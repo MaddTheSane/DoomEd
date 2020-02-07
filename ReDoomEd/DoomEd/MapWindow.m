@@ -214,7 +214,7 @@ static	int	cornerx = 128, cornery = 64;
 
 #ifdef REDOOMED
 	// Cocoa's convertBaseToScreen: takes a value, not a pointer, and returns the converted point
-	oldscreenorg = [self convertBaseToScreen: oldscreenorg];
+	oldscreenorg = [self convertPointToScreen: oldscreenorg];
 #else // Original
 	[self convertBaseToScreen: &oldscreenorg];
 #endif
@@ -260,7 +260,7 @@ static	int	cornerx = 128, cornery = 64;
 
 #ifdef REDOOMED
 	// Cocoa's convertBaseToScreen: takes a value, not a pointer, and returns the converted point
-	newscreenorg = [self convertBaseToScreen: newscreenorg];
+	newscreenorg = [self convertPointToScreen: newscreenorg];
 #else // Original
 	[self convertBaseToScreen: &newscreenorg];
 #endif

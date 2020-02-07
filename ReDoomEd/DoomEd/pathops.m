@@ -118,7 +118,7 @@ void		FinishPath (int path)
 {
 	int	count;
 	
-	count = ops_p[path] - ops[path];
+	count = (int)(ops_p[path] - ops[path]);
 	if (!count)
 		return;		// nothing in list
 		
@@ -127,7 +127,7 @@ void		FinishPath (int path)
 	bbox[path][2] += 1.0;
 	bbox[path][3] += 1.0;
 	
-	NXSetColor ([prefpanel_i colorFor: path]);
+	RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: path]);
 	DPSDoUserPath(coords[path], count*2, dps_float, ops[path], count, bbox[path], dps_ustroke);
 }
 

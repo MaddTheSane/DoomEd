@@ -2,38 +2,39 @@
 
 #import "PreferencePanel.h"
 #import "MapWindow.h"
+#import "MapView.h"
 #import "DoomProject.h"
 
 PreferencePanel *prefpanel_i;
 
-char		*ucolornames[NUMCOLORS] =
+NSString		*const ucolornames[NUMCOLORS]  =
 {
-	"back_c",
-	"grid_c",
-	"tile_c",
-	"selected_c",
-	"point_c",
-	"onesided_c",
-	"twosided_c",
-	"area_c",
-	"thing_c",
-	"special_c"
+	@"back_c",
+	@"grid_c",
+	@"tile_c",
+	@"selected_c",
+	@"point_c",
+	@"onesided_c",
+	@"twosided_c",
+	@"area_c",
+	@"thing_c",
+	@"special_c"
 };
 
-char		launchTypeName[] = "launchType";
-char		projectPathName[] = "projectPath";
-char		*openupNames[NUMOPENUP] =
+NSString	*const launchTypeName = @"launchType";
+NSString	*const projectPathName = @"projectPath";
+NSString	*const openupNames[NUMOPENUP] =
 {
-	"texturePaletteOpen",
-	"lineInspectorOpen",
-	"lineSpecialsOpen",
-	"errorLogOpen",
-	"sectorEditorOpen",
-	"thingPanelOpen",
-	"sectorSpecialsOpen",
-	"textureEditorOpen"
+	@"texturePaletteOpen",
+	@"lineInspectorOpen",
+	@"lineSpecialsOpen",
+	@"errorLogOpen",
+	@"sectorEditorOpen",
+	@"thingPanelOpen",
+	@"sectorSpecialsOpen",
+	@"textureEditorOpen"
 };
-int			openupValues[NUMOPENUP];
+BOOL			openupValues[NUMOPENUP];
 	
 #ifdef REDOOMED
 @interface NSString (RDEUtilities_PreferencePanel)	
@@ -41,87 +42,50 @@ int			openupValues[NUMOPENUP];
 @end
 #endif
 
+NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
+{
+	id rawObj = [defaults objectForKey:defKey];
+	if ([rawObj isKindOfClass:[NSData class]]) {
+		NSColor *aColor = [NSKeyedUnarchiver unarchiveObjectWithData: rawObj];
+		return aColor;
+	} else if ([rawObj isKindOfClass:[NSString class]]) {
+		//Old-style data
+		const char *string = [(NSString*)rawObj UTF8String];
+		float	r,g,b;
+		
+		sscanf (string,"%f:%f:%f",&r,&g,&b);
+		return [NSColor colorWithDeviceRed:r green:g blue:b alpha:1];
+	}
+	return nil;
+}
+
 @implementation PreferencePanel
 
-#ifdef REDOOMED
 // Cocoa version
 + (void) initialize
-#else // Original
-+ initialize
-#endif
 {
-	static NXDefaultsVector defaults = 
-	{
-		{"back_c","1:1:1"},
-#ifdef REDOOMED
-		// tweaked default color values for better contrast
-		{"grid_c","0.97:0.97:0.97"},
-		{"tile_c","0.93:0.93:0.93"},
-#else // Original
-		{"grid_c","0.8:0.8:0.8"},
-		{"tile_c","0.5:0.5:0.5"},
-#endif
-		{"selected_c","1:0:0"},
-
-		{"point_c","0:0:0"},
-		{"onesided_c","0:0:0"},
-#ifdef REDOOMED
-		// tweaked default color values for better contrast
-		{"twosided_c","0:0.69:0"},
-#else // Original
-		{"twosided_c","0.5:1:0.5"},
-#endif
-		{"area_c","1:0:0"},
-		{"thing_c","1:1:0"},
-#ifdef REDOOMED
-		// tweaked default color values for better contrast
-		{"special_c","0:0.69:0"},
-#else // Original
-		{"special_c","0.5:1:0.5"},
-#endif
-		
-//		{"launchType","1"},
-		{launchTypeName,"1"},
-
-#ifdef REDOOMED
-		// don't use hard-coded project paths
-		{projectPathName,""},
-		// leave panels hidden on launch
-		{"texturePaletteOpen",	"0"},
-		{"lineInspectorOpen",	"0"},
-		{"lineSpecialsOpen",	"0"},
-#else // Original
-#   if 1
-//		{"projectPath","/aardwolf/DoomMaps/project.dpr"},
-		{projectPathName,"/aardwolf/DoomMaps/project.dpr"},
-#   else
-		{"projectPath","/RavenDev/maps/project.dpr"},
-#   endif
-		{"texturePaletteOpen",	"1"},
-		{"lineInspectorOpen",	"1"},
-		{"lineSpecialsOpen",	"1"},
-#endif // REDOOMED
-
-		{"errorLogOpen",		"0"},
-
-#ifdef REDOOMED
-		// leave panels hidden on launch
-		{"sectorEditorOpen",	"0"},
-#else // Original
-		{"sectorEditorOpen",	"1"},
-#endif
-
-		{"thingPanelOpen",		"0"},
-		{"sectorSpecialsOpen",	"0"},
-		{"textureEditorOpen",	"0"},
-		{NULL}
-	};
-
-	NXRegisterDefaults(APPDEFAULTS, defaults);
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
+	NSDictionary *defDict = @{@"back_c": 		@"1:1:1",
+							  @"grid_c": 		@"0.97:0.97:0.97",
+							  @"tile_c": 		@"0.93:0.93:0.93",
+							  @"selected_c": 	@"1:0:0",
+							  @"point_c":		@"0:0:0",
+							  @"onesided_c":	@"0:0:0",
+							  @"twosided_c":	@"0:0.69:0",
+							  @"area_c":		@"1:0:0",
+							  @"thing_c":		@"1:1:0",
+							  @"special_c":		@"0.5:1:0.5",
+							  launchTypeName:			@1,
+							  projectPathName:			@"",
+							  @"texturePaletteOpen":	@NO,
+							  @"lineInspectorOpen":		@NO,
+							  @"lineSpecialsOpen":		@NO,
+							  @"errorLogOpen":			@NO,
+							  @"sectorEditorOpen":		@NO,
+							  @"thingPanelOpen":		@NO,
+							  @"sectorSpecialsOpen":	@NO,
+							  @"textureEditorOpen":		@NO};
+	
+	[[NSUserDefaults standardUserDefaults] registerDefaults:defDict];
 }
 
 - getColor: (NXColor *)clr fromString: (char const *)string
@@ -180,7 +144,6 @@ int			openupValues[NUMOPENUP];
 - init
 {
 	int		i;
-	int		val;
 	
 #ifdef REDOOMED
 	self = [super init];
@@ -191,24 +154,23 @@ int			openupValues[NUMOPENUP];
 
 	prefpanel_i = self;
 	window_i = NULL;		// until nib is loaded
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	for (i=0 ; i<NUMCOLORS ; i++)
-		[self getColor: &color[i]
-			fromString: NXGetDefaultValue(APPDEFAULTS, ucolornames[i])];
+	for (i=0 ; i<NUMCOLORS ; i++) {
+		color[i] = getColorFromDefault(ucolornames[i], defaults);
+	}
 		
-	[self		getLaunchThingTypeFrom:
-				NXGetDefaultValue(APPDEFAULTS,launchTypeName)];
+	launchThingType = (int)[defaults integerForKey:launchTypeName];
 
 	[self		getProjectPathFrom:
-				NXGetDefaultValue(APPDEFAULTS,projectPathName)];
+				NXGetDefaultValue(APPDEFAULTS,projectPathName.UTF8String)];
 	//
 	// openup defaults
 	//
 	for (i = 0;i < NUMOPENUP;i++)
 	{
-		sscanf(NXGetDefaultValue(APPDEFAULTS,openupNames[i]),"%d",&val);
 //		[[openupDefaults_i findCellWithTag:i] setIntValue:val];
-		openupValues[i] = val;
+		openupValues[i] = [defaults boolForKey:openupNames[i]];
 	}
 
 
@@ -226,26 +188,24 @@ int			openupValues[NUMOPENUP];
 
 - appWillTerminate:sender
 {
+	NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
 	int		i;
-	char	string[40];
 	
 	for (i=0 ; i<NUMCOLORS ; i++)
 	{
-		[self getString: string  fromColor:&color[i]];
-		NXWriteDefault(APPDEFAULTS, ucolornames[i], string);
+		NSData *colorDat = [NSKeyedArchiver archivedDataWithRootObject:color[i]];
+		[defaults setValue:colorDat forKey:ucolornames[i]];
 	}
 	
-	sprintf(string,"%d",launchThingType);
-	NXWriteDefault(APPDEFAULTS,launchTypeName,string);
+	[defaults setInteger:launchThingType forKey:launchTypeName];
 	
-	NXWriteDefault(APPDEFAULTS,projectPathName,projectPath);
+	[defaults setValue:@(projectPath) forKey:projectPathName];
 	
 	for (i = 0;i < NUMOPENUP;i++)
 	{
 //		sprintf(string,"%d",(int)
 //			[[openupDefaults_i findCellWithTag:i] intValue]);
-		sprintf(string,"%d",openupValues[i]);
-		NXWriteDefault(APPDEFAULTS,openupNames[i],string);
+		[defaults setBool:openupValues[i] forKey:openupNames[i]];
 	}
 	
 	if (window_i)
@@ -298,14 +258,14 @@ int			openupValues[NUMOPENUP];
 
 		for (i=0 ; i<NUMCOLORS ; i++)
 #ifdef REDOOMED
-			[colorwell[i] setColor: RDE_NSColorFromNXColor(color[i])];
+			[colorwell[i] setColor: color[i]];
 #else // Original
 			[colorwell[i] setColor: color[i]];
 #endif
 			
 		for (i = 0;i < NUMOPENUP;i++)
 			[[openupDefaults_i	cellWithTag:i]
-				setIntValue:openupValues[i]];
+			 setState:openupValues[i] ? NSControlStateValueOn : NSControlStateValueOff];
 	}
 
 	[launchThingType_i  	setIntValue:launchThingType];
@@ -335,7 +295,7 @@ int			openupValues[NUMOPENUP];
 
 	for (NSInteger i=0 ; i<NUMCOLORS ; i++)
 #ifdef REDOOMED
-		color[i] = RDE_NXColorFromNSColor([colorwell[i] color]);
+		color[i] = [colorwell[i] color];
 #else // Original
 		color[i] = [colorwell[i] color];
 #endif
@@ -348,19 +308,19 @@ int			openupValues[NUMOPENUP];
 	}
 }
 
-- (NXColor)colorFor: (int)ucolor
+- (NSColor*)colorForColor: (ucolor_e)ucolor;
 {
 	return color[ucolor];
+}
+
+- (NXColor)colorFor: (int)ucolor
+{
+	return RDE_NXColorFromNSColor(color[ucolor]);
 }
 
 - (IBAction)launchThingTypeChanged:sender
 {
 	launchThingType = [sender	intValue];
-}
-
-- (int)getLaunchThingType
-{
-	return self.launchThingType;
 }
 
 @synthesize launchThingType;
@@ -398,8 +358,8 @@ int			openupValues[NUMOPENUP];
 
 - (IBAction)openupChanged:sender
 {
-	id	cell = [sender selectedCell];
-	openupValues[[cell tag]] = [cell intValue];
+	NSButtonCell	*cell = [sender selectedCell];
+	openupValues[[cell tag]] = [cell state] == NSControlStateValueOn;
 }
 
 - (const char *)getProjectPath

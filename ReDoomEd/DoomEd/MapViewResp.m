@@ -290,7 +290,7 @@
 	[self lockFocus];
 	PSsetinstance (YES);
 	PSsetlinewidth (0.15);
-	NXSetColor ([prefpanel_i colorFor: [settingspanel_i segmentType]]);
+	RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: [settingspanel_i segmentType]]);
 
 	[self getGridPoint: &fixedpoint from: event];		// handle grid and sutch
 	
@@ -356,7 +356,7 @@
 //	
 	[self lockFocus];
 	PSsetlinewidth (0.15);
-	NXSetColor ([prefpanel_i colorFor: [settingspanel_i segmentType]]);
+	RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: [settingspanel_i segmentType]]);
 
 //
 // wait for a mouse up to specify first point

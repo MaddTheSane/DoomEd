@@ -254,7 +254,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 				continue;
 			
 		if (wp->selected == 1)
-			NXSetColor ([prefpanel_i colorFor: SELECTED_C]);
+			RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: SELECTED_C]);
 		else
 			NXSetColor([thingpanel_i	getThingColor:wp->type]);
 		r.origin.x = wp->origin.x - offset/2;
@@ -320,13 +320,13 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	count = unsel_p - unselected;
 	if (count)
 	{
-		NXSetColor ([prefpanel_i colorFor: POINT_C]);
+		RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: POINT_C]);
 		NXRectFillList (unselected, count);
 	}
 	count = sel_p - selected;
 	if (count)
 	{
-		NXSetColor ([prefpanel_i colorFor: SELECTED_C]);
+		RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: SELECTED_C]);
 		NXRectFillList (selected, count);
 	}
 	
@@ -365,7 +365,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 
 	if (!debugflag)
 	{
-		NXSetColor ([prefpanel_i colorFor: BACK_C]);
+		RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: BACK_C]);
 		NXRectFill (rects);
 	}
 	PSsetlinewidth (0.15);

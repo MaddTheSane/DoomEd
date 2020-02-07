@@ -34,7 +34,7 @@
 		033FAB2020E834C700CC584F /* MapWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF220E834C700CC584F /* MapWindow.m */; };
 		033FAB2120E834C700CC584F /* pathops.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF320E834C700CC584F /* pathops.m */; };
 		033FAB2220E834C700CC584F /* PopScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF420E834C700CC584F /* PopScrollView.m */; };
-		033FAB2320E834C700CC584F /* PreferencePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF520E834C700CC584F /* PreferencePanel.m */; };
+		033FAB2320E834C700CC584F /* PreferencePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF520E834C700CC584F /* PreferencePanel.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB2420E834C700CC584F /* Remapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF620E834C700CC584F /* Remapper.m */; };
 		033FAB2520E834C700CC584F /* SectorEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF720E834C700CC584F /* SectorEditor.m */; };
 		033FAB2620E834C700CC584F /* SectorEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAF820E834C700CC584F /* SectorEditView.m */; };
