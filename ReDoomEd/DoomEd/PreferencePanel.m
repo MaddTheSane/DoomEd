@@ -88,30 +88,6 @@ NSColor *getColorFromDefault(NSString *defKey, NSUserDefaults *defaults)
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defDict];
 }
 
-- getColor: (NXColor *)clr fromString: (char const *)string
-{
-	float	r,g,b;
-	
-	sscanf (string,"%f:%f:%f",&r,&g,&b);
-	*clr = NXConvertRGBToColor(r,g,b);
-	return self;
-}
-
-- getString: (char *)string fromColor: (NXColor *)clr
-{
-	char		temp[40];
-	float	r,g,b;
-	
-	r = NXRedComponent(*clr);
-	g = NXGreenComponent(*clr);
-	b = NXBlueComponent(*clr);
-	
-	sprintf (temp,"%1.2f:%1.2f:%1.2f",r,g,b);
-	strcpy (string, temp);
-	
-	return self;
-}
-
 - getLaunchThingTypeFrom:(const char *)string
 {
 	sscanf(string,"%d",&launchThingType);
