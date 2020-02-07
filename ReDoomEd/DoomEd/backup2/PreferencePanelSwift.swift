@@ -55,43 +55,32 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 
 	private var colorwell = [NSColorWell]()
 	private var color = [NSColor]()
-	/*
-		NSColorWell *colorwell[NUMCOLORS];
-		NSColor	*color[NUMCOLORS];
-		int		launchThingType;
-	#ifdef REDOOMED
-		char	projectPath[RDE_MAX_FILEPATH_LENGTH+1];
-
-	*/
 	
 	private(set) var projectPath: URL?
 	
 	private static var __once: () = {
-		/*
-		NSDictionary *defDict = @{@"back_c": 		@"1:1:1",
-								  @"grid_c": 		@"0.97:0.97:0.97",
-								  @"tile_c": 		@"0.93:0.93:0.93",
-								  @"selected_c": 	@"1:0:0",
-								  @"point_c":		@"0:0:0",
-								  @"onesided_c":	@"0:0:0",
-								  @"twosided_c":	@"0:0.69:0",
-								  @"area_c":		@"1:0:0",
-								  @"thing_c":		@"1:1:0",
-								  @"special_c":		@"0.5:1:0.5",
-								  launchTypeName:			@1,
-								  projectPathName:			@"",
-								  @"texturePaletteOpen":	@NO,
-								  @"lineInspectorOpen":		@NO,
-								  @"lineSpecialsOpen":		@NO,
-								  @"errorLogOpen":			@NO,
-								  @"sectorEditorOpen":		@NO,
-								  @"thingPanelOpen":		@NO,
-								  @"sectorSpecialsOpen":	@NO,
-								  @"textureEditorOpen":		@NO};
+		var defDict: [String: Any] = ["back_c": "1:1:1",
+									  "grid_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.97, green: 0.97, blue: 0.97, alpha: 1)),
+									  "tile_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.93, green: 0.93, blue: 0.93, alpha: 1)),
+									  "selected_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 0, blue: 0, alpha: 1)),
+									  "point_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1)),
+									  "onesided_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1)),
+									  "twosided_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0.69, blue: 0, alpha: 1)),
+									  "area_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 0, blue: 0, alpha: 1)),
+									  "thing_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 1, blue: 0, alpha: 1)),
+									  "special_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.5, green: 1, blue: 0.5, alpha: 1)),
+									  launchTypeName: 1,
+									  projectPathName: "~/DoomMaps/",
+									  "texturePaletteOpen": false,
+									  "lineInspectorOpen": false,
+									  "lineSpecialsOpen": false,
+									  "errorLogOpen": false,
+									  "sectorEditorOpen": false,
+									  "thingPanelOpen": false,
+									  "sectorSpecialsOpen": false,
+									  "textureEditorOpen": false]
 		
-		[[NSUserDefaults standardUserDefaults] registerDefaults:defDict];
-
-		*/
+		UserDefaults.standard.register(defaults: defDict)
 	}()
 	
 	public override init() {
@@ -99,6 +88,20 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		colorwell.reserveCapacity(10)
 
 		_=PreferencePanel.__once
+		
+		let defaults = UserDefaults.standard
+		for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
+			color.append(colorFromDefault(forKey: ucolornames[i], defaults: defaults)!)
+		}
+		launchThingType = Int32(defaults.integer(forKey: launchTypeName))
+
+		projectPath = defaults.url(forKey: projectPathName)
+		
+		
+		// openup defaults
+		for i in 0 ..< Int(openup_e.NUMOPENUP.rawValue) {
+			openupValues[i] = defaults.bool(forKey: openupNames[i])
+		}
 		
 		prefpanel_i = self;
 	}
@@ -127,19 +130,12 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 			colorwell.append(thingcolor)
 			colorwell.append(specialcolor)
 
-			/*
-					for (i=0 ; i<NUMCOLORS ; i++)
-			#ifdef REDOOMED
-						[colorwell[i] setColor: color[i]];
-			#else // Original
-						[colorwell[i] setColor: color[i]];
-			#endif
-						
-					for (i = 0;i < NUMOPENUP;i++)
-						[[openupDefaults_i	cellWithTag:i]
-						 setState:openupValues[i] ? NSControlStateValueOn : NSControlStateValueOff];
-
-			*/
+			for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
+				colorwell[i].color = color[i]
+			}
+			for i in 0 ..< Int(openup_e.NUMOPENUP.rawValue) {
+				openupDefaults.cell(withTag: i)?.state = openupValues[i] ? .on : .off
+			}
 		}
 		
 		launchThingType_i.intValue = launchThingType
@@ -151,23 +147,16 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	}
 
 	@IBAction open func colorChanged(_ sender: Any!) {
-		/*
-			for (NSInteger i=0 ; i<NUMCOLORS ; i++)
-		#ifdef REDOOMED
-				color[i] = [colorwell[i] color];
-		#else // Original
-				color[i] = [colorwell[i] color];
-		#endif
-
+		for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
+			color[i] = colorwell[i].color
+		}
+		
 		// update all windows
-			list = [NSApp windows];
-			for (NSWindow *win in list.reverseObjectEnumerator) {
-				if ([win isKindOfClass:[MapWindow class]])
-					[[(MapWindow*)win mapView] setNeedsDisplay:YES];
+		for window in NSApp.windows {
+			if let mapWin = window as? MapWindow {
+				mapWin.mapView.needsDisplay = true
 			}
 		}
-
-		*/
 	}
 
 	@IBAction open func launchThingTypeChanged(_ sender: Any!) {
@@ -176,200 +165,18 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	}
 
 	@IBAction open func projectPathChanged(_ sender: Any!) {
+		var newProjectPathString: String = (sender as AnyObject).stringValue ?? ""
 		
-	}
-
-	@IBAction open func openupChanged(_ sender: Any!) {
-		guard let cell: NSCell = (sender as AnyObject).selectedCell() else {
-			return
-		}
-		
-		openupValues[cell.tag] = cell.state == .on
-	}
-
-    
-	@objc @discardableResult open func appWillTerminate(_ sender: Any!) -> Any! {
-		return self
-	}
-
-    
-	@objc func color(forColor ucolor: ucolor_e) -> NSColor! {
-		return color[Int(ucolor.rawValue)]
-	}
-	
-	func color(for ucolor: ucolor_e) -> NXColor {
-		RDE_NXColorFromNSColor(color[Int(ucolor.rawValue)])
-	}
-
-	open func getProjectPath() -> UnsafePointer<Int8>! {
-		return nil
-	}
-
-	@objc open func openUponLaunch(_ type: openup_e) -> Bool {
-		if !openupValues[Int(type.rawValue)] {
-			return false
-		}
-		return true
-	}
-
-    private(set) var launchThingType: Int32 = 0
-	
-	/*
-	@implementation PreferencePanel
-
-	// Cocoa version
-	+ (void) initialize
-	{
-		NSDictionary *defDict = @{@"back_c": 		@"1:1:1",
-								  @"grid_c": 		@"0.97:0.97:0.97",
-								  @"tile_c": 		@"0.93:0.93:0.93",
-								  @"selected_c": 	@"1:0:0",
-								  @"point_c":		@"0:0:0",
-								  @"onesided_c":	@"0:0:0",
-								  @"twosided_c":	@"0:0.69:0",
-								  @"area_c":		@"1:0:0",
-								  @"thing_c":		@"1:1:0",
-								  @"special_c":		@"0.5:1:0.5",
-								  launchTypeName:			@1,
-								  projectPathName:			@"",
-								  @"texturePaletteOpen":	@NO,
-								  @"lineInspectorOpen":		@NO,
-								  @"lineSpecialsOpen":		@NO,
-								  @"errorLogOpen":			@NO,
-								  @"sectorEditorOpen":		@NO,
-								  @"thingPanelOpen":		@NO,
-								  @"sectorSpecialsOpen":	@NO,
-								  @"textureEditorOpen":		@NO};
-		
-		[[NSUserDefaults standardUserDefaults] registerDefaults:defDict];
-	}
-
-	- getLaunchThingTypeFrom:(const char *)string
-	{
-		sscanf(string,"%d",&launchThingType);
-		return self;
-	}
-
-	- getProjectPathFrom:(const char *)string
-	{
-	#ifdef REDOOMED
-		// prevent buffer overflows: check string length
-		if (!string || (strlen(string) > RDE_MAX_FILEPATH_LENGTH))
-		{
-			return self;
-		}
-	#endif
-
-		sscanf(string,"%s",projectPath);
-		return self;
-	}
-
-
-	/*
-	=====================
-	=
-	= init
-	=
-	=====================
-	*/
-
-	- init
-	{
-		int		i;
-		
-	#ifdef REDOOMED
-		self = [super init];
-
-		if (!self)
-			return nil;
-	#endif
-
-		prefpanel_i = self;
-		window_i = NULL;		// until nib is loaded
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		
-		for (i=0 ; i<NUMCOLORS ; i++) {
-			color[i] = getColorFromDefault(ucolornames[i], defaults);
-		}
-			
-		launchThingType = (int)[defaults integerForKey:launchTypeName];
-
-		[self		getProjectPathFrom:
-					NXGetDefaultValue(APPDEFAULTS,projectPathName.UTF8String)];
-		//
-		// openup defaults
-		//
-		for (i = 0;i < NUMOPENUP;i++)
-		{
-	//		[[openupDefaults_i findCellWithTag:i] setIntValue:val];
-			openupValues[i] = [defaults boolForKey:openupNames[i]];
-		}
-
-
-		return self;
-	}
-
-
-	/*
-	=====================
-	=
-	= appWillTerminate:
-	=
-	=====================
-	*/
-
-	- appWillTerminate:sender
-	{
-		NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-		int		i;
-		
-		for (i=0 ; i<NUMCOLORS ; i++)
-		{
-			NSData *colorDat = [NSKeyedArchiver archivedDataWithRootObject:color[i]];
-			[defaults setValue:colorDat forKey:ucolornames[i]];
-		}
-		
-		[defaults setInteger:launchThingType forKey:launchTypeName];
-		
-		[defaults setValue:@(projectPath) forKey:projectPathName];
-		
-		for (i = 0;i < NUMOPENUP;i++)
-		{
-	//		sprintf(string,"%d",(int)
-	//			[[openupDefaults_i findCellWithTag:i] intValue]);
-			[defaults setBool:openupValues[i] forKey:openupNames[i]];
-		}
-		
-		if (window_i)
-			[window_i	saveFrameUsingName:PREFNAME];
-		return self;
-	}
-
-
-	/*
-	==============
-	=
-	= menuTarget:
-	=
-	==============
-	*/
-
-
-
-	- (IBAction)projectPathChanged:sender
-	{
-	#ifdef REDOOMED
-		NSString *newProjectPathString = [sender stringValue];
-
 		// expand to a full path, because loadProject: uses fopen(), which doesn't support tildes;
 		// note: if the path's last character is a path separator ("/"), it may be removed
-		newProjectPathString = [newProjectPathString stringByExpandingTildeInPath];
+		newProjectPathString = (newProjectPathString as NSString).expandingTildeInPath
 
 		// make sure the path's last character is a path separator, because StripFilename()
 		// (called by -[DoomProject loadProject:]) chops the string at the last path separator
-		newProjectPathString = [newProjectPathString rdeProjectPathStringWithTrailingPathSeparator];
+		newProjectPathString = rdeProjectPathWithTrailingPathSeparator(newProjectPathString)
 
-		// prevent buffer overflows: check string length
+		/*
+		// TODO: prevent buffer overflows: check string length
 		if (newProjectPathString
 			&& ([newProjectPathString length] <= RDE_MAX_FILEPATH_LENGTH))
 		{
@@ -380,49 +187,90 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 			newProjectPathString = RDE_NSStringFromCString(projectPath);
 		}
 
+		*/
+		projectPath = URL(fileURLWithPath: newProjectPathString)
+		
 		// may have adjusted the path, so update the sender (preference panel's textfield)
-		[sender setStringValue: newProjectPathString];
-	#else // Original
-		strcpy(projectPath, [sender	stringValue] );
-	#endif
+		(sender as AnyObject).setString(newProjectPathString)
 	}
 
-	- (const char *)getProjectPath
-	{
-		return	projectPath;
-	}
-
-	- (BOOL)openUponLaunch:(openup_e)type
-	{
-		if (!openupValues[type])
-			return FALSE;
-		return TRUE;
-	}
-
-	@end
-
-	#ifdef REDOOMED
-	@implementation NSString (RDEUtilities_PreferencePanel)
-
-	// rdeProjectPathStringWithTrailingPathSeparator: ReDoomEd utility method to return a project
-	// path that has a path separator ("/") at the end
-
-	- (NSString *) rdeProjectPathStringWithTrailingPathSeparator
-	{
-		BOOL isDirectory;
-
-		if ([self length]
-			&& [[NSFileManager defaultManager] fileExistsAtPath: self isDirectory: &isDirectory]
-			&& isDirectory
-			&& ![self hasSuffix: @"/"])
-		{
-			return [self stringByAppendingString: @"/"];
+	@IBAction open func openupChanged(_ sender: Any!) {
+		guard let cell: NSCell = (sender as AnyObject).selectedCell() else {
+			return
 		}
-
-		return self;
+		
+		openupValues[cell.tag] = cell.state == .on
+	}
+    
+	@objc @discardableResult open func appWillTerminate(_ sender: Any!) -> Any! {
+		let defaults = UserDefaults.standard
+		for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
+			let colorDat = NSKeyedArchiver.archivedData(withRootObject: color[i])
+			defaults.set(colorDat, forKey: ucolornames[i])
+		}
+		
+		defaults.set(Int(launchThingType), forKey: launchTypeName)
+		defaults.set(projectPath, forKey: projectPathName)
+		
+		for i in 0 ..< Int(openup_e.NUMOPENUP.rawValue) {
+			defaults.set(openupValues[i], forKey: openupNames[i])
+		}
+		
+		window?.saveFrame(usingName: PREFNAME)
+		return self
+	}
+    
+	@objc func color(forColor ucolor: ucolor_e) -> NSColor {
+		return color[Int(ucolor.rawValue)]
+	}
+	
+	@objc(colorFor:) func color(for ucolor: ucolor_e) -> NXColor {
+		RDE_NXColorFromNSColor(color[Int(ucolor.rawValue)])
 	}
 
-	@end
+	open func getProjectPath() -> UnsafePointer<Int8>! {
+		return (projectPath as NSURL?)?.fileSystemRepresentation
+	}
 
-	*/
+	@objc open func openUponLaunch(_ type: openup_e) -> Bool {
+		if !openupValues[Int(type.rawValue)] {
+			return false
+		}
+		return true
+	}
+
+    private(set) var launchThingType: Int32 = 0
+}
+
+/// `rdeProjectPathStringWithTrailingPathSeparator`: ReDoomEd utility method to return a project
+/// path that has a path separator ("/") at the end
+private func rdeProjectPathWithTrailingPathSeparator(_ path: String) -> String {
+	var isDirectory: ObjCBool = false
+	if path.count != 0,
+		FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory),
+		isDirectory.boolValue,
+		!path.hasSuffix("/") {
+		return path + "/"
+	}
+	return path
+}
+
+private func colorFromDefault(forKey key: String, defaults: UserDefaults = UserDefaults.standard) -> NSColor? {
+	let rawObj = defaults.object(forKey: key)
+	if let dataObj = rawObj as? Data {
+		let aColor = NSKeyedUnarchiver.unarchiveObject(with: dataObj)
+		return aColor as? NSColor
+	} else if let rawStr = rawObj as? String {
+		let scan = Scanner(string: rawStr)
+		var r: Float = 0
+		var g: Float = 0
+		var b: Float = 0
+		scan.scanFloat(&r)
+		scan.scanString(":", into: nil)
+		scan.scanFloat(&g)
+		scan.scanString(":", into: nil)
+		scan.scanFloat(&b)
+		return NSColor(deviceRed: CGFloat(r), green: CGFloat(g), blue: CGFloat(b), alpha: 1)
+	}
+	return nil
 }
