@@ -31,6 +31,7 @@
 
 - (id) init
 {
+    NSPopUpButtonCell *popUpButtonCell;
     self = [self initWithFrame: kDefaultFrame];
 
     if (!self)
@@ -39,7 +40,7 @@
 #ifdef __APPLE__
     // OS X: NSPopUpButton's default size is too large to tile next to a horizontal scrollbar,
     // so manually shrink the control's size & fontsize to fit.
-    NSPopUpButtonCell *popUpButtonCell = [self cell];
+    popUpButtonCell = [self cell];
     [popUpButtonCell setControlSize: NSMiniControlSize];
     [popUpButtonCell setFont: [NSFont menuFontOfSize: [NSFont smallSystemFontSize]]];
 #endif
@@ -47,7 +48,6 @@
     return self;
 
 ERROR:
-    [self release];
 
     return nil;
 }
@@ -101,7 +101,7 @@ ERROR:
 
 - (void) updateTrackingAreas
 {
-    NSMenu *popUpButtonMenu = [[[self menu] retain] autorelease];
+    __strong NSMenu *popUpButtonMenu = [self menu];
 
     [self setMenu: nil];
 

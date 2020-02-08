@@ -667,7 +667,7 @@ id	thingpanel_i;
 	
 	index = [self  searchForThingType:type];
 	if (index != NSNotFound)
-		return [prefpanel_i colorFor: SELECTED_C];
+		return RDE_NXColorFromNSColor([prefpanel_i colorForColor: SELECTED_C]);
 	return	((thinglist_t *)[masterList_i	elementAt:index])->color;
 }
 

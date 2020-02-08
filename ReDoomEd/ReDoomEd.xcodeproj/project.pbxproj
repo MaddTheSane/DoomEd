@@ -65,16 +65,16 @@
 		033FAB7820E83CBC00CC584F /* RDECocoaGlue_Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5320E83CBC00CC584F /* RDECocoaGlue_Menu.m */; };
 		033FAB7920E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5520E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m */; };
 		033FAB7A20E83CBC00CC584F /* RDECocoaGlue_NXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5720E83CBC00CC584F /* RDECocoaGlue_NXColor.m */; };
-		033FAB7B20E83CBC00CC584F /* RDECocoaGlue_NXDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5920E83CBC00CC584F /* RDECocoaGlue_NXDefaults.m */; };
+		033FAB7B20E83CBC00CC584F /* RDECocoaGlue_NXDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5920E83CBC00CC584F /* RDECocoaGlue_NXDefaults.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB7C20E83CBC00CC584F /* RDECocoaGlue_NXImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5C20E83CBC00CC584F /* RDECocoaGlue_NXImage.m */; };
 		033FAB7D20E83CBC00CC584F /* RDECocoaGlue_NXStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5E20E83CBC00CC584F /* RDECocoaGlue_NXStream.m */; };
 		033FAB7E20E83CBC00CC584F /* RDECocoaGlue_Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6020E83CBC00CC584F /* RDECocoaGlue_Object.m */; };
-		033FAB8020E83CBC00CC584F /* RDECocoaGlue_PopUpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */; };
+		033FAB8020E83CBC00CC584F /* RDECocoaGlue_PopUpList.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6520E83CBC00CC584F /* RDECocoaGlue_PopUpList.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB8120E83CBC00CC584F /* RDECocoaGlue_ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6720E83CBC00CC584F /* RDECocoaGlue_ScrollView.m */; };
 		033FAB8320E83CBC00CC584F /* RDECocoaGlue_Storage.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6B20E83CBC00CC584F /* RDECocoaGlue_Storage.m */; };
 		033FAB8420E83CBC00CC584F /* RDECocoaGlue_Text.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6D20E83CBC00CC584F /* RDECocoaGlue_Text.m */; };
 		033FAB8520E83CBC00CC584F /* RDECocoaGlue_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB6F20E83CBC00CC584F /* RDECocoaGlue_View.m */; };
-		033FAB8620E83CBC00CC584F /* RDECocoaGlue_Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB7120E83CBC00CC584F /* RDECocoaGlue_Window.m */; };
+		033FAB8620E83CBC00CC584F /* RDECocoaGlue_Window.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB7120E83CBC00CC584F /* RDECocoaGlue_Window.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FABA220E8513F00CC584F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FABA120E8513F00CC584F /* main.m */; };
 		033FABB820E8551000CC584F /* ReDoomEd_Icon_OSX.icns in Resources */ = {isa = PBXBuildFile; fileRef = 033FABB320E8551000CC584F /* ReDoomEd_Icon_OSX.icns */; };
 		034DD84E21EED28F005E2BC0 /* RDEApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 034DD84D21EED28F005E2BC0 /* RDEApplication.m */; };
@@ -91,7 +91,7 @@
 		035C963A20DD6D7F006068BA /* buildbsp.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963120DD6D7F006068BA /* buildbsp.m */; };
 		035C963B20DD6D7F006068BA /* doombsp.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963220DD6D7F006068BA /* doombsp.m */; };
 		035C963C20DD6D7F006068BA /* doomload.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963320DD6D7F006068BA /* doomload.m */; };
-		035C963D20DD6D7F006068BA /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963420DD6D7F006068BA /* drawing.m */; };
+		035C963D20DD6D7F006068BA /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963420DD6D7F006068BA /* drawing.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		035C963E20DD6D7F006068BA /* saveblocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963520DD6D7F006068BA /* saveblocks.m */; };
 		035C963F20DD6D7F006068BA /* savebsp.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963620DD6D7F006068BA /* savebsp.m */; };
 		035C964020DD6D7F006068BA /* saveconnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963720DD6D7F006068BA /* saveconnect.m */; };
@@ -116,6 +116,7 @@
 		03F6BDAE231441DE00045261 /* PPSRGBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDAD231441DE00045261 /* PPSRGBUtilities.m */; };
 		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; };
 		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
+		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -860,6 +861,7 @@
 				033FAB3520E834C700CC584F /* ThingPanel.m in Sources */,
 				033FAB3620E834C700CC584F /* ThingRemapper.m in Sources */,
 				033FAB3720E834C700CC584F /* ThingStripper.m in Sources */,
+				55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */,
 				033FAB3820E834C700CC584F /* ThingWindow.m in Sources */,
 				033FAB3920E834C700CC584F /* ToolPanel.m in Sources */,
 				033FAB3A20E834C700CC584F /* Wadfile.m in Sources */,

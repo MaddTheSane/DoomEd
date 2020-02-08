@@ -54,13 +54,10 @@ static	int	cornerx = 128, cornery = 64;
 #ifdef REDOOMED
 	self =
 #endif
-	[self
-		initContent:		&wframe
-		style:			NX_RESIZEBARSTYLE
-		backing:			NX_BUFFERED
-		buttonMask:		NX_CLOSEBUTTONMASK | NX_MINIATURIZEBUTTONMASK
-		defer:			NO
-	];
+	[self initWithContentRect: wframe
+					styleMask: NSResizableWindowMask | NSTitledWindowMask| NSClosableWindowMask | NSMiniaturizableWindowMask
+					  backing: NSBackingStoreBuffered
+						defer: NO];
 	
 #ifdef REDOOMED
 	if (!self)

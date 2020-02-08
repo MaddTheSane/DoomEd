@@ -135,7 +135,7 @@ void RDE_PSsetlinewidth(float width)
     }
 }
 
-void RDE_PSselectfont(char *name, float size)
+void RDE_PSselectfont(const char *name, float size)
 {
     // DoomEd only calls PSselectfont() with one font, so font is hardcoded into PSshow()
 }
@@ -335,6 +335,11 @@ void RDE_DPSDoUserPathFloat(const float *coords, int numCoords,
                 coords += 2;
             }
             break;
+                
+            case dps_rmoveto:
+                [userPath relativeMoveToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+                break;
 
             case dps_lineto:
             {
@@ -342,12 +347,42 @@ void RDE_DPSDoUserPathFloat(const float *coords, int numCoords,
                 coords += 2;
             }
             break;
+                
+            case dps_rlineto:
+                [userPath relativeLineToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+                break;
 
             case dps_closepath:
             {
                 [userPath closePath];
             }
             break;
+
+            case dps_arc:
+                [userPath appendBezierPathWithArcWithCenter:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) radius:coords[2] startAngle:coords[3] endAngle:coords[4] clockwise:true];
+                coords += 5;
+                break;
+
+            case dps_arcn:
+                [userPath appendBezierPathWithArcWithCenter:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) radius:coords[2] startAngle:coords[3] endAngle:coords[4] clockwise:false];
+                coords += 5;
+                break;
+                
+            case dps_arct:
+                [userPath appendBezierPathWithArcFromPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) toPoint:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) radius:coords[4]];
+                coords += 5;
+                break;
+                
+            case dps_curveto:
+                [userPath curveToPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) controlPoint1:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) controlPoint2:macroRDE_MakePixelCenteredPoint(coords[4], coords[5])];
+                coords += 6;
+                break;
+
+            case dps_rcurveto:
+                [userPath relativeCurveToPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) controlPoint1:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) controlPoint2:macroRDE_MakePixelCenteredPoint(coords[4], coords[5])];
+                coords += 6;
+                break;
 
             default:
             break;
@@ -377,6 +412,11 @@ static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
                 coords += 2;
             }
             break;
+                
+            case dps_rmoveto:
+                [userPath relativeMoveToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+                break;
 
             case dps_lineto:
             {
@@ -384,12 +424,42 @@ static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
                 coords += 2;
             }
             break;
+                
+            case dps_rlineto:
+                [userPath relativeLineToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+                break;
 
             case dps_closepath:
             {
                 [userPath closePath];
             }
             break;
+
+            case dps_arc:
+                [userPath appendBezierPathWithArcWithCenter:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) radius:coords[2] startAngle:coords[3] endAngle:coords[4] clockwise:true];
+                coords += 5;
+                break;
+
+            case dps_arcn:
+                [userPath appendBezierPathWithArcWithCenter:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) radius:coords[2] startAngle:coords[3] endAngle:coords[4] clockwise:false];
+                coords += 5;
+                break;
+                
+            case dps_arct:
+                [userPath appendBezierPathWithArcFromPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) toPoint:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) radius:coords[4]];
+                coords += 5;
+                break;
+                
+            case dps_curveto:
+                [userPath curveToPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) controlPoint1:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) controlPoint2:macroRDE_MakePixelCenteredPoint(coords[4], coords[5])];
+                coords += 6;
+                break;
+
+            case dps_rcurveto:
+                [userPath relativeCurveToPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) controlPoint1:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) controlPoint2:macroRDE_MakePixelCenteredPoint(coords[4], coords[5])];
+                coords += 6;
+                break;
 
             default:
             break;
@@ -419,6 +489,11 @@ static void RDE_DPSDoUserPathShort(const int *coords, int numCoords,
                 coords += 2;
             }
             break;
+                
+            case dps_rmoveto:
+                [userPath relativeMoveToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+                break;
 
             case dps_lineto:
             {
@@ -426,12 +501,42 @@ static void RDE_DPSDoUserPathShort(const int *coords, int numCoords,
                 coords += 2;
             }
             break;
+                
+            case dps_rlineto:
+                [userPath relativeLineToPoint: macroRDE_MakePixelCenteredPoint(coords[0], coords[1])];
+                coords += 2;
+                break;
 
             case dps_closepath:
             {
                 [userPath closePath];
             }
             break;
+
+            case dps_arc:
+                [userPath appendBezierPathWithArcWithCenter:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) radius:coords[2] startAngle:coords[3] endAngle:coords[4] clockwise:true];
+                coords += 5;
+                break;
+
+            case dps_arcn:
+                [userPath appendBezierPathWithArcWithCenter:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) radius:coords[2] startAngle:coords[3] endAngle:coords[4] clockwise:false];
+                coords += 5;
+                break;
+                
+            case dps_arct:
+                [userPath appendBezierPathWithArcFromPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) toPoint:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) radius:coords[4]];
+                coords += 5;
+                break;
+                
+            case dps_curveto:
+                [userPath curveToPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) controlPoint1:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) controlPoint2:macroRDE_MakePixelCenteredPoint(coords[4], coords[5])];
+                coords += 6;
+                break;
+
+            case dps_rcurveto:
+                [userPath relativeCurveToPoint:macroRDE_MakePixelCenteredPoint(coords[0], coords[1]) controlPoint1:macroRDE_MakePixelCenteredPoint(coords[2], coords[3]) controlPoint2:macroRDE_MakePixelCenteredPoint(coords[4], coords[5])];
+                coords += 6;
+                break;
 
             default:
             break;

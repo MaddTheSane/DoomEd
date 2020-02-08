@@ -29,7 +29,7 @@
 
 @interface NSWindow (RDECocoaGlue_WindowMethods)
 
-- (id) initContent: (const NSRect *) contentRectPtr
+- (instancetype) initContent: (const NSRect *) contentRectPtr
         style: (NSUInteger) styleMask
         backing: (NSBackingStoreType) backingStoreType
         buttonMask: (NSUInteger) buttonMask

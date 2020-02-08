@@ -383,13 +383,10 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	short	*src, *dest;
 	
 	NXSetRect (&aRect, 100, 100, brow/WLSIZE, bheight);
-	window = [[Window alloc]
-		initContent:	&aRect
-		style:		NX_TITLEDSTYLE
-		backing:		NX_RETAINED
-		buttonMask:	NX_MINIATURIZEBUTTONMASK|NX_CLOSEBUTTONMASK
-		defer:		NO
-	];
+	window = [[NSWindow alloc] initWithContentRect:	aRect
+										 styleMask: NSWindowStyleMaskTitled | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskClosable
+										   backing: NSBackingStoreRetained
+											 defer: NO];
 	
 	[window setViewsNeedDisplay:YES];
 	[window orderFront:nil];

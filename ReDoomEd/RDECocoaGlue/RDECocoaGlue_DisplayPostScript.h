@@ -78,7 +78,7 @@ void RDE_PSsetgray(float gray);
 
 void RDE_PSsetlinewidth(float width);
 
-void RDE_PSselectfont(char *name, float size);
+void RDE_PSselectfont(const char *name, float size);
 
 void RDE_PSrotate(float angle);
 

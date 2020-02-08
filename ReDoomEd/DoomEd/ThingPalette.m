@@ -100,10 +100,6 @@ id	thingPalette_i;
 //	Return currently selected icon #
 //
 //============================================================
-- (int)getCurrentIcon
-{
-	return self.currentIcon;
-}
 
 @synthesize currentIcon;
 
@@ -148,7 +144,7 @@ id	thingPalette_i;
 //	Return amount of icons available
 //
 //============================================================
-- (int)countOfIcons
+- (NSInteger)countOfIcons
 {
 	return [thingImages	count];
 }

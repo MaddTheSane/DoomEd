@@ -7,6 +7,7 @@
 
 import Cocoa
 
+#if false
 private let ucolornames: [String] = [
 "back_c",
 "grid_c",
@@ -274,3 +275,4 @@ private func colorFromDefault(forKey key: String, defaults: UserDefaults = UserD
 	}
 	return nil
 }
+#endif

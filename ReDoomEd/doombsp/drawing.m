@@ -198,13 +198,10 @@ void DrawMap (void)
 	scaled.size.height = worldbounds.size.height* scale;
 	
 	window_i =
-	[[Window alloc]
-		initContent:	&scaled
-		style:			NX_TITLEDSTYLE
-		backing:		NX_RETAINED
-		buttonMask:		0
-		defer:			NO
-	];
+	[[NSWindow alloc] initWithContentRect: scaled
+								styleMask: NSWindowStyleMaskTitled
+								  backing: NSBackingStoreRetained
+									defer: NO];
 	
 	[window_i display];
 	[window_i orderFront: nil];
@@ -218,11 +215,6 @@ void DrawMap (void)
 	[view_i lockFocus];
 	PSsetgray (NX_BLACK);	
 	DrawLineStore (linestore_i);
-
-#ifdef REDOOMED
-	// prevent memory leaks
-	[window_i autorelease];
-#endif
 }
 
 
