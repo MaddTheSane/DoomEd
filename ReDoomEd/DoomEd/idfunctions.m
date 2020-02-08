@@ -57,16 +57,7 @@ void BoxFromPoints (box_t *box, NXPoint *p1, NXPoint *p2)
 }
 
 
-/*
-================
-=
-= IDRectFromPoints
-=
-= Makes the rectangle just touch the two points
-=
-================
-*/
-
+/// Makes the rectangle just touch the two points
 void IDRectFromPoints(NXRect *rect, NXPoint const *p1, NXPoint const *p2 )
 {
 // return a rectangle that encloses the two points
@@ -94,16 +85,7 @@ void IDRectFromPoints(NXRect *rect, NXPoint const *p1, NXPoint const *p2 )
 }
 
 
-/*
-==================
-=
-= IDEnclosePoint
-=
-= Make the rect enclose the point if it doesn't allready
-=
-==================
-*/
-
+/// Make the rect enclose the point if it doesn't allready
 void IDEnclosePoint (NXRect *rect, NXPoint const *point)
 {
 	float	right, top;

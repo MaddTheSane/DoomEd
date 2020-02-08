@@ -363,7 +363,7 @@ void ExtractFileBase (char *path, char *dest)
 ==============
 */
 
-long ParseHex (char *hex)
+static long ParseHex (char *hex)
 {
 	char    *str;
 	long    num;
@@ -421,12 +421,16 @@ int GetKey (void)
 
 short   LittleShort (short l)
 {
+#if __has_builtin(__builtin_bswap16)
+	return __builtin_bswap16(l);
+#else
 	byte    b1,b2;
 
 	b1 = l&255;
 	b2 = (l>>8)&255;
 
 	return (b1<<8) + b2;
+#endif
 }
 
 short   BigShort (short l)
@@ -437,6 +441,9 @@ short   BigShort (short l)
 
 int    LittleLong (int l)
 {
+#if __has_builtin(__builtin_bswap32)
+	return __builtin_bswap32(l);
+#else
 	byte    b1,b2,b3,b4;
 
 	b1 = l&255;
@@ -445,6 +452,7 @@ int    LittleLong (int l)
 	b4 = (l>>24)&255;
 
 	return ((int)b1<<24) + ((int)b2<<16) + ((int)b3<<8) + b4;
+#endif
 }
 
 int    BigLong (int l)
@@ -458,12 +466,16 @@ int    BigLong (int l)
 
 short   BigShort (short l)
 {
+#if __has_builtin(__builtin_bswap16)
+	return __builtin_bswap16(l);
+#else
 	byte    b1,b2;
 
 	b1 = l&255;
 	b2 = (l>>8)&255;
 
 	return (b1<<8) + b2;
+#endif
 }
 
 short   LittleShort (short l)
@@ -474,6 +486,9 @@ short   LittleShort (short l)
 
 int    BigLong (int l)
 {
+#if __has_builtin(__builtin_bswap32)
+	return __builtin_bswap32(l);
+#else
 	byte    b1,b2,b3,b4;
 
 	b1 = l&255;
@@ -482,6 +497,7 @@ int    BigLong (int l)
 	b4 = (l>>24)&255;
 
 	return ((int)b1<<24) | ((int)b2<<16) | ((int)b3<<8) | b4;
+#endif
 }
 
 int    LittleLong (int l)

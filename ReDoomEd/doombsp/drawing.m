@@ -9,15 +9,8 @@ NSView		*view_i;
 float		scale = 0.125;
 NXRect		worldbounds;
 
-/*
-================
-=
-= IDRectFromPoints
-=
-= Makes the rectangle just touch the two points
-=
-================
-*/
+static void BoundLineStore(Storage *lines_i, NXRect *r);
+
 
 void IDRectFromPoints(NXRect *rect, NXPoint const *p1, NXPoint const *p2 )
 #ifdef REDOOMED
@@ -49,16 +42,6 @@ void IDRectFromPoints(NXRect *rect, NXPoint const *p1, NXPoint const *p2 )
 }
 #endif  // Original
 
-
-/*
-==================
-=
-= IDEnclosePoint
-=
-= Make the rect enclose the point if it doesn't allready
-=
-==================
-*/
 
 void IDEnclosePoint (NXRect *rect, NXPoint const *point)
 #ifdef REDOOMED
@@ -114,16 +97,7 @@ void BoundLineStore (Storage *lines_i, NXRect *r)
 }
 
 
-/*
-===========
-=
-= DrawLineStore
-=
-= Draws all of the lines in the given storage object
-=
-===========
-*/
-
+/// Draws all of the lines in the given storage object
 void DrawLineStore (Storage *lines_i)
 {
 	NSInteger		i,c;
@@ -144,16 +118,7 @@ void DrawLineStore (Storage *lines_i)
 	NXPing ();
 }
 
-/*
-===========
-=
-= DrawLine
-=
-= Draws all of the lines in the given storage object
-=
-===========
-*/
-
+/// Draws all of the lines in the given storage object
 void DrawLineDef (maplinedef_t *ld)
 {
 	mapvertex_t		*v1, *v2;
