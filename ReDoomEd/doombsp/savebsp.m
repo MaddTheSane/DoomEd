@@ -4,14 +4,14 @@
 
 #import "doombsp.h"
 
-id		secstore_i;
-id		mapvertexstore_i;
-id		subsecstore_i;
-id		maplinestore_i;
-id		nodestore_i;
-id		mapthingstore_i;
-id		ldefstore_i;
-id		sdefstore_i;
+Storage	*secstore_i;
+Storage	*mapvertexstore_i;
+Storage	*subsecstore_i;
+Storage	*maplinestore_i;
+Storage	*nodestore_i;
+Storage	*mapthingstore_i;
+Storage	*ldefstore_i;
+Storage	*sdefstore_i;
 
 /*
 ===============================================================================
@@ -32,12 +32,12 @@ id		sdefstore_i;
 
 void WriteStorage (char *name, id store, int esize)
 {
-	int		count, len;
+	NSInteger		count, len;
 	
 	count = [store count];
 	len = esize*count;
-	[wad_i addName: name data:[store elementAt:0] size:len];
-	printf ("%s (%i): %i\n",name,count,len);	
+	[wad_i addName: name data:[store elementAt:0] size:(int)len];
+	printf ("%s (%li): %li\n",name,(long)count,(long)len);
 }
 
 
@@ -51,7 +51,7 @@ void WriteStorage (char *name, id store, int esize)
 
 void OutputSectors (void)
 {
-	int		i, count;
+	NSInteger		i, count;
 	mapsector_t		*p;
 
 	count = [secstore_i count];
@@ -78,7 +78,7 @@ void OutputSectors (void)
 
 void OutputSegs (void)
 {
-	int		i, count;
+	NSInteger		i, count;
 	mapseg_t		*p;
 
 	count = [maplinestore_i count];
@@ -106,8 +106,8 @@ void OutputSegs (void)
 
 void OutputSubsectors (void)
 {
-	int		i, count;
-	mapsubsector_t		*p;
+	NSInteger		i, count;
+	mapsubsector_t	*p;
 
 	count = [subsecstore_i count];
 	p = [subsecstore_i elementAt:0];
@@ -130,7 +130,7 @@ void OutputSubsectors (void)
 
 void OutputVertexes (void)
 {
-	int		i, count;
+	NSInteger		i, count;
 	mapvertex_t		*p;
 
 	count = [mapvertexstore_i count];
@@ -154,7 +154,7 @@ void OutputVertexes (void)
 
 void OutputThings (void)
 {
-	int		i, count;
+	NSInteger		i, count;
 	mapthing_t		*p;
 
 	count = [mapthingstore_i count];
@@ -181,8 +181,8 @@ void OutputThings (void)
 
 void OutputLineDefs (void)
 {
-	int		i, count;
-	maplinedef_t		*p;
+	NSInteger		i, count;
+	maplinedef_t	*p;
 
 	count = [ldefstore_i count];
 	p = [ldefstore_i elementAt:0];
@@ -211,8 +211,8 @@ void OutputLineDefs (void)
 
 void OutputSideDefs (void)
 {
-	int		i, count;
-	mapsidedef_t		*p;
+	NSInteger		i, count;
+	mapsidedef_t	*p;
 
 	count = [sdefstore_i count];
 	p = [sdefstore_i elementAt:0];
@@ -236,8 +236,8 @@ void OutputSideDefs (void)
 
 void OutputNodes (void)
 {
-	int		i, j, count;
-	mapnode_t		*p;
+	NSInteger	i, j, count;
+	mapnode_t	*p;
 
 	count = [nodestore_i count];
 	p = [nodestore_i elementAt:0];
@@ -268,9 +268,9 @@ void OutputNodes (void)
 =================
 */
 
-int UniqueVertex (int x, int y)
+NSInteger UniqueVertex (int x, int y)
 {
-	int				i, count;
+	NSInteger		i, count;
 	mapvertex_t		mv, *mvp;
 	
 	mv.x = x;
@@ -327,11 +327,11 @@ void AddPointToBBox (NXPoint *pt)
 
 void ProcessLines (id store_i)
 {
-	int			i,count;
+	NSInteger	i,count;
 	line_t 		*wline;
 	mapseg_t	line;
 	short		angle;
-	float		fangle;
+	CGFloat		fangle;
 	
 	bbox[BOXLEFT] = MAXINT;
 	bbox[BOXRIGHT] = MININT;
@@ -370,9 +370,9 @@ void ProcessLines (id store_i)
 =================
 */
 
-int ProcessSubsector (id wmaplinestore_i)
+NSInteger ProcessSubsector (Storage *wmaplinestore_i)
 {
-	int				count;
+	NSInteger		count;
 	worldline_t		*linedef;
 	line_t			*wline;
 	mapsubsector_t	sub;
@@ -407,7 +407,7 @@ int ProcessSubsector (id wmaplinestore_i)
 int ProcessNode (bspnode_t *node, short *totalbox)
 {
 	short		subbox[2][4];
-	int			i, r;
+	NSInteger	i, r;
 	mapnode_t	mnode;
 	
 	memset (&mnode,0,sizeof(mnode));
@@ -417,7 +417,7 @@ int ProcessNode (bspnode_t *node, short *totalbox)
 		r = ProcessSubsector (node->lines_i);
 		for (i=0 ; i<4 ; i++)
 			totalbox[i] = bbox[i];
-		return r | NF_SUBSECTOR;
+		return (int)r | NF_SUBSECTOR;
 	}
 	
 	mnode.x =node->divline.pt.x;
@@ -441,7 +441,7 @@ int ProcessNode (bspnode_t *node, short *totalbox)
 	totalbox[BOXBOTTOM] = MIN(subbox[0][BOXBOTTOM], subbox[1][BOXBOTTOM]);
 	
 	[nodestore_i addElement: &mnode];
-	return [nodestore_i count] - 1;	
+	return (int)([nodestore_i count] - 1);
 }
 
 
@@ -514,7 +514,7 @@ void ProcessThings (void)
 {
 	worldthing_t	*wt;
 	mapthing_t		mt;
-	int				count;
+	NSInteger		count;
 	
 	mapthingstore_i = [[Storage alloc]
 		initCount:		0
@@ -565,7 +565,7 @@ int ProcessSidedef (worldside_t *ws)
 	ms.sector = ws->sector;
 	
 	[sdefstore_i addElement: &ms];
-	return [sdefstore_i count]-1;
+	return (int)([sdefstore_i count]-1);
 }
 
 /*
@@ -579,7 +579,7 @@ int ProcessSidedef (worldside_t *ws)
 
 void ProcessLineSideDefs (void)
 {
-	int				i, count;
+	NSInteger		i, count;
 	maplinedef_t	ld;
 	worldline_t		*wl;
 	

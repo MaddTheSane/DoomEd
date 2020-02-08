@@ -106,8 +106,8 @@ long 	ParseNum (char *str);
 
 short	BigShort (short l);
 short	LittleShort (short l);
-long	BigLong (long l);
-long	LittleLong (long l);
+int	BigLong (int l);
+int	LittleLong (int l);
 
 extern	byte	*screen;
 

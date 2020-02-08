@@ -8,7 +8,7 @@
 #   import "../RDEdoombsp.h"
 #endif
 
-id 			wad_i;
+Wadfile 	*wad_i;
 boolean		draw;
 
 /*

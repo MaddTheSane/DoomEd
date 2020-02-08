@@ -45,6 +45,16 @@ bbox_t		*secboxes;
 int			numbchains;
 bchain_t	*bchains;
 
+static void BuildBlockingChains(void);
+static void ClearBBox(bbox_t *box);
+static void AddToBBox(bbox_t *box, int x, int y);
+static int BPointOnSide(bpoint_t *pt, bdivline_t *l);
+static void DrawBBox(bbox_t *box);
+static void DrawDivline(bdivline_t *li);
+static void DrawBChain(bchain_t *ch);
+static boolean DoesChainBlock(bchain_t *chain);
+static void BuildConnections(void);
+
 void ClearBBox (bbox_t *box)
 {
 	box->xl = box->yl = MAXINT;
@@ -64,15 +74,7 @@ void AddToBBox (bbox_t *box, int x, int y)
 }
 
 
-/*
-==================
-=
-= BPointOnSide
-=
-= Returns side 0 (front), 1 (back), or -1 (colinear)
-==================
-*/
-
+/// Returns side 0 (front), 1 (back), or -1 (colinear)
 int	BPointOnSide (bpoint_t *pt, bdivline_t *l)
 {
 	int		dx,dy;
@@ -135,9 +137,9 @@ void DrawBChain (bchain_t *ch)
 }
 
 
-bdivline_t	ends[2], sides[2];
-int			end0out, end1out, side0out, side1out;
-bbox_t		sweptarea;
+static bdivline_t	ends[2], sides[2];
+static int			end0out, end1out, side0out, side1out;
+static bbox_t		sweptarea;
 
 
 /*
@@ -431,7 +433,7 @@ void BuildBlockingChains (void)
 		} while (1);
 		
 // save the block chain
-		bch.numpoints = pt_p - temppoints;
+		bch.numpoints = (int)(pt_p - temppoints);
 		bch.points = malloc (bch.numpoints*sizeof(*bch.points));
 		memcpy (bch.points, temppoints, bch.numpoints*sizeof(*bch.points));
 		[chains_i addElement: &bch];
@@ -458,15 +460,15 @@ void BuildBlockingChains (void)
 
 void ProcessConnections (void)
 {
-	int					i, s, wlcount, count;
-	bbox_t				*secbox;
-	id					lines;
+	NSInteger		i, s, wlcount, count;
+	bbox_t			*secbox;
+	Storage			*lines;
 	worldline_t		*wl;
 	mapvertex_t		*vt;
-	maplinedef_t		*p;
-	mapsidedef_t		*sd;
+	maplinedef_t	*p;
+	mapsidedef_t	*sd;
 	bline_t			bline;
-	int					sec;
+	int				sec;
 		
 	numsectors = [secstore_i count];
 	wlcount = [linestore_i count];

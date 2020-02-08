@@ -2,6 +2,17 @@
 
 #import "doombsp.h"
 
+static int sign (float i);
+static boolean LineOnSide (line_t *wl, divline_t *bl);
+static float InterceptVector (divline_t *v2, divline_t *v1);
+static line_t *CutLine (line_t *wl, divline_t *bl);
+static int EvaluateSplit (Storage *lines_i, line_t *spliton, int bestgrade);
+static void ExecuteSplit (Storage *lines_i, line_t *spliton,
+						  Storage *frontlist_i, Storage *backlist_i);
+static bspnode_t *BSPList (Storage *lines_i);
+static void MakeSegs (void);
+static float doombsp_round (float x);
+
 // I assume that a grid 8 is used for the maps, so a point will be considered
 // on a line if it is within 8 pixels of it.  The accounts for floating error.
 
@@ -22,15 +33,7 @@ void	DivlineFromWorldline (divline_t *d, line_t *w)
 	d->dy = w->p2.y - w->p1.y;
 }
 
-/*
-==================
-=
-= PointOnSide
-=
-= Returns side 0 (front), 1 (back), or -1 (colinear)
-==================
-*/
-
+/// Returns side 0 (front), 1 (back), or -1 (colinear)
 int	PointOnSide (NXPoint *p, divline_t *l)
 {
 	float	dx,dy;
@@ -77,16 +80,7 @@ int	PointOnSide (NXPoint *p, divline_t *l)
 	return 1;			// back side
 }
 
-/*
-=============
-=
-= sign
-=
-= Returns -1, 0, or 1, based on the input sign
-=
-==============
-*/
-
+/// Returns -1, 0, or 1, based on the input sign
 int sign (float i)
 {
 	if (i<0)
@@ -96,17 +90,9 @@ int sign (float i)
 	return 0;
 }
 
-/*
-==================
-=
-= LineOnSide
-=
-= Returns side 0 / 1, or -2 if line must be split
-= If the line is colinear, it will be placed on the front side if
-= it is going the same direction as the dividing line
-==================
-*/
-
+/// Returns side 0 / 1, or -2 if line must be split
+/// If the line is colinear, it will be placed on the front side if
+/// it is going the same direction as the dividing line
 boolean	LineOnSide (line_t *wl, divline_t *bl)
 {
 	int		s1,s2;
@@ -135,15 +121,7 @@ boolean	LineOnSide (line_t *wl, divline_t *bl)
 	return -2;
 }
 
-/*
-===============
-=
-= InterceptVector
-=
-= Returns the fractional intercept point along first vector
-===============
-*/
-
+/// Returns the fractional intercept point along first vector
 float InterceptVector (divline_t *v2, divline_t *v1)
 {
 #if 0
@@ -178,16 +156,6 @@ f2 = (v1.ys*(v1.x-v2.x) + v1.xs*(v2.y-v1.y)) / (v1.ys*v2.xs - v1.xs*v2.ys)
 }
 
 
-/*
-==================
-=
-= CutLine
-=
-= Truncates the given worldline to the front side of the divline
-= and returns the cut off back side in a newly allocated worldline
-==================
-*/
-
 #ifdef REDOOMED
 // renamed local round() to fix naming conflict with <math.h>'s round()
 float doombsp_round (float x)
@@ -212,6 +180,8 @@ float round (float x)
 	return x;
 }
 
+/// Truncates the given worldline to the front side of the divline
+/// and returns the cut off back side in a newly allocated worldline
 line_t	*CutLine (line_t *wl, divline_t *bl)
 {
 	int			side;
@@ -258,26 +228,19 @@ line_t	*CutLine (line_t *wl, divline_t *bl)
 }
 
 
-/*
-================
-=
-= EvaluateSplit
-=
-= Returns a number grading the quality of a split along the givent line
-= for the current list of lines.  Evaluation is halted as soon as it is
-= determined that a better split already exists
-= 
-= A split is good if it divides the lines evenly without cutting many lines
-= A horizontal or vertical split is better than a sloping split
-=
-= The LOWER the returned value, the better.  If the split line does not divide
-= any of the lines at all, MAXINT will be returned
-================
-*/
-
-int EvaluateSplit (id lines_i, line_t *spliton, int bestgrade)
+/// Returns a number grading the quality of a split along the givent line
+/// for the current list of lines.  Evaluation is halted as soon as it is
+/// determined that a better split already exists
+///
+/// A split is good if it divides the lines evenly without cutting many lines
+/// A horizontal or vertical split is better than a sloping split
+///
+/// The LOWER the returned value, the better.  If the split line does not divide
+/// any of the lines at all, MAXINT will be returned
+int EvaluateSplit (Storage *lines_i, line_t *spliton, int bestgrade)
 {
-	int				i,c,side;
+	NSInteger		i,c;
+	int				side;
 	line_t			*line_p;
 	divline_t		divline;
 	int				frontcount, backcount, max, new;
@@ -322,7 +285,7 @@ int EvaluateSplit (id lines_i, line_t *spliton, int bestgrade)
 		}
 		
 		max = MAX(frontcount,backcount);
-		new = (frontcount+backcount) - c;
+		new = (int)((frontcount+backcount) - c);
 		grade = max+new*8;
 		if (grade > bestgrade)
 			return grade;		// might as well stop now
@@ -335,19 +298,12 @@ int EvaluateSplit (id lines_i, line_t *spliton, int bestgrade)
 }
 
 
-/*
-================
-=
-= ExecuteSplit
-=
-= Actually splits the line list as EvaluateLines predicted
-================
-*/
-
-void ExecuteSplit (id lines_i, line_t *spliton
-	, id frontlist_i, id backlist_i)
+/// Actually splits the line list as EvaluateLines predicted
+void ExecuteSplit (Storage *lines_i, line_t *spliton,
+				   Storage *frontlist_i, Storage *backlist_i)
 {
-	int				i,c,side;
+	NSInteger		i,c;
+	int				side;
 	line_t			*line_p, *newline_p;
 	divline_t		divline;
 	
@@ -387,22 +343,16 @@ void ExecuteSplit (id lines_i, line_t *spliton
 }
 
 
-/*
-================
-=
-= BSPList
-=
-= Takes a storage of lines and recursively partitions the list
-= Returns a bspnode_t
-================
-*/
 
 float	gray = NX_WHITE;
 
-bspnode_t *BSPList (id lines_i)
+/// Takes a storage of lines and recursively partitions the list.
+/// Returns a \c bspnode_t
+bspnode_t *BSPList (Storage *lines_i)
 {
-	id				frontlist_i, backlist_i;
-	int				i,c, step;
+	Storage			*frontlist_i, *backlist_i;
+	NSInteger		i,c;
+	int				step;
 	line_t			*line_p, *bestline_p;
 	int				v, bestv;
 	bspnode_t		*node_p;
@@ -421,7 +371,7 @@ bspnode_t *BSPList (id lines_i)
 	c = [lines_i count];
 	bestv = MAXINT;	
 	bestline_p = NULL;
-	step = (c/40)+1;		// set this to 1 for an exhaustive search
+	step = (int)((c/40)+1);		// set this to 1 for an exhaustive search
 research:
 	for (i=0 ; i<c ; i+=step)
 	{
@@ -506,7 +456,7 @@ id segstore_i;
 
 void MakeSegs (void)
 {
-	int				i, count;
+	NSInteger		i, count;
 	worldline_t		*wl;
 	line_t			li;
 
@@ -522,7 +472,7 @@ void MakeSegs (void)
 	{
 		li.p1 = wl->p1;
 		li.p2 = wl->p2;
-		li.linedef = i;
+		li.linedef = (int)i;
 		li.side = 0;
 		li.offset = 0;
 		li.grouped = false;
@@ -532,7 +482,7 @@ void MakeSegs (void)
 		{
 			li.p1 = wl->p2;
 			li.p2 = wl->p1;
-			li.linedef = i;
+			li.linedef = (int)i;
 			li.side = 1;
 			li.offset = 0;
 			li.grouped = false;

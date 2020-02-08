@@ -21,7 +21,7 @@
     this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/NSString.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

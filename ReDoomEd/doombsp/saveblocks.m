@@ -2,14 +2,16 @@
 
 #import "doombsp.h"
 
-short	datalist[0x10000], *data_p;
-float	orgx, orgy;
+static short	datalist[0x10000], *data_p;
+static float	orgx, orgy;
 
 #define	BLOCKSIZE	128
 
 
-float		xl, xh, yl, yh;
+static float		xl, xh, yl, yh;
 
+static boolean LineContact(worldline_t *wl);
+static void GenerateBlockList (int x, int y);
 
 boolean	LineContact (worldline_t *wl)
 {
@@ -83,7 +85,7 @@ void GenerateBlockList (int x, int y)
 {
 	NXRect		r;
 	worldline_t	*wl;
-	int			count, i;
+	NSInteger	count, i;
 	
 	*data_p++ = 0;		// leave space for thing links
 	
@@ -187,12 +189,12 @@ void SaveBlocks (void)
 	for (y=0 ; y<blockheight ; y++)
 		for (x=0 ; x<blockwidth ; x++)
 		{
-			len = data_p - datalist;
+			len = (int)(data_p - datalist);
 			*pointer_p++ = SHORT(len);
 			GenerateBlockList (x,y);
 		}
 	
-	len = 2*(data_p-datalist);
+	len = (int)(2*(data_p-datalist));
 	
 	printf ("blockmap: (%i, %i) = %i\n",blockwidth, blockheight, len);
 	 

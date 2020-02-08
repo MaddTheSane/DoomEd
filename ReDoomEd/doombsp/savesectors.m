@@ -4,20 +4,24 @@
 
 #import "doombsp.h"
 
-id		secdefstore_i;
+static Storage		*secdefstore_i;
 
 #define		MAXVERTEX		8192
 #define		MAXTOUCHSECS	16
 #define		MAXSECTORS		2048
 #define		MAXSUBSECTORS	2048
 
-int			vertexsubcount[MAXVERTEX];
-short		vertexsublist[MAXVERTEX][MAXTOUCHSECS];
+static int			vertexsubcount[MAXVERTEX];
+static short		vertexsublist[MAXVERTEX][MAXTOUCHSECS];
 
-int			subsectordef[MAXSUBSECTORS];
-int			subsectornum[MAXSUBSECTORS];
+static int			subsectordef[MAXSUBSECTORS];
+static int			subsectornum[MAXSUBSECTORS];
 
-int			buildsector;
+static int			buildsector;
+
+static void RecursiveGroupSubsector(int ssnum);
+static int UniqueSector(sectordef_t *def);
+static void AddSubsectorToVertex(int subnum, int vertex);
 
 
 /*
@@ -78,18 +82,10 @@ DrawLineDef (ld);
 	}
 }
 
-/*
-=================
-=
-= UniqueSector
-=
-= Returns the sector number, adding a new sector if needed 
-=================
-*/
-
+/// Returns the sector number, adding a new sector if needed
 int UniqueSector (sectordef_t *def)
 {
-	int		i, count;
+	NSInteger		i, count;
 	mapsector_t		ms, *msp;
 	
 	ms.floorheight = def->floorheight;
@@ -105,11 +101,11 @@ int UniqueSector (sectordef_t *def)
 	msp = [secdefstore_i elementAt:0];
 	for (i=0 ; i<count ; i++, msp++)
 		if (!bcmp(msp, &ms, sizeof(ms)))
-			return i;
+			return (int)i;
 
 	[secdefstore_i addElement: &ms];
 	
-	return count;	
+	return (int)count;	
 }
 
 
@@ -127,20 +123,12 @@ void AddSubsectorToVertex (int subnum, int vertex)
 }
 
 
-/*
-================
-=
-= BuildSectordefs
-=
-= Call before ProcessNodes
-================
-*/
-
+/// Call before ProcessNodes
 void BuildSectordefs (void)
 {
-	int				i;
+	NSInteger		i;
 	worldline_t		*wl;
-	int				count;
+	NSInteger		count;
 #ifndef REDOOMED // Original (Disable for ReDoomEd - unused var)
 	mapseg_t		*seg;
 #endif
@@ -175,19 +163,11 @@ void BuildSectordefs (void)
 }
 
 
-/*
-================
-=
-= ProcessSectors
-=
-= Must be called after ProcessNodes, because it references the subsector list
-================
-*/
-
+/// Must be called after ProcessNodes, because it references the subsector list
 void ProcessSectors (void)
 {
 	int				i,l;
-	int				numss;
+	NSInteger		numss;
 	mapsubsector_t	*ss;	
 	mapsector_t		sec;
 	mapseg_t		*seg;

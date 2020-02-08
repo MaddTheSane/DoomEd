@@ -435,7 +435,7 @@ short   BigShort (short l)
 }
 
 
-long    LittleLong (long l)
+int    LittleLong (int l)
 {
 	byte    b1,b2,b3,b4;
 
@@ -444,10 +444,10 @@ long    LittleLong (long l)
 	b3 = (l>>16)&255;
 	b4 = (l>>24)&255;
 
-	return ((long)b1<<24) + ((long)b2<<16) + ((long)b3<<8) + b4;
+	return ((int)b1<<24) + ((int)b2<<16) + ((int)b3<<8) + b4;
 }
 
-long    BigLong (long l)
+int    BigLong (int l)
 {
 	return l;
 }
@@ -472,7 +472,7 @@ short   LittleShort (short l)
 }
 
 
-long    BigLong (long l)
+int    BigLong (int l)
 {
 	byte    b1,b2,b3,b4;
 
@@ -481,10 +481,10 @@ long    BigLong (long l)
 	b3 = (l>>16)&255;
 	b4 = (l>>24)&255;
 
-	return ((long)b1<<24) + ((long)b2<<16) + ((long)b3<<8) + b4;
+	return ((int)b1<<24) | ((int)b2<<16) | ((int)b3<<8) | b4;
 }
 
-long    LittleLong (long l)
+int    LittleLong (int l)
 {
 	return l;
 }

@@ -253,7 +253,7 @@ void DrawDivLine (divline_t *div)
 		
 	PSsetgray (NX_BLACK);
 	
-	dist = sqrt (pow(div->dx,2)+pow(div->dy,2));
+	dist = sqrt (pow(div->dx,2.0f)+pow(div->dy,2.0f));
 	vx = div->dx/dist;
 	vy = div->dy/dist;
 	

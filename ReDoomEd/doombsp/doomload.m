@@ -5,7 +5,17 @@
 #import "doombsp.h"
 
 
-int		linenum = 0;
+static int		linenum = 0;
+
+typedef struct bbox
+{
+	float	left, right, top, bottom;
+} bbox_t;
+
+static worldline_t *ReadLine(FILE *file);
+static worldthing_t *ReadThing(FILE *file);
+static void BBoxFromPoints(bbox_t *box, NXPoint *p1, NXPoint *p2);
+static boolean LineOverlaid(worldline_t *line);
 
 /*
 =================
@@ -30,7 +40,6 @@ worldline_t *ReadLine (FILE *file)
 	line = malloc(sizeof(*line));
 	memset (line, 0, sizeof(*line));
 
-#ifdef REDOOMED
 	// scan coordinates using local float vars, because NXPoint's x/y members are now CGFloats
 	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
 		,&p1x, &p1y,&p2x, &p2y,&line->flags
@@ -39,36 +48,19 @@ worldline_t *ReadLine (FILE *file)
 
 	line->p1 = NSMakePoint(p1x, p1y);
 	line->p2 = NSMakePoint(p2x, p2y);
-#else // Original
-	p1 = &line->p1;
-	p2 = &line->p2;
-	
-	if (fscanf (file,"(%f,%f) to (%f,%f) : %d : %d : %d\n"
-		,&p1->x, &p1->y,&p2->x, &p2->y,&line->flags
-		, &line->special, &line->tag) != 7)
-		Error ("Failed ReadLine");
-#endif
 	
 	for (i=0 ; i<=  ( (line->flags&ML_TWOSIDED) != 0) ; i++)
 	{
 		s = &line->side[i];	
 
-#ifdef REDOOMED
 		// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 		if (fscanf (file,"    %d (%d : %8s / %8s / %8s )\n"
-#else // Original
-		if (fscanf (file,"    %d (%d : %s / %s / %s )\n"
-#endif
 			,&s->firstrow, &s->firstcollumn, s->toptexture, s->bottomtexture, s->midtexture) != 5)
 			Error ("Failed ReadLine (side)");
 		e = &s->sectordef;
 
-#ifdef REDOOMED
 		// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 		if (fscanf (file,"    %d : %8s %d : %8s %d %d %d\n"
-#else // Original
-		if (fscanf (file,"    %d : %s %d : %s %d %d %d\n"
-#endif
 			,&e->floorheight, e->floorflat, &e->ceilingheight
 			,e->ceilingflat,&e->lightlevel, &e->special, &e->tag) != 7)
 			Error ("Failed ReadLine (sector)");
@@ -107,20 +99,6 @@ worldthing_t *ReadThing (FILE *file)
 	return thing;
 }
 
-/*
-==================
-=
-= LineOverlaid
-=
-= Check to see if the line is colinear and overlapping any previous lines
-==================
-*/
-
-typedef struct
-{
-	float	left, right, top, bottom;
-} bbox_t;
-
 void BBoxFromPoints (bbox_t *box, NXPoint *p1, NXPoint *p2)
 {
 	if (p1->x < p2->x)
@@ -145,9 +123,10 @@ void BBoxFromPoints (bbox_t *box, NXPoint *p1, NXPoint *p2)
 	}
 }
 
+/// Check to see if the line is colinear and overlapping any previous lines
 boolean LineOverlaid (worldline_t *line)
 {
-	int		j, count;
+	NSInteger		j, count;
 	worldline_t	*scan;
 	divline_t	wl;
 	bbox_t		linebox, scanbox;
@@ -184,7 +163,7 @@ boolean LineOverlaid (worldline_t *line)
 ===================
 */
 
-id	linestore_i, thingstore_i;
+Storage	*linestore_i, *thingstore_i;
 
 void LoadDoomMap (char *mapname)
 {
