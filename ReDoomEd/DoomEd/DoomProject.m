@@ -27,10 +27,10 @@ DoomProject *doomproject_i;
 Wadfile *wadfile_i;
 TextLog *log_i;
 
-int	pp_panel;
-int	pp_monsters;
-int	pp_items;
-int	pp_weapons;
+static int	pp_panel;
+static int	pp_monsters;
+static int	pp_items;
+static int	pp_weapons;
 
 int	numtextures;
 worldtexture_t		*textures;

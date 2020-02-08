@@ -21,6 +21,24 @@ Storage	*sdefstore_i;
 ===============================================================================
 */
 
+static void WriteStorage(const char *name, Storage *store, int esize);
+static void OutputSectors(void);
+static void OutputSegs(void);
+static void OutputSubsectors(void);
+static void OutputVertexes(void);
+static void OutputThings(void);
+static void OutputLineDefs(void);
+static void OutputSideDefs(void);
+static void OutputNodes(void);
+static NSInteger UniqueVertex(int x, int y);
+static void AddPointToBBox(NXPoint *pt);
+static void ProcessLines(Storage *store_i);
+static NSInteger ProcessSubsector(Storage *wmaplinestore_i);
+static int ProcessNode(bspnode_t *node, short *totalbox);
+static void ProcessNodes(void);
+static void ProcessThings(void);
+static int ProcessSidedef(worldside_t *ws);
+static void ProcessLineSideDefs(void);
 
 /*
 ================
@@ -30,7 +48,7 @@ Storage	*sdefstore_i;
 ================
 */
 
-void WriteStorage (char *name, id store, int esize)
+void WriteStorage (const char *name, Storage *store, int esize)
 {
 	NSInteger		count, len;
 	
@@ -259,15 +277,7 @@ void OutputNodes (void)
 */
 
 
-/*
-=================
-=
-= UniqueVertex
-=
-= Returns the vertex number, adding a new vertex if needed 
-=================
-*/
-
+/// Returns the vertex number, adding a new vertex if needed
 NSInteger UniqueVertex (int x, int y)
 {
 	NSInteger		i, count;
@@ -316,16 +326,8 @@ void AddPointToBBox (NXPoint *pt)
 }
 
 
-/*
-=================
-=
-= ProcessLines
-=
-= Adds the lines in a subsector to the mapline storage
-=================
-*/
-
-void ProcessLines (id store_i)
+/// Adds the lines in a subsector to the mapline storage
+void ProcessLines (Storage *store_i)
 {
 	NSInteger	i,count;
 	line_t 		*wline;
@@ -445,16 +447,6 @@ int ProcessNode (bspnode_t *node, short *totalbox)
 }
 
 
-/*
-=================
-=
-= ProcessNodes
-=
-= Recursively builds the nodes, subsectors, and line lists,
-= then writes the lumps
-=================
-*/
-
 #ifdef REDOOMED
 // utility function for freeing a node list (used in ProcessNodes() to prevent memory leaks)
 static void RDE_FreeBSPNode(bspnode_t *bspnode)
@@ -471,6 +463,8 @@ static void RDE_FreeBSPNode(bspnode_t *bspnode)
 }
 #endif
 
+/// Recursively builds the nodes, subsectors, and line lists,
+/// then writes the lumps
 void ProcessNodes (void)
 {
 	short	worldbounds[4];
@@ -568,15 +562,7 @@ int ProcessSidedef (worldside_t *ws)
 	return (int)([sdefstore_i count]-1);
 }
 
-/*
-==================
-=
-= ProcessLineSideDefs
-=
-= Must be called after BuildSectors
-==================
-*/
-
+/// Must be called after BuildSectors
 void ProcessLineSideDefs (void)
 {
 	NSInteger		i, count;
