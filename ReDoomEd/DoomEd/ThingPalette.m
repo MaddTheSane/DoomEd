@@ -41,8 +41,8 @@ id	thingPalette_i;
 {
 	if (![thingImages	count])
 	{
-		NXRunAlertPanel("Nope!",
-			"You haven't grabbed any icons!","OK",NULL,NULL);
+		NSRunAlertPanel(@"Nope!",
+			@"You haven't grabbed any icons!",@"OK",NULL,NULL);
 		return;
 	}
 

@@ -29,7 +29,7 @@ Storage *texturePatches;
 	return self;
 }
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 #ifdef REDOOMED
@@ -44,8 +44,6 @@ Storage *texturePatches;
 #else // Original
 		[createTexture_i	saveFrameUsingName:"CTexturePanel"];
 #endif
-
-	return self;
 }
 
 //
@@ -56,10 +54,10 @@ Storage *texturePatches;
 {
 	if (![doomproject_i loaded])
 	{
-		NXRunAlertPanel("Oops!",
-						"There must be a project loaded before you even\n"
+		NSRunAlertPanel(@"Oops!",
+						@"There must be a project loaded before you even\n"
 						"THINK about editing textures!",
-						"OK",NULL,NULL,NULL);
+						@"OK",NULL,NULL,NULL);
 		return;
 	}
 	
@@ -441,9 +439,9 @@ Storage *texturePatches;
 //	AND scroll the Patch Palette to that patch!
 //
 //===============================================================
-- selectPatchAndScroll:(int)patch
+- (void)selectPatchAndScroll:(int)patch
 {
-	NXRect		r;
+	NSRect		r;
 	apatch_t	*p;
 	
 	p = [patchImages	elementAt:patch ];
@@ -462,7 +460,6 @@ Storage *texturePatches;
 #endif
 
 	[texturePatchScrollView_i setNeedsDisplay:YES];
-	return self;
 }
 
 //===============================================================
@@ -607,7 +604,7 @@ Storage *texturePatches;
 	return NO;
 }
 
-- updateTexPatchInfo
+- (void)updateTexPatchInfo
 {
 	texpatch_t	*t;
 	NSInteger	c = [selectedTexturePatches	count];
@@ -645,10 +642,9 @@ Storage *texturePatches;
 		[texturePatchNameField_i	setStringValue:t->patchInfo.patchname];
 #endif
 	}		
-	return self;
 }
 
-- removeSelTextureEditPatch:(int)val
+- (void)removeSelTextureEditPatch:(int)val
 {
 	int	count = 0,*v;
 	while ((v = [selectedTexturePatches	elementAt:count]) != NULL)
@@ -659,34 +655,30 @@ Storage *texturePatches;
 		}
 		else
 			count++;
-	return self;
 }
 
 @synthesize selectedTexturePatches;
 
-- changeSelectedTexturePatch:(int)which	to:(int)val
+- (void)changeSelectedTexturePatch:(int)which	to:(int)val
 {
 	*(int *)[selectedTexturePatches	elementAt:which] = val;
-	return self;
 }
 
 //
 // add texture patch # to selected array
 //
-- addSelectedTexturePatch:(int)val
+- (void)addSelectedTexturePatch:(int)val
 {
 	[selectedTexturePatches	addElement:&val];
-	return self;
 }
 
 //
 // patch lock switch was modified, so change patch flag
 //
-- doLockToggle
+- (void)doLockToggle
 {
 	[lockedPatch_i	setIntValue:1 - [lockedPatch_i intValue]];
 	[self	togglePatchLock:NULL];
-	return self;
 }
 
 - (IBAction)togglePatchLock:sender
@@ -796,10 +788,10 @@ Storage *texturePatches;
 			if (NXIntersectsRect(&nr,&tr) == NO)
 			{
 				NXBeep();
-				NXRunAlertPanel("Oops!",
-								"Changing the dimensions like that would leave one or more "
+				NSRunAlertPanel(@"Oops!",
+								@"Changing the dimensions like that would leave one or more "
 								"patches out in limbo!  Sorry, non-workness!",
-								"OK",NULL,NULL);
+								@"OK",NULL,NULL);
 				[textureWidthField_i	setIntValue:textures[currentTexture].width];
 				[textureHeightField_i	setIntValue:textures[currentTexture].height];
 				return;
@@ -824,7 +816,7 @@ Storage *texturePatches;
 	int	textureNum;
 	NSModalResponse rcode;
 	worldtexture_t		tex;
-	id	cell;
+	NSCell	*cell;
 	
 	if (![doomproject_i loaded])
 		return;
@@ -899,10 +891,10 @@ Storage *texturePatches;
 
 	if (	[doomproject_i	textureNamed:name] >= -1)
 	{
-		NXBeep();
-		NXRunAlertPanel("Oops!",
-						"You already have a texture with the same name!",
-						"OK",NULL, NULL, NULL);
+		NSBeep();
+		NSRunAlertPanel(@"Oops!",
+						@"You already have a texture with the same name!",
+						@"OK",NULL, NULL, NULL);
 		return;
 	}
 	
@@ -944,10 +936,10 @@ Storage *texturePatches;
 
 	if (	[doomproject_i	textureNamed:name] >= -1)
 	{
-		NXBeep();
-		NXRunAlertPanel("Oops!",
-						"You already have a texture with the same name!",
-						"OK",NULL, NULL, NULL);
+		NSBeep();
+		NSRunAlertPanel(@"Oops!",
+						@"You already have a texture with the same name!",
+						@"OK",NULL, NULL, NULL);
 	}
 }
 
@@ -1035,13 +1027,13 @@ Storage *texturePatches;
 //
 // change to a new texture
 //
-- newSelection:(int)which
+- (void)newSelection:(int)which
 {
 	texpatch_t	t;
 	int	count,i;
 
 	if (which < 0)
-		return self;
+		return;
 		
 	currentTexture = which;
 	if (texturePatches)
@@ -1088,8 +1080,6 @@ Storage *texturePatches;
 #endif
 
 	[textureSetField_i		setIntValue:textures[currentTexture].WADindex + 1 ];
-	
-	return self;
 }
 
 ///
@@ -1097,14 +1087,13 @@ Storage *texturePatches;
 ///
 @synthesize currentTexture;
 
-- setOldVars:(int)x :(int)y
+- (void)setOldVars:(int)x :(int)y
 {
 	oldx = x;
 	oldy = y;
-	return self;
 }
 
-- setWarning:(BOOL)state
+- (void)setWarning:(BOOL)state
 {
 #ifdef REDOOMED
 	if (state == YES)
@@ -1117,15 +1106,13 @@ Storage *texturePatches;
 	else
 		[dragWarning_i	setStringValue:" "];
 #endif
-
-	return self;
 }
 
 //
 // user double-clicked on patch in patch palette.
 // add that patch to the texture definition.
 //
-- addPatch:(int)which
+- (void)addPatch:(int)which
 {
 	int	ct, ox, oy;
 	NXRect	dvr;
@@ -1139,16 +1126,16 @@ Storage *texturePatches;
 	
 	if (ct < 0)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
 	if ([texturePatches	count] == MAXPATCHES)
 	{
-		NXRunAlertPanel(	"Um!",
-						"A maximum of 100 patches is in force!",
-						"OK",NULL,NULL);
-		return self;
+		NSRunAlertPanel(@"Um!",
+						@"A maximum of 100 patches is in force!",
+						@"OK",NULL,NULL);
+		return;
 	}
 	
 	if (dvr.size.width > textures[ct].width*2)
@@ -1220,7 +1207,6 @@ Storage *texturePatches;
 #endif
 
 	[textureView_i setNeedsDisplay:YES];
-	return self;
 }
 
 - (IBAction)fillWithPatch:sender
@@ -1298,7 +1284,7 @@ Storage *texturePatches;
 	apatch_t	*p;
 	NSPanel		*panel;
 	
-	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
+	panel = NSGetAlertPanel(@"Wait…",@"Dumping texture patches.",
 		NULL,NULL,NULL);
 	[panel	orderFront:NULL];
 	NXPing();
@@ -1320,7 +1306,7 @@ Storage *texturePatches;
 	}
 	
 	[panel	orderOut:NULL];
-	NXFreeAlertPanel(panel);
+	NSReleaseAlertPanel(panel);
 }
 
 ///	Load in all the patches and init storage array
@@ -1370,9 +1356,9 @@ Storage *texturePatches;
 		if (patchStart == -1 || patchEnd == -1)
 		{
 			if (!windex)
-				NXRunAlertPanel(	"OOPS!",
-					"There are NO PATCHES in the current .WAD file!",
-					"Abort Patch Palette",NULL,NULL,NULL);
+				NSRunAlertPanel(@"OOPS!",
+					@"There are NO PATCHES in the current .WAD file!",
+					@"Abort Patch Palette",NULL,NULL,NULL);
 			
 			windex = -1;
 			continue;
@@ -1408,7 +1394,7 @@ Storage *texturePatches;
 //
 // make a copy that's 2 times the size
 //
-- createPatchX2:(apatch_t *)p
+- (void)createPatchX2:(apatch_t *)p
 {
 	NXSize	theSize;
 	
@@ -1424,9 +1410,7 @@ Storage *texturePatches;
 #else // Original
 	[p->image_x2	setSize:&theSize];
 #endif
-
-	return self;
-}		
+}
 
 //
 //	Return # of patches
@@ -1659,18 +1643,17 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const 
 	//
 	// make an NXimage to hold the data
 	//
-	image_i = [[NXBitmapImageRep alloc]
-		initData:			NULL 
-		pixelsWide:		width 
-		pixelsHigh:		height
-		bitsPerSample:	4
-		samplesPerPixel:	4 
-		hasAlpha:		YES
-		isPlanar:			NO 
-		colorSpace:		NX_RGBColorSpace 
-		bytesPerRow:		width*2
-		bitsPerPixel: 		16
-	];
+	image_i = [[NSBitmapImageRep alloc]
+			   initWithBitmapDataPlanes: NULL
+			   pixelsWide: width
+			   pixelsHigh: height
+			   bitsPerSample: 4
+			   samplesPerPixel: 4
+			   hasAlpha: YES
+			   isPlanar: NO
+			   colorSpaceName: NSCalibratedRGBColorSpace
+			   bytesPerRow: width*2
+			   bitsPerPixel: 16];
 
 	if (!image_i)
 		return nil;
@@ -1678,7 +1661,7 @@ id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const 
 	//
 	// translate the picture
 	//
-	dest_p = [(NXBitmapImageRep *)image_i bitmapData];
+	dest_p = [(NSBitmapImageRep *)image_i bitmapData];
 	memset(dest_p,0,width * height * 2);
 	
 	for (i = 0;i < width; i++)

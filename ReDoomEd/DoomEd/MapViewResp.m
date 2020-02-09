@@ -1109,13 +1109,13 @@
 			NXPing();
 			[toolpanel_i	changeTool:SELECT_TOOL];
 			if ([self	scanForErrors])
-				NXRunAlertPanel("Errors!",
-					"Don't run your project, you have some errors. ",
-					"OK",NULL,NULL);
+				NSRunAlertPanel(@"Errors!",
+					@"Don't run your project, you have some errors. ",
+					@"OK",NULL,NULL);
 			[editworld_i	saveWorld:NULL];
 			#if 0
 			else
-				NXRunAlertPanel("Important!",
+				NSRunAlertPanel("Important!",
 					"Save again sometime soon, as Player 1's position was "
 					"modified so you could launch your project.",
 					"OK",NULL,NULL);

@@ -72,10 +72,10 @@ SectorEditor	*sectorEdit_i;
 {
 	if (![doomproject_i loaded])
 	{
-		NXRunAlertPanel("Oops!",
-						"There must be a project loaded before you even\n"
+		NSRunAlertPanel(@"Oops!",
+						@"There must be a project loaded before you even\n"
 						"THINK about editing sectors!",
-						"OK",NULL,NULL,NULL);
+						@"OK",NULL,NULL,NULL);
 		return;
 	}
 	
@@ -119,10 +119,10 @@ SectorEditor	*sectorEdit_i;
 {
 	if (![doomproject_i loaded])
 	{
-		NXRunAlertPanel("Oops!",
-						"There must be a project loaded before you even\n"
+		NSRunAlertPanel(@"Oops!",
+						@"There must be a project loaded before you even\n"
 						"THINK about editing sectors!",
-						"OK",NULL,NULL,NULL);
+						@"OK",NULL,NULL,NULL);
 		return;
 	}
 	
@@ -459,7 +459,7 @@ SectorEditor	*sectorEdit_i;
 	flat_t		*p;
 	id			panel;
 	
-	panel = NXGetAlertPanel("Wait...","Dumping texture patches.",
+	panel = NSGetAlertPanel(@"Wait...",@"Dumping texture patches.",
 		NULL,NULL,NULL);
 	[panel	orderFront:NULL];
 	NXPing();
@@ -473,7 +473,7 @@ SectorEditor	*sectorEdit_i;
 	
 	[ flatImages	empty ];
 	[panel	orderOut:NULL];
-	NXFreeAlertPanel(panel);
+	NSReleaseAlertPanel(panel);
 }
 
 - (void)emptySpecialList

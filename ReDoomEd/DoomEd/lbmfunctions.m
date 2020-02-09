@@ -64,11 +64,11 @@ typedef enum
 	ms_lasso
 } mask_t;
 
-typedef enum
+typedef NS_ENUM(UBYTE, compress_t)
 {
 	cm_none,
 	cm_rle1
-} compress_t;
+};
 
 typedef struct
 {
@@ -76,27 +76,31 @@ typedef struct
 	WORD		x,y;
 	UBYTE		nPlanes;
 	UBYTE		masking;
-	UBYTE		compression;
+	compress_t	compression;
 	UBYTE		pad1;
 	UWORD		transparentColor;
 	UBYTE		xAspect,yAspect;
 	WORD		pageWidth,pageHeight;
 } bmhd_t;
 
+static long	Align (long l);
+static byte const *LBMRLEDecompress (byte const *source, byte *unpacked, int bpwidth);
+static void DecompressRLEPBM (byte const *source, byte *dest, int width, int height);
+static void ExtractUncompressedPBM (byte const *source, byte *dest, int width, int height);
 
 //
 // things that might need to be freed on an exception
 //
-NXStream	*filestream;		// the memory map of the lbm file
-byte			*byteimage;			// the decompressed lbm image, expanded to 8 bits/pixel
-unsigned		*meschedimage;		// 32 bit truecolor 
-id			imagerep;			// NXBitmapImageRep for meschedimage
+static NXStream			*filestream;	//!< the memory map of the lbm file
+       byte				*byteimage;		//!< the decompressed lbm image, expanded to 8 bits/pixel
+static unsigned			*meschedimage;	//!< 32 bit truecolor
+static NSBitmapImageRep	*imagerep;		//!< \c NSBitmapImageRep for \c meschedimage
 
 //
 // this stuff will remain current until another image is loaded
 //
-bmhd_t		bmhd;
-unsigned		intpalette[256];		// (red<<24) + (green<<16) + (blue<<8) + 255
+static bmhd_t		bmhd;
+static unsigned		intpalette[256];		//!< (red<<24) + (green<<16) + (blue<<8) + 255
 
 
 long	Align (long l)
@@ -237,7 +241,7 @@ BOOL	LoadRawLBM (char const *filename)
 	int		size;
 	
 //===========
-NX_DURING
+	@try {
 //===========
 	
 	cmap = NULL;
@@ -245,8 +249,7 @@ NX_DURING
 	filestream = NULL;
 //printf ("Filename: %s\n",filename);	
 //
-// load the LBM
-with file mapping
+// load the LBM with file mapping
 //
 	
 	filestream = NXMapFile (filename, NX_READONLY);
@@ -266,11 +269,11 @@ with file mapping
 	   NX_RAISE (LBMERR, "No FORM ID at start of file!", 0);
 
 	LBM_P += 4;
-	formlength = *(long  *)LBM_P;
+	formlength = *(int  *)LBM_P;
 	LBM_P += 4;
 	LBMEND_P = LBM_P + Align(formlength);
 
-	formtype = *(long  *)LBM_P;
+	formtype = *(int  *)LBM_P;
 
 	if (formtype != ILBMID && formtype != PBMID)
 		NX_RAISE (LBMERR, "Form not ILBM or PBM",0);
@@ -282,7 +285,7 @@ with file mapping
 //
 	while (LBM_P < LBMEND_P)
 	{
-		chunktype = *(long  *)LBM_P;
+		chunktype = *(int  *)LBM_P;
 		LBM_P += 4;
 		chunklength = *(long  *)LBM_P;
 		LBM_P += 4;
@@ -356,10 +359,10 @@ if (!body)
 	else if (bmhd.compression == cm_rle1)	
 		DecompressRLEPBM (body, byteimage, byteimagewidth, byteimageheight);
 		
-	NX_VALRETURN(YES);
+	return(YES);
 	
 //===========
-NX_HANDLER
+	} @catch (NSException *e) {
 //===========
 	if (filestream)
 		NXCloseMemory(filestream, NX_FREEBUFFER);
@@ -369,12 +372,12 @@ NX_HANDLER
 	if (NXLocalHandler.code != LBMERR)
 	{
 		NXRunAlertPanel ("LBM Error", "Unknown exception", NULL, NULL, NULL);
-		NX_RERAISE();
+		@throw;
 	}
 	else
 		NXRunAlertPanel ("LBM Error", NXLocalHandler.data1, NULL, NULL, NULL);		
 //===========
-NX_ENDHANDLER
+	}
 //===========
 
 #endif // Original (Disable for ReDoomEd)
@@ -484,7 +487,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 	basebmhd.pageHeight = NSSwapBigShortToHost(basebmhd.pageHeight);
 #endif
 	
-	length = lbmptr-(byte *)bmhdlength-4;
+	length = (int)(lbmptr-(byte *)bmhdlength-4);
 
 #ifdef REDOOMED
 	*bmhdlength = NSSwapHostIntToBig(length);
@@ -514,7 +517,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 	memcpy (lbmptr,palette,768);
 	lbmptr += 768;
 	
-	length = lbmptr-(byte *)cmaplength-4;
+	length = (int)(lbmptr-(byte *)cmaplength-4);
 
 #ifdef REDOOMED
 	*cmaplength = NSSwapHostIntToBig(length);
@@ -544,7 +547,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 	memcpy (lbmptr,data,width*height);
 	lbmptr += width*height;
 	
-	length = lbmptr-(byte *)bodylength-4;
+	length = (int)(lbmptr-(byte *)bodylength-4);
 
 #ifdef REDOOMED
 	*bodylength = NSSwapHostIntToBig(length);
@@ -558,7 +561,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 //
 // done
 //
-	length = lbmptr-(byte *)formlength-4;
+	length = (int)(lbmptr-(byte *)formlength-4);
 
 #ifdef REDOOMED
 	*formlength = NSSwapHostIntToBig(length);
@@ -580,8 +583,8 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 		return NO;
 	}
 	
-	length = lbmptr-lbm;
-	written = write (handle,lbm,length);
+	length = (int)(lbmptr-lbm);
+	written = (int)write (handle,lbm,length);
 	if (written != length)
 	{
 		close (handle);
@@ -609,7 +612,7 @@ printf ("Writing %s (%i*%i) (%p, %p)...\n",filename, width,height,(void *)data,(
 ==========================================================================
 */
 
-void		LBMpaletteTo16 (byte const *lbmpal, unsigned short *pal)
+void LBMpaletteTo16 (byte const *lbmpal, unsigned short *pal)
 {
 	int	i, r, g, b;
 
@@ -622,7 +625,7 @@ void		LBMpaletteTo16 (byte const *lbmpal, unsigned short *pal)
 	}
 }
 
-void		LBMpaletteTo32 (byte const *lbmpal, unsigned *pal)
+void LBMpaletteTo32 (byte const *lbmpal, unsigned *pal)
 {
 	int	i, r, g, b;
 
@@ -643,8 +646,8 @@ void		LBMpaletteTo32 (byte const *lbmpal, unsigned *pal)
 ==========================================================================
 */
 
-void		ConvertLBMTo16 (byte const *in, unsigned short *out, int count
-	, unsigned short const *shortpal)
+void ConvertLBMTo16 (byte const *in, unsigned short *out, int count,
+					 unsigned short const *shortpal)
 {
 	byte	const *stop;
 	
@@ -653,8 +656,8 @@ void		ConvertLBMTo16 (byte const *in, unsigned short *out, int count
 		*out++ = shortpal[*in++];
 }
 
-void		ConvertLBMTo32 (byte const *in, unsigned *out, int count
-	, unsigned const *longpal)
+void ConvertLBMTo32 (byte const *in, unsigned *out, int count,
+					 unsigned const *longpal)
 {
 	byte	const *stop;
 	
@@ -671,24 +674,24 @@ void		ConvertLBMTo32 (byte const *in, unsigned *out, int count
 ==========================================================================
 */
 
-id		Image16FromRawLBM (byte const *data, int width, int height, byte const *palette)
+NSBitmapImageRep *Image16FromRawLBM (byte const *data, int width, int height, byte const *palette)
 {
-	byte			*dest_p;
-	id			image_i;
-	unsigned short	shortpal[256];
+	byte				*dest_p;
+	NSBitmapImageRep	*image_i;
+	unsigned short		shortpal[256];
 
 //
 // make an NXimage to hold the data
 //
-	image_i = [[NXBitmapImageRep alloc]
-		initData:			NULL 
+	image_i = [[NSBitmapImageRep alloc]
+		initWithBitmapDataPlanes:			NULL
 		pixelsWide:		width 
 		pixelsHigh:		height
 		bitsPerSample:	4
 		samplesPerPixel:	3 
 		hasAlpha:		NO 
 		isPlanar:			NO 
-		colorSpace:		NX_RGBColorSpace 
+		colorSpaceName:		NX_RGBColorSpace
 		bytesPerRow:		width*2
 		bitsPerPixel: 		16
 	];
@@ -707,24 +710,24 @@ id		Image16FromRawLBM (byte const *data, int width, int height, byte const *pale
 }
 
 
-id		Image32FromRawLBM (byte const *data, int width, int height, byte const *palette)
+NSBitmapImageRep *Image32FromRawLBM (byte const *data, int width, int height, byte const *palette)
 {
-	byte			*dest_p;
-	id			image_i;
-	unsigned		longpal[256];
+	byte				*dest_p;
+	NSBitmapImageRep	*image_i;
+	unsigned			longpal[256];
 
 //
 // make an NXimage to hold the data
 //
-	image_i = [[NXBitmapImageRep alloc]
-		initData:			NULL 
+	image_i = [[NSBitmapImageRep alloc]
+		initWithBitmapDataPlanes:			NULL 
 		pixelsWide:		width 
 		pixelsHigh:		height
 		bitsPerSample:	8
 		samplesPerPixel:	3 
 		hasAlpha:		NO 
 		isPlanar:			NO 
-		colorSpace:		NX_RGBColorSpace 
+		colorSpaceName:		NX_RGBColorSpace
 		bytesPerRow:		width*4
 		bitsPerPixel: 		32
 	];
@@ -751,7 +754,7 @@ id		Image32FromRawLBM (byte const *data, int width, int height, byte const *pale
 ==========================================================================
 */
 
-id		Image16FromLBMFile (char const *filename)
+NSBitmapImageRep *Image16FromLBMFile (char const *filename)
 {
 	if (!LoadRawLBM (filename))
 		return nil;
@@ -759,7 +762,7 @@ id		Image16FromLBMFile (char const *filename)
 }
 
 
-id		Image32FromLBMFile (char const *filename)
+NSBitmapImageRep *Image32FromLBMFile (char const *filename)
 {
 	if (!LoadRawLBM (filename))
 		return nil;

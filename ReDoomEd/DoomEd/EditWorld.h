@@ -219,4 +219,6 @@ extern	worldthing_t	*things;
 
 @end
 
+/// Returns the line and side closest (horizontally) to the point.
+/// Returns -1 for line if no line is hit
 int LineByPoint (NXPoint *pt, int *side);

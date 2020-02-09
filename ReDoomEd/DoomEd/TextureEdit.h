@@ -123,19 +123,19 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)findPatch:sender;
 - (IBAction)searchForPatch:sender;
 - (IBAction)changedWidthOrHeight:sender;
-- setOldVars:(int)x :(int)y;
-- doLockToggle;
+- (void)setOldVars:(int)x :(int)y;
+- (void)doLockToggle;
 - (IBAction)togglePatchLock:sender;
 - (IBAction)deleteCurrentPatch:sender;
 - (IBAction)sortUp:sender;
 - (IBAction)sortDown:sender;
 
-- updateTexPatchInfo;
+- (void)updateTexPatchInfo;
 @property (readonly, retain) Storage *selectedTexturePatches;
-- changeSelectedTexturePatch:(int)which	to:(int)val;
-- addSelectedTexturePatch:(int)val;
+- (void)changeSelectedTexturePatch:(int)which	to:(int)val;
+- (void)addSelectedTexturePatch:(int)val;
 - (BOOL) selTextureEditPatchExists:(int)val;
-- removeSelTextureEditPatch:(int)val;
+- (void)removeSelTextureEditPatch:(int)val;
 - (int)getCurrentEditPatch;
 - (int)findHighestNumberedPatch;
 - (IBAction)changePatchX:sender;
@@ -145,7 +145,7 @@ extern TextureEdit *textureEdit_i;
 - (apatch_t *)getPatch:(int)which;
 - (apatch_t *)getPatchImage:(const char *)name;
 - (IBAction)finishTexture:sender;
-- addPatch:(int)which;
+- (void)addPatch:(int)which;
 - (IBAction)sizeChanged:sender;
 - (IBAction)fillWithPatch:sender;
 - (IBAction)menuTarget:sender;
@@ -158,16 +158,16 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)createTextureAbort:sender;
 - (IBAction)createNewSet:sender;
 
-- newSelection:(int)which;
+- (void)newSelection:(int)which;
 - (void)setSelectedPatch:(int)which;
-- selectPatchAndScroll:(int)patch;
+- (void)selectPatchAndScroll:(int)patch;
 - (int)getOutlineFlag;
 - (void)dumpAllPatches;
 - (void)initPatches;
-- createPatchX2:(apatch_t *)p;
+- (void)createPatchX2:(apatch_t *)p;
 - (void)computePatchDocView: (NXRect *)theframe;
-- setWarning:(BOOL)state;
-- saveFrame;
+- (void)setWarning:(BOOL)state;
+- (void)saveFrame;
 
 - (NSInteger)countOfPatches;
 - (NSInteger)findPatchIndex:(const char *)name;
@@ -178,6 +178,6 @@ extern TextureEdit *textureEdit_i;
 @end
 
 NSImage	*patchToImage(patch_t *patchData, unsigned short *shortpal,
-	NXSize *size,const char *name);
+	NXSize *size,const char *name) NS_RETURNS_RETAINED;
 char *strupr(char *string);
 char *strlwr(char *string);

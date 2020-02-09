@@ -5,8 +5,8 @@
 #import "PopScrollView.h"
 #import "EditWorld.h"
 
-NXSize	minsize = {256, 256};
-NXSize	newsize = {400, 400};
+static NXSize	minsize = {256, 256};
+static NXSize	newsize = {400, 400};
 
 static	int	cornerx = 128, cornery = 64;
 

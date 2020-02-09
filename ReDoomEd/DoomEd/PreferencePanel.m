@@ -7,7 +7,7 @@
 
 PreferencePanel *prefpanel_i;
 
-NSString		*const ucolornames[NUMCOLORS]  =
+static NSString		*const ucolornames[NUMCOLORS]  =
 {
 	@"back_c",
 	@"grid_c",
@@ -21,9 +21,9 @@ NSString		*const ucolornames[NUMCOLORS]  =
 	@"special_c"
 };
 
-NSString	*const launchTypeName = @"launchType";
-NSString	*const projectPathName = @"projectPath";
-NSString	*const openupNames[NUMOPENUP] =
+static NSString	*const launchTypeName = @"launchType";
+static NSString	*const projectPathName = @"projectPath";
+static NSString	*const openupNames[NUMOPENUP] =
 {
 	@"texturePaletteOpen",
 	@"lineInspectorOpen",
@@ -34,7 +34,7 @@ NSString	*const openupNames[NUMOPENUP] =
 	@"sectorSpecialsOpen",
 	@"textureEditorOpen"
 };
-BOOL			openupValues[NUMOPENUP];
+static BOOL			openupValues[NUMOPENUP];
 	
 #ifdef REDOOMED
 @interface NSString (RDEUtilities_PreferencePanel)

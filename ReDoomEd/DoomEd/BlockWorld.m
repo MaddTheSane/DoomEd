@@ -5,8 +5,8 @@
 
 BlockWorld	*blockworld_i;
 Storage		*sectors=NULL;	// storage object of sectors
-extern int		numsectors;
-id		pan;
+static int		numsectors;
+static id		pan;
 
 //define SHOWFILL
 
@@ -41,7 +41,7 @@ id		pan;
 - sectorError: (char const *)msg : (int)line1 : (int)line2
 {
 	[pan	orderOut:NULL];
-	NXFreeAlertPanel	(pan);
+	NSReleaseAlertPanel(pan);
 	[editworld_i deselectAll];
 	if (line1 != -1)
 	{
@@ -56,7 +56,7 @@ id		pan;
 		[editworld_i selectPoint: lines[line2].p2];
 	}
 	[editworld_i redrawWindows];
-	NXRunAlertPanel ("Sector error","%s",NULL,NULL,NULL, msg);
+	NSRunAlertPanel (@"Sector error",@"%s",NULL,NULL,NULL, msg);
 	return self;
 }
 
@@ -82,10 +82,10 @@ id		pan;
 
 NXRect	wbounds;
 unsigned short	*bmap=NULL;
-int		brow, bwidth, bheight;
-id		blockview;
+static int		brow, bwidth, bheight;
+static NSView	*blockview;
 
-void selectline (unsigned line)
+static void selectline (unsigned line)
 {
 	line--;
 	if (line & SIDEBIT)
@@ -115,7 +115,7 @@ static void floodline (int startx, int y)
 	
 if (startx<0 || startx>=bwidth || y < 0 || y>=bheight)
 {
-	NXRunAlertPanel ("error","bad fill point",NULL,NULL,NULL);
+	NSRunAlertPanel (@"error",@"bad fill point",NULL,NULL,NULL);
 	return;
 }
 //
@@ -202,7 +202,7 @@ NXEraseRect (&r);
 //
 if (firstx<0 || lastx>=bwidth || firstx>lastx)
 {
-	NXRunAlertPanel ("ERROR","bad fill span",NULL,NULL,NULL);
+	NSRunAlertPanel (@"ERROR",@"bad fill span",NULL,NULL,NULL);
 	return;
 }
 
@@ -377,8 +377,8 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 - (void)displayBlockMap
 {
 	NXRect	aRect;
-	id		window;
-	unsigned char		*planes[5];
+	NSWindow		*window;
+	unsigned char	*planes[5];
 	int		i,size;
 	short	*src, *dest;
 	
@@ -620,7 +620,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 [self displayBlockMap];
 #endif
 
-	pan = NXGetAlertPanel ("One moment","Filling block map",NULL,NULL,NULL);
+	pan = NSGetAlertPanel (@"One moment",@"Filling block map",NULL,NULL,NULL);
 	[pan display];
 	[pan orderFront: NULL];
 	NXPing ();
@@ -663,11 +663,9 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	[editworld_i deselectAll];
 	
 	[pan	orderOut:NULL];
-	NXFreeAlertPanel	(pan);
+	NSReleaseAlertPanel(pan);
 	NXPing ();
 	return YES;
 }
 
-
 @end
-

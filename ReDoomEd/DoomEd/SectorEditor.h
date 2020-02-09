@@ -105,4 +105,4 @@ extern SectorEditor *sectorEdit_i;
 @end
 
 /// Convert a raw 64x64 to an \c NXImage without an alpha channel
-NSImage *flatToImage(byte *rawData, unsigned short *shortpal);
+NSImage *flatToImage(byte *rawData, unsigned short *shortpal) NS_RETURNS_RETAINED;

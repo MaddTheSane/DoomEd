@@ -87,10 +87,10 @@ TexturePalette	*texturePalette_i;
 {
 	if (![doomproject_i loaded])
 	{
-		NXRunAlertPanel("Oops!",
-						"There must be a project loaded before you even\n"
+		NSRunAlertPanel(@"Oops!",
+						@"There must be a project loaded before you even\n"
 						"THINK about choosing textures!",
-						"OK",NULL,NULL,NULL);
+						@"OK",NULL,NULL,NULL);
 		return;
 	}
 		
@@ -180,9 +180,9 @@ TexturePalette	*texturePalette_i;
 		p.patch = [textureEdit_i	getPatchImage:p.patchInfo.patchname];
 		if (!p.patch)
 		{
-			NXRunAlertPanel("Shit!",
-				"While building texture #%d, I couldn't find "
-				"the '%s' patch!","OK",NULL,NULL,i,p.patchInfo.patchname);
+			NSRunAlertPanel(@"Shit!",
+				@"While building texture #%d, I couldn't find "
+				"the '%s' patch!",@"OK",NULL,NULL,i,p.patchInfo.patchname);
 			[NXApp	terminate:NULL];
 		}
 		p.r.origin.x = p.patchInfo.originx;

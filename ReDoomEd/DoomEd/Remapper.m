@@ -202,10 +202,10 @@ browserTitle:(NSString *)btitle
 //===================================================================
 - (IBAction)clearList:sender
 {
-	if (NXRunAlertPanel("Warning!",
-		"Are you sure you want\n"
+	if (NSRunAlertPanel(@"Warning!",
+		@"Are you sure you want\n"
 		"to clear the remapping list?",
-		"OK","Cancel",NULL) == NX_ALERTALTERNATE)
+		@"OK",@"Cancel",NULL) == NX_ALERTALTERNATE)
 		return;
 		
 #ifdef REDOOMED

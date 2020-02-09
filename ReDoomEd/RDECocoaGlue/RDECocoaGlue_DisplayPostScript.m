@@ -60,9 +60,9 @@ static void FrameInstanceRectWithWidth(NSRect rect, float lineWidth);
 static float MapLineWidthForCurrentMapViewScale(void);
 static void RDE_DPSDoUserPathFloat(const float *coords, int numCoords,
                                    const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
-static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
+static void RDE_DPSDoUserPathLong(const int *coords, int numCoords,
                                   const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
-static void RDE_DPSDoUserPathShort(const int *coords, int numCoords,
+static void RDE_DPSDoUserPathShort(const short *coords, int numCoords,
                                    const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action);
 
 
@@ -397,7 +397,7 @@ void RDE_DPSDoUserPathFloat(const float *coords, int numCoords,
     [userPath stroke];
 }
 
-static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
+static void RDE_DPSDoUserPathLong(const int *coords, int numCoords,
                                   const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
 {
     NSBezierPath *userPath = [NSBezierPath bezierPath];
@@ -474,7 +474,7 @@ static void RDE_DPSDoUserPathLong(const short *coords, int numCoords,
     [userPath stroke];
 }
 
-static void RDE_DPSDoUserPathShort(const int *coords, int numCoords,
+static void RDE_DPSDoUserPathShort(const short *coords, int numCoords,
                                    const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
 {
     NSBezierPath *userPath = [NSBezierPath bezierPath];

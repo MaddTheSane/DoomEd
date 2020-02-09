@@ -24,8 +24,8 @@
 #import "RDECocoaGlue_PanelUtilities.h"
 
 
-NSControl *gActiveTextControl = nil;
-bool gShouldTrackActiveTextControl = NO, gActiveTextDidChange = NO;
+static NSControl *gActiveTextControl = nil;
+static BOOL gShouldTrackActiveTextControl = NO, gActiveTextDidChange = NO;
 
 
 @interface NSApplication (RDECocoaGlue_PanelUtilitiesPrivateMethods)

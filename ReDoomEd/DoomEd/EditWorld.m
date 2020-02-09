@@ -32,20 +32,13 @@ worldpoint_t	*points;
 worldline_t	*lines;
 worldthing_t	*things;
 
+static int LineSideToPoint(worldline_t *line, NXPoint *pt);
+
 //=============================================================================
 
 #define	BASELISTSIZE	128
 
-/*
-==================
-=
-= LineSideToPoint
-=
-= Returns a 0 for front and a 1 for back
-=
-===================
-*/
-
+/// Returns a 0 for front and a 1 for back
 int	LineSideToPoint (worldline_t *line, NXPoint *pt)
 {
 	NXPoint	*p1, *p2;
@@ -75,17 +68,6 @@ int	LineSideToPoint (worldline_t *line, NXPoint *pt)
 	return 1;			// back side
 }
 
-
-/*
-================
-=
-= LineByPoint
-=
-= Returns the line and side closest (horizontally) to the point
-= Returns -1 for line if no line is hit
-=
-================
-*/
 
 int LineByPoint (NXPoint *ptin, int *side)
 {
@@ -255,7 +237,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	stream = fopen (pathname,"r");
 	if (!stream)
 	{
-		NXRunAlertPanel ("Error","Couldn't open %s",NULL,NULL,NULL,pathname);
+		NSRunAlertPanel (@"Error",@"Couldn't open %s",NULL,NULL,NULL,pathname);
 		return NO;
 	}
 	version = -1;
@@ -270,14 +252,14 @@ int LineByPoint (NXPoint *ptin, int *side)
 	else
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Unknown file version for %s",NULL,NULL,NULL,pathname);
+		NSRunAlertPanel (@"Error",@"Unknown file version '%d' for %s",NULL,NULL,NULL,version, pathname);
 		return NO;
 	}
 
 	if (!ret)
 	{
 		fclose (stream);
-		NXRunAlertPanel ("Error","Couldn't parse file %s",NULL,NULL,NULL,pathname);
+		NSRunAlertPanel (@"Error",@"Couldn't parse file %s",NULL,NULL,NULL,pathname);
 		return NO;
 	}
 	
@@ -302,8 +284,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 	{
 		NSInteger val;
 		
-		val = NXRunAlertPanel("Hey!","Your map has been modified! Save it?",
-			"Yes","No",NULL);
+		val = NSRunAlertPanel(@"Hey!",@"Your map has been modified! Save it?",
+			@"Yes",@"No",NULL);
 		if (val == NX_ALERTDEFAULT)
 			[self saveWorld:NULL];
 		[doomproject_i setMapDirty:FALSE];
@@ -341,7 +323,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	
 	if (!loaded)
 	{
-		NXRunAlertPanel ("Error","No world open",NULL,NULL,NULL);
+		NSRunAlertPanel (@"Error",@"No world open",NULL,NULL,NULL);
 		return;
 	}
 	
@@ -383,7 +365,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	
 	if (!loaded)
 	{
-		NXRunAlertPanel ("Error","No world open",NULL,NULL,NULL);
+		NSRunAlertPanel (@"Error",@"No world open",NULL,NULL,NULL);
 		return;
 	}
 
@@ -402,7 +384,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	snprintf(string,sizeof(string),"Please wait while I BSP process this map.\n\n"
 		"Map: %s\nMapWADdir: %s\nBSPprogram:%s\nHost: %s",
 		fromPath,toPath,bspprogram,bsphost);
-	panel = NXGetAlertPanel("Wait...","%s",NULL,NULL,NULL, string);
+	panel = NSGetAlertPanel(@"Wait...",@"%s",NULL,NULL,NULL, string);
 	[panel	orderFront:NULL];
 	NXPing();
 
@@ -416,14 +398,14 @@ int LineByPoint (NXPoint *ptin, int *side)
 	if (err)
 	{
 		[panel	orderOut:NULL];
-		NXFreeAlertPanel(panel);
+		NSReleaseAlertPanel(panel);
 
 		return;
 	}
 
 	[panel	orderOut:NULL];
-	NXFreeAlertPanel(panel);
-			 [doomproject_i	setMapDirty:FALSE];
+	NSReleaseAlertPanel(panel);
+	[doomproject_i	setMapDirty:FALSE];
 	[saveSound	play];
 }
 
@@ -443,11 +425,11 @@ int LineByPoint (NXPoint *ptin, int *side)
 	
 	if (!loaded)
 	{
-		NXRunAlertPanel ("Error","No world open",NULL,NULL,NULL);
+		NSRunAlertPanel (@"Error",@"No world open",NULL,NULL,NULL);
 		return;
 	}
 	
-	pan = NXGetAlertPanel ("One moment","Saving",NULL,NULL,NULL);
+	pan = NSGetAlertPanel (@"One moment",@"Saving",NULL,NULL,NULL);
 	[pan display];
 	[pan orderFront: NULL];
 	NXPing ();
@@ -461,7 +443,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	[doomproject_i	setMapDirty:FALSE];
 	
 	[pan	orderOut:NULL];
-	NXFreeAlertPanel	(pan);
+	NSReleaseAlertPanel(pan);
 }
 
 
@@ -592,8 +574,8 @@ int LineByPoint (NXPoint *ptin, int *side)
 	{
 		NSInteger	val;
 		
-		val = NXRunAlertPanel("Hey!","Your map has been modified! Save it?",
-			"Yes","No",NULL);
+		val = NSRunAlertPanel(@"Hey!",@"Your map has been modified! Save it?",
+			@"Yes",@"No",NULL);
 		if (val == NX_ALERTDEFAULT)
 			[self	saveWorld:NULL];
 
@@ -1178,7 +1160,7 @@ FIXME: make these scan for deleted entries
 
 	if (num >= numpoints)
 	{
-		NXRunAlertPanel ("Error","Sent point %i with numpoints %i!"
+		NSRunAlertPanel (@"Error",@"Sent point %i with numpoints %i!"
 			,NULL,NULL,NULL, num, numpoints);
 		[NXApp terminate:self];
 	}
@@ -1208,7 +1190,7 @@ FIXME: make these scan for deleted entries
 //printf ("changeLine: %i\n",num);
 	if (num >= numlines)
 	{
-		NXRunAlertPanel ("Error","Sent line %i with numlines %i!",NULL,NULL,NULL, num, numlines);
+		NSRunAlertPanel (@"Error",@"Sent line %i with numlines %i!",NULL,NULL,NULL, num, numlines);
 		[NXApp terminate:self];
 	}
 
@@ -1269,7 +1251,7 @@ FIXME: make these scan for deleted entries
 //printf ("changeThing: %i\n",num);
 	if (num >= numthings)
 	{
-		NXRunAlertPanel ("Error","Sent thing %i with numthings %i!",NULL,NULL,NULL, num, numthings);
+		NSRunAlertPanel (@"Error",@"Sent thing %i with numthings %i!",NULL,NULL,NULL, num, numthings);
 		[NXApp terminate:self];
 	}
 

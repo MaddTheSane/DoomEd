@@ -214,9 +214,9 @@
 	if ([self	findSpecial:t.value] != NSNotFound)
 	{
 		NXBeep();
-		NXRunAlertPanel("Oops!",
-					"You already have a LINE SPECIAL by that "
-					"name!","OK",NULL,NULL,NULL);
+		NSRunAlertPanel(@"Oops!",
+					@"You already have a LINE SPECIAL by that "
+					"name!",@"OK",NULL,NULL,NULL);
 		return;
 	}
 	

@@ -38,7 +38,7 @@
         isPlanar: (BOOL) isPlanar
         colorSpace: (NSColorSpaceName) colorSpaceName
         bytesPerRow: (int) rowBytes
-        bitsPerPixel: (int) pixelBits;
+        bitsPerPixel: (int) pixelBits API_DEPRECATED_WITH_REPLACEMENT("-initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:", macos(10.0, 10.0));
 
 - (unsigned char *) data API_DEPRECATED_WITH_REPLACEMENT("-bitmapData", macos(10.0, 10.0));
 

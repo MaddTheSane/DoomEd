@@ -993,8 +993,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 //	Load Map Functions
 //
 //===================================================================
-int	oldSelRow,curMap;
-NSMatrix *openMatrix;
+static int	oldSelRow,curMap;
+static NSMatrix *openMatrix;
 
 //	Init to start opening all maps
 - beginOpenAllMaps

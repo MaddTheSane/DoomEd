@@ -746,8 +746,8 @@ id	thingpanel_i;
 	if ([self	findThing:t.name] != NSNotFound)
 	{
 		NXBeep();
-		NXRunAlertPanel("Oops!",
-			"You already have a THING by that name!","OK",NULL,NULL,NULL);
+		NSRunAlertPanel(@"Oops!",
+			@"You already have a THING by that name!",@"OK",NULL,NULL,NULL);
 		return;
 	}
 	
