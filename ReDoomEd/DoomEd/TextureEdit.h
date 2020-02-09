@@ -14,6 +14,62 @@
 @class Storage;
 @class TextureView;
 @class TexturePatchView;
+@class TextureEdit;
+
+typedef struct
+{
+	int	sel;
+} store_t;
+
+//! a patch holds one or more collumns.
+//! Some patches will be in native color, while be used with a color remap table
+typedef struct patch_t {
+	//! bounding box size
+	short	width, height;
+	
+	//! pixels to the left of origin
+	short	leftoffset;
+	
+	//! pixels below the origin
+	short	bottomoffset;
+	//! only [width] used, the [0] is
+	//! &collumnofs[width]
+	int		collumnofs[256];
+} patch_t;
+
+typedef struct
+{
+	byte		topdelta;			// -1 is the last post in a collumn
+	byte		length;
+// length data bytes follow
+} post_t;
+
+/// \c collumn_t is a list of 0 or more post_t, (byte)-1 terminated
+typedef post_t	collumn_t;
+
+///
+/// structure for loaded patches
+///
+typedef struct
+{
+	NSRect	r;
+	NSSize	size;
+	char		name[9];
+	id		image;
+	id		image_x2;
+	int		WADindex;
+} apatch_t;
+
+typedef	struct
+{
+	int	patchLocked;
+	NSRect	r;
+	worldpatch_t	patchInfo;
+	apatch_t		*patch;
+} texpatch_t;
+
+extern Storage *texturePatches;
+extern TextureEdit *textureEdit_i;
 
 #define	SPACING				10
 
@@ -61,63 +117,6 @@
 	int	currentTexture;			//!< being edited
 	int	oldx,oldy;				//!< last texture x,y
 }
-
-typedef struct
-{
-	int	sel;
-} store_t;
-
-//! a patch holds one or more collumns.
-//! Some patches will be in native color, while be used with a color remap table
-typedef struct patch_t {
-	//! bounding box size
-	short	width, height;
-	
-	//! pixels to the left of origin
-	short	leftoffset;
-	
-	//! pixels below the origin
-	short	bottomoffset;
-	//! only [width] used, the [0] is
-	//! &collumnofs[width]
-	int		collumnofs[256];
-} patch_t;
-
-typedef struct
-{
-	byte		topdelta;			// -1 is the last post in a collumn
-	byte		length;
-// length data bytes follow
-} post_t;
-
-/// \c collumn_t is a list of 0 or more post_t, (byte)-1 terminated
-typedef post_t	collumn_t;
-
-///
-/// structure for loaded patches
-///
-typedef struct
-{
-	NXRect	r;
-	NXSize	size;
-	char		name[9];
-	id		image;
-	id		image_x2;
-	int		WADindex;
-} apatch_t;
-
-typedef	struct
-{
-	int	patchLocked;
-	NXRect	r;
-	worldpatch_t	patchInfo;
-	apatch_t		*patch;
-} texpatch_t;
-
-
-
-extern Storage *texturePatches;
-extern TextureEdit *textureEdit_i;
 
 - (int)numSets;
 - (IBAction)findPatch:sender;
