@@ -260,9 +260,9 @@ id	thingPalette_i;
 //==========================================================
 - (void)initIcons
 {
-	int		start;
-	int		end;
-	int		i;
+	NSInteger		start;
+	NSInteger		end;
+	NSInteger		i;
 	unsigned short	shortpal[256];
 	unsigned char 	*palLBM;
 	patch_t	*iconvga;
@@ -298,7 +298,7 @@ id	thingPalette_i;
 	[doomproject_i	initThermo:"One moment..."
 		message:"Loading icons for Thing Palette."];
 
-	if  (start == -1 || end == -1 )
+	if  (start == NSNotFound || end == NSNotFound )
 	{
 		[doomproject_i	closeThermo];
 		return;		// no icons, no problem.

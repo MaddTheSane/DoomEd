@@ -155,22 +155,13 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 	return self;
 }
 
-#ifdef REDOOMED
 // changed the close method to return void to match the close method signature used in
 // several Cocoa classes (fixes the compiler warning about multiple methods)
 - (void) close;
-#else // Original
--close
-#endif
 {
 	close (handle);
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
 }
 
-#ifdef REDOOMED
 // Cocoa compatibility: dealloc method replaces free method
 - (void) dealloc
 {
@@ -190,19 +181,10 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 
 	[super dealloc];
 }
-#else // Original
--free
-{
-	close (handle);
-	[info free];
-	free (pathname);
-	return [super free];
-}
-#endif
 
 //=============================================================================
 
-- (int)numLumps
+- (NSInteger)countOfLumps
 {
 	return [info count];
 }
@@ -243,11 +225,11 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 ================
 */
 
-- (int)lumpNamed: (char const *)name
+- (NSInteger)lumpNamed: (char const *)name
 {
 	lumpinfo_t	*inf;
-	int			i, count;
-	char			name8[9];
+	NSInteger	i, count;
+	char		name8[9];
 	int			v1,v2;
 
 // make the name into two integers for easy compares
@@ -271,7 +253,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 		if ( *(int *)inf->name == v1 && *(int *)&inf->name[4] == v2)
 			return i;
 	}
-	return  -1;
+	return  NSNotFound;
 }
 
 /*
@@ -290,7 +272,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 	inf = [info elementAt: lump];
 	buf = malloc (inf->size);
 	
-	lseek (handle, inf->filepos, L_SET);
+	lseek (handle, inf->filepos, SEEK_SET);
 	read (handle, buf, inf->size);
 	
 	return buf;
@@ -311,7 +293,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 ================
 */
 
-- addName: (char const *)name data: (void *)data size: (int)size
+- (void)addName: (char const *)name data: (void *)data size: (int)size
 {
 	int		i;
 	lumpinfo_t	new;
@@ -326,8 +308,6 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 	[info addElement: &new];
 	
 	write (handle, data, size);
-	
-	return self;
 }
 
 
@@ -342,7 +322,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 ================
 */
 
-- writeDirectory
+- (void)writeDirectory
 {
 	wadinfo_t	wad;
 	int			i,count;
@@ -358,7 +338,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 		inf[i].filepos = LongSwap (inf[i].filepos);
 		inf[i].size = LongSwap (inf[i].size);
 	}
-	wad.infotableofs = LongSwap (lseek(handle,0, L_XTND));
+	wad.infotableofs = LongSwap ((int)lseek(handle,0, L_XTND));
 	write (handle, inf, count*sizeof(lumpinfo_t));
 	for (i=0 ; i<count ; i++)
 	{
@@ -370,11 +350,9 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 // write the header
 //
 	strncpy (wad.identification, "IWAD",4);
-	wad.numlumps = LongSwap ([info count]);
+	wad.numlumps = LongSwap ((int)[info count]);
 	lseek (handle, 0, L_SET);
 	write (handle, &wad, sizeof(wad));
-	
-	return self;
 }
 
 @end

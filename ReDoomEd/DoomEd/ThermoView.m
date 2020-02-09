@@ -4,7 +4,7 @@
 
 @implementation ThermoView
 
-- (void)setThermoWidth:(int)current max:(int)maximum
+- (void)setThermoWidth:(NSInteger)current max:(NSInteger)maximum
 {
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'bounds' as an instance var, fake it using a local

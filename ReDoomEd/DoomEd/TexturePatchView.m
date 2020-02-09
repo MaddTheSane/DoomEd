@@ -9,12 +9,8 @@
 #import	"TextureEdit.h"
 @implementation TexturePatchView
 
-//==============================================================
-//
-//	Init the storage for the Patch Palette dividers
-//
-//==============================================================
-- initWithFrame:(NSRect)frameRect
+///	Init the storage for the Patch Palette dividers
+- (id)initWithFrame:(NSRect)frameRect
 {
 #ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (dividers_i)
@@ -41,7 +37,7 @@
 //	Add a Patch Palette divider (new set of patches)
 //
 //==============================================================
-- addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
 {
 	divider_t		d;
 	
@@ -49,8 +45,6 @@
 	d.y = y;
 	strcpy (d.string, string );
 	[dividers_i	addElement:&d ];
-	
-	return self;
 }
 
 //==============================================================
@@ -58,10 +52,9 @@
 //	Dump all the dividers (for resizing)
 //
 //==============================================================
-- dumpDividers
+- (void)dumpDividers
 {
 	[dividers_i	empty];
-	return self;
 }
 
 //==============================================================
@@ -104,7 +97,7 @@
 	//
 	PSselectfont("Helvetica-Bold",12);
 	PSrotate ( 0 );
-	max = [dividers_i	count ];
+	max = [dividers_i count];
 	for (i = 0; i < max; i++)
 	{
 		d = [dividers_i	elementAt:i ];

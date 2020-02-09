@@ -8,7 +8,7 @@
 
 @class Storage;
 
-@interface Wadfile : Object
+@interface Wadfile : NSObject
 {
 	int		handle;
 	char		*pathname;
@@ -19,27 +19,17 @@
 - (instancetype)initFromFile: (char const *)path;
 - (instancetype)initNew: (char const *)path;
 
-#ifdef REDOOMED
-// changed the close method to return void to match the close method signature used in
-// several Cocoa classes (fixes the compiler warning about multiple methods)
 - (void) close;
-#else // Original
-- close;
-#endif
 
-#ifndef REDOOMED // Original (Disable for ReDoomEd - free is declared by Object using a different sig)
-- free;
-#endif
-
-- (int)numLumps;
+- (NSInteger)countOfLumps;
 - (int)lumpsize: (int)lump;
 - (int)lumpstart: (int)lump;
 - (char const *)lumpname: (int)lump;
-- (int)lumpNamed: (char const *)name;
+- (NSInteger)lumpNamed: (char const *)name;
 - (void *)loadLump: (int)lump;
 - (void *)loadLumpNamed: (char const *)name;
 
-- addName: (char const *)name data: (void *)data size: (int)size;
-- writeDirectory; 
+- (void)addName: (char const *)name data: (void *)data size: (int)size;
+- (void)writeDirectory; 
 
 @end

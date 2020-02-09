@@ -12,7 +12,7 @@
 //	Init the storage for the Texture Palette dividers
 //
 //==============================================================
-- initWithFrame:(NSRect)frameRect
+- (id)initWithFrame:(NSRect)frameRect
 {
 #ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (dividers_i)
@@ -39,7 +39,7 @@
 //	Add a Texture Palette divider (new set of textures)
 //
 //==============================================================
-- addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
 {
 	divider_t		d;
 	
@@ -47,14 +47,11 @@
 	d.y = y;
 	strcpy (d.string, string );
 	[dividers_i	addElement:&d ];
-	
-	return self;
 }
 
-- dumpDividers
+- (void)dumpDividers
 {
 	[dividers_i	empty];
-	return self;
 }
 
 - drawSelf:(const NXRect *)rects :(int)rectCount

@@ -489,9 +489,9 @@ SectorEditor	*sectorEdit_i;
 //============================================================
 - (int)loadFlats
 {
-	int		flatStart;
-	int		flatEnd;
-	int		i;
+	NSInteger		flatStart;
+	NSInteger		flatEnd;
+	NSInteger		i;
 	unsigned short	shortpal[256];
 	byte 	*palLBM;
 	byte 	*flat;
@@ -538,7 +538,7 @@ SectorEditor	*sectorEdit_i;
 		flatStart = [wadfile_i	lumpNamed:start] + 1;
 		flatEnd = [wadfile_i		lumpNamed:end];
 	
-		if  (flatStart == -1 || flatEnd == -1 )
+		if  (flatStart == NSNotFound || flatEnd == NSNotFound )
 		{
 			if ( !windex )
 				IO_Error("You need to relink your WAD file "
@@ -552,16 +552,16 @@ SectorEditor	*sectorEdit_i;
 		
 		for (i = flatStart; i < flatEnd; i++)
 		{
-			[doomproject_i	updateThermo:i-flatStart max:flatEnd-flatStart];
+			[doomproject_i	updateThermo:(int)(i-flatStart) max:(int)(flatEnd-flatStart)];
 			//
 			// load raw 64*64 flat and convert to an NXImage
 			//
-			flat = [wadfile_i	loadLump:i];
+			flat = [wadfile_i	loadLump:(int)i];
 			f.WADindex = windex;
 			f.image = flatToImage(flat,shortpal);
 			f.r.size.width = 64;
 			f.r.size.height = 64;
-			strcpy(f.name,[wadfile_i	lumpname:i]);
+			strcpy(f.name,[wadfile_i	lumpname:(int)i]);
 			f.name[8] = 0;
 			[flatImages	addElement:&f];
 			free(flat);

@@ -11,6 +11,6 @@
 	CGFloat		thermoWidth;
 }
 
-- (void)setThermoWidth:(int)current max:(int)maximum;
+- (void)setThermoWidth:(NSInteger)current max:(NSInteger)maximum;
 
 @end

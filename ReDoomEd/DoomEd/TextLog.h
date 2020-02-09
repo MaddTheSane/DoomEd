@@ -6,7 +6,7 @@
 #   import <appkit/appkit.h>
 #endif
 
-@interface TextLog:Object
+@interface TextLog:NSObject
 {
 	IBOutlet NSTextView	*text_i;
 	IBOutlet NSWindow	*window_i;
@@ -18,14 +18,9 @@
 - (instancetype)initWithTitle:(NSString*)title;
 #endif
 
-#ifdef REDOOMED
-- msg:(char *)string API_DEPRECATED_WITH_REPLACEMENT("-addMessage:", macos(10.0, 10.0));
 - (void)addMessage:(NSString*)string;
 - (void)addFormattedMessage:(NSString*)string, ... NS_FORMAT_FUNCTION(1,2);
-#else
-- msg:(char *)string;
-#endif
-- (IBAction)display:sender;
-- (IBAction)clear:sender;
+- (IBAction)display:(id)sender;
+- (IBAction)clear:(id)sender;
 
 @end

@@ -13,9 +13,9 @@ typedef struct
 	char		orgname[40],newname[40];
 } type_t;
 
-//
-//	Methods to be implemented by the delegate
-//
+///
+///	Methods to be implemented by the delegate
+///
 @protocol Remapper <NSObject>
 - (const char *)getOriginalName;
 - (const char *)getNewName;
@@ -24,7 +24,7 @@ typedef struct
 @end
 
 
-@interface Remapper:Object <NSBrowserDelegate>
+@interface Remapper:NSObject <NSBrowserDelegate>
 {
 	IBOutlet NSTextField *original_i;
 	IBOutlet NSTextField *new_i;
@@ -54,9 +54,9 @@ typedef struct
 
 //extern - (int)doRemap:(char *)oldname to:(char *)newname;
 
-- showPanel;
+- (void)showPanel;
   
-- addToList:(char *)orgname to:(char *)newname;
+- (void)addToList:(char *)orgname to:(char *)newname;
 
 //	INTERNAL USE
 - (IBAction)remapGetButtons:sender;

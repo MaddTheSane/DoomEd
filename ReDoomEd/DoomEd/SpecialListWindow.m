@@ -7,10 +7,9 @@
 
 @implementation SpecialListWindow
 
-- setParent:(id)p
+- (void)setParent:(id)p
 {
 	parent_i = p;
-	return self;
 }
 
 //===================================================================

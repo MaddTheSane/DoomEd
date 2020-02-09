@@ -28,10 +28,10 @@
 }
 
 - (void)setFrameName:(NSString *)fname
-  panelTitle:(NSString *)ptitle
-browserTitle:(NSString *)btitle
- remapString:(NSString *)rstring
-	delegate:(id<Remapper>)delegate
+		  panelTitle:(NSString *)ptitle
+		browserTitle:(NSString *)btitle
+		 remapString:(NSString *)rstring
+			delegate:(id<Remapper>)delegate
 {
 	[frameName release];
 	frameName = [fname copy];
@@ -76,10 +76,9 @@ browserTitle:(NSString *)btitle
 //	Bring up panel
 //
 //===================================================================
-- showPanel
+- (void)showPanel
 {
 	[remapPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 //===================================================================
@@ -113,10 +112,10 @@ browserTitle:(NSString *)btitle
 //	Add old & new texture names to list
 //
 //===================================================================
-- addToList:(char *)orgname to:(char *)newname
+- (void)addToList:(char *)orgname to:(char *)newname
 {
 	if (!storage_i)
-		return self;
+		return;
 
 #ifdef REDOOMED
 	[original_i	setStringValue:RDE_NSStringFromCString(orgname)];
@@ -127,8 +126,6 @@ browserTitle:(NSString *)btitle
 #endif
 
 	[self			addToList:NULL];
-
-	return self;
 }
 
 - (IBAction)addToList:sender

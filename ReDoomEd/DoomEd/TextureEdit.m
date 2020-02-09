@@ -1305,7 +1305,7 @@ Storage *texturePatches;
 ///	Load in all the patches and init storage array
 - (void)initPatches
 {
-	int		patchStart, patchEnd, i;
+	NSInteger	patchStart, patchEnd, i;
 	patch_t	*patch;
 	byte 	*palLBM;
 	unsigned short	shortpal[256];
@@ -1346,7 +1346,7 @@ Storage *texturePatches;
 		patchStart = [wadfile_i	lumpNamed:start] + 1;
 		patchEnd = [wadfile_i	lumpNamed:end];
 	
-		if (patchStart == -1 || patchEnd == -1)
+		if (patchStart == NSNotFound || patchEnd == NSNotFound)
 		{
 			if (!windex)
 				NSRunAlertPanel(@"OOPS!",
@@ -1360,7 +1360,7 @@ Storage *texturePatches;
 		p.r = NSZeroRect;
 		for (i = patchStart; i < patchEnd; i++)
 		{
-			[doomproject_i	updateThermo:i-patchStart max:patchEnd-patchStart];
+			[doomproject_i	updateThermo:(int)(i-patchStart) max:(int)(patchEnd-patchStart)];
 			//
 			// load vertically compressed patch and convert to an NXImage
 			//

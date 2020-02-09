@@ -42,18 +42,6 @@
 }
 #endif
 
-- msg:(char *)string
-{
-	NSInteger		len;
-
-	len = [text_i textLength];
-	[text_i setSel:len :len];
-	[text_i replaceSel:string];
-	[text_i scrollRangeToVisible: [text_i selectedRange]];
-
-	return self;
-}
-
 - (void)addMessage:(NSString*)string
 {
 	NSInteger len = [text_i string].length;
@@ -65,17 +53,17 @@
 	va_list args;
 	va_start(args, string);
 	NSString *ourStr = [[NSString alloc] initWithFormat:string arguments:args];
+	va_end(args);
 	[self addMessage:ourStr];
 	[ourStr release];
-	va_end(args);
 }
 
-- (IBAction)display:sender
+- (IBAction)display:(id)sender
 {
 	[window_i	makeKeyAndOrderFront:NULL];
 }
 
-- (IBAction)clear:sender
+- (IBAction)clear:(id)sender
 {
     [text_i replaceCharactersInRange: NSMakeRange(0, text_i.string.length)
 						  withString: @""];
