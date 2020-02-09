@@ -2710,14 +2710,14 @@ static	byte		*buffer, *buf_p;
 
     if ([[nameOfWADfile pathExtension] isEqualToString: @"wad"])
     {
-        openPanelTitle = [NSString stringWithFormat: @"Locate \"%@\"", nameOfWADfile];
+        openPanelTitle = [NSString stringWithFormat: NSLocalizedString(@"Locate \"%@\"", @"Locate \"%@\""), nameOfWADfile];
     }
     else
     {
-        openPanelTitle = @"Locate the project's WADfile";
+        openPanelTitle = NSLocalizedString(@"Locate the project's WADfile", @"Locate the project's WADfile");
     }
 
-    locateButtonTitle = [openPanelTitle stringByAppendingString: @"..."];
+    locateButtonTitle = [openPanelTitle stringByAppendingString: @"…"];
 
     alertReturnCode = NSRunAlertPanel(@"Error",
                                         @"The project's WADfile was not found at \"%s\".",

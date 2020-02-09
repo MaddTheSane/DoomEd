@@ -75,7 +75,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 	int		l;
 	NXPoint	*p1, *p2;
 	float		frac, distance, bestdistance, xintercept;
-	int		bestline;
+	int		bestline=0;
 	
 	ptp = *ptin;
 	pt = &ptp;		// quick, stupid hack to prevent modifying values in place

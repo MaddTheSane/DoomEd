@@ -1094,7 +1094,7 @@ Storage *texturePatches;
 {
 #ifdef REDOOMED
 	if (state == YES)
-		[dragWarning_i	setStringValue:@"Selections dragged outside texture!"];
+		[dragWarning_i	setStringValue:NSLocalizedString(@"Selections dragged outside texture!", @"Selections dragged outside texture!")];
 	else
 		[dragWarning_i	setStringValue:@" "];
 #else // Original

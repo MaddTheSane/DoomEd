@@ -117,6 +117,7 @@
 		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; };
 		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
 		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
+		55C41DC323F08767000FB967 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55C41DC523F08767000FB967 /* Localizable.strings */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -339,6 +340,7 @@
 		552BAD0223CB935D00B3B658 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		55BAD36123ED5C1500DBE673 /* ReDoomEd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReDoomEd-Bridging-Header.h"; sourceTree = "<group>"; };
 		55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreferencePanelSwift.swift; path = backup2/PreferencePanelSwift.swift; sourceTree = "<group>"; };
+		55C41DC423F08767000FB967 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ReDoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReDoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -693,6 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
+				55C41DC523F08767000FB967 /* Localizable.strings */,
 				03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.nib */,
 				03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.nib */,
 				03DC35B71FA1D04800DB9A7A /* thing_Cocoa.nib */,
@@ -782,6 +785,7 @@
 			files = (
 				552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */,
 				03DC35D91FA1D04900DB9A7A /* SpecialList_Cocoa.nib in Resources */,
+				55C41DC323F08767000FB967 /* Localizable.strings in Resources */,
 				03DC35DA1FA1D04900DB9A7A /* thing_Cocoa.nib in Resources */,
 				03DC35DB1FA1D04900DB9A7A /* line_Cocoa.nib in Resources */,
 				03DC35DC1FA1D04900DB9A7A /* TexturePalette_Cocoa.nib in Resources */,
@@ -1016,6 +1020,14 @@
 				03DC35D41FA1D04900DB9A7A /* en */,
 			);
 			name = TextureEdit_Cocoa.nib;
+			sourceTree = "<group>";
+		};
+		55C41DC523F08767000FB967 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55C41DC423F08767000FB967 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

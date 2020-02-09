@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  ReDoomEd
+
+  Created by C.W. Betts on 2/9/20.
+  
+*/
+
+"No such line!" = "No such line!";
+"Toasted it!" = "Toasted it!";
+"Selections dragged outside texture!" = "Selections dragged outside texture!";
+"Locate the project's WADfile" = "Locate the project's WADfile";
+"Locate \"%@\"" = "Locate “%@”";
+"Choose save directory for exported map images" = "Choose save directory for exported map images";

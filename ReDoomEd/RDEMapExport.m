@@ -185,7 +185,7 @@ ERROR:
     }
 
     openPanel = [NSOpenPanel openPanel];
-    [openPanel setTitle: @"Choose save directory for exported map images"];
+    [openPanel setTitle: NSLocalizedString(@"Choose save directory for exported map images", @"Choose save directory for exported map images")];
     [openPanel setAllowedFileTypes: nil];
     [openPanel setCanChooseDirectories: YES];
     [openPanel setCanCreateDirectories: YES];
