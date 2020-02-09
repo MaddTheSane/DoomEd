@@ -159,7 +159,7 @@ TexturePalette	*texturePalette_i;
 
 	s.width = textures[which].width;
 	s.height = textures[which].height;
-	NXSetRect(&t.r,0,0,0,0);
+	t.r = NSZeroRect;
 	t.r.size = s;
 	t.WADindex = textures[which].WADindex;
 	strcpy(t.name,textures[which].name);

@@ -135,7 +135,7 @@ extern TextureEdit *textureEdit_i;
 - (void)addSelectedTexturePatch:(int)val;
 - (BOOL) selTextureEditPatchExists:(int)val;
 - (void)removeSelTextureEditPatch:(int)val;
-- (int)getCurrentEditPatch;
+- (int)currentEditPatch;
 - (int)findHighestNumberedPatch;
 - (IBAction)changePatchX:sender;
 - (IBAction)changePatchY:sender;
@@ -149,7 +149,7 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)fillWithPatch:sender;
 - (IBAction)menuTarget:sender;
 @property (readonly) int currentTexture;
-- (int)getCurrentPatch;
+@property (nonatomic) int selectedPatch;
 
 - (IBAction)makeNewTexture:sender;
 - (IBAction)createTextureDone:sender;
@@ -158,7 +158,6 @@ extern TextureEdit *textureEdit_i;
 - (IBAction)createNewSet:sender;
 
 - (void)newSelection:(int)which;
-- (void)setSelectedPatch:(int)which;
 - (void)selectPatchAndScroll:(int)patch;
 - (int)getOutlineFlag;
 - (void)dumpAllPatches;
@@ -168,7 +167,7 @@ extern TextureEdit *textureEdit_i;
 - (void)setWarning:(BOOL)state;
 - (void)saveFrame;
 
-- (NSInteger)countOfPatches;
+@property (readonly) NSInteger countOfPatches;
 - (NSInteger)findPatchIndex:(const char *)name;
 - (const char *)getPatchName:(NSInteger)which;
 

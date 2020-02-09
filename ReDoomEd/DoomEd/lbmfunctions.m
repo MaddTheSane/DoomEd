@@ -621,7 +621,7 @@ void LBMpaletteTo16 (byte const *lbmpal, unsigned short *pal)
 		r = (*lbmpal++)>>4;
 		g = (*lbmpal++)>>4;
 		b = (*lbmpal++)>>4;
-		pal[i] = NXSwapBigShortToHost( (r<<12) + (g<<8) + (b<<4) + 15 );
+		pal[i] = NXSwapBigShortToHost( (r<<12) | (g<<8) | (b<<4) | 15 );
 	}
 }
 
@@ -634,7 +634,7 @@ void LBMpaletteTo32 (byte const *lbmpal, unsigned *pal)
 		r = *lbmpal++;
 		g = *lbmpal++;
 		b = *lbmpal++;
-		pal[i] = NXSwapBigLongToHost( (r<<24) + (g<<16) + (b<<8) + 255 );
+		pal[i] = NXSwapBigLongToHost( (r<<24) | (g<<16) | (b<<8) | 255 );
 	}
 }
 

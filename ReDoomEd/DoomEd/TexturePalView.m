@@ -88,7 +88,7 @@
 	//
 	count = 0;
 	while ((t = [texturePalette_i	getNewTexture:count++]) != NULL)
-		if (NXIntersectsRect(&rects[0],&t->r) == YES)
+		if (NSIntersectsRect(rects[0],t->r) == YES)
 			[t->image drawAtPoint:t->r.origin fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1];
 	
 	//
@@ -146,7 +146,7 @@
 	for (i = texcount - 1;i >= 0;i--)
 	{
 		t = [texturePalette_i		getNewTexture:i];
-		if (NXPointInRect(&loc,&t->r) == YES)
+		if (NSPointInRect(loc,t->r) == YES)
 		{
 			which = [texturePalette_i	selectTextureNamed:t->name ];
 

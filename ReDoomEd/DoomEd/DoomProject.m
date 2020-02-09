@@ -1336,7 +1336,7 @@ typedef struct
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
-		if (indx == NSNotFound)
+		if (indx == -2)
 		{
 			NSRunAlertPanel(@"Error!",
 				@"Found a line with a texture that isn't present: '%s'",
@@ -1358,7 +1358,7 @@ typedef struct
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
-		if (indx == NSNotFound)
+		if (indx == -2)
 		{
 			NSRunAlertPanel(@"Error!",
 				@"Found a line with a texture that isn't present: '%s'",
@@ -1424,11 +1424,9 @@ typedef struct
 			NSRunAlertPanel(@"Programming Error?",
 							@"Returned a bad texture index: %ld",
 							@"Continue",NULL,NULL,(long)indx);
-		if (indx >= 0)
+		if (indx >= 0) {
 			textureCount[indx]++;
-		else
-		if (indx == NSNotFound)
-		{
+		} else if (indx == -2) {
 			NSRunAlertPanel(@"Error!",
 				@"Found a line with a texture that isn't present: '%s'",
 				@"Continue",NULL,NULL, lines[k].side[1].toptexture);

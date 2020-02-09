@@ -63,7 +63,7 @@ BOOL	linecross[9][9];
 
 #ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (gridsize, scale)
-	NXSetRect (&aRect, 0,0, 100,100);	// call -setOrigin after installing in clip view
+	aRect = NSMakeRect(0,0, 100,100);	// call -setOrigin after installing in clip view
 	self = [super initWithFrame: aRect];	// to set the proper rectangle
 
 	if (!self)
@@ -350,7 +350,7 @@ printf ("Done\n");
 	rect.size.width = dirty->size.width + adjust*2;
 	rect.size.height = dirty->size.height + adjust*2;
 	
-	NXIntegralRect (&rect);
+	rect = NSIntegralRect(rect);
 	
 	return [self display: &rect : 1];
 }
@@ -466,7 +466,7 @@ printf ("Done\n");
 	
 	[editworld_i getBounds: &map];
 	
-	NXUnionRect (&map, &newbounds);
+	newbounds = NSUnionRect (map, newbounds);
 	
 	if (
 	newbounds.size.width != bounds.size.width ||

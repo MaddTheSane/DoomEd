@@ -69,7 +69,7 @@
 	for (i = 0; i < max; i++)
 	{
 		f = [sectorEdit_i	getFlat:i];
-		if (NXIntersectsRect(&rects[0],&f->r))
+		if (NSIntersectsRect(rects[0],f->r))
 			[f->image drawAtPoint:f->r.origin fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1];
 	}
 
@@ -130,7 +130,7 @@
 	for (i = 0;i < max; i++)
 	{
 		f = [sectorEdit_i		getFlat:i];
-		if (NXPointInRect(&loc,&f->r) == YES)
+		if (NSPointInRect(loc,f->r) == YES)
 		{
 #ifdef REDOOMED
 			if ([theEvent clickCount] == 2)

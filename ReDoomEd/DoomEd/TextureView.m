@@ -103,7 +103,7 @@
 	for (i = 0;i < patchCount; i++)
 	{
 		tpatch = [texturePatches	elementAt:i];
-//		if (NXIntersectsRect(&tpatch->r,&rects[0]) == YES)
+//		if (NSIntersectsRect(tpatch->r,rects[0]) == YES)
 			[tpatch->patch->image_x2 drawAtPoint:tpatch->r.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
 	}
 
@@ -114,7 +114,7 @@
 		for (i = patchCount - 1;i >= 0;i--)
 		{
 			tpatch = [texturePatches	elementAt:i];
-//			if (NXIntersectsRect(&tpatch->r,&rects[0]) == YES)
+//			if (NSIntersectsRect(tpatch->r,rects[0]) == YES)
 				NXFrameRectWithWidth(&tpatch->r,5);
 		}
 
@@ -188,7 +188,7 @@
 	for (i = patchcount - 1;i >= 0;i--)
 	{
 		patch = [texturePatches	elementAt:i];
-		if (NXPointInRect(&loc,&patch->r) == YES)
+		if (NSPointInRect(loc,patch->r) == YES)
 		{
 			//
 			// shift-click adds the patch to the select list

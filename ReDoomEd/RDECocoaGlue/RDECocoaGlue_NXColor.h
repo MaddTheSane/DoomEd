@@ -23,6 +23,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 typedef struct
 {
@@ -50,3 +51,5 @@ void NXSetColor(NXColor nxColor);
 
 NSColor *RDE_NSColorFromNXColor(NXColor nxColor);
 NXColor RDE_NXColorFromNSColor(NSColor *color);
+
+NS_ASSUME_NONNULL_END

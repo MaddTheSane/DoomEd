@@ -80,10 +80,10 @@
 	NSRect bounds = [self bounds];
 #endif
 
-	selectedPatch = [textureEdit_i	getCurrentPatch];
+	selectedPatch = [textureEdit_i	selectedPatch];
 	patchnum = 0;
 	while ((patch = [textureEdit_i	getPatch:patchnum++]) != NULL)
-		if (NXIntersectsRect(&patch->r,&rects[0]))
+		if (NSIntersectsRect(patch->r,rects[0]))
 			[patch->image drawAtPoint:patch->r.origin fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
 	
 	clipview = self.frame;
@@ -147,7 +147,7 @@
 	[self convertPoint:&loc	fromView:NULL];
 #endif
 	
-	selectedPatch = [textureEdit_i	getCurrentPatch];
+	selectedPatch = [textureEdit_i	selectedPatch];
 	patchnum = 0;
 	while ((patch = [textureEdit_i	getPatch:patchnum++]) != NULL)
 #ifdef REDOOMED

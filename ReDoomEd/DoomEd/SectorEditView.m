@@ -16,7 +16,7 @@
 	s = [sectorEdit_i		getSector];
 		
 	PSsetgray(NX_LTGRAY);
-	NXSetRect(&r,0,0,128,200);
+	r = NSMakeRect(0,0,128,200);
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - disable grey background, leave transparent)
 	NXRectFill(&r);
@@ -27,7 +27,7 @@
 	//
 	if (!s->ceilingflat[0])
 	{
-		NXSetRect(&r,32,105,64,64);
+		r = NSMakeRect(32,105,64,64);
 		NXRectFill(&r);
 	}
 	else
@@ -43,7 +43,7 @@
 	//
 	if (!s->floorflat[0])
 	{
-		NXSetRect(&r,32,31,64,64);
+		r = NSMakeRect(32,31,64,64);
 		NXRectFill(&r);
 	}
 	else
@@ -82,7 +82,7 @@
 	if (s->ceilingheight <= 200)
 	{
 		r.origin.y = s->ceilingheight/2 + 50;
-		if (NXPointInRect(&loc,&r) == YES)
+		if (NSPointInRect(loc,r) == YES)
 		{
 			[sectorEdit_i	selectCeiling];
 			yoff = loc.y - r.origin.y;
@@ -110,7 +110,7 @@
 	if (s->floorheight >= 0)
 	{
 		r.origin.y = s->floorheight/2 - 14;
-		if (NXPointInRect(&loc,&r) == YES)
+		if (NSPointInRect(loc,r) == YES)
 		{
 			[sectorEdit_i	selectFloor];
 			yoff = (r.origin.y + r.size.height) - loc.y;

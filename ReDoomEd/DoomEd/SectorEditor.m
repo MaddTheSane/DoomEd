@@ -514,7 +514,7 @@ SectorEditor	*sectorEdit_i;
 				elementSize:	sizeof(flat_t)
 				description:	NULL];
 	
-	NXSetRect(&f.r,0,0,0,0);
+	f.r = NSZeroRect;
 	
 	windex = 0;
 	do
@@ -887,7 +887,7 @@ SectorEditor	*sectorEdit_i;
 //	Convert a raw 64x64 to an NXImage without an alpha channel
 //
 //=================================================================
-id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette)
+NSImage *flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette)
 {
 	short		*dest_p;
 	NSBitmapImageRep *image_i;
@@ -898,17 +898,16 @@ id	flatToImage(byte *rawData, unsigned short *shortpal) //byte const *lbmpalette
 	// make an NXimage to hold the data
 	//
 	image_i = [[NSBitmapImageRep alloc]
-		initData:			NULL 
-		pixelsWide:		64 
-		pixelsHigh:		64
-		bitsPerSample:	4
-		samplesPerPixel:	3 
-		hasAlpha:		NO
-		isPlanar:			NO 
-		colorSpace:		NSCalibratedRGBColorSpace
-		bytesPerRow:		128
-		bitsPerPixel: 		16
-	];
+			   initWithBitmapDataPlanes: NULL
+			   pixelsWide: 64
+			   pixelsHigh: 64
+			   bitsPerSample: 4
+			   samplesPerPixel:	3
+			   hasAlpha: NO
+			   isPlanar: NO
+			   colorSpaceName: NSCalibratedRGBColorSpace
+			   bytesPerRow: 128
+			   bitsPerPixel: 16];
 
 	if (!image_i)
 		return nil;

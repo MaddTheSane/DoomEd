@@ -29,6 +29,12 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	[specialList_i release];
+	[super dealloc];
+}
+
 @synthesize specialList=specialList_i;
 
 - (void)empty

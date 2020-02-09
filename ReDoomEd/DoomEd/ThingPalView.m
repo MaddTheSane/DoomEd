@@ -36,7 +36,7 @@
 	for (i = 0; i < max; i++)
 	{
 		icon = [thingPalette_i	getIcon:i];
-		if (NXIntersectsRect(&rects[0],&icon->r) == YES)
+		if (NSIntersectsRect(rects[0],icon->r) == YES)
 		{
 			p = icon->r.origin;
 			p.x += (ICONSIZE - icon->imagesize.width)/2;
@@ -107,7 +107,7 @@
 	for (i = 0;i < max; i++)
 	{
 		icon = [thingPalette_i		getIcon:i];
-		if (NXPointInRect(&loc,&icon->r) == YES)
+		if (NSPointInRect(loc,icon->r) == YES)
 		{
 			[thingPalette_i	setCurrentIcon:i];
 			[thingpanel_i	selectThingWithIcon:icon->name];

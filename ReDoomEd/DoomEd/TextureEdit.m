@@ -304,21 +304,21 @@ Storage *texturePatches;
 	int	newpatch;
 	texpatch_t	*t, t1, t2;
 
-	if (	([self		getCurrentEditPatch] < 0) ||
-		([texturePatches	count] - 1 == [self	getCurrentEditPatch]))
+	if (	([self		currentEditPatch] < 0) ||
+		([texturePatches	count] - 1 == [self	currentEditPatch]))
 	{
 		NSBeep();
 		return;
 	}
 	
-	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
+	t = [texturePatches	elementAt:[self	currentEditPatch]];
 	if (t->patchLocked)
 	{
 		NSBeep();
 		return;
 	}
 	
-	newpatch = [self	getCurrentEditPatch];
+	newpatch = [self	currentEditPatch];
 	do
 	{
 		newpatch++;
@@ -331,11 +331,11 @@ Storage *texturePatches;
 	} while (t->patchLocked);
 
 	t2 = *t;
-	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
+	t = [texturePatches	elementAt:[self	currentEditPatch]];
 	t1 = *t;
 	[texturePatches	removeElementAt:newpatch];
-	[texturePatches	removeElementAt:[self	getCurrentEditPatch]];
-	[texturePatches	insertElement:&t2	at:[self getCurrentEditPatch]];
+	[texturePatches	removeElementAt:[self	currentEditPatch]];
+	[texturePatches	insertElement:&t2	at:[self currentEditPatch]];
 	[texturePatches	insertElement:&t1	at:newpatch];
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
@@ -350,20 +350,20 @@ Storage *texturePatches;
 	int	newpatch;
 	texpatch_t	*t, t1, t2;
 
-	if ([self	getCurrentEditPatch] < 1)
+	if ([self	currentEditPatch] < 1)
 	{
 		NSBeep();
 		return;
 	}
 	
-	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
+	t = [texturePatches	elementAt:[self	currentEditPatch]];
 	if (t->patchLocked)
 	{
 		NSBeep();
 		return;
 	}
 	
-	newpatch = [self	getCurrentEditPatch];
+	newpatch = [self	currentEditPatch];
 	do
 	{
 		newpatch--;
@@ -376,12 +376,12 @@ Storage *texturePatches;
 	} while (t->patchLocked);
 
 	t2 = *t;
-	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
+	t = [texturePatches	elementAt:[self	currentEditPatch]];
 	t1 = *t;
-	[texturePatches	removeElementAt:[self	getCurrentEditPatch]];
+	[texturePatches	removeElementAt:[self	currentEditPatch]];
 	[texturePatches	removeElementAt:newpatch];
 	[texturePatches	insertElement:&t1	at:newpatch];
-	[texturePatches	insertElement:&t2	at:[self getCurrentEditPatch]];
+	[texturePatches	insertElement:&t2	at:[self currentEditPatch]];
 	[self	changeSelectedTexturePatch:0 to:newpatch];
 
 	[textureView_i setNeedsDisplay:YES];
@@ -584,7 +584,7 @@ Storage *texturePatches;
 //
 // return which patch is selected in edit view
 //
-- (int)getCurrentEditPatch
+- (int)currentEditPatch
 {
 	NSInteger	amount;
 	
@@ -664,17 +664,17 @@ Storage *texturePatches;
 	*(int *)[selectedTexturePatches	elementAt:which] = val;
 }
 
-//
-// add texture patch # to selected array
-//
+///
+/// add texture patch # to selected array
+///
 - (void)addSelectedTexturePatch:(int)val
 {
 	[selectedTexturePatches	addElement:&val];
 }
 
-//
-// patch lock switch was modified, so change patch flag
-//
+///
+/// patch lock switch was modified, so change patch flag
+///
 - (void)doLockToggle
 {
 	[lockedPatch_i	setIntValue:1 - [lockedPatch_i intValue]];
@@ -686,23 +686,20 @@ Storage *texturePatches;
 	int	val;
 	texpatch_t	*t;
 	
-	if ([self	getCurrentEditPatch] < 0)
+	if ([self	currentEditPatch] < 0)
 	{
 		NSBeep();
 		return;
 	}
 	val = [lockedPatch_i	intValue];
-	t = [texturePatches	elementAt:[self	getCurrentEditPatch]];
+	t = [texturePatches	elementAt:[self	currentEditPatch]];
 	t->patchLocked = val;
 }
 
-//
-// return current patch in edit window
-//
-- (int)getCurrentPatch
-{
-	return	selectedPatch;
-}
+///
+/// return current patch in edit window
+///
+@synthesize selectedPatch;
 
 //
 // the "outline patches" switch was modified, so redraw edit view
@@ -778,16 +775,16 @@ Storage *texturePatches;
 	if (	[textureWidthField_i	intValue] < textures[currentTexture].width ||
 		[textureHeightField_i	intValue] < textures[currentTexture].height)
 	{
-		NXSetRect(&tr,0,0,
+		tr = NSMakeRect(0,0,
 				[textureWidthField_i  intValue] * 2,[textureHeightField_i  intValue] * 2);
 		count = 0;
 		deltay = (textures[currentTexture].height - [textureHeightField_i  intValue]) * 2;
 		while((p = [texturePatches	elementAt:count++]) != NULL)
 		{
-			NXSetRect(&nr,p->r.origin.x,p->r.origin.y - deltay,p->r.size.width,p->r.size.height);
-			if (NXIntersectsRect(&nr,&tr) == NO)
+			nr = NSMakeRect(p->r.origin.x,p->r.origin.y - deltay,p->r.size.width,p->r.size.height);
+			if (NSIntersectsRect(nr,tr) == NO)
 			{
-				NXBeep();
+				NSBeep();
 				NSRunAlertPanel(@"Oops!",
 								@"Changing the dimensions like that would leave one or more "
 								"patches out in limbo!  Sorry, non-workness!",
@@ -1238,9 +1235,9 @@ Storage *texturePatches;
 	return NULL;
 }
 
-//
-// set patch selected in Patch Palette
-//
+///
+/// set patch selected in Patch Palette
+///
 - (void)setSelectedPatch:(int)which
 {
 	apatch_t	*t;
@@ -1273,11 +1270,7 @@ Storage *texturePatches;
 	[texturePatchScrollView_i setNeedsDisplay:YES];
 }
 
-//==========================================================
-//
-//	Get rid of all patches and their images
-//
-//==========================================================
+/// Get rid of all patches and their images
 - (void)dumpAllPatches
 {
 	NSInteger	i, max;
@@ -1344,7 +1337,7 @@ Storage *texturePatches;
 		// prevent buffer overflows: *sprintf() -> *snprintf() in cases where input strings
 		// might be too long for the destination buffer
 		snprintf (start, sizeof(start), "p%d_start", windex+1 );
-		snprintf (end,sizeof(end),"p%d_end", windex+1 );
+		snprintf (end, sizeof(end),"p%d_end", windex+1 );
 #else // Original
 		sprintf (start, "p%d_start", windex+1 );
 		sprintf (end,"p%d_end", windex+1 );
@@ -1364,7 +1357,7 @@ Storage *texturePatches;
 			continue;
 		}
 		
-		NXSetRect(&p.r,0,0,0,0);
+		p.r = NSZeroRect;
 		for (i = patchStart; i < patchEnd; i++)
 		{
 			[doomproject_i	updateThermo:i-patchStart max:patchEnd-patchStart];
@@ -1391,14 +1384,14 @@ Storage *texturePatches;
 	[doomproject_i	closeThermo];
 }
 
-//
-// make a copy that's 2 times the size
-//
+///
+/// make a copy that's 2 times the size
+///
 - (void)createPatchX2:(apatch_t *)p
 {
 	NXSize	theSize;
 	
-	p->image_x2 = [p->image	copyFromZone:NXDefaultMallocZone()];
+	p->image_x2 = [p->image	copy];
 	theSize = p->size;
 	theSize.width *= 2;
 	theSize.height *= 2;
@@ -1412,17 +1405,17 @@ Storage *texturePatches;
 #endif
 }
 
-//
-//	Return # of patches
-//
+///
+///	Return # of patches
+///
 - (NSInteger)countOfPatches
 {
 	return [patchImages	count];
 }
 
-//
-//	Return index of patch from name
-//
+///
+///	Return index of patch from \c name
+///
 - (NSInteger)findPatchIndex:(const char *)name
 {
 	NSInteger i, max;
@@ -1488,10 +1481,10 @@ Storage *texturePatches;
 	NSBeep ();
 }
 
-//
-// user resized the Texture Edit window.
-// change the size of the patch palette.
-//
+///
+/// user resized the Texture Edit window.
+/// change the size of the patch palette.
+///
 #ifdef REDOOMED
 // Cocoa version
 - (void) windowDidResize: (NSNotification *) notification
@@ -1510,10 +1503,10 @@ Storage *texturePatches;
 #endif
 }
 
-//
-// compute the size of the docView and set the origin of all the patches
-// within the docView.
-//
+///
+/// compute the size of the docView and set the origin of all the patches
+/// within the docView.
+///
 - (void)computePatchDocView: (NXRect *)theframe
 {
 	NXRect	curWindowRect;
@@ -1556,7 +1549,7 @@ Storage *texturePatches;
 			x += patch->r.size.width + SPACING;
 	}
 	y += maxheight + SPACING;
-	NXSetRect(theframe,0,0,curWindowRect.size.width + SPACING,y);
+	*theframe = NSMakeRect(0,0,curWindowRect.size.width + SPACING,y);
 	
 	//
 	// now go through all the patches and reassign the coords so they
@@ -1606,6 +1599,11 @@ Storage *texturePatches;
 	}	
 }
 
+- (void)dealloc
+{
+	[selectedTexturePatches release];
+	[super dealloc];
+}
 
 @end
 

@@ -492,7 +492,7 @@
 		else if (side2 && !side1)
 			IDEnclosePoint (&fixedrect, &points[line_p->p1].pt); // p1 is fixed
 	}
-	linecount = linelist_p - linelist;
+	linecount = (int)(linelist_p - linelist);
 	
 //
 // the dragrect encloses all selected points
@@ -627,8 +627,8 @@
 		currentdragrect.origin.x += cursor.x;
 		currentdragrect.origin.y += cursor.y;
 		updaterect = currentdragrect;
-		NXUnionRect (&olddragrect, &updaterect);
-		NXUnionRect (&fixedrect, &updaterect);
+		updaterect = NSUnionRect (olddragrect, updaterect);
+		updaterect = NSUnionRect (fixedrect, updaterect);
 		olddragrect = currentdragrect;
 		[self displayDirty: &updaterect];
 		
@@ -746,7 +746,7 @@
 	{
 		if (point_p->selected == -1)
 			continue;
-		if ( NXPointInRect (&point_p->pt, &newframe) )
+		if ( NSPointInRect (point_p->pt, newframe) )
 			[editworld_i selectPoint: p];
 	}
 
@@ -789,7 +789,7 @@
 	{
 		if (thing_p->selected == -1)
 			continue;
-		if ( NXPointInRect (&thing_p->origin, &newframe) )
+		if ( NSPointInRect (thing_p->origin, newframe) )
 			[editworld_i selectThing: p];
 	}
 
@@ -1143,7 +1143,7 @@
 - mouseDown:(NXEvent *)thisEvent
 #endif
 {
-	int	tool;
+	tool_t	tool;
 		
 	tool = [toolpanel_i currentTool];
 	
@@ -1178,10 +1178,6 @@
 	}
 			
 	[editworld_i updateWindows];
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return(self);
-#endif
 }
 
 #ifdef REDOOMED

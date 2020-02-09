@@ -176,19 +176,19 @@ NXEraseRect (&r);
 }
 #endif
 
-		if (line = *(dest+WL_WEST))
+		if ((line = *(dest+WL_WEST)))
 		{
 			selectline (line);
 			break;
 		}
 		else if (x>0)
 		{
-			if (line = *(dest-WLSIZE+WL_NWSE))
+			if ((line = *(dest-WLSIZE+WL_NWSE)))
 			{
 				selectline(line^SIDEBIT);
 				break;
 			}
-			else if (line = *(dest-WLSIZE+WL_NESW))
+			else if ((line = *(dest-WLSIZE+WL_NESW)))
 			{
 				selectline(line);
 				break;
@@ -210,24 +210,24 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	{
 		dest = bmap + y*brow + x*WLSIZE;
 	
-		if (line = *(dest+WL_SOUTH))
+		if ((line = *(dest+WL_SOUTH)))
 			selectline (line);
 		else if ( y<bheight-1 && !*(dest+brow+WL_MARK))
 		{
-			if (line = *(dest+brow+WL_NWSE))
+			if ((line = *(dest+brow+WL_NWSE)))
 				selectline(line^SIDEBIT);
-			else if (line = *(dest+brow+WL_NESW))
+			else if ((line = *(dest+brow+WL_NESW)))
 				selectline(line^SIDEBIT);
 			else floodline (x,y+1);
 		}
 			
-		if (line = *(dest+WL_NORTH))
+		if ((line = *(dest+WL_NORTH)))
 			selectline (line);
 		else if (y>0  && !*(dest-brow+WL_MARK))
 		{
-			if (line = *(dest-brow+WL_NWSE))
+			if ((line = *(dest-brow+WL_NWSE)))
 				selectline(line);
-			else if (line = *(dest-brow+WL_NESW))
+			else if ((line = *(dest-brow+WL_NESW)))
 				selectline(line);
 			else floodline (x,y-1);
 		}
@@ -279,7 +279,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		}
 			
 		right = left ^ SIDEBIT;
-		dest = bmap + (bheight-1-y1)*brow + x1*WLSIZE;
+		dest = (short *)(bmap + (bheight-1-y1)*brow + x1*WLSIZE);
 		while (y1 < y2)
 		{
 			*(dest+WL_WEST) = right;
@@ -382,7 +382,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	int		i,size;
 	short	*src, *dest;
 	
-	NXSetRect (&aRect, 100, 100, brow/WLSIZE, bheight);
+	aRect = NSMakeRect(100, 100, brow/WLSIZE, bheight);
 	window = [[NSWindow alloc] initWithContentRect:	aRect
 										 styleMask: NSWindowStyleMaskTitled | NSWindowStyleMaskMiniaturizable | NSWindowStyleMaskClosable
 										   backing: NSBackingStoreRetained

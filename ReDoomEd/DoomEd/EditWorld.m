@@ -558,7 +558,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 		new.size.height = pt1->y - pt2->y+1;
 	}
 
-	NXUnionRect (&new, &dirtyrect);
+	dirtyrect = NSUnionRect (new, dirtyrect);
 #endif
 	return self;
 }
@@ -1273,9 +1273,9 @@ FIXME: make these scan for deleted entries
 // mark the old position as dirty
 	if (things[num].selected != -1)
 	{
-		NXSetRect (&drect, data->origin.x - THINGDRAWSIZE/2
+		drect = NSMakeRect(data->origin.x - THINGDRAWSIZE/2
 		, data->origin.y - THINGDRAWSIZE/2,THINGDRAWSIZE, THINGDRAWSIZE);
-		NXUnionRect (&drect, &dirtyrect);
+		dirtyrect = NSUnionRect (drect, dirtyrect);
 	}
 
 // change the thing	
@@ -1284,9 +1284,9 @@ FIXME: make these scan for deleted entries
 // mark the new position as dirty
 	if (things[num].selected != -1)
 	{
-		NXSetRect (&drect, data->origin.x - THINGDRAWSIZE/2
+		drect = NSMakeRect(data->origin.x - THINGDRAWSIZE/2
 		, data->origin.y - THINGDRAWSIZE/2,THINGDRAWSIZE, THINGDRAWSIZE);
-		NXUnionRect (&drect, &dirtyrect);
+		dirtyrect = NSUnionRect (drect, dirtyrect);
 	}
 	
 	return nil;

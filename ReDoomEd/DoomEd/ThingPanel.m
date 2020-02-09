@@ -840,12 +840,8 @@ id	thingpanel_i;
 {
 	float	r,g,b;
 	
-#ifdef REDOOMED
 	// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 	if (fscanf(stream,"%31s = %d %d %d (%f %f %f) %8s\n",
-#else // Original
-	if (fscanf(stream,"%s = %d %d %d (%f %f %f) %s\n",
-#endif
 			thing->name,&thing->angle,&thing->value,&thing->option,
 			&r,&g,&b,thing->iconname) != 8)
 		return NO;
@@ -1027,5 +1023,10 @@ id	thingpanel_i;
 }
 #endif
 
+-(void)dealloc
+{
+	[masterList_i release];
+	[super dealloc];
+}
 
 @end
