@@ -35,8 +35,8 @@
 
 - drawGrid: (const NXRect *)rect
 {
-	int	x,y, stopx, stopy;
-	float	top,bottom,right,left;
+	int		x,y, stopx, stopy;
+	CGFloat	top,bottom,right,left;
 
 	left = rect->origin.x-1;
 	bottom = rect->origin.y-1;
@@ -119,32 +119,24 @@
 }
 
 
-/*
-============
-=
-= drawLines
-=
-= Rect is in global world (unscaled) coordinates
-= The user path routines automatically scale points by pathscale
-============
-*/
-
-- drawLines: (const NXRect *)rect
+/// Rect is in global world (unscaled) coordinates
+/// The user path routines automatically scale points by pathscale
+- (void)drawLines: (NSRect)rect
 {
 	int		i,xc,yc;
-	float		left,bottom,right, top;
+	CGFloat		left,bottom,right, top;
 	char		*clippoint;
 	worldpoint_t	const	*wp;
 	worldline_t	const	*li;
 	int		color;
 	
-// classify all points on the currently displayed levels into 9 clipping regions
+	// classify all points on the currently displayed levels into 9 clipping regions
 	clippoint = alloca (numpoints);
 
-	left = rect->origin.x-1;
-	bottom = rect->origin.y-1;
-	right = rect->origin.x + rect->size.width+2;
-	top = rect->origin.y + rect->size.height+2;
+	left = rect.origin.x-1;
+	bottom = rect.origin.y-1;
+	right = rect.origin.x + rect.size.width+2;
+	top = rect.origin.y + rect.size.height+2;
 	
 	wp = points;
 	for (i=0 ; i<numpoints ; i++, wp++)
@@ -167,13 +159,13 @@
 		clippoint[i] = yc*3+xc;
 	}
 	
-// set up user paths	
+	// set up user paths
 	StartPath (ONESIDED_C);
 	StartPath (TWOSIDED_C);
 	StartPath (SELECTED_C);
 	StartPath (SPECIAL_C);
 	
-// only draw the lines that might intersect the visible rect
+	// only draw the lines that might intersect the visible rect
 
 	li = lines;
 	for (i=0 ; i<numlines ; i++, li++)
@@ -182,8 +174,8 @@
 			continue;		// deleted line
 		if (!linecross[ clippoint[ li->p1] ][ clippoint[ li->p2] ])
 			continue;			// line can't intersect the view
-			
-	// add a line to the path for it's type
+		
+		// add a line to the path for it's type
 		if (li->selected)
 			color = SELECTED_C;
 		else if (li->special)
@@ -192,24 +184,22 @@
 			color = TWOSIDED_C;
 		else
 			color = ONESIDED_C;
-
-if (points[li->p1].pt.x != points[li->p2].pt.x
-|| points[li->p1].pt.y != points[li->p2].pt.y)
-{
-		AddLine (color, points[li->p1].pt.x,
-						points[li->p1].pt.y,
-						points[li->p2].pt.x,
-						points[li->p2].pt.y);
-		AddLine (color, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
-}
+		
+		if (points[li->p1].pt.x != points[li->p2].pt.x
+			|| points[li->p1].pt.y != points[li->p2].pt.y)
+		{
+			AddLine (color, points[li->p1].pt.x,
+					 points[li->p1].pt.y,
+					 points[li->p2].pt.x,
+					 points[li->p2].pt.y);
+			AddLine (color, li->mid.x, li->mid.y,li->norm.x, li->norm.y);
+		}
 	}
 
 	FinishPath (ONESIDED_C);
 	FinishPath (TWOSIDED_C);
 	FinishPath (SELECTED_C);
 	FinishPath (SPECIAL_C);
-	
-	return self;
 }
 
 /*
@@ -221,21 +211,21 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 ============
 */
 
-- drawThings: (const NXRect *)rect
+- (void)drawThings: (NSRect)rect
 {
-	NXRect	r;
-	float		offset;
-	float		left, right, top, bottom;
+	NSRect			r;
+	CGFloat			offset;
+	CGFloat			left, right, top, bottom;
 	worldthing_t	*wp, *stop;
-	int			diff;
+	int				diff;
 	
 	diff = [thingpanel_i	getDifficultyDisplay];
 	offset = THINGDRAWSIZE;
 	
-	left = rect->origin.x - offset;
-	right = rect->origin.x + rect->size.width + offset;
-	bottom = rect->origin.y  - offset;
-	top = rect->origin.y+ rect->size.height + offset;
+	left = rect.origin.x - offset;
+	right = rect.origin.x + rect.size.width + offset;
+	bottom = rect.origin.y  - offset;
+	top = rect.origin.y+ rect.size.height + offset;
 	
 	stop = things+numthings;
 	
@@ -254,17 +244,16 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 			if (!((wp->options>>diff)&1))
 				continue;
 			
-		if (wp->selected == 1)
+		if (wp->selected == 1) {
 			RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: SELECTED_C]);
-		else
-			RDE_DPSGlue_SetNSColor([thingpanel_i	getThingColor:wp->type]);
+		} else {
+			RDE_DPSGlue_SetNSColor([thingpanel_i getThingColor:wp->type]);
+		}
 		r.origin.x = wp->origin.x - offset/2;
 		r.origin.y = wp->origin.y - offset/2;
 		r.size.width = r.size.height = offset;
 		NXRectFill(&r);
 	}
-
-	return self;
 }
 
 
@@ -278,12 +267,12 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 ============
 */
 
-- drawPoints: (const NXRect *)rect
+- (void)drawPoints: (NSRect)rect
 {
 	NXRect	*unselected, *selected, *unsel_p, *sel_p, *use;
 	NSInteger	count;
-	float		offset;
-	float		left, right, top, bottom;
+	CGFloat		offset;
+	CGFloat		left, right, top, bottom;
 	worldpoint_t	const	*wp, *stop;
 	
 	unselected = unsel_p = alloca (numpoints*sizeof(NXRect));
@@ -291,10 +280,10 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	
 	offset = CPOINTDRAW/scale;
 	
-	left = rect->origin.x - offset;
-	right = rect->origin.x + rect->size.width + offset;
-	bottom = rect->origin.y  - offset;
-	top = rect->origin.y+ rect->size.height + offset;
+	left = rect.origin.x - offset;
+	right = rect.origin.x + rect.size.width + offset;
+	bottom = rect.origin.y  - offset;
+	top = rect.origin.y+ rect.size.height + offset;
 	
 	stop = points+numpoints;
 	
@@ -330,8 +319,6 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 		RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: SELECTED_C]);
 		NXRectFillList (selected, count);
 	}
-	
-	return self;
 }
 
 
@@ -372,7 +359,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	PSsetlinewidth (0.15);
 
 	[self drawGrid: rects];	
-	[self drawThings: rects];
+	[self drawThings: *rects];
 
 // the draw size must be increased to cover any things that might have been overdrawn
 // past the edges
@@ -381,8 +368,8 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 	newrect.origin.y -= THINGDRAWSIZE;
 	newrect.size.width += THINGDRAWSIZE*2;
 	newrect.size.height += THINGDRAWSIZE*2;
-	[self drawLines: &newrect];
-	[self drawPoints: &newrect];
+	[self drawLines: newrect];
+	[self drawPoints: newrect];
 		
 #ifdef REDOOMED
 	// Display PostScript's instance mode (for making temporary drawings) is implemented

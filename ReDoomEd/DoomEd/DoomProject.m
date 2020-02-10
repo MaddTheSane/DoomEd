@@ -1502,7 +1502,7 @@ typedef struct
 	const char *patchName;
 	
 	int		i;
-	int		k;
+	NSInteger	k;
 	int		j;
 	NSInteger nt;
 	NSInteger selRow;
@@ -1514,7 +1514,7 @@ typedef struct
 	FILE	*stream;
 	char	filename[]="/tmp/tempstats.txt\0";
 	texpal_t	*t;
-	int		numth;
+	NSInteger	numth;
 	tc_t	*thingCount;
 	id		thingList_i;
 	

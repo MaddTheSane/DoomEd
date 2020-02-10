@@ -249,10 +249,10 @@
 	PSsetlinewidth (0.15);
 	RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: [settingspanel_i segmentType]]);
 
-	[self getGridPoint: &fixedpoint from: event];		// handle grid and sutch
+	fixedpoint = [self gridPointFromEvent: event];		// handle grid and sutch
 	
 	do {
-		[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
+		dragpoint = [self gridPointFromEvent: event];  // handle grid and sutch
 		
 		PSnewinstance ();
 		
@@ -319,13 +319,13 @@
 	// drag lines until a click on same point
 	//
 	do {
-		[self getGridPoint: &fixedpoint from: event];	// handle grid and sutch
+		fixedpoint = [self gridPointFromEvent: event];	// handle grid and sutch
 		oldMask = [window addToEventMask:NSEventMaskMouseMoved];
 		PSsetinstance (YES);
 	
 		do {
 			event = [NXApp getNextEvent: NSEventMaskLeftMouseDown | NSEventMaskLeftMouseUp | NSEventMaskMouseMoved | NSEventMaskLeftMouseDragged];
-			[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
+			dragpoint = [self gridPointFromEvent: event];  // handle grid and sutch
 
 			if ([event type] == NSEventTypeLeftMouseUp)
 				break;
@@ -389,7 +389,7 @@
 	NSWindow    *window = [self window];
 #endif
 		
-	[self getGridPoint: &cursor  from: event];  // handle grid and sutch
+	cursor = [self gridPointFromEvent: event];  // handle grid and sutch
 	
 // set up negative rects
 	fixedrect.origin.x = MAXFLOAT/4;
@@ -495,7 +495,7 @@
 		//
 		// calculate new rectangle
 		//
-		[self getGridPoint: &cursor  from: event];  // handle grid and such
+		cursor = [self gridPointFromEvent: event];  // handle grid and such
 
 		//
 		// move all selected points
@@ -709,12 +709,12 @@
 	int			i;
 	worldthing_t	*thing_p;
 	worldpoint_t	const *point_p;
-	float			left, right, top, bottom;
+	CGFloat			left, right, top, bottom;
 	NXPoint		*p1, *p2;
 	NXPoint		clickpoint;
 	int			instroke;
 	
-	[self getPoint: &clickpoint from: event];
+	clickpoint = [self pointFromEvent: event];
 	
 
 	//
@@ -870,7 +870,7 @@
 	
 	[editworld_i deselectAll];
 	
-	[self getGridPoint: &thing.origin from: event];
+	thing.origin = [self gridPointFromEvent:event];
 	
 	[thingpanel_i	getThing:&thing];
 	thing.selected = 0;
@@ -898,7 +898,7 @@
 
 	fillends = [sectorEdit_i getSector];
 	
-	[self getPoint: &pt from: event];
+	pt = [self pointFromEvent: event];
 	[blockworld_i floodFillSector: pt];
 	
 	for (i=0 ; i<numlines ; i++)
@@ -928,7 +928,7 @@
 	int		line, side;
 	sectordef_t	*def;
 
-	[self getPoint: &pt from: event];	
+	pt = [self pointFromEvent: event];
 	line = LineByPoint (&pt, &side);
 	
 	def = &lines[line].side[side].ends;
@@ -958,7 +958,7 @@
 	worldthing_t	oldthing,newthing;
 	
 	player1Type = [prefpanel_i	launchThingType];
-	[self getPoint: &pt from: event];
+	pt = [self pointFromEvent: event];
 	for (i=0;i < numthings; i++) {
 		if (things[i].type == player1Type) {
 			newthing = oldthing = things[i];

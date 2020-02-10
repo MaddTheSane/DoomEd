@@ -22,30 +22,22 @@ BOOL	linecross[9][9];
 
 @implementation MapView
 
-#ifdef REDOOMED
-// Cocoa version
 + (void) initialize
-#else // Original
-+ initialize
-#endif
 {
-	int	x1,y1,x2,y2;
-	
-	for (x1=0 ; x1<3 ; x1++)
-		for (y1=0 ; y1<3 ; y1++)
-			for (x2=0 ; x2<3 ; x2++)
-				for (y2=0 ; y2<3 ; y2++)
-				{
-					if  ( ( (x1<=1 && x2>=1) || (x1>=1 && x2<=1) ) 
-					&& ( (y1<=1 && y2>=1) || (y1>=1 && y2<=1) ) )
+	for (int x1=0 ; x1<3 ; x1++) {
+		for (int y1=0 ; y1<3 ; y1++) {
+			for (int x2=0 ; x2<3 ; x2++) {
+				for (int y2=0 ; y2<3 ; y2++) {
+					if (((x1<=1 && x2>=1) || (x1>=1 && x2<=1))
+						 && ((y1<=1 && y2>=1) || (y1>=1 && y2<=1))) {
 						linecross[y1*3+x1][y2*3+x2] = YES;
-					else
+					} else {
 						linecross[y1*3+x1][y2*3+x2] = NO;
+					}
 				}
-		
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
+			}
+		}
+	}
 }
 
 
@@ -57,27 +49,22 @@ BOOL	linecross[9][9];
 ==================
 */
 
--initFromEditWorld
+-(instancetype)initFromEditWorld
 {
 	NXRect	aRect;
 
-#ifdef REDOOMED
 	// moved call to super's initializer here, before member setup (gridsize, scale)
 	aRect = NSMakeRect(0,0, 100,100);	// call -setOrigin after installing in clip view
 	self = [super initWithFrame: aRect];	// to set the proper rectangle
 
 	if (!self)
 		return nil;
-#endif
 
-	 if (![editworld_i loaded])
-	 {
+	if (![editworld_i loaded]) {
 		NSRunAlertPanel(@"Error",@"MapView inited with NULL world",NULL,NULL,NULL);
 
-#ifdef REDOOMED
 		// prevent memory leaks
-		 [self release];
-#endif
+		[self release];
 
 		return NULL;
 	}
@@ -85,23 +72,15 @@ BOOL	linecross[9][9];
 	gridsize = 8;		// these are changed by the pop up menus
 	scale = 1;
 	
-#ifndef REDOOMED // Original (Disable for ReDoomEd - moved init call, removed setOpaque: (see below))
-	NXSetRect (&aRect, 0,0, 100,100);	// call -setOrigin after installing in clip view
-	[super initFrame: &aRect];			// to set the proper rectangle
-	[self setOpaque: YES];
-#endif
-		
 	return self;
 }
 
-#ifdef REDOOMED
 // removed call to -[self setOpaque: YES] from init method above; View opacity in Cocoa is
 // controlled by overriding -[NSView isOpaque] method:
 - (BOOL) isOpaque
 {
 	return YES;
 }
-#endif
 
 
 #define TESTOPS	1000
@@ -163,16 +142,7 @@ printf ("Done\n");
 
 
 
-/*
-====================
-=
-= scaleMenuTarget:
-=
-= Called when the scaler popup on the window is used
-=
-====================
-*/
-
+/// Called when the scaler popup on the window is used
 - (IBAction)scaleMenuTarget: sender
 {
 	char	const	*item;
@@ -205,16 +175,7 @@ printf ("Done\n");
 }
 
 
-/*
-====================
-=
-= gridMenuTarget:
-=
-= Called when the scaler popup on the window is used
-=
-====================
-*/
-
+/// Called when the scaler popup on the window is used
 - (IBAction)gridMenuTarget: sender
 {
 	char	const	*item;
@@ -271,12 +232,8 @@ printf ("Done\n");
 ===============================================================================
 */
 
-#ifdef REDOOMED
 // Cocoa version
 - (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
-#else // Original
-- (BOOL)acceptsFirstMouse
-#endif
 {
 	return YES;
 }
@@ -365,52 +322,32 @@ printf ("Done\n");
 ===============================================================================
 */
 
-/*
-=======================
-=
-= getPoint: from:
-=
-= Returns the global (unscaled) world coordinates of an event location
-=
-=======================
-*/
-
-- 	getGridPoint:	(NXPoint *)point 
-	from: 	(NXEvent const *)event
+/// Returns the global (unscaled) world coordinates of an event location
+- (NSPoint)gridPointFromEvent: (NSEvent *)event;
 {
-// convert to view coordinates
+	NSPoint point;
+	// convert to view coordinates
 
-#ifdef REDOOMED
-	*point = [event locationInWindow];
-	*point = [self convertPoint:*point  fromView:nil];
-#else // Original
-	*point = event->location;
-	[self convertPoint:point  fromView:NULL];
-#endif
+	point = [event locationInWindow];
+	point = [self convertPoint:point  fromView:nil];
 
-// adjust for grid
-	point->x = (int)(((point->x)/gridsize)+0.5*(point->x<0?-1:1));
-	point->y = (int)(((point->y)/gridsize)+0.5*(point->y<0?-1:1));
-	point->x *= gridsize;
-	point->y *= gridsize;
-//	printf("X:%f\tY:%f\tgridsize:%d\n",point->x,point->y,gridsize);
-	return self;
+	// adjust for grid
+	point.x = (int)(((point.x)/gridsize)+0.5*(point.x<0?-1:1));
+	point.y = (int)(((point.y)/gridsize)+0.5*(point.y<0?-1:1));
+	point.x *= gridsize;
+	point.y *= gridsize;
+	//	printf("X:%f\tY:%f\tgridsize:%d\n",point->x,point->y,gridsize);
+	return point;
 }
 
-- 	getPoint:	(NXPoint *)point 
-	from: 	(NXEvent const *)event
+- (NSPoint)pointFromEvent: (NSEvent *)event;
 {
-// convert to view coordinates
+	// convert to view coordinates
+	NSPoint point;
+	point = [event locationInWindow];
+	point = [self convertPoint:point  fromView:nil];
 
-#ifdef REDOOMED
-	*point = [event locationInWindow];
-	*point = [self convertPoint:*point  fromView:nil];
-#else // Original
-	*point = event->location;
-	[self convertPoint:point  fromView:NULL];
-#endif
-
-	return self;
+	return point;
 }
 
 /*
@@ -431,7 +368,7 @@ printf ("Done\n");
 	return [self adjustFrameForOrigin: org scale:scale];
 }
 
-- adjustFrameForOrigin: (NXPoint const *)org scale: (float)scl
+- adjustFrameForOrigin: (NXPoint const *)org scale: (CGFloat)scl
 {
 	NXRect	map;
 	NXRect	newbounds;
@@ -508,7 +445,7 @@ printf ("Done\n");
 	return [self setOrigin: org scale: scale];
 }
 
-- setOrigin: (NXPoint const *)org scale: (float)scl
+- setOrigin: (NXPoint const *)org scale: (CGFloat)scl
 {
 	[self adjustFrameForOrigin: org scale:scl];
 
@@ -532,7 +469,7 @@ printf ("Done\n");
 ====================
 */
 
-- zoomFrom:(NXPoint *)origin toScale:(float)newscale
+- zoomFrom:(NXPoint *)origin toScale:(CGFloat)newscale
 {
 	NXPoint		neworg, orgnow;
 #ifdef REDOOMED
