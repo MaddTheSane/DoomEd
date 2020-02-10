@@ -39,14 +39,19 @@
 //	Add a Texture Palette divider (new set of textures)
 //
 //==============================================================
-- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(NSInteger)x y:(NSInteger)y string:(NSString *)string;
 {
 	divider_t		d;
 	
-	d.x = x;
-	d.y = y;
-	strcpy (d.string, string );
+	d.x = (int)x;
+	d.y = (int)y;
+	strncpy (d.string, string.UTF8String, sizeof(d.string));
 	[dividers_i	addElement:&d ];
+}
+
+- (void)addDividerX:(int)x Y:(int)y String:(const char *)string
+{
+	[self addDividerX:x y:y string:@(string)];
 }
 
 - (void)dumpDividers

@@ -234,7 +234,7 @@ TexturePalette	*texturePalette_i;
 - (void)computePalViewSize
 {
 	texpal_t	*t, *t2;
-	int		count,maxwidth,x,y;
+	NSInteger	count,maxwidth,x,y;
 	NXSize	s,imagesize;
 	int		maxwindex, i, j;
 	char		string[32];
@@ -444,7 +444,7 @@ TexturePalette	*texturePalette_i;
 
 - (IBAction)searchForTexture:sender
 {
-	int	i, max, slen,j;
+	NSInteger	i, max, slen,j;
 	const char *string;
 	texpal_t	*t;
 	
@@ -479,7 +479,7 @@ TexturePalette	*texturePalette_i;
 			}
 	}
 	
-	NXBeep();
+	NSBeep();
 }
 
 - (int) currentSelection

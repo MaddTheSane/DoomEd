@@ -53,66 +53,38 @@
 	[editworld_i selectPoint: lines[line].p2];
 }
 
-/*
-===============================================================================
+#pragma mark - RESPONDER METHODS
 
-						RESPONDER METHODS
-
-===============================================================================
-*/
-
-/*
-===============
-=
-= slideView:
-=
-= Scroll the view in response to dragging
-=
-===============
-*/
-
+/// Scroll the view in response to dragging
 - (void)slideView:(NXEvent *)event
 {
 	NSEventMask 		oldMask;
 	NXPoint	oldpt, pt, origin;
-	float		dx, dy;
+	CGFloat		dx, dy;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
 	NSWindow *window = [self window];
 	NSEventType eventType;
 #endif
 			
-#ifdef REDOOMED
 	oldpt = [event locationInWindow];
 	oldpt = [self convertPoint: oldpt fromView: nil];
-#else // Original
-	oldpt = event->location;
-	[self convertPoint: &oldpt fromView: NULL];
-#endif
 	
 	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged | NSEventMaskRightMouseDragged];
 	
 	do 
 	{
-		event = [NXApp getNextEvent: NSLeftMouseUpMask | NSRightMouseUpMask | NSLeftMouseDraggedMask | NSRightMouseDraggedMask];
+		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskRightMouseUp | NSEventMaskLeftMouseDragged | NSEventMaskRightMouseDragged];
 
-#ifdef REDOOMED
 		eventType = [event type];
-		if (eventType == NSLeftMouseUp || eventType == NSRightMouseUp)
+		if (eventType == NSEventTypeLeftMouseUp || eventType == NSEventTypeRightMouseUp)
 			break;
 
 		pt = [event locationInWindow];
 		pt = [self convertPoint: pt fromView: nil];
-#else // Original
-		if (event->type == NX_MOUSEUP || event->type == NX_RMOUSEUP)
-			break;
-			
-		pt = event->location;
-		[self convertPoint: &pt fromView: NULL];
-#endif
 
 		dx = oldpt.x - pt.x;
-		dy= oldpt.y - pt.y;
+		dy = oldpt.y - pt.y;
 		
 		if (dx != 0 || dy != 0)
 		{
@@ -123,18 +95,11 @@
 			[self setOrigin: &origin];
 			[window reenableDisplay];
 
-#ifdef REDOOMED
 			[self displayIfNeeded]; // avoid unnecessary redrawing
 			oldpt = [event locationInWindow];
 			oldpt = [self convertPoint: oldpt fromView: nil];
 			// removed the call to setDirtyMap: - scrolling the view shouldn't affect the map's
 			// edited state
-#else // Original
-			[[superview superview] display];	// redraw everything just once
-			oldpt = event->location;
-			[self convertPoint: &oldpt fromView: NULL];
-			[doomproject_i	setDirtyMap:TRUE];
-#endif
 		}
 	} while (1);
 	
@@ -214,8 +179,8 @@
 {
 	char	const	*item;
 	float			nscale;
-	id			itemlist;
-	int			selected;
+	PopUpList		*itemlist;
+	NSInteger		selected;
 	NXPoint		origin;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
@@ -223,7 +188,7 @@
 #endif
 
 	itemlist = [window scalemenu];
-	selected = [itemlist selectedRow] - 1;
+	selected = [itemlist indexOfSelectedItem] - 1;
 	
 	if (selected < 0)
 		return NULL;
@@ -232,24 +197,15 @@
 	[[window scalebutton] setTitle: [[itemlist selectedCell] title]];
 	
 // parse the scale from the title
-#ifdef REDOOMED
 	item = RDE_CStringFromNSString([[itemlist selectedCell] title]);
-#else // Original
-	item = [[itemlist selectedCell] title];
-#endif
 
 	sscanf (item,"%f",&nscale);
 	nscale /= 100;
 	
 // keep the cursor point of the view constant
 
-#ifdef REDOOMED
 	origin = [event locationInWindow];
 	origin = [self convertPoint:origin  fromView:nil];
-#else // Original
-	origin = event->location;
-	[self convertPoint:&origin  fromView:NULL];
-#endif
 
 //printf ("origin: %f,%f\n",origin.x,origin.y);
 	
@@ -277,7 +233,7 @@
 ================
 */
 
-- lineDrag:(NXEvent *)event
+- (void)lineDrag:(NXEvent *)event
 {
 	NSEventMask 		oldMask;
 	NXPoint	fixedpoint, dragpoint;	// endpoints of the line
@@ -295,8 +251,7 @@
 
 	[self getGridPoint: &fixedpoint from: event];		// handle grid and sutch
 	
-	do 
-	{
+	do {
 		[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
 		
 		PSnewinstance ();
@@ -307,11 +262,7 @@
 		NXPing ();
 		
 		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
-#ifdef REDOOMED
 	} while ([event type] != NSEventTypeLeftMouseUp);
-#else // Original
-	} while (event->type != NX_LMOUSEUP);
-#endif
 	
 //
 // add to the world
@@ -323,14 +274,12 @@
 	[self unlockFocus];
 	
 	if ( dragpoint.x == fixedpoint.x && dragpoint.y == fixedpoint.y )
-		return NULL;			// outside world or same point
+		return;			// outside world or same point
 	
 	[editworld_i deselectAll];
 	[self addLineFrom: &fixedpoint  to: &dragpoint];
 	[editworld_i updateWindows];	
 	[doomproject_i setMapDirty:TRUE];
-
-	return self;
 }
 
 //=============================================================================
@@ -343,7 +292,7 @@
 ================
 */
 
-- polyDrag:(NXEvent *)event
+- (void)polyDrag:(NXEvent *)event
 {
 	NSEventMask 		oldMask;
 	NXPoint	fixedpoint, dragpoint;	// endpoints of the line
@@ -352,32 +301,29 @@
 	NSWindow *window = [self window];
 #endif
 
-//
-// set up
-//	
+	//
+	// set up
+	//
 	[self lockFocus];
 	PSsetlinewidth (0.15);
 	RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: [settingspanel_i segmentType]]);
 
-//
-// wait for a mouse up to specify first point
-//
-	do
-	{
+	//
+	// wait for a mouse up to specify first point
+	//
+	do {
 		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp];
 	} while ([event type] != NSEventTypeLeftMouseUp);
 
-//
-// drag lines until a click on same point
-//
-	do
-	{
+	//
+	// drag lines until a click on same point
+	//
+	do {
 		[self getGridPoint: &fixedpoint from: event];	// handle grid and sutch
 		oldMask = [window addToEventMask:NSEventMaskMouseMoved];
 		PSsetinstance (YES);
 	
-		do 
-		{
+		do {
 			event = [NXApp getNextEvent: NSEventMaskLeftMouseDown | NSEventMaskLeftMouseUp | NSEventMaskMouseMoved | NSEventMaskLeftMouseDragged];
 			[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
 
@@ -391,9 +337,9 @@
 			NXPing ();			
 		} while (1);
 	
-//
-// add to the world
-//
+		//
+		// add to the world
+		//
 		[window setEventMask:oldMask];
 	
 		PSnewinstance ();
@@ -408,32 +354,21 @@
 	} while (1);
 	
 	[self unlockFocus];
-		
-	return self;
 }
 
-//=============================================================================
+#pragma mark -
 
-/*
-================
-=
-= dragSelectedPoints:
-=
- the fixedrect is the rect enclosing any points connected by lines to the selected points
- 
- the dragrect is the rect that encloses all the selected points, with the
- initial click being the origin
- 
- currentdragrect is dragrect+cursor
- 
- the updaterect is the (currentdragrect union olddragrect union fixedrect)
- 
- if only one point is selected, it is snapped to grid
- 
-================
-*/
-
-- dragSelectedPoints: (NXEvent *)event
+/// the fixedrect is the rect enclosing any points connected by lines to the selected points
+///
+/// the dragrect is the rect that encloses all the selected points, with the
+/// initial click being the origin
+///
+/// currentdragrect is dragrect+cursor
+///
+/// the updaterect is the (currentdragrect union olddragrect union fixedrect)
+///
+/// if only one point is selected, it is snapped to grid
+- (void)dragSelectedPoints: (NXEvent *)event
 {
 	NSEventMask 		oldMask;
 	int		l;
@@ -546,14 +481,13 @@
 	dragrect.origin.x -= cursor.x;	// relative to cursor
 	dragrect.origin.y -= cursor.y;
 	
-//
-// modal dragging loop
-//
+	//
+	// modal dragging loop
+	//
 	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 	moved = totalmoved = cursor;
 	
-	do 
-	{		
+	do {
 		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 
 		if ( [event type] == NSEventTypeLeftMouseUp)
@@ -566,24 +500,19 @@
 		//
 		// move all selected points
 		//
-		if (pointcount == 1)
-		{
+		if (pointcount == 1) {
 			if (points[lastp].pt.x == cursor.x && points[lastp].pt.y == cursor.y)
 				continue;
 			points[lastp].pt = cursor;
-		}
-		else
-		{
+		} else {
 			if (cursor.x == moved.x && cursor.y == moved.y)
 				continue;
 				
 			moved.x = cursor.x - moved.x;
 			moved.y = cursor.y - moved.y;	
 		
-			for (p=0 , point_p = points ; p<numpoints ; p++, point_p++)
-			{
-				if (point_p->selected == 1)
-				{
+			for (p=0 , point_p = points ; p<numpoints ; p++, point_p++) {
+				if (point_p->selected == 1) {
 					point_p->pt.x += moved.x;
 					point_p->pt.y += moved.y;
 				}
@@ -633,9 +562,8 @@
 	totalmoved.x = cursor.x - totalmoved.x;
 	totalmoved.y = cursor.y - totalmoved.y;	
 	
-	for (p=0 ; p<numpoints ; p++)
-		if (points[p].selected == 1)
-		{
+	for (p=0 ; p<numpoints ; p++) {
+		if (points[p].selected == 1) {
 			newpoint = points[p];
 			points[p].pt.x -= totalmoved.x;
 			points[p].pt.y -= totalmoved.y;
@@ -643,8 +571,7 @@
 			if (totalmoved.x || totalmoved.y)
 				[doomproject_i setMapDirty:TRUE];
 		}
-
-	return self;
+	}
 }
 
 
@@ -672,28 +599,22 @@
 	NSWindow *window = [self window];
 #endif
 	
-//
-// peg down the first corner
-//
-#ifdef REDOOMED
+	//
+	// peg down the first corner
+	//
 	fixedcorner = [event locationInWindow];
 	fixedcorner = [self convertPoint:fixedcorner  fromView:nil];
-#else // Original
-	fixedcorner = event->location;
-	[self convertPoint:&fixedcorner  fromView:NULL];
-#endif
 		
-//
-// move drag
-//	
+	//
+	// move drag
+	//
 	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 	
 	[self lockFocus];
 	PSsetinstance (YES);
 	PSsetgray (SELECTIONGRAY);
 	
-	do 
-	{
+	do {
 		//
 		// calculate new rectangle
 		//
@@ -723,9 +644,9 @@
 	PSsetinstance (NO);
 	[self unlockFocus];
 	
-//
-// grab points inside newframe
-//
+	//
+	// grab points inside newframe
+	//
 	for (p=0 , point_p = points ; p<numpoints ; p++, point_p++)
 	{
 		if (point_p->selected == -1)
@@ -734,14 +655,13 @@
 			[editworld_i selectPoint: p];
 	}
 
-//
-// grab lines inside newframe
-//
+	//
+	// grab lines inside newframe
+	//
 	[self lockFocus];
 	PSsetlinewidth (1);
 	BoxFromRect (&box1, &newframe);	
-	for (i=0 ; i<numlines ; i++)
-	{
+	for (i=0 ; i<numlines ; i++) {
 		if (lines[i].selected == -1)
 			continue;				// deleted line
 		
@@ -766,11 +686,10 @@
 		
 	[self unlockFocus];
 
-//
-// grab things inside newframe
-//
-	for (p=0 , thing_p = things ; p<numthings ; p++, thing_p++)
-	{
+	//
+	// grab things inside newframe
+	//
+	for (p=0 , thing_p = things ; p<numthings ; p++, thing_p++) {
 		if (thing_p->selected == -1)
 			continue;
 		if ( NSPointInRect (thing_p->origin, newframe) )
@@ -781,11 +700,11 @@
 	return self;
 }
 
-//============================================================================
+#pragma mark -
 
 
 /// pointSelect:
-- pointSelect:(NXEvent *)event
+- (void)pointSelect:(NXEvent *)event
 {
 	int			i;
 	worldthing_t	*thing_p;
@@ -798,17 +717,16 @@
 	[self getPoint: &clickpoint from: event];
 	
 
-//
-// see if the click hit a point
-//
+	//
+	// see if the click hit a point
+	//
 	left = clickpoint.x - CPOINTSIZE/scale/2;
 	right = clickpoint.x + CPOINTSIZE/scale/2;
 	bottom = clickpoint.y  - CPOINTSIZE/scale/2;
 	top = clickpoint.y+ CPOINTSIZE/scale/2;
 
 
-	for (i=0, point_p = points; i<numpoints ; i++,point_p++)
-	{
+	for (i=0, point_p = points; i<numpoints ; i++,point_p++) {
 		if (point_p->selected == -1)
 			continue;
 		if (point_p->pt.x > left && point_p->pt.x < right 
@@ -820,48 +738,35 @@
 	{	// the click was on a point
 		if (point_p->selected)
 		{
-#ifdef REDOOMED
-			if  ( [event modifierFlags] & NSEventModifierFlagShift )
-#else // Original
-			if  ( event->flags & NX_SHIFTMASK )
-#endif
-			{	// shift click a selected point deselects it
+			if  ( [event modifierFlags] & NSEventModifierFlagShift ) {
+				// shift click a selected point deselects it
 				[editworld_i deselectPoint: i];
-				return self;
+				return;
 			}
 		}
 		else
 		{
-// if not clicking on a selection and not shift clicking, deselect all selected points
-#ifdef REDOOMED
+			// if not clicking on a selection and not shift clicking, deselect all selected points
 			if ( !([event modifierFlags] & NSEventModifierFlagShift) )
-#else // Original
-			if ( !(event->flags & NX_SHIFTMASK) )
-#endif
 				[editworld_i deselectAll];
 			[editworld_i selectPoint: i];
 		}
 		[editworld_i updateWindows];
 		[self dragSelectedPoints: event];	// drag all points around
-		return self;
+		return;
 	}
 	
-//
-// didn't hit a point, so check lines
-//
+	//
+	// didn't hit a point, so check lines
+	//
 	[self lockFocus];
 
-#ifdef REDOOMED
 	// Bugfix: line width for hit-testing should be CPOINTSIZE/scale, not CPOINTSIZE*scale
     // (see control point hit-testing above) - this fixes the issue where lines are hard to
     // click when scale < 1, due to an incorrectly-small line-width value used to check hits
 	PSsetlinewidth (CPOINTSIZE/scale);
-#else // Original
-	PSsetlinewidth (CPOINTSIZE*scale);	// line width same as contrtol points
-#endif
 
-	for (i=0 ; i<numlines ; i++)
-	{
+	for (i=0 ; i<numlines ; i++) {
 		if (lines[i].selected == -1)
 			continue;				// deleted line
 			
@@ -878,26 +783,17 @@
 		PSmoveto (p1->x,p1->y);
 		PSlineto (p2->x,p2->y);
 		PSinstroke (clickpoint.x, clickpoint.y, &instroke);
-		if (instroke)
-		{
+		if (instroke) {
 		// hit a line
 			[self unlockFocus];
 			// deselect any other points if shift not down
-#ifdef REDOOMED
-			if ( !([event modifierFlags] & NSEventModifierFlagShift) && lines[i].selected != 1)
-#else // Original
-			if ( !(event->flags & NX_SHIFTMASK) && lines[i].selected != 1)
-#endif
+			if ( !([event modifierFlags] & NSEventModifierFlagShift) && lines[i].selected != 1) {
 				[editworld_i deselectAll];
+			}
 				
-#ifdef REDOOMED
-			if ([event modifierFlags] & NSEventModifierFlagShift && lines[i].selected == 1)
-#else // Original
-			if (event->flags & NX_SHIFTMASK && lines[i].selected == 1)
-#endif
-			{
+			if ([event modifierFlags] & NSEventModifierFlagShift && lines[i].selected == 1) {
 				[editworld_i deselectLine: i];
-				return self;
+				return;
 			}
 			
 			[editworld_i selectLine: i];
@@ -908,24 +804,23 @@
 			
 			[editworld_i updateWindows];
 			[self dragSelectedPoints: event];	// drag all points around
-			return self;
+			return;
 		}
 	}
 		
 	
 	[self unlockFocus];
 	
-//
-// see if the click hit a thing
-//
+	//
+	// see if the click hit a thing
+	//
 	left = clickpoint.x - THINGDRAWSIZE/2;
 	right = clickpoint.x + THINGDRAWSIZE/2;
 	bottom = clickpoint.y  - THINGDRAWSIZE/2;
 	top = clickpoint.y+ THINGDRAWSIZE/2;
 
 
-	for (i=0, thing_p = things; i<numthings ; i++,thing_p++)
-	{
+	for (i=0, thing_p = things; i<numthings ; i++,thing_p++) {
 		if (thing_p->selected == -1)
 			continue;
 		if (thing_p->origin.x > left && thing_p->origin.x < right 
@@ -933,40 +828,30 @@
 			break;
 	}
 	
-	if (i<numthings)
-	{	// click was on a thing
+	if (i<numthings) {
+		// click was on a thing
 		// if not clicking on a selection and
 		// ...not shift clicking, deselect all selected points
 		// deselect any other points if shift not down
-#ifdef REDOOMED
-		if ( !([event modifierFlags] & NSEventModifierFlagShift) && things[i].selected != 1)
-#else // Original
-		if ( !(event->flags & NX_SHIFTMASK) && things[i].selected != 1)
-#endif
+		if ( !([event modifierFlags] & NSEventModifierFlagShift) && things[i].selected != 1) {
 			[editworld_i deselectAll];
+		}
 		[editworld_i selectThing: i];
 		[self dragSelectedPoints: event];	// drag all points around
-		return self;
+		return;
 	}
 	
 
-//
-// the click was not on a point, so rubber band a selection box
-//
-#ifdef REDOOMED
-	if (! ([event modifierFlags] & NSEventModifierFlagShift) )
-#else // Original
-	if (! (event->flags & NX_SHIFTMASK) )
-#endif
-	{
+	//
+	// the click was not on a point, so rubber band a selection box
+	//
+	if (! ([event modifierFlags] & NSEventModifierFlagShift) ) {
 	// if not shift clicking, deselect all selected points
 		[editworld_i deselectAll];
 		[editworld_i updateWindows];
 	}
 
 	[self dragSelectionBox: event];
-	
-	return self;
 }
 
 //=============================================================================
@@ -979,7 +864,7 @@
 ================
 */
 
-- placeThing: (NXEvent *)event
+- (void)placeThing: (NXEvent *)event
 {
 	worldthing_t	thing;
 	
@@ -991,8 +876,6 @@
 	thing.selected = 0;
 	[editworld_i newThing: &thing];
 	[doomproject_i setMapDirty:TRUE];
-	
-	return self;
 }
 
 
@@ -1006,7 +889,7 @@
 ================
 */
 
-- fillSector: (NXEvent *)event
+- (void)fillSector: (NXEvent *)event
 {
 	NXPoint	pt;
 	int		i, side;
@@ -1027,8 +910,6 @@
 		line->side[side].ends = *fillends;
 	}
 	[doomproject_i setMapDirty:TRUE];
-	
-	return self;
 }
 
 //=============================================================================
@@ -1041,7 +922,7 @@
 ================
 */
 
-- getSector: (NXEvent *)event
+- (void)getSector: (NXEvent *)event
 {
 	NXPoint	pt;
 	int		line, side;
@@ -1053,8 +934,6 @@
 	def = &lines[line].side[side].ends;
 	
 	[sectorEdit_i	setSector: def];
-	
-	return self;
 }
 
 
@@ -1072,7 +951,7 @@
 	return 0;	
 }
 
-- launchAndSave:(NXEvent *)event
+- (void)launchAndSave:(NXEvent *)event
 {
 	NXPoint	pt;
 	int	i,player1Type;
@@ -1080,9 +959,8 @@
 	
 	player1Type = [prefpanel_i	launchThingType];
 	[self getPoint: &pt from: event];
-	for (i=0;i < numthings; i++)
-		if (things[i].type == player1Type)
-		{
+	for (i=0;i < numthings; i++) {
+		if (things[i].type == player1Type) {
 			newthing = oldthing = things[i];
 			newthing.origin = pt;
 			[editworld_i	changeThing:i		to:&newthing];
@@ -1106,8 +984,7 @@
 			#endif
 			break;
 		}
-	
-	return self;
+	}
 }
 
 //============================================================================
@@ -1120,12 +997,8 @@
 ================
 */
 
-#ifdef REDOOMED
 // Cocoa version
 - (void) mouseDown:(NSEvent *)thisEvent
-#else // Original
-- mouseDown:(NXEvent *)thisEvent
-#endif
 {
 	tool_t	tool;
 		
@@ -1164,12 +1037,8 @@
 	[editworld_i updateWindows];
 }
 
-#ifdef REDOOMED
 // Cocoa version
 - (void) rightMouseDown:(NSEvent *)thisEvent
-#else // Original
-- rightMouseDown:(NXEvent *)thisEvent
-#endif
 {
 	switch ( [toolpanel_i currentTool] )
 	{
@@ -1185,9 +1054,6 @@
 
 	[editworld_i updateWindows];
 
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
 }
 
 //=============================================================================
@@ -1200,29 +1066,16 @@
 ===============
 */
 
-#ifdef REDOOMED
 // Cocoa version
 - (void) keyDown:(NSEvent *)theEvent
-#else // Original
-- keyDown:(NXEvent *)theEvent
-#endif
 {
-#ifdef REDOOMED
 	if ([[theEvent characters] characterAtIndex: 0] == NSDeleteCharacter)
-#else // Original
-	if (theEvent->data.key.charCode == 127)
-#endif
 	{
 		[editworld_i delete: self];
 
-#ifdef REDOOMED
 		return; // Cocoa version doesn't return a value
-#else // Original
-		return self;
-#endif
 	}
 
-#ifdef REDOOMED
     // allow the user to switch tools on the tool panel using hotkeys (while the map window's
     // the key window) using a ToolPanel (RDEUtilities) method that manually forwards a keyDown
     // event to the tool panel's tool button matrix
@@ -1230,13 +1083,8 @@
     {
         return;
     }
-#endif
 		
 	[editworld_i updateWindows];
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return self;
-#endif
 }
 
 - (BOOL)acceptsFirstResponder

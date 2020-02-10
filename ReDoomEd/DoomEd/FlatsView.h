@@ -5,6 +5,7 @@
 #else // Original
 #   import <appkit/appkit.h>
 #endif
+#import "RDEPatchDivider.h"
 
 #ifndef	H_DIVIDERT
 #define	H_DIVIDERT
@@ -17,12 +18,12 @@ typedef struct
 
 @class Storage;
 
-@interface FlatsView:View
+@interface FlatsView:View <RDEPatchDivider>
 {
 	Storage	*dividers_i;
 }
 
-- (void)addDividerX:(int)x Y:(int)y String:(char *)string;
+- (void)addDividerX:(int)x Y:(int)y String:(const char *)string;
 - (void)dumpDividers;
 
 @end

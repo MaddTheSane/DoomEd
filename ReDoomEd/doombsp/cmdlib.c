@@ -190,7 +190,7 @@ void SafeRead (int handle, void *buffer, long count)
 
 	while (count)
 	{
-		iocount = count > 0x8000 ? 0x8000 : count;
+		iocount = (unsigned)(count > 0x8000 ? 0x8000 : count);
 		if (read (handle,buffer,iocount) != iocount)
 			Error ("File read failure");
 		buffer = (void *)( (byte *)buffer + iocount );
@@ -205,7 +205,7 @@ void SafeWrite (int handle, void *buffer, long count)
 
 	while (count)
 	{
-		iocount = count > 0x8000 ? 0x8000 : count;
+		iocount = (unsigned)(count > 0x8000 ? 0x8000 : count);
 		if (write (handle,buffer,iocount) != iocount)
 			Error ("File write failure");
 		buffer = (void *)( (byte *)buffer + iocount );

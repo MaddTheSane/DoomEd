@@ -380,7 +380,7 @@ void BuildBlockingChains (void)
 	int			i,j;
 	bpoint_t	*temppoints, *pt_p;
 	bline_t	*li1, *li2;
-	id			chains_i;
+	Storage		*chains_i;
 	bchain_t	bch;
 	int			cx, cy;
 	
@@ -554,7 +554,7 @@ void OutputConnections (void)
 	char	*cons;
 	char	*bits;
 	
-	cons = connections;
+	cons = (char*)connections;
 	bytes = (numsectors*numsectors+7)/8;
 	bits = malloc(bytes);
 	

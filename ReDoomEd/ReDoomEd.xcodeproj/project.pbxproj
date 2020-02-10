@@ -118,6 +118,7 @@
 		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
 		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
 		55C41DC323F08767000FB967 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55C41DC523F08767000FB967 /* Localizable.strings */; };
+		55D83B4D23F0EE7900E4E5B6 /* RDEPatchDivider.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D83B4C23F0EE7900E4E5B6 /* RDEPatchDivider.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -341,6 +342,8 @@
 		55BAD36123ED5C1500DBE673 /* ReDoomEd-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReDoomEd-Bridging-Header.h"; sourceTree = "<group>"; };
 		55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PreferencePanelSwift.swift; path = backup2/PreferencePanelSwift.swift; sourceTree = "<group>"; };
 		55C41DC423F08767000FB967 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		55D83B4B23F0ECE700E4E5B6 /* RDEPatchDivider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RDEPatchDivider.h; sourceTree = "<group>"; };
+		55D83B4C23F0EE7900E4E5B6 /* RDEPatchDivider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RDEPatchDivider.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ReDoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReDoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -590,6 +593,8 @@
 				033FAAEC20E834C700CC584F /* lbmfunctions.m */,
 				033FAABE20E82BC300CC584F /* pathops.h */,
 				033FAAF320E834C700CC584F /* pathops.m */,
+				55D83B4B23F0ECE700E4E5B6 /* RDEPatchDivider.h */,
+				55D83B4C23F0EE7900E4E5B6 /* RDEPatchDivider.m */,
 			);
 			path = DoomEd;
 			sourceTree = "<group>";
@@ -854,6 +859,7 @@
 				033FAB2A20E834C700CC584F /* TextLog.m in Sources */,
 				033FAB2B20E834C700CC584F /* TextureEdit.m in Sources */,
 				033FAB2C20E834C700CC584F /* TexturePalette.m in Sources */,
+				55D83B4D23F0EE7900E4E5B6 /* RDEPatchDivider.m in Sources */,
 				033FAB2D20E834C700CC584F /* TexturePalView.m in Sources */,
 				033FAB2E20E834C700CC584F /* TexturePatchView.m in Sources */,
 				033FAB2F20E834C700CC584F /* TextureRemapper.m in Sources */,
