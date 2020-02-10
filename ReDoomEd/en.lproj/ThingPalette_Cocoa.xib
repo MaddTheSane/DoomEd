@@ -58,6 +58,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="2" secondAttribute="trailing" constant="-1" id="EcI-QO-hIV"/>
                     <constraint firstItem="2" firstAttribute="top" secondItem="3" secondAttribute="top" constant="-1" id="Kyd-LK-xQn"/>
+                    <constraint firstItem="4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" id="QK0-ua-cjg"/>
                     <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="20" symbolic="YES" id="WCC-fT-aPE"/>
                     <constraint firstItem="4" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="8" symbolic="YES" id="dUC-JH-eUB"/>
                     <constraint firstItem="2" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="-1" id="jFM-xL-hxT"/>

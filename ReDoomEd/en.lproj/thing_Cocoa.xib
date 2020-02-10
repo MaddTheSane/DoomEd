@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,23 +41,23 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="225" height="22"/>
                         <size key="intercellSpacing" width="1" height="0.0"/>
-                        <formCell key="prototype" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Field:" id="90">
-                            <font key="font" metaFont="user"/>
-                            <font key="titleFont" metaFont="user"/>
+                        <formCell key="prototype" controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Field:" id="90">
+                            <font key="font" metaFont="smallSystem"/>
+                            <font key="titleFont" metaFont="smallSystem"/>
                         </formCell>
                         <cells>
                             <column>
-                                <formCell selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Angle:" id="21">
-                                    <font key="font" metaFont="user"/>
-                                    <font key="titleFont" metaFont="user"/>
+                                <formCell controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Angle:" id="21">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="titleFont" metaFont="smallSystem"/>
                                 </formCell>
-                                <formCell selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Type:" id="39">
-                                    <font key="font" metaFont="user"/>
-                                    <font key="titleFont" metaFont="user"/>
+                                <formCell controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Type:" id="39">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="titleFont" metaFont="smallSystem"/>
                                 </formCell>
-                                <formCell selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Name:" id="32">
-                                    <font key="font" metaFont="user"/>
-                                    <font key="titleFont" metaFont="user"/>
+                                <formCell controlSize="small" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" alignment="left" title="Name:" id="32">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <font key="titleFont" metaFont="smallSystem"/>
                                     <connections>
                                         <action selector="confirmCorrectNameEntry:" target="-2" id="58"/>
                                     </connections>
@@ -185,7 +185,7 @@ Type</string>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                         <rect key="frame" x="79" y="304" width="75" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Ambush" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="80">
+                        <buttonCell key="cell" type="check" title="Ambush" imagePosition="leading" inset="2" id="80">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="user"/>
                         </buttonCell>
@@ -198,21 +198,21 @@ Type</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="71" height="19"/>
-                        <buttonCell key="prototype" type="check" title="Switch" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="92">
+                        <buttonCell key="prototype" type="check" title="Switch" imagePosition="leading" inset="2" id="92">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="user"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="check" title="Easy" imagePosition="trailing" alignment="right" state="on" imageScaling="proportionallyDown" inset="2" id="8">
+                                <buttonCell type="check" title="Easy" imagePosition="leading" state="on" inset="2" id="8">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
-                                <buttonCell type="check" title="Normal" imagePosition="trailing" alignment="right" state="on" tag="1" imageScaling="proportionallyDown" inset="2" id="34">
+                                <buttonCell type="check" title="Normal" imagePosition="leading" state="on" tag="1" inset="2" id="34">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
-                                <buttonCell type="check" title="Hard" imagePosition="trailing" alignment="right" state="on" tag="2" imageScaling="proportionallyDown" inset="2" id="2">
+                                <buttonCell type="check" title="Hard" imagePosition="leading" state="on" tag="2" inset="2" id="2">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
@@ -301,25 +301,25 @@ Display</string>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="67" height="18"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="93">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="93">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="user"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Easy" imagePosition="leading" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="31">
+                                <buttonCell type="radio" title="Easy" imagePosition="leading" alignment="left" state="on" inset="2" id="31">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Normal" imagePosition="leading" alignment="left" tag="1" imageScaling="proportionallyDown" inset="2" id="36">
+                                <buttonCell type="radio" title="Normal" imagePosition="leading" alignment="left" tag="1" inset="2" id="36">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Hard" imagePosition="leading" alignment="left" tag="2" imageScaling="proportionallyDown" inset="2" id="7">
+                                <buttonCell type="radio" title="Hard" imagePosition="leading" alignment="left" tag="2" inset="2" id="7">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="All" imagePosition="leading" alignment="left" tag="3" imageScaling="proportionallyDown" inset="2" id="44">
+                                <buttonCell type="radio" title="All" imagePosition="leading" alignment="left" tag="3" inset="2" id="44">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="user"/>
                                 </buttonCell>
@@ -332,7 +332,7 @@ Display</string>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
                         <rect key="frame" x="79" y="323" width="75" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Network" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="81">
+                        <buttonCell key="cell" type="check" title="Network" imagePosition="leading" inset="2" id="81">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="user"/>
                         </buttonCell>

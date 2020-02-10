@@ -375,21 +375,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="61" height="18"/>
                         <size key="intercellSpacing" width="1" height="0.0"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="101">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="101">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Ceiling" imagePosition="leading" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="33">
+                                <buttonCell type="radio" title="Ceiling" imagePosition="leading" alignment="left" controlSize="small" state="on" inset="2" id="33">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="user"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="radio" title="Floor" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="32">
+                                <buttonCell type="radio" title="Floor" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="32">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="user"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                             </column>
                         </cells>

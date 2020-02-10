@@ -271,66 +271,66 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="cellSize" width="108" height="18"/>
                                     <size key="intercellSpacing" width="4" height="0.0"/>
-                                    <buttonCell key="prototype" type="check" title="Switch" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="91">
+                                    <buttonCell key="prototype" type="check" title="Switch" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="91">
                                         <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="user"/>
+                                        <font key="font" metaFont="smallSystem"/>
                                     </buttonCell>
                                     <cells>
                                         <column>
-                                            <buttonCell type="check" title="Texture Palette" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="37">
+                                            <buttonCell type="check" title="Texture Palette" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="37">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="68"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="check" title="Line Inspector" imagePosition="trailing" alignment="right" tag="1" imageScaling="proportionallyDown" inset="2" id="19">
+                                            <buttonCell type="check" title="Line Inspector" imagePosition="trailing" alignment="right" controlSize="small" tag="1" inset="2" id="19">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="69"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="check" title="Line Specials" imagePosition="trailing" alignment="right" tag="2" imageScaling="proportionallyDown" inset="2" id="35">
+                                            <buttonCell type="check" title="Line Specials" imagePosition="trailing" alignment="right" controlSize="small" tag="2" inset="2" id="35">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="70"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="check" title="Error log" imagePosition="trailing" alignment="right" tag="3" imageScaling="proportionallyDown" inset="2" id="39">
+                                            <buttonCell type="check" title="Error log" imagePosition="trailing" alignment="right" controlSize="small" tag="3" inset="2" id="39">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="71"/>
                                                 </connections>
                                             </buttonCell>
                                         </column>
                                         <column>
-                                            <buttonCell type="check" title="Sector Editor" imagePosition="trailing" alignment="right" tag="4" imageScaling="proportionallyDown" inset="2" id="21">
+                                            <buttonCell type="check" title="Sector Editor" imagePosition="trailing" alignment="right" controlSize="small" tag="4" inset="2" id="21">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="72"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="check" title="Thing Panel" imagePosition="trailing" alignment="right" tag="5" imageScaling="proportionallyDown" inset="2" id="26">
+                                            <buttonCell type="check" title="Thing Panel" imagePosition="trailing" alignment="right" controlSize="small" tag="5" inset="2" id="26">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="73"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="check" title="Sector Specials" imagePosition="trailing" alignment="right" tag="6" imageScaling="proportionallyDown" inset="2" id="20">
+                                            <buttonCell type="check" title="Sector Specials" imagePosition="trailing" alignment="right" controlSize="small" tag="6" inset="2" id="20">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="74"/>
                                                 </connections>
                                             </buttonCell>
-                                            <buttonCell type="check" title="Texture Editor" imagePosition="trailing" alignment="right" tag="7" imageScaling="proportionallyDown" inset="2" id="8">
+                                            <buttonCell type="check" title="Texture Editor" imagePosition="trailing" alignment="right" controlSize="small" tag="7" inset="2" id="8">
                                                 <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="user"/>
+                                                <font key="font" metaFont="smallSystem"/>
                                                 <connections>
                                                     <action selector="openupChanged:" target="-2" id="75"/>
                                                 </connections>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -79,22 +79,22 @@
                         </connections>
                     </form>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
-                        <rect key="frame" x="188" y="137" width="52" height="15"/>
+                        <rect key="frame" x="187" y="136" width="53" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Block" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="107">
+                        <buttonCell key="cell" type="check" title="Block" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="107">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="blockChanged:" target="-2" id="68"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                        <rect key="frame" x="125" y="137" width="61" height="15"/>
+                        <rect key="frame" x="124" y="136" width="62" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="2-sided" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="102">
+                        <buttonCell key="cell" type="check" title="2-sided" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="102">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="twosideChanged:" target="-2" id="59"/>
@@ -163,21 +163,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="52" height="22"/>
                         <size key="intercellSpacing" width="0.0" height="3"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="128">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="128">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Front" imagePosition="leading" alignment="left" state="on" imageScaling="proportionallyDown" inset="2" id="26">
+                                <buttonCell type="radio" title="Front" imagePosition="leading" alignment="left" controlSize="small" state="on" inset="2" id="26">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="user"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                             </column>
                             <column>
-                                <buttonCell type="radio" title="Back" imagePosition="leading" alignment="left" imageScaling="proportionallyDown" inset="2" id="9">
+                                <buttonCell type="radio" title="Back" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="9">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="user"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
                             </column>
                         </cells>
@@ -308,22 +308,22 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="41">
-                        <rect key="frame" x="140" y="121" width="46" height="15"/>
+                        <rect key="frame" x="139" y="120" width="47" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Ftop" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="112">
+                        <buttonCell key="cell" type="check" title="Ftop" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="112">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="toppegChanged:" target="-2" id="75"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                        <rect key="frame" x="194" y="121" width="46" height="15"/>
+                        <rect key="frame" x="193" y="120" width="47" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Fbot" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="116">
+                        <buttonCell key="cell" type="check" title="Fbot" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="116">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="bottompegChanged:" target="-2" id="76"/>
@@ -363,44 +363,44 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18">
-                        <rect key="frame" x="182" y="153" width="58" height="15"/>
+                        <rect key="frame" x="181" y="152" width="59" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Secret" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="103">
+                        <buttonCell key="cell" type="check" title="Secret" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="103">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="secretChanged:" target="-2" id="88"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54">
-                        <rect key="frame" x="109" y="153" width="77" height="15"/>
+                        <rect key="frame" x="108" y="152" width="78" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Snd Block" imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="118">
+                        <buttonCell key="cell" type="check" title="Snd Block" imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="118">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="soundBlkChanged:" target="-2" id="90"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="47">
-                        <rect key="frame" x="171" y="169" width="69" height="15"/>
+                        <rect key="frame" x="170" y="168" width="70" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="No draw " imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="115">
+                        <buttonCell key="cell" type="check" title="No draw " imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="115">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="dontDrawChanged:" target="-2" id="91"/>
                         </connections>
                     </button>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                        <rect key="frame" x="104" y="169" width="65" height="15"/>
+                        <rect key="frame" x="103" y="168" width="66" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="check" title="Mblock " imagePosition="trailing" alignment="right" imageScaling="proportionallyDown" inset="2" id="117">
+                        <buttonCell key="cell" type="check" title="Mblock " imagePosition="trailing" alignment="right" controlSize="small" inset="2" id="117">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
                             <action selector="monsterblockChanged:" target="-2" id="94"/>

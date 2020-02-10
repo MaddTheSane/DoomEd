@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -28,53 +28,63 @@
         <window title="Generate LBMs" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="11" userLabel="GenerateLBMs" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="460" y="383" width="203" height="139"/>
+            <rect key="contentRect" x="460" y="383" width="232" height="169"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="22">
-                <rect key="frame" x="0.0" y="0.0" width="203" height="139"/>
+                <rect key="frame" x="0.0" y="0.0" width="232" height="148"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
-                        <rect key="frame" x="16" y="83" width="168" height="21"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                        <rect key="frame" x="20" y="78" width="192" height="21"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" state="on" borderStyle="bezel" alignment="left" title="textures.ls" drawsBackground="YES" id="49">
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                        <rect key="frame" x="8" y="106" width="184" height="22"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" alignment="left" title="Enter name of .LS file" id="50">
-                            <font key="font" size="18" name="Helvetica"/>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                        <rect key="frame" x="18" y="107" width="176" height="21"/>
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="left" title="Enter name of .LS file" id="50">
+                            <font key="font" metaFont="system" size="18"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                        <rect key="frame" x="71" y="41" width="56" height="35"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <buttonCell key="cell" type="square" title="Go!" bezelStyle="shadowlessSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="51">
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                        <rect key="frame" x="85" y="42" width="62" height="32"/>
+                        <buttonCell key="cell" type="push" title="Go!" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="51">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="24" name="Helvetica"/>
+                            <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
                             <action selector="doSaveAllTexturesAsLBM:" target="-2" id="44"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="24">
-                        <rect key="frame" x="10" y="14" width="184" height="21"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                        <rect key="frame" x="20" y="20" width="192" height="21"/>
                         <textFieldCell key="cell" borderStyle="bezel" alignment="center" id="52">
-                            <font key="font" metaFont="user"/>
+                            <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6" secondAttribute="trailing" constant="20" symbolic="YES" id="2LQ-OI-SU3"/>
+                    <constraint firstAttribute="bottom" secondItem="24" secondAttribute="bottom" constant="20" symbolic="YES" id="LxI-RO-Uih"/>
+                    <constraint firstAttribute="trailing" secondItem="24" secondAttribute="trailing" constant="20" symbolic="YES" id="UbC-sy-QLT"/>
+                    <constraint firstItem="2" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" id="Utz-Co-Jgr"/>
+                    <constraint firstItem="24" firstAttribute="top" secondItem="16" secondAttribute="bottom" constant="8" symbolic="YES" id="bWA-LF-5H2"/>
+                    <constraint firstItem="6" firstAttribute="top" secondItem="22" secondAttribute="top" constant="20" symbolic="YES" id="bjo-1h-TW9"/>
+                    <constraint firstItem="6" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" id="eZO-eR-Xhg"/>
+                    <constraint firstItem="16" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="8" symbolic="YES" id="pNA-0p-GhP"/>
+                    <constraint firstItem="16" firstAttribute="centerX" secondItem="22" secondAttribute="centerX" id="raD-Oq-FMF"/>
+                    <constraint firstAttribute="trailing" secondItem="2" secondAttribute="trailing" constant="20" symbolic="YES" id="tTF-ag-hSx"/>
+                    <constraint firstItem="24" firstAttribute="leading" secondItem="22" secondAttribute="leading" constant="20" symbolic="YES" id="ufK-9m-QdC"/>
+                    <constraint firstItem="2" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="8" symbolic="YES" id="y9G-1t-VCD"/>
+                </constraints>
             </view>
-            <point key="canvasLocation" x="139" y="148"/>
+            <point key="canvasLocation" x="153" y="147.5"/>
         </window>
         <window title="Texture Palette" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="25" userLabel="Window" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>

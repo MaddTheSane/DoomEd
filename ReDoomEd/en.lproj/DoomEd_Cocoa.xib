@@ -28,48 +28,48 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="125" height="18"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="387">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="387">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Select" imagePosition="leading" alignment="left" controlSize="small" state="on" imageScaling="proportionallyDown" inset="2" id="142">
+                                <buttonCell type="radio" title="Select" imagePosition="leading" alignment="left" controlSize="small" state="on" inset="2" id="142">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">k</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Poly line" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="107">
+                                <buttonCell type="radio" title="Poly line" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="107">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">,</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Line" imagePosition="leading" alignment="left" controlSize="small" tag="1" imageScaling="proportionallyDown" inset="2" id="135">
+                                <buttonCell type="radio" title="Line" imagePosition="leading" alignment="left" controlSize="small" tag="1" inset="2" id="135">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">l</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Zoom" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="85">
+                                <buttonCell type="radio" title="Zoom" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="85">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">z</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Move" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="73">
+                                <buttonCell type="radio" title="Move" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="73">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">M</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Sector get/fill" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="54">
+                                <buttonCell type="radio" title="Sector get/fill" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="54">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">g</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="New thing" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="91">
+                                <buttonCell type="radio" title="New thing" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="91">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="keyEquivalent">t</string>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="leading" alignment="left" controlSize="small" imageScaling="proportionallyDown" inset="2" id="30">
+                                <buttonCell type="radio" title="Launch &amp; Save" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="30">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
@@ -167,12 +167,12 @@
             <rect key="contentRect" x="480" y="354" width="129" height="106"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" misplaced="YES" id="101">
-                <rect key="frame" x="0.0" y="0.0" width="129" height="114"/>
+                <rect key="frame" x="0.0" y="0.0" width="129" height="106"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="66">
                         <rect key="frame" x="18" y="78" width="79" height="18"/>
-                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="355">
+                        <buttonCell key="cell" type="check" title="Monsters" imagePosition="left" inset="2" id="355">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -182,7 +182,7 @@
                     </button>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="99">
                         <rect key="frame" x="18" y="58" width="56" height="18"/>
-                        <buttonCell key="cell" type="check" title="Items" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="356">
+                        <buttonCell key="cell" type="check" title="Items" imagePosition="left" inset="2" id="356">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -192,7 +192,7 @@
                     </button>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
                         <rect key="frame" x="18" y="38" width="79" height="18"/>
-                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="354">
+                        <buttonCell key="cell" type="check" title="Weapons" imagePosition="left" inset="2" id="354">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -202,7 +202,7 @@
                     </button>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="136">
                         <rect key="frame" x="18" y="18" width="56" height="18"/>
-                        <buttonCell key="cell" type="check" title="Panel" imagePosition="left" imageScaling="proportionallyDown" inset="2" id="357">
+                        <buttonCell key="cell" type="check" title="Panel" imagePosition="left" inset="2" id="357">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -559,7 +559,7 @@
                         <rect key="frame" x="8" y="62" width="320" height="30"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" alignment="center" title="Title" id="358">
-                            <font key="font" metaFont="system" size="12"/>
+                            <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
