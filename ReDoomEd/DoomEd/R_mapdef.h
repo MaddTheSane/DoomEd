@@ -26,39 +26,39 @@ typedef unsigned char byte;
 
 #endif
 
-// A mapvertex_t is a global map point
+/// A mapvertex_t is a global map point
 typedef struct
 {
 	short	x,y;
 } mapvertex_t;
 
-// A mapthing_t is a point and some information from the map editor.  These are only processed
-// at map loading time, where they spawn visible thing_ts or other game objects
+/// A mapthing_t is a point and some information from the map editor.  These are only processed
+/// at map loading time, where they spawn visible thing_ts or other game objects
 typedef struct
 {
 	mapvertex_t	origin;
 	short	angle;
 	short	type;
 	short	options;
-	short	sector;		// the sector it should be placed in at the start
+	short	sector;		//!< the sector it should be placed in at the start
 } mapthing_t;
 
-// mappatch_t orients a patch inside a maptexturedef_t
+/// \c mappatch_t orients a patch inside a maptexturedef_t
 typedef struct
 {
-	short	originx;		// block origin (allways UL), which has allready accounted
-	short	originy;		// for the patch's internal origin
+	short	originx;		//!< block origin (allways UL), which has allready accounted
+	short	originy;		//!< for the patch's internal origin
 	short	patch;
-	short	stepdir;		// allow flipping of the texture DEBUG: make this a char?
+	short	stepdir;		//!< allow flipping of the texture DEBUG: make this a char?
 	short	colormap;
 } mappatch_t;
 
-// a maptexturedef_t describes a rectangular texture, which is composed of one or
-// more mappatch_t structures that arrange graphic patches
+/// a \c maptexturedef_t describes a rectangular texture, which is composed of one or
+/// more \c mappatch_t structures that arrange graphic patches
 typedef struct
 {
 	char		name[8];				// JR 4/5/93
-	boolean	masked;				// if not masked, the patch's post_ts need to be combined
+	boolean	masked;				//!< if not masked, the patch's post_ts need to be combined
 	short	width;
 	short	height;
 	void		**collumndirectory;		// [width] pointers to collumn_ts to draw the texture
@@ -66,13 +66,13 @@ typedef struct
 	mappatch_t	patches[1];		// [patchcount] drawn back to front into the cached texture
 } maptexture_t;
 
-// A mapends_t defines what to draw on the floor and ceiling of an open area, as well as the
-// light level for all sprites and walls in the open area
+/// A mapends_t defines what to draw on the floor and ceiling of an open area, as well as the
+/// light level for all sprites and walls in the open area
 typedef struct
 {
 	short		floorheight, ceilingheight;
 	short		floortexture, ceilingtexture;
-	short		lightlevel;		// base light level
+	short		lightlevel;			// base light level
 	short		special;			// to allow things to happen on a given floor section
 	short		tag;
 	short		linecount;
@@ -80,15 +80,15 @@ typedef struct
 } mapsector_t;
 
 
-// The entire world is defined by maplines with various attributes.
+/// The entire world is defined by maplines with various attributes.
 typedef struct
 {
 	short	flags;	
-	short	sector;					// on the viewer's side
-	short	firstcollumn;				// first collumn for all textures
-	short	midtexture;				// end wall or masked mid texture, -1 = no texture
-	short	toptexture;				// texture to fill gaps between ceiling planes
-	short	bottomtexture;				// texture to fill gaps between floor planes
+	short	sector;					//!< on the viewer's side
+	short	firstcollumn;			//!< first collumn for all textures
+	short	midtexture;				//!< end wall or masked mid texture, -1 = no texture
+	short	toptexture;				//!< texture to fill gaps between ceiling planes
+	short	bottomtexture;			//!< texture to fill gaps between floor planes
 } mapside_t;
 
 // if the line is not two sided, the midtexture must cover the entire space
@@ -119,7 +119,7 @@ typedef struct
 	short		p1, p2;				//!< point numbers
 	mapline_flags	flags;
 	short		length;				//!< texture collumns
-	short		special,tag;			//!< for segment triggers!
+	short		special,tag;		//!< for segment triggers!
 	mapside_t	side[2];
 } mapline_t;
 

@@ -350,24 +350,15 @@ printf ("Done\n");
 	return point;
 }
 
-/*
-=================
-=
-= adjustFrameForOrigin:scale:
-=
-= Increases or decreases the frame size to accomodate a new origin and/or scale
-= Org is in global map coordinates (unscaled)
-= Does not redrawing, change the origin position, or scale
-= Call this every time the window is scrolled, zoomed, resized, or the map bounds changes
-=
-==================
-*/
-
 - adjustFrameForOrigin: (NXPoint const *)org
 {
 	return [self adjustFrameForOrigin: org scale:scale];
 }
 
+/// Increases or decreases the frame size to accomodate a new origin and/or scale
+/// Org is in global map coordinates (unscaled)
+/// Does not redrawing, change the origin position, or scale
+/// Call this every time the window is scrolled, zoomed, resized, or the map bounds changes
 - adjustFrameForOrigin: (NXPoint const *)org scale: (CGFloat)scl
 {
 	NXRect	map;
@@ -399,28 +390,22 @@ printf ("Done\n");
 // get the rects that is displayed in the superview
 //
 	newbounds = superview.visibleRect;
-	[self convertRectFromSuperview: &newbounds];
+	newbounds = [self convertRect: newbounds fromView: [self superview]];
 	newbounds.origin = *org;
 	
 	[editworld_i getBounds: &map];
 	
 	newbounds = NSUnionRect (map, newbounds);
 	
-	if (
-	newbounds.size.width != bounds.size.width ||
-	newbounds.size.height != bounds.size.height 
-	)
-	{
-//printf ("changed size\n");
+	if (newbounds.size.width != bounds.size.width ||
+		newbounds.size.height != bounds.size.height) {
+		//printf ("changed size\n");
 		[self setFrameSize:NSMakeSize(newbounds.size.width*scale, newbounds.size.height*scale)];
 	}
 
-	if (
-	newbounds.origin.x != bounds.origin.x ||
-	newbounds.origin.y != bounds.origin.y
-	)
-	{
-//printf ("changed origin\n");
+	if (newbounds.origin.x != bounds.origin.x ||
+		newbounds.origin.y != bounds.origin.y) {
+		//printf ("changed origin\n");
 		[self setDrawOrigin: newbounds.origin.x : newbounds.origin.y];
 	}
 		
@@ -428,23 +413,14 @@ printf ("Done\n");
 }
 
 
-/*
-=======================
-=
-= setOrigin: scale:
-=
-= Scrolls and/or scales the view to a new position and displays
-= Org is in global map coordinates (unscaled)
-= Do not call before the view is installed in a scroll view!
-=
-=======================
-*/
-
 - setOrigin: (NXPoint const *)org
 {
 	return [self setOrigin: org scale: scale];
 }
 
+/// Scrolls and/or scales the view to a new position and displays
+/// Org is in global map coordinates (unscaled)
+/// Do not call before the view is installed in a scroll view!
 - setOrigin: (NXPoint const *)org scale: (CGFloat)scl
 {
 	[self adjustFrameForOrigin: org scale:scl];
@@ -459,16 +435,7 @@ printf ("Done\n");
 	return self;
 }
 
-/*
-====================
-=
-= zoomFrom:(NXPoint *)origin scale:(float)newscale
-=
-= The origin is in screen pixels from the lower left corner of the clip view
-=
-====================
-*/
-
+/// The origin is in screen pixels from the lower left corner of the clip view
 - zoomFrom:(NXPoint *)origin toScale:(CGFloat)newscale
 {
 	NXPoint		neworg, orgnow;
@@ -480,9 +447,9 @@ printf ("Done\n");
 #endif
 	
 	[window disableDisplay];		// don't redraw twice (scaling and translating)
-//
-// find where the point is now
-//
+	//
+	// find where the point is now
+	//
 	neworg = *origin;
 
 #ifdef REDOOMED
@@ -491,29 +458,25 @@ printf ("Done\n");
 	[self convertPoint: &neworg toView: NULL];
 #endif
 	
-//
-// change scale
-//		
+	//
+	// change scale
+	//
 	[self setBoundsSize:NSMakeSize(frame.size.width/newscale, frame.size.height/newscale)];
 	scale = newscale;
 
-//
-// convert the point back
-//
-#ifdef REDOOMED
+	//
+	// convert the point back
+	//
 	neworg = [self convertPoint: neworg fromView: nil];
-#else // Original
-	[self convertPoint: &neworg fromView: NULL];
-#endif
 
 	[self getCurrentOrigin: &orgnow];
 	orgnow.x += origin->x - neworg.x;
 	orgnow.y += origin->y - neworg.y;
 	[self setOrigin: &orgnow];
 	
-//
-// redraw
-// 
+	//
+	// redraw
+	// 
 	[window reenableDisplay];
 
 #ifdef REDOOMED
@@ -525,7 +488,4 @@ printf ("Done\n");
 	return self;
 }
 
-
-
 @end
-

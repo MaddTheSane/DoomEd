@@ -344,7 +344,7 @@ id	thingPalette_i;
 		}
 
 		NSSize	tmpSize;
-		icon.image = patchToImage(iconvga,shortpal,&tmpSize,icon.name.UTF8String);
+		icon.image = [patchToImage(iconvga,shortpal,&tmpSize,icon.name.UTF8String) autorelease];
 		icon.imageSize = tmpSize;
 		NSRect r = NSZeroRect;
 		r.size = NSMakeSize(ICONSIZE, ICONSIZE);

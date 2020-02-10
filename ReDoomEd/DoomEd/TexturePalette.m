@@ -147,10 +147,10 @@ TexturePalette	*texturePalette_i;
 	}
 }
 
-//
-// create a texture image from all its patches for the palette
-// NOTE: allTextures must have been created
-//
+///
+/// create a texture image from all its patches for the palette
+/// NOTE: allTextures must have been created
+///
 - (texpal_t) createTextureImage:(int)which
 {
 	int	i;
@@ -240,7 +240,7 @@ TexturePalette	*texturePalette_i;
 	char		string[32];
 	
 	if (newTextures == nil )
-		newTextures = [	[Storage alloc ]
+		newTextures = [[Storage alloc ]
 						initCount: 	[allTextures  count]
 						elementSize:	sizeof (texpal_t)
 						description:	NULL ];
@@ -255,8 +255,7 @@ TexturePalette	*texturePalette_i;
 	//	See how many texture sets we have
 	//
 	maxwindex = 0;
-	for (i = 0; i <= count; i++)
-	{
+	for (i = 0; i <= count; i++) {
 		t = [allTextures	elementAt:i ];
 		if (t->WADindex > maxwindex)
 			maxwindex = t->WADindex;
@@ -266,33 +265,30 @@ TexturePalette	*texturePalette_i;
 	//	Build newTextures to hold texture sets in order
 	//	from allTextures
 	//
-	for (i = 0; i <= maxwindex; i++)
-		for (j = 0; j <= count; j++)
-		{
+	for (i = 0; i <= maxwindex; i++) {
+		for (j = 0; j <= count; j++) {
 			t = [allTextures	elementAt:j ];
-			if (t->WADindex == i )
-			{
+			if (t->WADindex == i) {
 				t->oldIndex = j;
 				[newTextures	addElement: t ];
 			}
 		}
+	}
 
 	//
 	//	Compute Texture Palette size
 	//
 	[texturePalView_i	dumpDividers ];
-	while (count >= 0)
-	{
+	while (count >= 0) {
 		t = [newTextures	elementAt:count];
 
-		if (t->WADindex < maxwindex)
-		{
+		if (t->WADindex < maxwindex) {
 			maxwindex = t->WADindex;
 			sprintf (string, "Texture Set #%d", maxwindex+2 );
 			y += SPACING;
-			[texturePalView_i	addDividerX: x
-					Y: y
-					String: string ];
+			[texturePalView_i addDividerX: x
+										y: y
+								   string: @(string)];
 			y += SPACING*2;
 		}
 		
@@ -331,7 +327,7 @@ TexturePalette	*texturePalette_i;
 	int		max;
 	NXRect	r;
 	
-	max = [allTextures	count ];
+	max = [allTextures count];
 	for (i = 0; i < max; i++)
 	{
 		t = [allTextures	elementAt:i ];
@@ -790,7 +786,7 @@ void createAndSaveLBM(char *name, int cs, FILE *fp)
 	memset(texturedata,255,tw * th);
 	
 	//	CREATE THE TEXTURE GRAPHIC
-	createVgaTexture(texturedata, cs, tw, th);
+	createVgaTexture((char*)texturedata, cs, tw, th);
 
 	// CREATE THE .LBM
 	SaveRawLBM (name, texturedata, tw, th, palette);
@@ -844,7 +840,7 @@ void createVgaTexture(char *dest, int which,int width, int height)
 		raw = malloc(patchw * patchh);
 		
 		vgaPatchDecompress(patch,raw);
-		moveVgaPatch(raw, dest, p->originx, p->originy, patchw, patchh,
+		moveVgaPatch(raw, (byte*)dest, p->originx, p->originy, patchw, patchh,
 			width, height);
 		
 		free(raw);
