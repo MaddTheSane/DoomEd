@@ -98,20 +98,20 @@
 		035C964120DD6D7F006068BA /* savesectors.m in Sources */ = {isa = PBXBuildFile; fileRef = 035C963820DD6D7F006068BA /* savesectors.m */; };
 		037C84322213BE2D00D8929B /* RDEOSXGlue_ButtonImageAlignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C84312213BE2D00D8929B /* RDEOSXGlue_ButtonImageAlignment.m */; };
 		0382390622B2D47C0035E7CB /* RDECocoaGlue_PanelUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 0382390522B2D47C0035E7CB /* RDECocoaGlue_PanelUtilities.m */; };
-		03DC35D91FA1D04900DB9A7A /* SpecialList_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.nib */; };
-		03DC35DA1FA1D04900DB9A7A /* thing_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35B71FA1D04800DB9A7A /* thing_Cocoa.nib */; };
-		03DC35DB1FA1D04900DB9A7A /* line_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35B91FA1D04800DB9A7A /* line_Cocoa.nib */; };
-		03DC35DC1FA1D04900DB9A7A /* TexturePalette_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35BB1FA1D04800DB9A7A /* TexturePalette_Cocoa.nib */; };
-		03DC35DD1FA1D04900DB9A7A /* ThingStripper_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35BD1FA1D04800DB9A7A /* ThingStripper_Cocoa.nib */; };
-		03DC35DF1FA1D04900DB9A7A /* ThingPalette_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C11FA1D04800DB9A7A /* ThingPalette_Cocoa.nib */; };
-		03DC35E01FA1D04900DB9A7A /* Remapper_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C31FA1D04800DB9A7A /* Remapper_Cocoa.nib */; };
-		03DC35E11FA1D04900DB9A7A /* FindLine_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C51FA1D04800DB9A7A /* FindLine_Cocoa.nib */; };
-		03DC35E31FA1D04900DB9A7A /* Project_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C91FA1D04800DB9A7A /* Project_Cocoa.nib */; };
-		03DC35E41FA1D04900DB9A7A /* preferences_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35CB1FA1D04800DB9A7A /* preferences_Cocoa.nib */; };
-		03DC35E51FA1D04900DB9A7A /* DoomEd_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.nib */; };
-		03DC35E61FA1D04900DB9A7A /* SectorEditor_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35CF1FA1D04800DB9A7A /* SectorEditor_Cocoa.nib */; };
-		03DC35E71FA1D04900DB9A7A /* TextLog_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35D11FA1D04900DB9A7A /* TextLog_Cocoa.nib */; };
-		03DC35E81FA1D04900DB9A7A /* TextureEdit_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.nib */; };
+		03DC35D91FA1D04900DB9A7A /* SpecialList_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.xib */; };
+		03DC35DA1FA1D04900DB9A7A /* thing_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35B71FA1D04800DB9A7A /* thing_Cocoa.xib */; };
+		03DC35DB1FA1D04900DB9A7A /* line_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35B91FA1D04800DB9A7A /* line_Cocoa.xib */; };
+		03DC35DC1FA1D04900DB9A7A /* TexturePalette_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35BB1FA1D04800DB9A7A /* TexturePalette_Cocoa.xib */; };
+		03DC35DD1FA1D04900DB9A7A /* ThingStripper_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35BD1FA1D04800DB9A7A /* ThingStripper_Cocoa.xib */; };
+		03DC35DF1FA1D04900DB9A7A /* ThingPalette_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C11FA1D04800DB9A7A /* ThingPalette_Cocoa.xib */; };
+		03DC35E01FA1D04900DB9A7A /* Remapper_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C31FA1D04800DB9A7A /* Remapper_Cocoa.xib */; };
+		03DC35E11FA1D04900DB9A7A /* FindLine_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C51FA1D04800DB9A7A /* FindLine_Cocoa.xib */; };
+		03DC35E31FA1D04900DB9A7A /* Project_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35C91FA1D04800DB9A7A /* Project_Cocoa.xib */; };
+		03DC35E41FA1D04900DB9A7A /* preferences_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35CB1FA1D04800DB9A7A /* preferences_Cocoa.xib */; };
+		03DC35E51FA1D04900DB9A7A /* DoomEd_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.xib */; };
+		03DC35E61FA1D04900DB9A7A /* SectorEditor_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35CF1FA1D04800DB9A7A /* SectorEditor_Cocoa.xib */; };
+		03DC35E71FA1D04900DB9A7A /* TextLog_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35D11FA1D04900DB9A7A /* TextLog_Cocoa.xib */; };
+		03DC35E81FA1D04900DB9A7A /* TextureEdit_Cocoa.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.xib */; };
 		03ECDA7321CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ECDA7221CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m */; };
 		03F6BDAE231441DE00045261 /* PPSRGBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDAD231441DE00045261 /* PPSRGBUtilities.m */; };
 		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -312,20 +312,20 @@
 		0382390422B2D47C0035E7CB /* RDECocoaGlue_PanelUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_PanelUtilities.h; sourceTree = "<group>"; };
 		0382390522B2D47C0035E7CB /* RDECocoaGlue_PanelUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_PanelUtilities.m; sourceTree = "<group>"; };
 		03BE9E7E225680CE00FA5179 /* RDEdoombsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDEdoombsp.h; sourceTree = "<group>"; };
-		03DC35B61FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/SpecialList_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35B81FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/thing_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35BA1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/line_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35BC1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/TexturePalette_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35BE1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ThingStripper_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35C21FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/ThingPalette_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35C41FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/Remapper_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35C61FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/FindLine_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35CA1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/Project_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35CC1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/preferences_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35CE1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/DoomEd_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35D01FA1D04900DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/SectorEditor_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35D21FA1D04900DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/TextLog_Cocoa.nib; sourceTree = "<group>"; };
-		03DC35D41FA1D04900DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = en; path = en.lproj/TextureEdit_Cocoa.nib; sourceTree = "<group>"; };
+		03DC35B61FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SpecialList_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35B81FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/thing_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35BA1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/line_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35BC1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TexturePalette_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35BE1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ThingStripper_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35C21FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ThingPalette_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35C41FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Remapper_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35C61FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FindLine_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35CA1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Project_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35CC1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/preferences_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35CE1FA1D04800DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DoomEd_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35D01FA1D04900DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SectorEditor_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35D21FA1D04900DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextLog_Cocoa.xib; sourceTree = "<group>"; };
+		03DC35D41FA1D04900DB9A7A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TextureEdit_Cocoa.xib; sourceTree = "<group>"; };
 		03ECDA7121CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDECocoaGlue_NXAlertPanel.h; sourceTree = "<group>"; };
 		03ECDA7221CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDECocoaGlue_NXAlertPanel.m; sourceTree = "<group>"; };
 		03ECE50F20D74C7D00178BFB /* RDEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDEDefines.h; sourceTree = "<group>"; };
@@ -701,20 +701,20 @@
 			children = (
 				8D1107310486CEB800E47090 /* Info.plist */,
 				55C41DC523F08767000FB967 /* Localizable.strings */,
-				03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.nib */,
-				03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.nib */,
-				03DC35B71FA1D04800DB9A7A /* thing_Cocoa.nib */,
-				03DC35B91FA1D04800DB9A7A /* line_Cocoa.nib */,
-				03DC35BB1FA1D04800DB9A7A /* TexturePalette_Cocoa.nib */,
-				03DC35BD1FA1D04800DB9A7A /* ThingStripper_Cocoa.nib */,
-				03DC35C11FA1D04800DB9A7A /* ThingPalette_Cocoa.nib */,
-				03DC35C31FA1D04800DB9A7A /* Remapper_Cocoa.nib */,
-				03DC35C51FA1D04800DB9A7A /* FindLine_Cocoa.nib */,
-				03DC35C91FA1D04800DB9A7A /* Project_Cocoa.nib */,
-				03DC35CB1FA1D04800DB9A7A /* preferences_Cocoa.nib */,
-				03DC35CF1FA1D04800DB9A7A /* SectorEditor_Cocoa.nib */,
-				03DC35D11FA1D04900DB9A7A /* TextLog_Cocoa.nib */,
-				03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.nib */,
+				03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.xib */,
+				03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.xib */,
+				03DC35B71FA1D04800DB9A7A /* thing_Cocoa.xib */,
+				03DC35B91FA1D04800DB9A7A /* line_Cocoa.xib */,
+				03DC35BB1FA1D04800DB9A7A /* TexturePalette_Cocoa.xib */,
+				03DC35BD1FA1D04800DB9A7A /* ThingStripper_Cocoa.xib */,
+				03DC35C11FA1D04800DB9A7A /* ThingPalette_Cocoa.xib */,
+				03DC35C31FA1D04800DB9A7A /* Remapper_Cocoa.xib */,
+				03DC35C51FA1D04800DB9A7A /* FindLine_Cocoa.xib */,
+				03DC35C91FA1D04800DB9A7A /* Project_Cocoa.xib */,
+				03DC35CB1FA1D04800DB9A7A /* preferences_Cocoa.xib */,
+				03DC35CF1FA1D04800DB9A7A /* SectorEditor_Cocoa.xib */,
+				03DC35D11FA1D04900DB9A7A /* TextLog_Cocoa.xib */,
+				03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.xib */,
 				03E4F3D01FB5FCDE0046BADC /* Images */,
 				03E4F3D31FB5FCFF0046BADC /* Sounds */,
 			);
@@ -789,21 +789,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */,
-				03DC35D91FA1D04900DB9A7A /* SpecialList_Cocoa.nib in Resources */,
+				03DC35D91FA1D04900DB9A7A /* SpecialList_Cocoa.xib in Resources */,
 				55C41DC323F08767000FB967 /* Localizable.strings in Resources */,
-				03DC35DA1FA1D04900DB9A7A /* thing_Cocoa.nib in Resources */,
-				03DC35DB1FA1D04900DB9A7A /* line_Cocoa.nib in Resources */,
-				03DC35DC1FA1D04900DB9A7A /* TexturePalette_Cocoa.nib in Resources */,
-				03DC35DD1FA1D04900DB9A7A /* ThingStripper_Cocoa.nib in Resources */,
-				03DC35DF1FA1D04900DB9A7A /* ThingPalette_Cocoa.nib in Resources */,
-				03DC35E01FA1D04900DB9A7A /* Remapper_Cocoa.nib in Resources */,
-				03DC35E11FA1D04900DB9A7A /* FindLine_Cocoa.nib in Resources */,
-				03DC35E31FA1D04900DB9A7A /* Project_Cocoa.nib in Resources */,
-				03DC35E41FA1D04900DB9A7A /* preferences_Cocoa.nib in Resources */,
-				03DC35E51FA1D04900DB9A7A /* DoomEd_Cocoa.nib in Resources */,
-				03DC35E61FA1D04900DB9A7A /* SectorEditor_Cocoa.nib in Resources */,
-				03DC35E71FA1D04900DB9A7A /* TextLog_Cocoa.nib in Resources */,
-				03DC35E81FA1D04900DB9A7A /* TextureEdit_Cocoa.nib in Resources */,
+				03DC35DA1FA1D04900DB9A7A /* thing_Cocoa.xib in Resources */,
+				03DC35DB1FA1D04900DB9A7A /* line_Cocoa.xib in Resources */,
+				03DC35DC1FA1D04900DB9A7A /* TexturePalette_Cocoa.xib in Resources */,
+				03DC35DD1FA1D04900DB9A7A /* ThingStripper_Cocoa.xib in Resources */,
+				03DC35DF1FA1D04900DB9A7A /* ThingPalette_Cocoa.xib in Resources */,
+				03DC35E01FA1D04900DB9A7A /* Remapper_Cocoa.xib in Resources */,
+				03DC35E11FA1D04900DB9A7A /* FindLine_Cocoa.xib in Resources */,
+				03DC35E31FA1D04900DB9A7A /* Project_Cocoa.xib in Resources */,
+				03DC35E41FA1D04900DB9A7A /* preferences_Cocoa.xib in Resources */,
+				03DC35E51FA1D04900DB9A7A /* DoomEd_Cocoa.xib in Resources */,
+				03DC35E61FA1D04900DB9A7A /* SectorEditor_Cocoa.xib in Resources */,
+				03DC35E71FA1D04900DB9A7A /* TextLog_Cocoa.xib in Resources */,
+				03DC35E81FA1D04900DB9A7A /* TextureEdit_Cocoa.xib in Resources */,
 				033FAA8320E829DE00CC584F /* D_Dbite.snd in Resources */,
 				033FAA8420E829DE00CC584F /* D_EPain.snd in Resources */,
 				033FAA8620E829DE00CC584F /* DESave.snd in Resources */,
@@ -916,116 +916,116 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.nib */ = {
+		03DC35B51FA1D04800DB9A7A /* SpecialList_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35B61FA1D04800DB9A7A /* en */,
 			);
-			name = SpecialList_Cocoa.nib;
+			name = SpecialList_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35B71FA1D04800DB9A7A /* thing_Cocoa.nib */ = {
+		03DC35B71FA1D04800DB9A7A /* thing_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35B81FA1D04800DB9A7A /* en */,
 			);
-			name = thing_Cocoa.nib;
+			name = thing_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35B91FA1D04800DB9A7A /* line_Cocoa.nib */ = {
+		03DC35B91FA1D04800DB9A7A /* line_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35BA1FA1D04800DB9A7A /* en */,
 			);
-			name = line_Cocoa.nib;
+			name = line_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35BB1FA1D04800DB9A7A /* TexturePalette_Cocoa.nib */ = {
+		03DC35BB1FA1D04800DB9A7A /* TexturePalette_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35BC1FA1D04800DB9A7A /* en */,
 			);
-			name = TexturePalette_Cocoa.nib;
+			name = TexturePalette_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35BD1FA1D04800DB9A7A /* ThingStripper_Cocoa.nib */ = {
+		03DC35BD1FA1D04800DB9A7A /* ThingStripper_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35BE1FA1D04800DB9A7A /* en */,
 			);
-			name = ThingStripper_Cocoa.nib;
+			name = ThingStripper_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35C11FA1D04800DB9A7A /* ThingPalette_Cocoa.nib */ = {
+		03DC35C11FA1D04800DB9A7A /* ThingPalette_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35C21FA1D04800DB9A7A /* en */,
 			);
-			name = ThingPalette_Cocoa.nib;
+			name = ThingPalette_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35C31FA1D04800DB9A7A /* Remapper_Cocoa.nib */ = {
+		03DC35C31FA1D04800DB9A7A /* Remapper_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35C41FA1D04800DB9A7A /* en */,
 			);
-			name = Remapper_Cocoa.nib;
+			name = Remapper_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35C51FA1D04800DB9A7A /* FindLine_Cocoa.nib */ = {
+		03DC35C51FA1D04800DB9A7A /* FindLine_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35C61FA1D04800DB9A7A /* en */,
 			);
-			name = FindLine_Cocoa.nib;
+			name = FindLine_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35C91FA1D04800DB9A7A /* Project_Cocoa.nib */ = {
+		03DC35C91FA1D04800DB9A7A /* Project_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35CA1FA1D04800DB9A7A /* en */,
 			);
-			name = Project_Cocoa.nib;
+			name = Project_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35CB1FA1D04800DB9A7A /* preferences_Cocoa.nib */ = {
+		03DC35CB1FA1D04800DB9A7A /* preferences_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35CC1FA1D04800DB9A7A /* en */,
 			);
-			name = preferences_Cocoa.nib;
+			name = preferences_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.nib */ = {
+		03DC35CD1FA1D04800DB9A7A /* DoomEd_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35CE1FA1D04800DB9A7A /* en */,
 			);
-			name = DoomEd_Cocoa.nib;
+			name = DoomEd_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35CF1FA1D04800DB9A7A /* SectorEditor_Cocoa.nib */ = {
+		03DC35CF1FA1D04800DB9A7A /* SectorEditor_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35D01FA1D04900DB9A7A /* en */,
 			);
-			name = SectorEditor_Cocoa.nib;
+			name = SectorEditor_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35D11FA1D04900DB9A7A /* TextLog_Cocoa.nib */ = {
+		03DC35D11FA1D04900DB9A7A /* TextLog_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35D21FA1D04900DB9A7A /* en */,
 			);
-			name = TextLog_Cocoa.nib;
+			name = TextLog_Cocoa.xib;
 			sourceTree = "<group>";
 		};
-		03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.nib */ = {
+		03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				03DC35D41FA1D04900DB9A7A /* en */,
 			);
-			name = TextureEdit_Cocoa.nib;
+			name = TextureEdit_Cocoa.xib;
 			sourceTree = "<group>";
 		};
 		55C41DC523F08767000FB967 /* Localizable.strings */ = {
