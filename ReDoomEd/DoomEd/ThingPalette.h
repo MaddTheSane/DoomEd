@@ -6,18 +6,16 @@
 #   import <appkit/appkit.h>
 #endif
 
-typedef struct
-{
-	NXRect	r;
-	NXSize	imagesize;
-	char	name[10];
-	id		image;
-} icon_t;
+@interface ThingPaletteIcon: NSObject
+@property NSRect r;
+@property NSSize imageSize;
+@property (nonatomic, copy) NSString *name;
+@property (retain) NSImage *image;
+@end
 
 #define	SPACING		10
 #define	ICONSIZE	48
 
-@class Storage;
 @class ThingPalView;
 @class ThingPalette;
 extern ThingPalette *thingPalette_i;
@@ -28,16 +26,13 @@ extern ThingPalette *thingPalette_i;
 	IBOutlet ThingPalView	*thingPalView_i;	// outlet
 	IBOutlet NSScrollView	*thingPalScrView_i;	// outlet
 	IBOutlet NSTextField	*nameField_i;		// outlet
-	
-	Storage	*thingImages;		// Storage for icons
-	int		currentIcon;		// currently selected icon
 }
 
 - (IBAction)menuTarget:sender;
-- (NSInteger)findIcon:(const char *)name;
-- (icon_t *)getIcon:(NSInteger)which;
-@property (nonatomic) int currentIcon;
-- (NSInteger)countOfIcons;
+- (NSInteger)findIcon:(NSString *)name;
+- (ThingPaletteIcon *)getIcon:(NSInteger)which;
+@property (nonatomic) NSInteger currentIcon;
+@property (readonly) NSInteger countOfIcons;
 - (void)computeThingDocView;
 - (void)initIcons;
 - (void)dumpAllIcons;

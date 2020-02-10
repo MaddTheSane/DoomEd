@@ -100,7 +100,7 @@ int UniqueSector (sectordef_t *def)
 	count = [secdefstore_i count];
 	msp = [secdefstore_i elementAt:0];
 	for (i=0 ; i<count ; i++, msp++)
-		if (!bcmp(msp, &ms, sizeof(ms)))
+		if (!memcmp(msp, &ms, sizeof(ms)))
 			return (int)i;
 
 	[secdefstore_i addElement: &ms];

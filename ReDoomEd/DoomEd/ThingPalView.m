@@ -9,10 +9,10 @@
 
 - drawSelf:(const NXRect *)rects :(int)rectCount
 {
-	icon_t	*icon;
-	int		max;
-	int		i;
-	int		ci;
+	ThingPaletteIcon	*icon;
+	NSInteger			max;
+	NSInteger			i;
+	NSInteger			ci;
 	NXRect	r;
 	NXPoint	p;
 #ifdef REDOOMED
@@ -24,7 +24,7 @@
 	if (ci >= 0)
 	{
 		icon = [thingPalette_i	getIcon:ci];
-		r = icon->r;
+		r = icon.r;
 		r.origin.x -= 5;
 		r.origin.y -= 5;
 		r.size.width += 10;
@@ -32,16 +32,16 @@
 		DE_DrawOutline(&r);
 	}
 	
-	max = [thingPalette_i	countOfIcons];
+	max = [thingPalette_i countOfIcons];
 	for (i = 0; i < max; i++)
 	{
 		icon = [thingPalette_i	getIcon:i];
-		if (NSIntersectsRect(rects[0],icon->r) == YES)
+		if (NSIntersectsRect(rects[0],icon.r) == YES)
 		{
-			p = icon->r.origin;
-			p.x += (ICONSIZE - icon->imagesize.width)/2;
-			p.y += (ICONSIZE - icon->imagesize.height)/2;
-			[icon->image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
+			p = icon.r.origin;
+			p.x += (ICONSIZE - icon.imageSize.width)/2;
+			p.y += (ICONSIZE - icon.imageSize.height)/2;
+			[icon.image drawAtPoint:p fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
 		}
 	}
 
@@ -53,23 +53,23 @@
 	for (i = 0; i < max; i++)
 	{
 		icon = [thingPalette_i	getIcon:i ];
-		if (icon->image != NULL)
+		if (icon.image != NULL)
 			continue;
 			
 		PSsetgray ( 0 );
-		PSmoveto( icon->r.origin.x,icon->r.origin.y + ICONSIZE/2);
-		PSshow ( icon->name );
+		PSmoveto( icon.r.origin.x,icon.r.origin.y + ICONSIZE/2);
+		PSshow ( icon.name.UTF8String );
 		PSstroke ();
 
 		PSsetrgbcolor ( 148,0,0 );
 		PSsetlinewidth( 1.0 );
-		PSmoveto ( icon->r.origin.x, icon->r.origin.y + ICONSIZE/2 + 12 );
+		PSmoveto ( icon.r.origin.x, icon.r.origin.y + ICONSIZE/2 + 12 );
 		PSlineto ( bounds.size.width - SPACING,
-				icon->r.origin.y + ICONSIZE/2 + 12 );
+				icon.r.origin.y + ICONSIZE/2 + 12 );
 
-		PSmoveto ( icon->r.origin.x, icon->r.origin.y + ICONSIZE/2 - 2 );
+		PSmoveto ( icon.r.origin.x, icon.r.origin.y + ICONSIZE/2 - 2 );
 		PSlineto ( bounds.size.width - SPACING,
-				icon->r.origin.y + ICONSIZE/2 - 2 );
+				icon.r.origin.y + ICONSIZE/2 - 2 );
 		PSstroke ();
 	}
 	
@@ -84,10 +84,10 @@
 #endif
 {
 	NXPoint	loc;
-	int		i;
-	int		max;
+	NSInteger		i;
+	NSInteger		max;
 	int		oldwindowmask;
-	icon_t	*icon;
+	ThingPaletteIcon	*icon;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
 	NSWindow *window = [self window];
@@ -107,10 +107,10 @@
 	for (i = 0;i < max; i++)
 	{
 		icon = [thingPalette_i		getIcon:i];
-		if (NSPointInRect(loc,icon->r) == YES)
+		if (NSPointInRect(loc,icon.r) == YES)
 		{
 			[thingPalette_i	setCurrentIcon:i];
-			[thingpanel_i	selectThingWithIcon:icon->name];
+			[thingpanel_i	selectThingWithIcon:icon.name.UTF8String];
 			break;
 		}
 	}

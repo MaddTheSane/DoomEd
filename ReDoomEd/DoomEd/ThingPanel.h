@@ -57,20 +57,20 @@ typedef struct
 
 - (IBAction)changeDifficultyDisplay:sender;
 - (int)getDifficultyDisplay;
-- emptyThingList;
-- pgmTarget;
+- (void)emptyThingList;
+- (void)pgmTarget;
 - (IBAction)menuTarget:sender;
-- saveFrame;
+- (void)saveFrame;
 - (IBAction)formTarget: sender;
-- updateInspector: (BOOL)force;
-- updateThingInspector;
+- (void)updateInspector: (BOOL)force;
+- (void)updateThingInspector;
 - (IBAction)updateThingData:sender;
 - (void)sortThings;
 - (IBAction)setAngle:sender;
 - (NXColor)getThingColor:(int)type;
-- fillThingData:(thinglist_t *)thing;
+- (void)fillThingData:(thinglist_t *)thing;
 - (void)fillDataFromThing:(thinglist_t *)thing;
-- fillAllDataFromThing:(thinglist_t *)thing;
+- (void)fillAllDataFromThing:(thinglist_t *)thing;
 - (IBAction)addThing:sender;
 - (NSInteger)findThing:(char *)string;
 - (thinglist_t *)getThingData:(NSInteger)index;
@@ -86,7 +86,7 @@ typedef struct
 - (IBAction)verifyIconName:sender;
 - (IBAction)assignIcon:sender;
 - (IBAction)unlinkIcon:sender;
-- selectThingWithIcon:(char *)name;
+- (void)selectThingWithIcon:(const char *)name;
 
 - (thinglist_t *)getCurrentThingData;
 - (void)countCurrentThings;

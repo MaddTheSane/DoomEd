@@ -543,7 +543,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		if (frontline == -1)
 			memcpy (&new.s, &side->ends, sizeof(sectordef_t));
 		else
-			if (bcmp (&new.s, &side->ends, sizeof(sectordef_t)))
+			if (memcmp(&new.s, &side->ends, sizeof(sectordef_t)))
 			{
 				[new.lines release];
 				[self sectorError: "Line sectordefs differ" : i : frontline];

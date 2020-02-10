@@ -154,8 +154,8 @@ extern	char	bsphost[32];		// bsp host machine
 - (IBAction)toggleWeapons:sender;
 
 // Thermometer functions
-- (void)initThermo:(char *)title message:(char *)msg;
-- (void)updateThermo:(int)current max:(int)maximum;
+- (void)initThermo:(const char *)title message:(const char *)msg;
+- (void)updateThermo:(NSInteger)current max:(NSInteger)maximum;
 - (void)closeThermo;
 
 

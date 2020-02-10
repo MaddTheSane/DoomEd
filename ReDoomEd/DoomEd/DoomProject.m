@@ -1248,7 +1248,7 @@ typedef struct
 	//
 	numth = numthings;	// MAX # OF DIFFERENT TYPES OF THINGS POSSIBLE
 	thingCount = malloc (numth * sizeof(*thingCount));
-	bzero(thingCount,sizeof(*thingCount)*numth);
+	memset(thingCount, 0, sizeof(*thingCount)*numth);
 	for (i = 0;i < numth;i++)
 	{
 		int	type = things[i].type;
@@ -1289,8 +1289,7 @@ typedef struct
 	//	Texture report data
 	//
 	nt = [texturePalette_i	countOfTextures];
-	textureCount = malloc(sizeof(int) * nt);
-	bzero(textureCount,sizeof(int)*nt);
+	textureCount = calloc(nt, sizeof(int));
 	
 	//
 	// count amount of each texture
@@ -1532,17 +1531,14 @@ typedef struct
 	selRow = [openMatrix	selectedRow];
 	
 	nt = [texturePalette_i	countOfTextures];
-	textureCount = malloc(sizeof(int) * nt);
-	bzero(textureCount,sizeof(int)*nt);
+	textureCount = calloc(nt, sizeof(int));
 	
 	nf = [sectorEdit_i	countOfFlats];
-	flatCount = malloc ( sizeof(*flatCount) * nf );
-	bzero (flatCount, sizeof (*flatCount) * nf );
+	flatCount = calloc(nf, sizeof(*flatCount));
 
 	thingList_i = [thingPanel_i thingList];
 	numth = [thingList_i	count];
-	thingCount = malloc (numth * sizeof(*thingCount));
-	bzero(thingCount,sizeof(*thingCount)*numth);
+	thingCount = calloc (sizeof(*thingCount), numth);
 	// FILL THING COUNT LIST WITH ALL POSSIBLE THINGS
 	for (k = 0;k < numth;k++)
 	{
@@ -1814,8 +1810,7 @@ typedef struct
 	//
 	[log_i	addMessage:@"Calculating patch usage: " ];
 	numPatches = [textureEdit_i	countOfPatches];
-	patchCount = malloc(sizeof(*patchCount) * numPatches);
-	bzero(patchCount,sizeof(*patchCount)* numPatches);
+	patchCount = calloc(numPatches, sizeof(*patchCount));
 	
 	fprintf(stream, "Number of patches in project:%d\n",numPatches);
 	fprintf(stream, "Patch count:\n");
@@ -2655,7 +2650,7 @@ static	byte		*buffer, *buf_p;
 //	Initialize and display the thermometer
 //
 //====================================================
-- (void)initThermo:(char *)title message:(char *)msg
+- (void)initThermo:(const char *)title message:(const char *)msg
 {
 #ifdef REDOOMED
 	[thermoTitle_i	setStringValue:RDE_NSStringFromCString(title)];
@@ -2676,7 +2671,7 @@ static	byte		*buffer, *buf_p;
 //	Update the thermometer
 //
 //====================================================
-- (void)updateThermo:(int)current max:(int)maximum
+- (void)updateThermo:(NSInteger)current max:(NSInteger)maximum
 {
 	[thermoView_i	setThermoWidth:current	max:maximum];
 	[thermoView_i setNeedsDisplay:YES];

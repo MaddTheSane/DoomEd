@@ -276,7 +276,7 @@ ERROR:
     }
 }
 
-void RDE_PSshow(char *string)
+void RDE_PSshow(const char *string)
 {
     static NSDictionary *attributes = nil;
     NSString *nsString;

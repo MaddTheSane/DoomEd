@@ -49,10 +49,9 @@ id	thingpanel_i;
 	return self;
 }
 
-- emptyThingList
+- (void)emptyThingList
 {
 	[masterList_i	empty];
-	return self;
 }
 
 /*
@@ -121,20 +120,18 @@ id	thingpanel_i;
 #endif
 
 
-- saveFrame
+- (void)saveFrame
 {
 	if (window_i)
 		[window_i	saveFrameUsingName:THINGNAME];
-	return self;
 }
 
-- pgmTarget
+- (void)pgmTarget
 {
 	if (!window_i)
 		[self	menuTarget:NULL];
 	else
 		[window_i	orderFront:NULL];
-	return self;
 }
 
 - (thinglist_t *)getCurrentThingData
@@ -195,17 +192,7 @@ id	thingpanel_i;
 	[self	countCurrentThings];
 }
 
-- currentThingCount
-{
-	[self countCurrentThings];
-	return self;
-}
-
-//===================================================================
-//
-//	Display # of Things that match currently selected type
-//
-//===================================================================
+///	Display # of Things that match currently selected type
 - (void)countCurrentThings
 {
 	NSInteger		max;
@@ -254,10 +241,10 @@ id	thingpanel_i;
 //	Select the Thing that has icon "name"
 //
 //===================================================================
-- selectThingWithIcon:(char *)name
+- (void)selectThingWithIcon:(const char *)name
 {
-	int				max;
-	int				i;
+	NSInteger		max;
+	NSInteger		i;
 	thinglist_t		*t;
 	NSMatrix		*matrix;
 	
@@ -271,11 +258,9 @@ id	thingpanel_i;
 			matrix = [thingBrowser_i	matrixInColumn:0];
 			[matrix	selectCellAtRow:i column:0];
 			[matrix	scrollCellToVisibleAtRow:i column:0];
-			return self;
+			return;
 		}
 	}
-	
-	return self;
 }
 
 //===================================================================
@@ -301,22 +286,18 @@ id	thingpanel_i;
 //===================================================================
 - (IBAction)assignIcon:sender
 {
-	int		iconnum;
-	icon_t	*icon;
+	NSInteger		iconnum;
+	ThingPaletteIcon	*icon;
 	
 	iconnum = [thingPalette_i	currentIcon];
-	if (iconnum < 0)
+	if (iconnum == NSNotFound)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 	icon = [thingPalette_i	getIcon:iconnum];
 
-#ifdef REDOOMED
-	[iconField_i	setStringValue:RDE_NSStringFromCString(icon->name)];
-#else // Original
-	[iconField_i	setStringValue:icon->name];
-#endif
+	[iconField_i	setStringValue:icon.name];
 
 	[updateButton_i	performClick:self];
 }
@@ -328,36 +309,23 @@ id	thingpanel_i;
 //===================================================================
 - (IBAction)verifyIconName:sender
 {
-	char	name[10];
-	int		which;
+	NSString	*name;
+	NSInteger	which;
 	
-#ifdef REDOOMED
-	// prevent buffer overflows: strcpy() -> macroRDE_SafeCStringCopy()
-	macroRDE_SafeCStringCopy(name, RDE_CStringFromNSString([iconField_i stringValue]));
-#else // Original	
-	strcpy(name,[iconField_i	stringValue]);
-#endif
+	name = [iconField_i stringValue];
+	name = [name uppercaseString];
 
-	strupr(name);
 	which = [thingPalette_i	findIcon:name];
-	if (which < 0)
+	if (which == NSNotFound)
 	{
-		NXBeep();
+		NSBeep();
 
-#ifdef REDOOMED
 		[iconField_i	setStringValue:@"NOICON"];
-#else // Original
-		[iconField_i	setStringValue:"NOICON"];
-#endif
 
 		return;
 	}
 
-#ifdef REDOOMED
-	[iconField_i	setStringValue:RDE_NSStringFromCString(name)];
-#else // Original
 	[iconField_i	setStringValue:name];
-#endif
 }
 
 //===================================================================
@@ -367,7 +335,7 @@ id	thingpanel_i;
 //===================================================================
 - (IBAction)suggestNewType:sender
 {
-	int	num,i,found,max;
+	NSInteger	num,i,found,max;
 	
 	max = [masterList_i	count];
 	for (num = 1;num < 10000;num++)
@@ -390,25 +358,17 @@ id	thingpanel_i;
 //
 // delegate method called by "thingBrowser_i"
 //
-#ifdef REDOOMED
 // Cocoa version
 - (void) browser: (NSBrowser *) sender
         createRowsForColumn: (NSInteger) column
         inMatrix: (NSMatrix *) matrix
-#else // Original
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
-#endif
 {
 	NSInteger	max, i;
 	id	cell;
 	thinglist_t		*t;
 	
 	if (column > 0)
-#ifdef REDOOMED
 		return; // Cocoa version doesn't return a value
-#else // Original
-		return 0;
-#endif
 		
 	[self	sortThings];
 	max = [masterList_i	count];
@@ -418,20 +378,12 @@ id	thingpanel_i;
 		[matrix	insertRow:i];
 		cell = [matrix cellAtRow:i column:0];
 
-#ifdef REDOOMED
 		[cell	setStringValue:RDE_NSStringFromCString(t->name)];
-#else // Original
-		[cell	setStringValue:t->name];
-#endif
 
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return max;
-#endif
 }
 
 //
@@ -541,7 +493,7 @@ id	thingpanel_i;
 //
 // take data from input fields and update thing data
 //
-- fillThingData:(thinglist_t *)thing
+- (void)fillThingData:(thinglist_t *)thing
 {
 	thing->angle = [fields_i		intValueAt:0];
 	thing->value = [fields_i		intValueAt:1];
@@ -572,7 +524,6 @@ id	thingpanel_i;
 
 	if (!thing->iconname[0])
 		strcpy(thing->iconname,"NOICON");
-	return self;
 }
 
 //
@@ -583,7 +534,7 @@ id	thingpanel_i;
 	char		name[32];
 	int	i;
 
-	bzero(name,32);
+	memset(name, 0, 32);
 
 #ifdef REDOOMED
 	if ([[nameField_i stringValue] length] > 31)
@@ -627,11 +578,11 @@ id	thingpanel_i;
 //
 - (void)setThing:(worldthing_t *)thing
 {
-	int	which;
+	NSInteger	which;
 	thinglist_t		*t;
 	
 	which = [self	searchForThingType:thing->type];
-	if (which >= 0)
+	if (which != NSNotFound)
 	{
 		t = [masterList_i	elementAt:which];
 		t->option = thing->options;
@@ -639,7 +590,7 @@ id	thingpanel_i;
 		
 		[self	fillAllDataFromThing:t];
 		[self	scrollToItem:which];
-		[thingPalette_i	setCurrentIcon:[thingPalette_i	findIcon:t->iconname]];
+		[thingPalette_i	setCurrentIcon:[thingPalette_i	findIcon:@(t->iconname)]];
 	}
 }
 
@@ -671,9 +622,9 @@ id	thingpanel_i;
 	return	((thinglist_t *)[masterList_i	elementAt:index])->color;
 }
 
-//
-// you know the thing's type, but don't know the name!
-//
+///
+/// you know the thing's type, but don't know the name!
+///
 - (NSInteger)searchForThingType:(int)type
 {
 	NSInteger	max,i;
@@ -689,9 +640,9 @@ id	thingpanel_i;
 	return NSNotFound;
 }
 
-//
-// fill data from thing
-//
+///
+/// fill data from thing
+///
 - (void)fillDataFromThing:(thinglist_t *)thing
 {
 	[fields_i	setIntValue:thing->value	at:1];
@@ -709,24 +660,22 @@ id	thingpanel_i;
 	basething.type = thing->value;
 }
 
-//
-// fill ALL data from thing
-//
-- fillAllDataFromThing:(thinglist_t *)thing
+///
+/// fill ALL data from thing
+///
+- (void)fillAllDataFromThing:(thinglist_t *)thing
 {
 	[self	fillDataFromThing:thing];
 	
 	[fields_i	setIntValue:thing->angle	at:0];
-	[ambush_i	setIntValue:((thing->option)>>3)&1];
-	[network_i	setIntValue:((thing->option)>>4)&1];
-	[[difficulty_i cellAtRow:0 column:0] setIntValue:(thing->option)&1];
-	[[difficulty_i cellAtRow:1 column:0] setIntValue:((thing->option)>>1)&1];
-	[[difficulty_i cellAtRow:2 column:0] setIntValue:((thing->option)>>2)&1];
+	[ambush_i	setState:((thing->option)>>3)&1];
+	[network_i	setState:((thing->option)>>4)&1];
+	[[difficulty_i cellAtRow:0 column:0] setState:(thing->option)&1];
+	[[difficulty_i cellAtRow:1 column:0] setState:((thing->option)>>1)&1];
+	[[difficulty_i cellAtRow:2 column:0] setState:((thing->option)>>2)&1];
 	
 	basething.angle = thing->angle;
 	basething.options = thing->option;
-	
-	return self;
 }
 
 //
@@ -831,7 +780,7 @@ id	thingpanel_i;
 	t = [masterList_i	elementAt:which];
 	[self	fillDataFromThing:t];
 	[self	formTarget:NULL];
-	which = [thingPalette_i	findIcon:t->iconname];
+	which = [thingPalette_i	findIcon:@(t->iconname)];
 	if (which != NSNotFound)
 		[thingPalette_i	setCurrentIcon:which];
 }
@@ -912,10 +861,10 @@ id	thingpanel_i;
 ==============
 */
 
-- updateInspector: (BOOL)force
+- (void)updateInspector: (BOOL)force
 {
 	if (!force && ![window_i isVisible])
-		return self;
+		return;
 
 	[window_i disableFlushWindow];
 	
@@ -935,8 +884,6 @@ id	thingpanel_i;
 #else // Original
 	[window_i flushWindow];
 #endif
-	
-	return self;
 }
 
 /*
@@ -983,7 +930,7 @@ id	thingpanel_i;
 ==============
 */
 
-- updateThingInspector
+- (void)updateThingInspector
 {
 	int			i;
 	worldthing_t	*thing;
@@ -996,14 +943,12 @@ id	thingpanel_i;
 			break;
 		}
 		
-	if (bcmp (&basething, &oldthing, sizeof(basething)) )
+	if (memcmp (&basething, &oldthing, sizeof(basething)) )
 	{
 		memcpy (&oldthing, &basething, sizeof(oldthing));
 		[self updateInspector: NO];
 	}
-			
-	return self;
-}	
+}
 
 
 /*

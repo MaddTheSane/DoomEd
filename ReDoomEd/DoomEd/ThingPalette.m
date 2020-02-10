@@ -7,10 +7,33 @@
 #import	"lbmfunctions.h"
 #import "ThingPalView.h"
 
+@implementation ThingPaletteIcon
+
+- (instancetype)init
+{
+	self = [super init];
+	if (self) {
+		self.name = @"";
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	[_name release];
+	[_image release];
+	
+	[super dealloc];
+}
+
+@end
+
 id	thingPalette_i;
 
-@implementation ThingPalette
-
+@implementation ThingPalette {
+	NSMutableArray<ThingPaletteIcon*>	*thingImages;		// Storage for icons
+	NSInteger		currentIcon;		// currently selected icon
+}
 
 //============================================================
 //
@@ -30,6 +53,13 @@ id	thingPalette_i;
 	thingImages = nil; window_i = NULL;
 	currentIcon = -1;
 	return self;
+}
+
+- (void)dealloc
+{
+	[thingImages release];
+	
+	[super dealloc];
 }
 
 //============================================================
@@ -68,17 +98,17 @@ id	thingPalette_i;
 }
 
 /// Find icon from name.  Returns index or \c NSNotFound if not found.
-- (NSInteger)findIcon:(const char *)name
+- (NSInteger)findIcon:(NSString *)name
 {
 	NSInteger	i;
 	NSInteger	max;
-	icon_t		*icon;
+	ThingPaletteIcon *icon;
 	
 	max = [thingImages	count];
 	for (i = 0;i < max;i++)
 	{
-		icon = [thingImages	elementAt:i];
-		if (!strcasecmp(icon->name,name))
+		icon = [thingImages	objectAtIndex:i];
+		if ([name caseInsensitiveCompare:icon.name] == NSOrderedSame)
 			return i;
 	}
 	
@@ -90,9 +120,9 @@ id	thingPalette_i;
 //	Return icon data
 //
 //============================================================
-- (icon_t *)getIcon:(NSInteger)which
+- (ThingPaletteIcon *)getIcon:(NSInteger)which
 {
-	return [thingImages	elementAt:which];
+	return [thingImages	objectAtIndex:which];
 }
 
 //============================================================
@@ -108,24 +138,24 @@ id	thingPalette_i;
 //	Set currently selected icon #
 //
 //============================================================
-- (void)setCurrentIcon:(int)which
+- (void)setCurrentIcon:(NSInteger)which
 {
-	icon_t	*icon;
+	ThingPaletteIcon	*icon;
 	NXRect	r;
 	
-	if (which < 0)
+	if (which < 0 || which == NSNotFound)
 		return;
 		
 	currentIcon = which;
-	icon = [thingImages	elementAt:which];
+	icon = [thingImages	objectAtIndex:which];
 
 #ifdef REDOOMED
-	[nameField_i		setStringValue:RDE_NSStringFromCString(icon->name)];
+	[nameField_i		setStringValue:icon.name];
 #else // Original
 	[nameField_i		setStringValue:icon->name];
 #endif
 
-	r = icon->r;
+	r = icon.r;
 	r.origin.y -= SPACING;
 	r.size.height += SPACING*2;
 
@@ -156,18 +186,7 @@ id	thingPalette_i;
 //============================================================
 - (void)dumpAllIcons
 {
-	NSInteger	i;
-	NSInteger	max;
-	icon_t	*icon;
-	
-	max = [thingImages	count];
-	for (i = 0; i < max; i++)
-	{
-		icon = [thingImages	elementAt:i];
-		if (icon->image != NULL)
-			free(icon->image);
-	}
-	[thingImages	empty];
+	[thingImages removeAllObjects];
 }
 
 //============================================================
@@ -182,7 +201,7 @@ id	thingPalette_i;
 	int		x;
 	int		y;
 	NSInteger		max;
-	icon_t	*icon;
+	ThingPaletteIcon	*icon;
 	int		maxwidth;
 	NXPoint	p;
 	
@@ -196,9 +215,9 @@ id	thingPalette_i;
 	x = y = SPACING;
 	for (i = 0; i < max; i++)
 	{
-		icon = [thingImages	elementAt:i];
+		icon = [thingImages	objectAtIndex:i];
 		
-		if (icon->image == NULL)
+		if (icon.image == nil)
 		{
 			x = SPACING;
 			y += ICONSIZE + ICONSIZE/2 + SPACING*2;
@@ -224,13 +243,15 @@ id	thingPalette_i;
 	//
 	for (i = 0; i < max; i++)
 	{
-		icon = [thingImages	elementAt:i];
-		if (icon->image == NULL)
+		NSRect r;
+		icon = [thingImages	objectAtIndex:i];
+		if (icon.image == NULL)
 		{
 			x = SPACING;
 			y -= ICONSIZE + SPACING;
-			icon->r.origin.x = x;
-			icon->r.origin.y = y;
+			r = icon.r;
+			r.origin = NSMakePoint(x, y);
+			icon.r = r;
 			y -= ICONSIZE/2 + SPACING;
 			continue;
 		}
@@ -240,8 +261,9 @@ id	thingPalette_i;
 			x = SPACING;
 			y -= ICONSIZE + SPACING;
 		}
-		icon->r.origin.x = x;
-		icon->r.origin.y = y;
+		r = icon.r;
+		r.origin = NSMakePoint(x, y);
+		icon.r = r;
 		x += ICONSIZE + SPACING;
 	}
 	
@@ -266,7 +288,6 @@ id	thingPalette_i;
 	unsigned short	shortpal[256];
 	unsigned char 	*palLBM;
 	patch_t	*iconvga;
-	icon_t	icon;
 //	id		panel;
 	
 #if 0
@@ -285,15 +306,12 @@ id	thingPalette_i;
 		IO_Error ("Need to have 'playpal' palette in .WAD file!");
 	LBMpaletteTo16 (palLBM, shortpal);
 
-	thingImages = [[Storage	alloc]
-				initCount:		0
-				elementSize:	sizeof(icon_t)
-				description:	NULL];
+	thingImages = [[NSMutableArray alloc] init];
 		
 	//
 	// get inclusive lump #'s for patches
 	//
-	start = [wadfile_i	lumpNamed:"icon_sta"] + 1;
+	start = [wadfile_i	lumpNamed:"icon_sta"];
 	end = [wadfile_i	lumpNamed:"icon_end"];
 	[doomproject_i	initThermo:"One moment..."
 		message:"Loading icons for Thing Palette."];
@@ -304,28 +322,35 @@ id	thingPalette_i;
 		return;		// no icons, no problem.
 	}
 			
-	for (i = start; i < end; i++)
-	{
+	for (i = start+1; i < end; i++)
+	@autoreleasepool {
+		ThingPaletteIcon *icon = [[ThingPaletteIcon alloc] init];
 		[doomproject_i	updateThermo:i-start max:end-start];
 		//
 		// load icon patch255 and convert to an NXImage
 		//
-		bzero(&icon,sizeof(icon));
+		char	tmpname[10];
 		iconvga = [wadfile_i	loadLump:i];
-		strcpy(icon.name,[wadfile_i	lumpname:i]);
-		icon.name[8] = 0;
-		strupr(icon.name);
-		if (!strncmp(icon.name,"I-",2))
+		strcpy(tmpname,[wadfile_i	lumpname:i]);
+		tmpname[8] = 0;
+		strupr(tmpname);
+		icon.name = @(tmpname);
+		if (!strncmp(tmpname,"I-",2))
 		{
-			[thingImages	addElement:&icon];
+			[thingImages	addObject:icon];
+			[icon release];
 			free(iconvga);
 			continue;
 		}
 
-		icon.image = patchToImage(iconvga,shortpal,&icon.imagesize,icon.name);
-		icon.r.size.width = ICONSIZE;
-		icon.r.size.height = ICONSIZE;
-		[thingImages	addElement:&icon];
+		NSSize	tmpSize;
+		icon.image = patchToImage(iconvga,shortpal,&tmpSize,icon.name.UTF8String);
+		icon.imageSize = tmpSize;
+		NSRect r = NSZeroRect;
+		r.size = NSMakeSize(ICONSIZE, ICONSIZE);
+		icon.r = r;
+		[thingImages addObject:icon];
+		[icon release];
 		free(iconvga);
 	}
 	

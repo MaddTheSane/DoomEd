@@ -870,7 +870,7 @@ Storage *texturePatches;
 	char name[9];
 	
 	// clip texture name to 8 characters
-	bzero(name,9);
+	memset(name, 0, 9);
 
 #ifdef REDOOMED
 	strncpy(name,RDE_CStringFromNSString([createName_i	stringValue]),8);
@@ -915,7 +915,7 @@ Storage *texturePatches;
 	char name[9];
 	
 	// clip texture name to 8 characters
-	bzero(name,9);
+	memset(name, 0, 9);
 
 #ifdef REDOOMED
 	strncpy(name,RDE_CStringFromNSString([createName_i stringValue]),8);
@@ -1615,10 +1615,10 @@ Storage *texturePatches;
 
 
 
-//
-// convert a compressed patch to an NXImage with an alpha channel
-//
-id	patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const char *name)
+///
+/// convert a compressed patch to an \c NXImage with an alpha channel
+///
+NSImage *patchToImage(patch_t *patchData, unsigned short *shortpal,NXSize *size,const char *name)
 {
 	byte		*dest_p;
 	NSImageRep	*image_i;

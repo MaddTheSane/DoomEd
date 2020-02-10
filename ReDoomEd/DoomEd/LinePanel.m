@@ -602,7 +602,7 @@ SpecialList *lineSpecialPanel_i;
 		}
 		
 	[special_i		setIntValue:baseline.special];
-	if (bcmp (&baseline, &oldline, sizeof(baseline)) )
+	if (memcmp(&baseline, &oldline, sizeof(baseline)) )
 	{
 		memcpy (&oldline, &baseline, sizeof(oldline));
 		[self updateInspector: NO];

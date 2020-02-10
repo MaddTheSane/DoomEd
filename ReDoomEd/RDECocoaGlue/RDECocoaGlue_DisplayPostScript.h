@@ -98,7 +98,7 @@ void RDE_PSstroke(void);
 void RDE_PSinstroke(float x, float y, int *pflag);
 
 
-void RDE_PSshow(char *string);
+void RDE_PSshow(const char *string);
 
 
 void RDE_PScompositerect(float x, float y, float w, float h, NSCompositingOperation operation);
