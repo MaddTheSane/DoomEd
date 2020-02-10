@@ -17,7 +17,7 @@
 		033FAAA720E82A9500CC584F /* OldDoomEd.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 033FAA9520E82A9500CC584F /* OldDoomEd.tiff */; };
 		033FAB0D20E834C700CC584F /* BlockWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAADF20E834C700CC584F /* BlockWorld.m */; };
 		033FAB0E20E834C700CC584F /* Coordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE020E834C700CC584F /* Coordinator.m */; };
-		033FAB1020E834C700CC584F /* DoomProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE220E834C700CC584F /* DoomProject.m */; };
+		033FAB1020E834C700CC584F /* DoomProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE220E834C700CC584F /* DoomProject.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB1120E834C700CC584F /* EditWorld.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE320E834C700CC584F /* EditWorld.m */; };
 		033FAB1220E834C700CC584F /* EWDoomSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE420E834C700CC584F /* EWDoomSave.m */; };
 		033FAB1320E834C700CC584F /* EWLoadSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAAE520E834C700CC584F /* EWLoadSave.m */; };

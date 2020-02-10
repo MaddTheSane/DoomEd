@@ -14,7 +14,7 @@
 #endif
 
 #define MAXPATCHES	100
-// mappatch_t orients a patch inside a maptexturedef_t
+/// mappatch_t orients a patch inside a \c maptexturedef_t
 typedef struct
 {
 	int		originx;		// block origin (allways UL), which has allready accounted
@@ -36,7 +36,7 @@ typedef struct
 	worldpatch_t	patches[MAXPATCHES]; // [patchcount] drawn back to front into the
 } worldtexture_t;
 
-// a sectordef_t describes the features of a sector without listing the lines
+/// a \c sectordef_t describes the features of a sector without listing the lines
 typedef struct
 {
 	int	floorheight, ceilingheight;
@@ -69,8 +69,8 @@ extern	char	bsphost[32];		// bsp host machine
 @interface DoomProject : NSObject
 {
 	BOOL	loaded;
-	char	projectdirectory[1024];
-	char	wadfile[1024];		// WADfile path
+	NSURL	*projectdirectory;
+	NSURL	*wadfile;		// WADfile path
 	int		nummaps;
 	char	mapnames[100][9];
 	
@@ -81,7 +81,7 @@ extern	char	bsphost[32];		// bsp host machine
 	IBOutlet NSTextField	*wadpath_i;
 	IBOutlet NSBrowser		*maps_i;
 	IBOutlet ThingPanel		*thingPanel_i;
-	id		findPanel_i;
+	IBOutlet id		findPanel_i;
 	IBOutlet NSTextField	*mapNameField_i;
 	IBOutlet NSTextField	*BSPprogram_i;
 	IBOutlet NSTextField	*BSPhost_i;
@@ -103,8 +103,8 @@ extern	char	bsphost[32];		// bsp host machine
 - (instancetype)init;
 - (IBAction)displayLog:sender;
 @property (readonly) BOOL loaded;
-- (char *)wadfile;
-- (char const *)directory;
+- (NSURL *)wadfile;
+- (NSURL *)directory;
 
 - (IBAction)menuTarget: sender;
 - (IBAction)openProject: sender;
@@ -139,7 +139,7 @@ extern	char	bsphost[32];		// bsp host machine
 - updateSectorSpecials;
 - updateLineSpecials;
 - (void)saveFrame;
-- changeWADfile:(char *)string;
+- (void)changeWADfile:(NSURL *)string;
 - quit;
 - setDirtyProject:(BOOL)truth API_DEPRECATED_WITH_REPLACEMENT("-setProjectDirty:", macos(10.0, 10.0));
 - setDirtyMap:(BOOL)truth API_DEPRECATED_WITH_REPLACEMENT("-setMapDirty:", macos(10.0, 10.0));

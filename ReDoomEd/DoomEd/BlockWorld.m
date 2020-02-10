@@ -306,7 +306,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		}
 			
 		bottom = top ^ SIDEBIT;
-		dest = bmap + (bheight-1-y1)*brow + x1*WLSIZE;
+		dest = (short*)(bmap + (bheight-1-y1)*brow + x1*WLSIZE);
 		while (x1 < x2)
 		{
 			*(dest+WL_SOUTH) = top;
@@ -358,7 +358,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	{
 		y1 = y;
 		x1 = x;
-		dest = bmap + (bheight-1-y1)*brow + x1*WLSIZE;
+		dest = (short*)(bmap + (bheight-1-y1)*brow + x1*WLSIZE);
 		*(dest+offset) = left;
 		x+= xstep;
 		y+= ystep;
@@ -402,7 +402,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	dest = (short *)planes[0] = malloc (size*2);
 #endif
 
-	src = bmap;
+	src = (short*)bmap;
 	for (i=0 ; i<size; i++)
 	{
 		if (src[WL_MARK])
@@ -625,7 +625,7 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	[pan orderFront: NULL];
 	NXPing ();
 
-	test = bmap;
+	test = (short*)bmap;
 	for (y=0 ; y<bheight; y++)
 		for (x=0 ; x<bwidth; x++, test+=WLSIZE)
 			if (!test[WL_MARK] && !test[WL_NWSE] && !test[WL_NESW] )
