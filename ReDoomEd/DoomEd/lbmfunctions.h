@@ -26,8 +26,8 @@ void		ConvertLBMTo16 (byte const *in, unsigned short *out, int count
 void		ConvertLBMTo32 (byte const *in, unsigned *out, int count
 	, unsigned const *longpal);
 
-extern NSBitmapImageRep *Image16FromRawLBM (byte const *data, int width, int height, byte const *palette);
-extern NSBitmapImageRep *Image32FromRawLBM (byte const *data, int width, int height, byte const *palette);
+extern NSBitmapImageRep *Image16FromRawLBM (byte const *data, int width, int height, byte const *palette) NS_RETURNS_RETAINED;
+extern NSBitmapImageRep *Image32FromRawLBM (byte const *data, int width, int height, byte const *palette) NS_RETURNS_RETAINED;
 
-extern NSBitmapImageRep *Image16FromLBMFile (char const *filename);
-extern NSBitmapImageRep *Image32FromLBMFile (char const *filename);
+extern NSBitmapImageRep *Image16FromLBMFile (char const *filename) NS_RETURNS_RETAINED;
+extern NSBitmapImageRep *Image32FromLBMFile (char const *filename) NS_RETURNS_RETAINED;

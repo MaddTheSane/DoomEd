@@ -116,7 +116,7 @@
 	NSWindow *window = [self window];
 #endif
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldwindowmask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 
 #ifdef REDOOMED
 	loc = [theEvent locationInWindow];

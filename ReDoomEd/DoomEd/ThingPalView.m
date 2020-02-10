@@ -86,14 +86,14 @@
 	NXPoint	loc;
 	NSInteger		i;
 	NSInteger		max;
-	int		oldwindowmask;
+	NSEventMask		oldwindowmask;
 	ThingPaletteIcon	*icon;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
 	NSWindow *window = [self window];
 #endif
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldwindowmask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 
 #ifdef REDOOMED
 	loc = [theEvent locationInWindow];
@@ -110,7 +110,7 @@
 		if (NSPointInRect(loc,icon.r) == YES)
 		{
 			[thingPalette_i	setCurrentIcon:i];
-			[thingpanel_i	selectThingWithIcon:icon.name.UTF8String];
+			[thingpanel_i	selectThingWithIcon:icon.name];
 			break;
 		}
 	}

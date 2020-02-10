@@ -54,33 +54,33 @@ ThingRemapper *thingRemapper_i;
 //===================================================================
 - (const char *)getOriginalName
 {
-	thinglist_t	*t;
+	ThingPanelListObject	*t;
 	
 	t = [thingpanel_i	getCurrentThingData];
 	if (t == NULL)
 		return NULL;
-	return t->name;
+	return t.name.UTF8String;
 }
 
 - (const char *)getNewName
 {
-	thinglist_t	*t;
+	ThingPanelListObject	*t;
 	
 	t = [thingpanel_i	getCurrentThingData];
 	if (t == NULL)
 		return NULL;
-	return t->name;
+	return t.name.UTF8String;
 }
 
 - (int)doRemap:(char *)oldname to:(char *)newname
 {
 	int	i, thingnum,oldnum,newnum;
-	thinglist_t	*t;
+	ThingPanelListObject	*t;
 	
-	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:oldname]];
-	oldnum = t->value;
-	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:newname]];
-	newnum = t->value;
+	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:@(oldname)]];
+	oldnum = t.value;
+	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:@(newname)]];
+	newnum = t.value;
 	thingnum = 0;
 	
 	for (i = 0;i < numthings; i++)

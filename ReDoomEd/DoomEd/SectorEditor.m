@@ -704,7 +704,7 @@ SectorEditor	*sectorEdit_i;
 	currentFlat = which;
 	f = [flatImages	elementAt:currentFlat];
 	
-	if ([ceiling_i	intValue])
+	if ([ceiling_i	integerValue])
 	{
 		ceiling_flat = which;
 		strncpy(sector.ceilingflat,f->name,9);

@@ -28,8 +28,8 @@
 	char	string2[32];
 	int		max;
 	int		i;
-	thinglist_t	*t;
-	id		thingList_i;
+	ThingPanelListObject	*t;
+	NSArray<ThingPanelListObject*>		*thingList_i;
 	int		found;
 	int		size;
 	int		tries;
@@ -54,8 +54,8 @@
 		
 		for (i = 0;i < max; i++)
 		{
-			t = [thingList_i	elementAt:i];
-			strcpy(string2,t->name);
+			t = [thingList_i	objectAtIndex:i];
+			strncpy(string2,t.name.UTF8String, sizeof(string2));
 			strupr(string2);
 				
 			if (!strncmp(string,string2,size))

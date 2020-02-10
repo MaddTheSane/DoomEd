@@ -134,7 +134,7 @@
 ///	Add thing in Thing Panel to this list
 - (IBAction)addThing:sender
 {
-	thinglist_t		*t;
+	ThingPanelListObject		*t;
 	thingstrip_t	ts;
 
 	t =[thingpanel_i	getCurrentThingData];
@@ -143,8 +143,8 @@
 		NXBeep();
 		return;
 	}
-	ts.value = t->value;
-	strcpy(ts.desc,t->name);
+	ts.value = t.value;
+	strncpy(ts.desc,t.name.UTF8String, sizeof(ts.desc));
 	[thingList_i	addElement:&ts];
 	[thingBrowser_i	reloadColumn:0];
 }

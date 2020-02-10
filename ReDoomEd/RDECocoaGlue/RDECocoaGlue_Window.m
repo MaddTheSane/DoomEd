@@ -38,12 +38,12 @@
                     defer: flag];
 }
 
-- (unsigned int) setEventMask: (unsigned int) mask
+- (NSEventMask) setEventMask: (NSEventMask) mask
 {
     // only need to support mouseMoved events
-    unsigned int oldMask = ([self acceptsMouseMovedEvents]) ? NX_MOUSEMOVEDMASK : 0;
+    NSEventMask oldMask = ([self acceptsMouseMovedEvents]) ? NSEventMaskMouseMoved : 0;
 
-    mask &= NX_MOUSEMOVEDMASK;
+    mask &= NSEventMaskMouseMoved;
 
     if (mask != oldMask)
     {
@@ -53,12 +53,12 @@
     return oldMask;
 }
 
-- (unsigned int) addToEventMask: (unsigned int) mask
+- (NSEventMask) addToEventMask: (NSEventMask) mask
 {
     // only need to support mouseMoved events
-    unsigned int oldMask = ([self acceptsMouseMovedEvents]) ? NX_MOUSEMOVEDMASK : 0;
+    NSEventMask oldMask = ([self acceptsMouseMovedEvents]) ? NSEventMaskMouseMoved : 0;
 
-    mask &= NX_MOUSEMOVEDMASK;
+    mask &= NSEventMaskMouseMoved;
 
     if (!oldMask && mask)
     {

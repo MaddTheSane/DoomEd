@@ -13,13 +13,14 @@
 @class ThingPanel;
 extern ThingPanel *thingpanel_i;
 
-typedef struct
-{
-	char		name[32];
-	char		iconname[9];
-	NXColor	color;
-	int		value, option,angle;
-} thinglist_t;
+@interface ThingPanelListObject : NSObject
+@property (copy) NSString *name;
+@property (copy) NSString *iconName;
+@property (copy) NSColor *color;
+@property int value;
+@property int option;
+@property int angle;
+@end
 
 #ifdef REDOOMED
 #   define	THINGNAME	@"ThingInspector"
@@ -42,7 +43,6 @@ typedef struct
 	IBOutlet NSBrowser *thingBrowser_i;
 	IBOutlet NSColorWell *thingColor_i;
 	IBOutlet NSMatrix *thingAngle_i;
-	Storage	*masterList_i;
 	IBOutlet NSTextField	*iconField_i;
 	IBOutlet NSButton	*ambush_i;		// switch
 	IBOutlet NSButton	*network_i;		// switch
@@ -67,33 +67,33 @@ typedef struct
 - (IBAction)updateThingData:sender;
 - (void)sortThings;
 - (IBAction)setAngle:sender;
-- (NXColor)getThingColor:(int)type;
-- (void)fillThingData:(thinglist_t *)thing;
-- (void)fillDataFromThing:(thinglist_t *)thing;
-- (void)fillAllDataFromThing:(thinglist_t *)thing;
+- (NSColor*)getThingColor:(int)type;
+- (void)fillThingData:(ThingPanelListObject *)thing;
+- (void)fillDataFromThing:(ThingPanelListObject *)thing;
+- (void)fillAllDataFromThing:(ThingPanelListObject *)thing;
 - (IBAction)addThing:sender;
-- (NSInteger)findThing:(char *)string;
-- (thinglist_t *)getThingData:(NSInteger)index;
+- (NSInteger)findThing:(NSString *)string;
+- (ThingPanelListObject *)getThingData:(NSInteger)index;
 - (IBAction)chooseThing:sender;
 - (IBAction)confirmCorrectNameEntry:sender;
 - (void)getThing:(worldthing_t *)thing;
 - (void)setThing:(worldthing_t *)thing;
 - (NSInteger)searchForThingType:(int)type;
 - (IBAction)suggestNewType:sender;
-- scrollToItem:(NSInteger)which;
-@property (readonly, retain) Storage *thingList;
+- (void)scrollToItem:(NSInteger)which;
+@property (readonly, retain) NSMutableArray<ThingPanelListObject *> *thingList;
 
 - (IBAction)verifyIconName:sender;
 - (IBAction)assignIcon:sender;
 - (IBAction)unlinkIcon:sender;
-- (void)selectThingWithIcon:(const char *)name;
+- (void)selectThingWithIcon:(NSString *)name;
 
-- (thinglist_t *)getCurrentThingData;
+- (ThingPanelListObject *)getCurrentThingData;
 - (void)countCurrentThings;
 
 
-- (BOOL) readThing:(thinglist_t *)thing	from:(FILE *)stream;
-- (void)writeThing:(thinglist_t *)thing	from:(FILE *)stream;
+- (BOOL)readThing:(ThingPanelListObject *)thing from:(FILE *)stream;
+- (void)writeThing:(ThingPanelListObject *)thing from:(FILE *)stream;
 - (void)updateThingsDSP:(FILE *)stream;
 
 @end

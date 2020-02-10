@@ -257,7 +257,7 @@ if (points[li->p1].pt.x != points[li->p2].pt.x
 		if (wp->selected == 1)
 			RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: SELECTED_C]);
 		else
-			NXSetColor([thingpanel_i	getThingColor:wp->type]);
+			RDE_DPSGlue_SetNSColor([thingpanel_i	getThingColor:wp->type]);
 		r.origin.x = wp->origin.x - offset/2;
 		r.origin.y = wp->origin.y - offset/2;
 		r.size.width = r.size.height = offset;

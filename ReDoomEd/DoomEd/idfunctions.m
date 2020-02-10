@@ -163,7 +163,7 @@ int filelength (int handle)
 
 int tell (int handle)
 {
-	return lseek (handle, 0, L_INCR);
+	return lseek (handle, 0, SEEK_CUR);
 }
 
 

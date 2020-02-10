@@ -160,7 +160,8 @@
 #endif
 {
 	NXPoint	loc,newloc;
-	int	i,patchcount,oldwindowmask,ct,max,j,warn,clicked;
+	NSInteger	i,patchcount,ct,max,j,warn,clicked;
+	NSEventMask oldwindowmask;
 	texpatch_t	*patch;
 	NXEvent	*event;
 #ifdef REDOOMED
@@ -168,7 +169,7 @@
 	NSWindow *window = [self window];
 #endif
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldwindowmask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 
 #ifdef REDOOMED
 	loc = [theEvent locationInWindow];
@@ -194,7 +195,7 @@
 			// shift-click adds the patch to the select list
 			//
 #ifdef REDOOMED
-			if ([theEvent modifierFlags] & NX_SHIFTMASK)
+			if ([theEvent modifierFlags] & NSEventModifierFlagShift)
 #else // Original
 			if (theEvent->flags & NX_SHIFTMASK)
 #endif
@@ -241,7 +242,7 @@
 	
 	do
 	{
-		event = [NXApp getNextEvent:	NX_MOUSEUPMASK |									NX_MOUSEDRAGGEDMASK];
+		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 
 #ifdef REDOOMED
 		newloc = [event locationInWindow];

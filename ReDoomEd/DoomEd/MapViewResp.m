@@ -73,7 +73,7 @@
 
 - (void)slideView:(NXEvent *)event
 {
-	int 		oldMask;
+	NSEventMask 		oldMask;
 	NXPoint	oldpt, pt, origin;
 	float		dx, dy;
 #ifdef REDOOMED
@@ -90,7 +90,7 @@
 	[self convertPoint: &oldpt fromView: NULL];
 #endif
 	
-	oldMask = [window addToEventMask:NX_MOUSEDRAGGEDMASK | NX_RMOUSEDRAGGEDMASK];
+	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged | NSEventMaskRightMouseDragged];
 	
 	do 
 	{
@@ -279,14 +279,14 @@
 
 - lineDrag:(NXEvent *)event
 {
-	int 		oldMask;
+	NSEventMask 		oldMask;
 	NXPoint	fixedpoint, dragpoint;	// endpoints of the line
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
 	NSWindow *window = [self window];
 #endif
 		
-	oldMask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 	
 	[self lockFocus];
 	PSsetinstance (YES);
@@ -345,7 +345,7 @@
 
 - polyDrag:(NXEvent *)event
 {
-	int 		oldMask;
+	NSEventMask 		oldMask;
 	NXPoint	fixedpoint, dragpoint;	// endpoints of the line
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
@@ -364,12 +364,8 @@
 //
 	do
 	{
-		event = [NXApp getNextEvent: NX_LMOUSEUPMASK];
-#ifdef REDOOMED
-	} while ([event type] != NX_LMOUSEUP);
-#else // Original
-	} while (event->type != NX_LMOUSEUP);
-#endif
+		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp];
+	} while ([event type] != NSEventTypeLeftMouseUp);
 
 //
 // drag lines until a click on same point
@@ -377,19 +373,15 @@
 	do
 	{
 		[self getGridPoint: &fixedpoint from: event];	// handle grid and sutch
-		oldMask = [window addToEventMask:NX_MOUSEMOVEDMASK];
+		oldMask = [window addToEventMask:NSEventMaskMouseMoved];
 		PSsetinstance (YES);
 	
 		do 
 		{
-			event = [NXApp getNextEvent: NX_LMOUSEDOWNMASK | NX_LMOUSEUPMASK | NX_MOUSEMOVEDMASK | NX_LMOUSEDRAGGEDMASK];
+			event = [NXApp getNextEvent: NSEventMaskLeftMouseDown | NSEventMaskLeftMouseUp | NSEventMaskMouseMoved | NSEventMaskLeftMouseDragged];
 			[self getGridPoint: &dragpoint  from: event];  // handle grid and sutch
 
-#ifdef REDOOMED
-			if ([event type] == NX_LMOUSEUP)
-#else // Original
-			if (event->type == NX_LMOUSEUP)
-#endif
+			if ([event type] == NSEventTypeLeftMouseUp)
 				break;
 				
 			PSnewinstance ();
@@ -443,7 +435,7 @@
 
 - dragSelectedPoints: (NXEvent *)event
 {
-	int 		oldMask;
+	NSEventMask 		oldMask;
 	int		l;
 	int			linecount, *linelist, *linelist_p;
 	worldline_t	*line_p;
@@ -557,18 +549,14 @@
 //
 // modal dragging loop
 //
-	oldMask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 	moved = totalmoved = cursor;
 	
 	do 
 	{		
-		event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
+		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 
-#ifdef REDOOMED
-		if ( [event type] == NX_LMOUSEUP)
-#else // Original
-		if ( event->type == NX_LMOUSEUP)
-#endif
+		if ( [event type] == NSEventTypeLeftMouseUp)
 			break;
 		//
 		// calculate new rectangle
@@ -672,7 +660,7 @@
 
 - dragSelectionBox: (NXEvent *)event
 {
-	int 		oldMask;
+	NSEventMask 		oldMask;
 	NXRect	newframe;
 	NXPoint	dragcorner, fixedcorner, *p1, *p2;
 	int		i,p;
@@ -698,7 +686,7 @@
 //
 // move drag
 //	
-	oldMask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldMask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 	
 	[self lockFocus];
 	PSsetinstance (YES);
@@ -726,13 +714,9 @@
 		NXFrameRectWithWidth(&newframe, FRAMEWIDTH);
 		NXPing ();
 		
-		event = [NXApp getNextEvent: NX_LMOUSEUPMASK | NX_LMOUSEDRAGGEDMASK];
+		event = [NXApp getNextEvent: NSEventMaskLeftMouseUp | NSEventMaskLeftMouseDragged];
 		
-#ifdef REDOOMED
-	} while ([event type] != NX_LMOUSEUP);
-#else // Original
-	} while (event->type != NX_LMOUSEUP);
-#endif
+	} while ([event type] != NSEventTypeLeftMouseUp);
 
 	[window setEventMask:oldMask];
 	PSnewinstance ();
@@ -837,7 +821,7 @@
 		if (point_p->selected)
 		{
 #ifdef REDOOMED
-			if  ( [event modifierFlags] & NX_SHIFTMASK )
+			if  ( [event modifierFlags] & NSEventModifierFlagShift )
 #else // Original
 			if  ( event->flags & NX_SHIFTMASK )
 #endif
@@ -850,7 +834,7 @@
 		{
 // if not clicking on a selection and not shift clicking, deselect all selected points
 #ifdef REDOOMED
-			if ( !([event modifierFlags] & NX_SHIFTMASK) )
+			if ( !([event modifierFlags] & NSEventModifierFlagShift) )
 #else // Original
 			if ( !(event->flags & NX_SHIFTMASK) )
 #endif
@@ -900,14 +884,14 @@
 			[self unlockFocus];
 			// deselect any other points if shift not down
 #ifdef REDOOMED
-			if ( !([event modifierFlags] & NX_SHIFTMASK) && lines[i].selected != 1)
+			if ( !([event modifierFlags] & NSEventModifierFlagShift) && lines[i].selected != 1)
 #else // Original
 			if ( !(event->flags & NX_SHIFTMASK) && lines[i].selected != 1)
 #endif
 				[editworld_i deselectAll];
 				
 #ifdef REDOOMED
-			if ([event modifierFlags] & NX_SHIFTMASK && lines[i].selected == 1)
+			if ([event modifierFlags] & NSEventModifierFlagShift && lines[i].selected == 1)
 #else // Original
 			if (event->flags & NX_SHIFTMASK && lines[i].selected == 1)
 #endif
@@ -955,7 +939,7 @@
 		// ...not shift clicking, deselect all selected points
 		// deselect any other points if shift not down
 #ifdef REDOOMED
-		if ( !([event modifierFlags] & NX_SHIFTMASK) && things[i].selected != 1)
+		if ( !([event modifierFlags] & NSEventModifierFlagShift) && things[i].selected != 1)
 #else // Original
 		if ( !(event->flags & NX_SHIFTMASK) && things[i].selected != 1)
 #endif
@@ -970,7 +954,7 @@
 // the click was not on a point, so rubber band a selection box
 //
 #ifdef REDOOMED
-	if (! ([event modifierFlags] & NX_SHIFTMASK) )
+	if (! ([event modifierFlags] & NSEventModifierFlagShift) )
 #else // Original
 	if (! (event->flags & NX_SHIFTMASK) )
 #endif

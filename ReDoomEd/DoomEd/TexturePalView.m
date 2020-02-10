@@ -122,14 +122,15 @@
 #endif
 {
 	NXPoint	loc;
-	int		i,texcount,oldwindowmask, which;
+	NSInteger		i,texcount, which;
+	NSEventMask oldwindowmask;
 	texpal_t	*t;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'window' as an instance var, fake it using a local
 	NSWindow *window = [self window];
 #endif
 
-	oldwindowmask = [window addToEventMask:NX_LMOUSEDRAGGEDMASK];
+	oldwindowmask = [window addToEventMask:NSEventMaskLeftMouseDragged];
 
 #ifdef REDOOMED
 	loc = [theEvent locationInWindow];

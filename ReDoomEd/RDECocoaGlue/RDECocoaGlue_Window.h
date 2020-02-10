@@ -35,9 +35,9 @@
         buttonMask: (NSUInteger) buttonMask
         defer: (BOOL) flag;
 
-- (unsigned int) setEventMask: (unsigned int) mask;
+- (NSEventMask) setEventMask: (NSEventMask) mask;
 
-- (unsigned int) addToEventMask: (unsigned int) mask;
+- (NSEventMask) addToEventMask: (NSEventMask) mask;
 
 - (id) disableDisplay;
 - (id) reenableDisplay;

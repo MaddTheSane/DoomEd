@@ -1272,14 +1272,14 @@ typedef struct
 				if (!thingCount[j].type)
 				{
 					NSInteger	index;
-					thinglist_t *thing;
+					ThingPanelListObject *thing;
 					
 					thingCount[j].type = type;
 					thingCount[j].count = 1;
 					
 					index = [thingPanel_i searchForThingType:type];
 					thing = [thingPanel_i getThingData:index];
-					strcpy(thingCount[j].name,thing->name);
+					strcpy(thingCount[j].name,thing.name.UTF8String);
 					
 					break;
 				}
@@ -1542,10 +1542,10 @@ typedef struct
 	// FILL THING COUNT LIST WITH ALL POSSIBLE THINGS
 	for (k = 0;k < numth;k++)
 	{
-		thinglist_t *thing;
+		ThingPanelListObject *thing;
 		thing = [thingPanel_i getThingData:k];
-		thingCount[k].type = thing->value;
-		strcpy(thingCount[k].name,thing->name);
+		thingCount[k].type = thing.value;
+		strcpy(thingCount[k].name,thing.name.UTF8String);
 	}
 	
 	[log_i addMessage:@"Starting to calculate multiple map statistics...\n"];
@@ -1585,14 +1585,14 @@ typedef struct
 					if (!thingCount[j].type)
 					{
 						NSInteger	index;
-						thinglist_t *thing;
+						ThingPanelListObject *thing;
 						
 						thingCount[j].type = type;
 						thingCount[j].count = 1;
 						
 						index = [thingPanel_i searchForThingType:type];
 						thing = [thingPanel_i getThingData:index];
-						strcpy(thingCount[j].name,thing->name);
+						strcpy(thingCount[j].name,thing.name.UTF8String);
 						
 						break;
 					}
