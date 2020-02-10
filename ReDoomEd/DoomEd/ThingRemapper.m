@@ -52,34 +52,34 @@ ThingRemapper *thingRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (const char *)getOriginalName
+- (NSString *)originalName
 {
 	ThingPanelListObject	*t;
 	
 	t = [thingpanel_i	getCurrentThingData];
 	if (t == NULL)
 		return NULL;
-	return t.name.UTF8String;
+	return t.name;
 }
 
-- (const char *)getNewName
+- (NSString *)newName
 {
 	ThingPanelListObject	*t;
 	
 	t = [thingpanel_i	getCurrentThingData];
 	if (t == NULL)
 		return NULL;
-	return t.name.UTF8String;
+	return t.name;
 }
 
-- (int)doRemap:(char *)oldname to:(char *)newname
+- (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
 {
 	int	i, thingnum,oldnum,newnum;
 	ThingPanelListObject	*t;
 	
-	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:@(oldname)]];
+	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:oldname]];
 	oldnum = t.value;
-	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:@(newname)]];
+	t = [thingpanel_i	getThingData:[thingpanel_i	findThing:newname]];
 	newnum = t.value;
 	thingnum = 0;
 	

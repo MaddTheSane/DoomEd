@@ -8,19 +8,17 @@
 
 @class Storage;
 
-typedef struct
-{
-	char		orgname[40],newname[40];
-} type_t;
-
 ///
 ///	Methods to be implemented by the delegate
 ///
 @protocol Remapper <NSObject>
-- (const char *)getOriginalName;
-- (const char *)getNewName;
-- (int)doRemap:(char *)oldname to:(char *)newname;
+- (NSString *)originalName;
+- (NSString *)newName NS_RETURNS_NOT_RETAINED;
+- (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname;
 - (void)finishUp;
+
+@optional
+- (int)doRemap:(char *)oldname to:(char *)newname DEPRECATED_ATTRIBUTE;
 @end
 
 
@@ -34,7 +32,6 @@ typedef struct
 	IBOutlet NSBrowser *browser_i;
 	IBOutlet NSMatrix *matrix_i;
 	
-	Storage		*storage_i;
 	id<Remapper>		delegate_i;
 	NSString *frameName;
 }

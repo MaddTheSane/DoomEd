@@ -53,14 +53,27 @@ TextureRemapper *textureRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (const char *)getOriginalName
+- (NSString *)originalName
 {
-	return [texturePalette_i	getSelTextureName];
+	const char *orig = [texturePalette_i	getSelTextureName];
+	if (!orig) {
+		return nil;
+	}
+	return @(orig);
 }
 
-- (const char *)getNewName
+- (NSString *)newName
 {
-	return [texturePalette_i	getSelTextureName];
+	const char *orig = [texturePalette_i	getSelTextureName];
+	if (!orig) {
+		return nil;
+	}
+	return @(orig);
+}
+
+- (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
+{
+	return [self doRemap:oldname.UTF8String to:newname.UTF8String];
 }
 
 - (int)doRemap:(char *)oldname to:(char *)newname

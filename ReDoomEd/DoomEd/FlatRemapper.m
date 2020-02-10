@@ -52,14 +52,27 @@ FlatRemapper *flatRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (const char *)getOriginalName
+- (NSString *)originalName
 {
-	return [sectorEdit_i	flatName:[sectorEdit_i currentFlat] ];
+	const char *orig = [sectorEdit_i flatName:[sectorEdit_i currentFlat]];
+	if (!orig) {
+		return nil;
+	}
+	return @(orig);
 }
 
-- (const char *)getNewName
+- (NSString *)newName
 {
-	return [sectorEdit_i	flatName:[sectorEdit_i currentFlat] ];
+	const char *orig = [sectorEdit_i flatName:[sectorEdit_i currentFlat]];
+	if (!orig) {
+		return nil;
+	}
+	return @(orig);
+}
+
+- (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
+{
+	return [self doRemap:oldname.UTF8String to:newname.UTF8String];
 }
 
 - (int)doRemap:(char *)oldname to:(char *)newname

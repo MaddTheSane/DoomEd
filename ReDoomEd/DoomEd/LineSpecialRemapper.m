@@ -53,25 +53,22 @@ id	lineSpecialRemapper_i;
 //	Delegate methods
 //
 //===================================================================
-- (const char *)getOriginalName
+- (NSString *)originalName
 {
-#ifdef REDOOMED
-	// Bugfix: make 'string' static so the return value doesn't point to
-	// a temporary stack value
-	static char	string[80];
-#else // Original
-	char	string[80];
-#endif
 	speciallist_t	special;
 
 	[lineSpecialPanel_i fillSpecialData:&special];
-	sprintf(string,"%d:%s",special.value,special.desc);
-	return string;
+	return [NSString stringWithFormat:@"%d:%s", special.value, special.desc];
 }
 
-- (const char *)getNewName
+- (NSString *)newName
 {
-	return [self getOriginalName];
+	return [self originalName];
+}
+
+- (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
+{
+	return [self doRemap:oldname.UTF8String to:newname.UTF8String];
 }
 
 - (int)doRemap:(char *)oldname to:(char *)newname

@@ -5,7 +5,43 @@
 #import	"EditWorld.h"
 #import	"TextureEdit.h"
 
-@implementation Remapper
+@interface RemapperObject : NSObject
+@property (copy) NSString *originalName;
+@property (copy) NSString *theNewName;
+@end
+
+@implementation RemapperObject
+
+- (void)dealloc
+{
+	[_originalName release];
+	[_theNewName release];
+	
+	[super dealloc];
+}
+
+- (BOOL)isEqual:(id)object
+{
+	RemapperObject *obj = object;
+	if (![object isKindOfClass:[RemapperObject class]]) {
+		return NO;
+	}
+	
+	if (![_originalName isEqualToString:obj.originalName]) {
+		return NO;
+	}
+	if (![_theNewName isEqualToString:obj.theNewName]) {
+		return NO;
+	}
+	
+	return YES;
+}
+
+@end
+
+@implementation Remapper {
+	NSMutableArray<RemapperObject*> *storage_i;
+}
 //===================================================================
 //
 //	REMAPPER
@@ -44,10 +80,7 @@
 			withNames:		NO
 		];
 		
-		storage_i = [[	Storage		alloc]
-					initCount:		0
-					elementSize:	sizeof(type_t)
-					description:	NULL];
+		storage_i = [[NSMutableArray alloc] init];
 		
 #ifdef REDOOMED		
 		[remapPanel_i	setFrameUsingName:fname];
@@ -92,14 +125,14 @@
 	{
 		case 0:
 #ifdef REDOOMED
-			[original_i  setStringValue:RDE_NSStringFromCString([delegate_i getOriginalName])];
+			[original_i  setStringValue:[delegate_i originalName]];
 #else // Original
 			[original_i  setStringValue:[delegate_i getOriginalName]];
 #endif
 			break;
 		case 1:
 #ifdef REDOOMED
-			[new_i  setStringValue:RDE_NSStringFromCString([delegate_i  getNewName])];
+			[new_i  setStringValue:[delegate_i newName]];
 #else // Original
 			[new_i  setStringValue:[delegate_i  getNewName]];
 #endif
@@ -130,24 +163,16 @@
 
 - (IBAction)addToList:sender
 {
-	type_t	r,	*r2;
 	NSInteger i, max;
+	RemapperObject *r = [[RemapperObject alloc] init], *r2;
 		
-#ifdef REDOOMED
-	// prevent buffer overflows: strcpy() -> macroRDE_SafeCStringCopy()
-	macroRDE_SafeCStringCopy(r.orgname, RDE_CStringFromNSString([original_i stringValue]));
-	macroRDE_SafeCStringCopy(r.newname, RDE_CStringFromNSString([new_i stringValue]));
-#else // Original		
-	strcpy ( r.orgname, [original_i	stringValue] );
-	strcpy ( r.newname, [new_i		stringValue] );
-#endif
+	r.originalName = original_i.stringValue.uppercaseString;
+	r.theNewName = new_i.stringValue.uppercaseString;
 	
-	strupr( r.orgname );
-	strupr( r.newname );
 	
 #ifdef REDOOMED	
-	[original_i	setStringValue:RDE_NSStringFromCString(r.orgname)];
-	[new_i		setStringValue:RDE_NSStringFromCString(r.newname)];
+	[original_i	setStringValue:r.originalName];
+	[new_i		setStringValue:r.theNewName];
 #else // Original
 	[original_i	setStringValue:r.orgname];
 	[new_i		setStringValue:r.newname];
@@ -157,18 +182,17 @@
 	//	Check for duplicates
 	//
 	max = [storage_i	count];
-	for (i = 0;i < max; i++)
-	{
-		r2 = [storage_i		elementAt:i];
-		if (	(!strcmp(r2->orgname,r.orgname)) &&
-			(!strcmp(r2->newname,r.newname))  )
-			{
-				NXBeep ();
-				return;
-			}
+	for (i = 0;i < max; i++) {
+		r2 = [storage_i objectAtIndex:i];
+		if ([r2 isEqual:r]) {
+			NXBeep ();
+			[r release];
+			return;
+		}
 	}
 	
-	[storage_i	addElement:&r];
+	[storage_i addObject:r];
+	[r release];
 	[browser_i	reloadColumn:0];
 }
 
@@ -188,7 +212,7 @@
 	[matrix_i		removeRow:selRow];
 	[matrix_i		sizeToCells];
 	[matrix_i		selectCellAtRow:-1 column:-1];
-	[storage_i	removeElementAt:selRow];
+	[storage_i removeObjectAtIndex:selRow];
 	[browser_i	reloadColumn:0];
 }
 
@@ -211,7 +235,7 @@
 	[remapPanel_i	saveFrameUsingName:frameName];
 #endif
 
-	[storage_i		empty];
+	[storage_i removeAllObjects];
 
 #ifdef REDOOMED
 	[original_i		setStringValue:@" "];
@@ -231,10 +255,10 @@
 //===================================================================
 - (IBAction)doRemappingOneMap:sender
 {
-	type_t	*r;
+	RemapperObject	*r;
 	NSInteger		index, max;
 	unsigned int		linenum;
-	char		*oldname, *newname, string[64];
+	NSString		*oldname, *newname, *string;
 	
 	max = [storage_i	count];
 	if (!max)
@@ -246,20 +270,16 @@
 	linenum = 0;
 	for (index = 0; index < max; index++)
 	{
-		r = [storage_i	elementAt:index];
-		oldname = r->orgname;
-		newname = r->newname;
+		r = [storage_i	objectAtIndex:index];
+		oldname = r.originalName;
+		newname = r.theNewName;
 		
-		linenum += [delegate_i	doRemap:oldname to:newname];
+		linenum += [delegate_i	doRemapFromName:oldname toName:newname];
 	}
 		
-	sprintf ( string, "%u total remappings performed.", linenum );
+	string = [NSString localizedStringWithFormat:@"%u total remappings performed.", linenum];
 
-#ifdef REDOOMED
-	[ status_i	setStringValue: RDE_NSStringFromCString(string) ];
-#else // Original
-	[ status_i	setStringValue: string ];
-#endif
+	[ status_i setStringValue:string];
 
 	[ delegate_i	finishUp ];
 	[ doomproject_i	setMapDirty:TRUE];
@@ -272,10 +292,10 @@
 //===================================================================
 - (IBAction)doRemappingAllMaps:sender
 {
-	type_t	*r;
+	RemapperObject	*r;
 	NSInteger		index, max;
 	unsigned int		linenum, total;
-	char		*oldname, *newname, string[64];
+	NSString		*oldname, *newname, *string;
 	
 	[editworld_i	closeWorld];
 	[doomproject_i	beginOpenAllMaps];
@@ -292,18 +312,18 @@
 		linenum = 0;
 		for (index = 0; index < max; index++)
 		{
-			r = [storage_i	elementAt:index];
-			oldname = r->orgname;
-			newname = r->newname;
+			r = [storage_i	objectAtIndex:index];
+			oldname = r.originalName;
+			newname = r.theNewName;
 			
-			linenum += [delegate_i	doRemap:oldname to:newname];
+			linenum += [delegate_i	doRemapFromName:oldname toName:newname];
 		}
 			
-		sprintf ( string, "%u remappings.", linenum );
+		string = [NSString localizedStringWithFormat:@"%u remappings.", linenum];
 		total += linenum;
 
 #ifdef REDOOMED
-		[ status_i	setStringValue:RDE_NSStringFromCString(string) ];
+		[ status_i	setStringValue:string];
 #else // Original
 		[ status_i	setStringValue:string ];
 #endif
@@ -314,10 +334,10 @@
 			[ editworld_i	saveDoomEdMapBSP:NULL ];
 	}
 	
-	sprintf ( string, "%u total remappings performed.", total );
+	string = [NSString localizedStringWithFormat:@"%u total remappings performed.", total];
 
 #ifdef REDOOMED
-	[ status_i	setStringValue: RDE_NSStringFromCString(string) ];
+	[ status_i	setStringValue: string ];
 #else // Original
 	[ status_i	setStringValue: string ];
 #endif
@@ -347,44 +367,25 @@
 }
 #endif // Original (Disable for ReDoomEd)
 
-#ifdef REDOOMED
 // Cocoa version
 - (void) browser: (NSBrowser *) sender
         createRowsForColumn: (NSInteger) column
         inMatrix: (NSMatrix *) matrix
-#else // Original
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
-#endif
 {
-	NSInteger	max, i;
-	id	cell;
-	char		string[128];
-	type_t	*r;
-	
-	max = [storage_i	count];
-	for (i = 0; i < max; i++)
+	const NSInteger max = [storage_i count];
+	for (NSInteger i = 0; i < max; i++)
 	{
-		r = [storage_i	elementAt:i];
+		RemapperObject *r = [storage_i objectAtIndex:i];
 		[matrix	addRow];
-		cell = [matrix	cellAtRow:i	column:0];
+		id cell = [matrix cellAtRow:i column:0];
 		
-		strcpy ( string, r->orgname );
-		strcat ( string, " remaps to " );
-		strcat ( string, r->newname );
+		NSString *string = [NSString localizedStringWithFormat:@"%@ remaps to %@", r.originalName, r.theNewName];
 		
-#ifdef REDOOMED
-		[cell	setStringValue:RDE_NSStringFromCString(string)];
-#else // Original		
-		[cell	setStringValue:string];
-#endif
+		[cell setStringValue:string];
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return max;
-#endif
 }
 
 - (void)dealloc

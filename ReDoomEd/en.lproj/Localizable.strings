@@ -12,3 +12,6 @@
 "Locate the project's WADfile" = "Locate the project's WADfile";
 "Locate \"%@\"" = "Locate “%@”";
 "Choose save directory for exported map images" = "Choose save directory for exported map images";
+"%u remappings." = "%u remappings.";
+"%u total remappings performed." = "%u total remappings performed.";
+"%@ remaps to %@" = "%@ remaps to %@";
