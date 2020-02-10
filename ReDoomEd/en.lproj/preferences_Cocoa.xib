@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PreferencePanel">
+        <customObject id="-2" userLabel="File's Owner" customClass="PreferencePanel" customModule="ReDoomEd" customModuleProvider="target">
             <connections>
                 <outlet property="areacolor" destination="7" id="p2z-Fa-CDt"/>
                 <outlet property="backcolor" destination="14" id="Wif-6u-XOx"/>

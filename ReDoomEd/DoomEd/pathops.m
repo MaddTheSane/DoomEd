@@ -2,7 +2,7 @@
 
 #import "pathops.h"
 #import "PreferencePanel.h"
-//#import "ReDoomEd-Swift.h"
+#import "ReDoomEd-Swift.h"
 
 #ifndef REDOOMED // Original (Disable for ReDoomEd - unused)
 #   import "wraps.h"

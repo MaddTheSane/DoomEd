@@ -11,7 +11,7 @@
 #import	"TexturePalette.h"
 #import	"ThingPanel.h"
 #import	"DoomProject.h"
-//#import "ReDoomEd-Swift.h"
+#import "ReDoomEd-Swift.h"
 
 id	coordinator_i;
 
@@ -88,7 +88,7 @@ BOOL	debugflag = NO;
 	if (![doomproject_i loaded]
 		&& strlen(defaultProjectPath))
 	{
-		[doomproject_i loadProject: defaultProjectPath ];
+		[doomproject_i loadProjectWithFileURL: prefpanel_i.projectPath ];
 	}
 
 	// removed the call to [doomproject_i setDirtyProject:FALSE] because the project may

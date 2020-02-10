@@ -7,7 +7,7 @@
 #import	"ThingPalette.h"
 #import	"ThingWindow.h"
 #import	"TextureEdit.h"		// for strupr()
-//#import "ReDoomEd-Swift.h"
+#import "ReDoomEd-Swift.h"
 
 @implementation ThingPanelListObject
 

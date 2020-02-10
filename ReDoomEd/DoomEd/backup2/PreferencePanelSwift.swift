@@ -7,7 +7,6 @@
 
 import Cocoa
 
-#if false
 private let ucolornames: [String] = [
 "back_c",
 "grid_c",
@@ -192,7 +191,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		projectPath = URL(fileURLWithPath: newProjectPathString)
 		
 		// may have adjusted the path, so update the sender (preference panel's textfield)
-		(sender as AnyObject).setString(newProjectPathString)
+		//(sender as AnyObject).setStringValue(newProjectPathString)
 	}
 
 	@IBAction open func openupChanged(_ sender: Any!) {
@@ -275,4 +274,3 @@ private func colorFromDefault(forKey key: String, defaults: UserDefaults = UserD
 	}
 	return nil
 }
-#endif

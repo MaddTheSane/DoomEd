@@ -666,14 +666,14 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		return NO;
 	}
 #endif
-	NSURL *path2 = [path URLByDeletingLastPathComponent];
+	NSURL *path2 = path;
 	projectdirectory = path2;
 	path2 = [path2 URLByAppendingPathComponent:@"project.dpr"];
 	
 	stream = fopen (path2.fileSystemRepresentation,"r");
 	if (!stream)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't open %s",NULL,NULL,NULL, projpath);
+		NSRunAlertPanel (@"Error",@"Couldn't open %@",NULL,NULL,NULL, path2.path);
 		return NO;
 	}
 	version = -1;

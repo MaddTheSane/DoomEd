@@ -633,7 +633,7 @@ TexturePalette	*texturePalette_i;
 		return;
 	}
 
-	strcpy(waddir,[doomproject_i wadfile]);
+	strcpy(waddir,[doomproject_i wadfile].fileSystemRepresentation);
 	for (i = strlen(waddir);i > 0;i--)
 		if (waddir[i] == '/')
 		{
@@ -702,7 +702,7 @@ TexturePalette	*texturePalette_i;
 		return;
 	}
 	
-	strcpy(waddir,[doomproject_i wadfile]);
+	strcpy(waddir,[doomproject_i wadfile].fileSystemRepresentation);
 	for (i = strlen(waddir);i > 0;i--)
 		if (waddir[i] == '/')
 		{
@@ -776,7 +776,7 @@ void createAndSaveLBM(char *name, int cs, FILE *fp)
 	int		tw;
 	int		th;
 	
-	[ wadfile_i	initFromFile: [doomproject_i wadfile] ];
+	[ wadfile_i	initFromFile: [doomproject_i wadfile].fileSystemRepresentation ];
 	palette = [wadfile_i	loadLumpNamed:"playpal"];
 	[ wadfile_i	close ];
 	
@@ -811,7 +811,7 @@ void createVgaTexture(char *dest, int which,int width, int height)
 	int		patchw;
 	int		patchh;
 	
-	[ wadfile_i	initFromFile: [doomproject_i wadfile] ];
+	[ wadfile_i	initFromFile: [doomproject_i wadfile].fileSystemRepresentation ];
 	
 	for (i = 0; i < textures[which].patchcount; i++)
 	{

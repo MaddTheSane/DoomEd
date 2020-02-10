@@ -355,7 +355,7 @@ int		linecrunch[8192];
 		
 	*(int *)buffer = LongSwap ((unsigned int)count);
 	list_p = (int *)(buffer + 4);
-	buf_p = (byte *)(list_p+count);
+	buf_p = (char *)(list_p+count);
 
 	for (i=0 ; i<count ; i++)		
 	{
@@ -419,7 +419,7 @@ int		linecrunch[8192];
 //
 // make a wad file for everything in this map
 //
-	strcpy (path, [doomproject_i wadfile]);
+	strcpy (path, [doomproject_i wadfile].fileSystemRepresentation);
 	StripFilename (path);
 	strcat (path,"/");
 	ExtractFileName ( pathname, path+strlen (path));

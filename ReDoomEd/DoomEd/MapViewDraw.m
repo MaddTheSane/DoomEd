@@ -7,7 +7,7 @@
 #import "pathops.h"
 #import "Coordinator.h"
 #import "ThingPanel.h"
-//#import "ReDoomEd-Swift.h"
+#import "ReDoomEd-Swift.h"
 
 @implementation MapView (MapViewDraw)
 
