@@ -293,8 +293,7 @@ void StripFilename (char *path)
 	
 // search backwards for a slash
 
-	do
-	{
+	do {
 		if (--c == path)
 			return;		// no period in path string
 	} while (*c != '/');
@@ -317,7 +316,7 @@ void IdException (char const *format, ...)
 	va_list 	args;
 	
 	va_start(args, format);
-	vsprintf(msg, format, args);
+	vsnprintf(msg, sizeof(msg)-1, format, args);
 	va_end(args);
 	strcat (msg,"\n");
 	
