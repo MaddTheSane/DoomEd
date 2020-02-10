@@ -191,7 +191,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		projectPath = URL(fileURLWithPath: newProjectPathString)
 		
 		// may have adjusted the path, so update the sender (preference panel's textfield)
-		//(sender as AnyObject).setStringValue(newProjectPathString)
+		(sender as? NSTextField)?.stringValue = newProjectPathString
 	}
 
 	@IBAction open func openupChanged(_ sender: Any!) {
