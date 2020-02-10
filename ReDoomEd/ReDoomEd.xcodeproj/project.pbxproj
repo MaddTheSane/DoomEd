@@ -114,7 +114,7 @@
 		03DC35E81FA1D04900DB9A7A /* TextureEdit_Cocoa.nib in Resources */ = {isa = PBXBuildFile; fileRef = 03DC35D31FA1D04900DB9A7A /* TextureEdit_Cocoa.nib */; };
 		03ECDA7321CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03ECDA7221CDD4CC00DBACCB /* RDECocoaGlue_NXAlertPanel.m */; };
 		03F6BDAE231441DE00045261 /* PPSRGBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDAD231441DE00045261 /* PPSRGBUtilities.m */; };
-		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; };
+		03F6BDCB231445E700045261 /* RDEMapExport.m in Sources */ = {isa = PBXBuildFile; fileRef = 03F6BDCA231445E700045261 /* RDEMapExport.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		552BAD0323CB935D00B3B658 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552BAD0223CB935D00B3B658 /* Media.xcassets */; };
 		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
 		55C41DC323F08767000FB967 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55C41DC523F08767000FB967 /* Localizable.strings */; };

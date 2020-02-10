@@ -351,8 +351,9 @@ printf ("Done\n");
 	rect.size.height = dirty->size.height + adjust*2;
 	
 	rect = NSIntegralRect(rect);
+	[self setNeedsDisplayInRect:rect];
 	
-	return [self display: &rect : 1];
+	return self;
 }
 
 

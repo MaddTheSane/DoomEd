@@ -44,17 +44,19 @@ typedef NS_ENUM(int, RDEExportMode)
 
 };
 
-typedef struct
-{
-    int numExportedMaps;
-    int maxThermoValue;
-    int indexedBaseThermoValue;
-    NSString *messagePrefix;
+@interface RDEExportThermoPanelState : NSObject
+@property int numExportedMaps;
+@property int maxThermoValue;
+@property int indexedBaseThermoValue;
+@property (copy) NSString *messagePrefix;
+@end
 
-} RDEExportThermoPanelState;
+@implementation RDEExportThermoPanelState
+
+@end
 
 
-static RDEExportThermoPanelState gThermoPanelState;
+static RDEExportThermoPanelState *gThermoPanelState;
 static NSBitmapImageRep *gMapViewBitmap;
 
 
@@ -78,10 +80,10 @@ static NSBitmapImageRep *gMapViewBitmap;
 
 + (MapView *) rdeCurrentMapView;
 
-- (NSData *) rdePNGDataAtScale: (float) pngScale;
+- (NSData *) rdePNGDataAtScale: (CGFloat) pngScale;
 
 - (BOOL) rdeBeginDrawingToBitmapContextOfSize: (NSSize) contextSize;
-- (BOOL) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep **) returnedBitmap;
+- (BOOL) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep *__autoreleasing*) returnedBitmap;
 
 @end
 
@@ -163,7 +165,6 @@ ERROR:
     NSMatrix *mapNameMatrix;
     NSInteger indexOfInitiallyVisibleMap;
     int mapIndex;
-    NSAutoreleasePool *autoreleasePool;
     NSData *pngData;
     bool redisplayInitialMapOnError = NO;
 
@@ -212,14 +213,12 @@ ERROR:
     [self rdeSetupExportThermoPanelWithNumExportedMaps: nummaps andScale: pngScale];
 
     for (mapIndex=0; mapIndex<nummaps; mapIndex++)
-    {
-        autoreleasePool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 
         mapName = [[mapNameMatrix cellAtRow: mapIndex column: 0] stringValue];
 
         if (![mapName length])
         {
-            [autoreleasePool release];
             continue;
         }
 
@@ -235,7 +234,6 @@ ERROR:
 
         if (!pngData)
         {
-            [autoreleasePool release];
             goto ERROR;
         }
 
@@ -246,11 +244,9 @@ ERROR:
         if (![pngData writeToFile: pngFilepath atomically: YES])
         {
             macroPresentExportError(@"Failed to write file:\n%@", pngFilepath);
-            [autoreleasePool release];
             goto ERROR;
         }
 
-        [autoreleasePool release];
     }
 
     [self rdeFinishExportThermoPanel];
@@ -377,11 +373,11 @@ ERROR:
     int scalePercent;
     NSString *title;
 
+    gThermoPanelState = [[RDEExportThermoPanelState alloc] init];
     gThermoPanelState.numExportedMaps = numExportedMaps;
     gThermoPanelState.maxThermoValue = numExportedMaps * kNumRDEExportModes;
     gThermoPanelState.indexedBaseThermoValue = 0;
 
-    [gThermoPanelState.messagePrefix release];
     gThermoPanelState.messagePrefix = nil;
 
     scalePercent = (int) roundf(scale * 100.0f);
@@ -407,8 +403,7 @@ ERROR:
 
     message = [message stringByAppendingString: @": "];
 
-    [gThermoPanelState.messagePrefix release];
-    gThermoPanelState.messagePrefix = [message retain];
+    gThermoPanelState.messagePrefix = message;
 
     gThermoPanelState.indexedBaseThermoValue = mapIndex * kNumRDEExportModes;
 
@@ -461,7 +456,6 @@ ERROR:
 {
     [self closeThermo];
 
-    [gThermoPanelState.messagePrefix release];
     gThermoPanelState.messagePrefix = nil;
 }
 
@@ -474,7 +468,7 @@ ERROR:
     return [((MapWindow *) [editworld_i getMainWindow]) mapView];
 }
 
-- (NSData *) rdePNGDataAtScale: (float) pngScale
+- (NSData *) rdePNGDataAtScale: (CGFloat) pngScale
 {
     static NSDictionary *pngProperties = nil;
     NSRect mapBounds;
@@ -565,7 +559,7 @@ ERROR:
     }
 
 NS_DURING // Catch NSImage exceptions when contextSize is too large
-    bitmap = [[[NSBitmapImageRep alloc] initWithBitmapDataPlanes: NULL
+    bitmap = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes: NULL
                                             pixelsWide: contextSize.width
                                             pixelsHigh: contextSize.height
                                             bitsPerSample: 8
@@ -574,8 +568,7 @@ NS_DURING // Catch NSImage exceptions when contextSize is too large
                                             isPlanar: NO
                                             colorSpaceName: NSCalibratedRGBColorSpace
                                             bytesPerRow: 0
-                                            bitsPerPixel: 0]
-                                    autorelease];
+                                            bitsPerPixel: 0];
 
     if (bitmap)
     {
@@ -594,8 +587,7 @@ NS_ENDHANDLER
 
     // store the bitmap in a global because OS X's NSGraphicsContext was returning a nil
     // attributes dict (context's bitmap should be in the attributes dict)
-    [gMapViewBitmap release];
-    gMapViewBitmap = [bitmap retain];
+    gMapViewBitmap = bitmap;
 
     return YES;
 
@@ -606,7 +598,7 @@ ERROR:
     return NO;
 }
 
-- (BOOL) rdeFinishDrawingToBitmapContextWithReturnedBitmap: (NSBitmapImageRep **) returnedBitmap
+- (BOOL) rdeFinishDrawingToBitmapContextWithReturnedBitmap:(NSBitmapImageRep *__autoreleasing *)returnedBitmap
 {
     NSBitmapImageRep *bitmap;
 
@@ -615,9 +607,8 @@ ERROR:
     if (!gMapViewBitmap)
         goto ERROR;
 
-    bitmap = [[gMapViewBitmap retain] autorelease];
+    bitmap = gMapViewBitmap;
 
-    [gMapViewBitmap release];
     gMapViewBitmap = nil;
 
     if (!returnedBitmap)
