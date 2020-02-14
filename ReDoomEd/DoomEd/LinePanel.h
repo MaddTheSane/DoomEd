@@ -6,6 +6,7 @@
 #   import <appkit/appkit.h>
 #endif
 
+#include "R_mapdef.h"
 #import "EditWorld.h"
 #import "SpecialList.h"
 

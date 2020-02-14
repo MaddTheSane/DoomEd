@@ -1311,7 +1311,6 @@ Storage *texturePatches;
 	unsigned short	shortpal[256];
 	apatch_t	p;
 	NXSize	s;
-	char	string[80];
 	
 	int		windex;
 	char	start[10], end[10];
@@ -1328,8 +1327,7 @@ Storage *texturePatches;
 	windex = 0;
 	do
 	{
-		sprintf(string,"Loading patch set #%d for Texture Editor.",windex+1);
-		[doomproject_i	initThermo:"One moment..." message:string];
+		[doomproject_i beginThermoWithTitle:NSLocalizedString(@"One moment...", @"One moment...") message:[NSString localizedStringWithFormat:@"Loading patch set #%d for Texture Editor.", windex+1]];
 		//
 		// get inclusive lump #'s for patches
 		//

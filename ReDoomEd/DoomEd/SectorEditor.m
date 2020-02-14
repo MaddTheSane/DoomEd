@@ -40,7 +40,7 @@ SectorEditor	*sectorEdit_i;
 	// - Added (SpecialList *) typecast so the compiler uses the correct method signature
 	specialPanel_i = [[SpecialList alloc] init];
 	[specialPanel_i setSpecialTitle:"Sector Editor - Specials"];
-	[specialPanel_i setFrameName:"SectorSpecialPanel"];
+	[specialPanel_i setFrameName:@"SectorSpecialPanel"];
 	[specialPanel_i setDelegate:self];
 #else // Original
 	specialPanel_i = [[[[SpecialList	alloc]
@@ -499,7 +499,6 @@ SectorEditor	*sectorEdit_i;
 	int		windex;
 	char	start[10];
 	char	end[10];
-	char	string[80];
 
 	//
 	//	Get palette and convert to 16-bit
@@ -519,8 +518,7 @@ SectorEditor	*sectorEdit_i;
 	windex = 0;
 	do
 	{
-		sprintf(string,"Loading flat set #%d for Sector Editor.",windex+1);
-		[doomproject_i	initThermo:"One moment..."  message:string];
+		[doomproject_i beginThermoWithTitle:NSLocalizedString(@"One moment...", @"One moment...") message:[NSString localizedStringWithFormat:@"Loading flat set #%d for Sector Editor.", windex+1]];
 		
 		//
 		// get inclusive lump #'s for patches
@@ -864,10 +862,9 @@ SectorEditor	*sectorEdit_i;
 #endif
 }
 
-- specialChosen:(int)value
+- (void)specialChosen:(int)value
 {
 	[special_i		setIntValue:value];
-	return self;
 }
 
 - (void)updateSectorSpecialsDSP:(FILE *)stream

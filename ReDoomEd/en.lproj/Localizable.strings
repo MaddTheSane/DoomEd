@@ -15,3 +15,11 @@
 "%u remappings." = "%u remappings.";
 "%u total remappings performed." = "%u total remappings performed.";
 "%@ remaps to %@" = "%@ remaps to %@";
+"No such line!" = "No such line!";
+"Export as PNG..." = "Export as PNG…";
+"ReDoomEd currently doesn't support DoomEd's map-printing feature, however, maps can now be exported as PNG-format image files.\n\nImages will be exported at the same zoom level as the current map." = "ReDoomEd currently doesn't support DoomEd's map-printing feature, however, maps can now be exported as PNG-format image files.\n\nImages will be exported at the same zoom level as the current map.";
+"Can't print maps. Export to PNG instead?" = "Can't print maps. Export to PNG instead?";
+"One moment..." = "One moment…";
+"Loading flat set #%d for Sector Editor." = "Loading flat set #%d for Sector Editor.";
+"Loading icons for Thing Palette." = "Loading icons for Thing Palette.";
+"Loading patch set #%d for Texture Editor." = "Loading patch set #%d for Texture Editor.";

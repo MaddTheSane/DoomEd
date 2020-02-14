@@ -147,12 +147,17 @@
 //===================================================================
 - (void)addToList:(char *)orgname to:(char *)newname
 {
+	[self addToListFromName:@(orgname) toName:@(newname)];
+}
+
+- (void)addToListFromName:(NSString *)orgname toName:(NSString *)newname;
+{
 	if (!storage_i)
 		return;
 
 #ifdef REDOOMED
-	[original_i	setStringValue:RDE_NSStringFromCString(orgname)];
-	[new_i		setStringValue:RDE_NSStringFromCString(newname)];
+	[original_i	setStringValue:orgname];
+	[new_i		setStringValue:newname];
 #else // Original
 	[original_i	setStringValue:orgname];
 	[new_i		setStringValue:newname];

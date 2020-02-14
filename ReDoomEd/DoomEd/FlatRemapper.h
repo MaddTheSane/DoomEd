@@ -17,6 +17,6 @@ extern FlatRemapper *flatRemapper_i;
 	Remapper *remapper_i;
 }
 
-- (void)addToList:(char *)orgname to:(char *)newname;
+- (void)addToListFromName:(NSString *)orgname toName:(NSString *)newname;
 
 @end

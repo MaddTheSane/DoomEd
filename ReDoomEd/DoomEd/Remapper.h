@@ -32,7 +32,7 @@
 	IBOutlet NSBrowser *browser_i;
 	IBOutlet NSMatrix *matrix_i;
 	
-	id<Remapper>		delegate_i;
+	__unsafe_unretained id<Remapper>		delegate_i;
 	NSString *frameName;
 }
 
@@ -53,7 +53,7 @@
 
 - (void)showPanel;
   
-- (void)addToList:(char *)orgname to:(char *)newname;
+- (void)addToListFromName:(NSString *)orgname toName:(NSString *)newname;
 
 //	INTERNAL USE
 - (IBAction)remapGetButtons:sender;

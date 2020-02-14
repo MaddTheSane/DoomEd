@@ -74,7 +74,7 @@
 	if (linenum == NSNotFound)
 	{
 #ifdef REDOOMED
-		[status_i	setStringValue:@"No such line!"];
+		[status_i	setStringValue:NSLocalizedString(@"No such line!", @"No such line!")];
 #else // Original
 		[status_i	setStringValue:"No such line!"];
 #endif

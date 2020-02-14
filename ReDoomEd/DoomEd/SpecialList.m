@@ -25,13 +25,14 @@
 #endif
 
 	delegate = NULL;
-	frameString[0] = 0;
+	self.frameName = @"";
 	return self;
 }
 
 - (void)dealloc
 {
 	[specialList_i release];
+	[frameString release];
 	[super dealloc];
 }
 
@@ -42,28 +43,21 @@
 	[specialList_i	empty];
 }
 
-- saveFrame
+- (void)saveFrame
 {
-	if (frameString[0])
+	if (frameString.length != 0)
 #ifdef REDOOMED
-		[specialPanel_i	saveFrameUsingName:RDE_NSStringFromCString(frameString)];
+		[specialPanel_i	saveFrameUsingName:frameString];
 #else // Original
 		[specialPanel_i	saveFrameUsingName:frameString];
 #endif
-
-	return self;
 }
 
-- setFrameName:(char *)string
-{
-	strncpy(frameString,string,31);
-	return self;
-}
+@synthesize frameName=frameString;
 
-- setSpecialTitle:(char *)string
+- (void)setSpecialTitle:(char *)string
 {
 	strncpy(title,string,31);
-	return self;
 }
 
 @synthesize delegate;
@@ -73,7 +67,7 @@
 //	Load the .nib (if needed) and display the panel
 //
 //===================================================================
-- displayPanel
+- (void)displayPanel
 {
 	if (!specialPanel_i)
 	{
@@ -85,9 +79,9 @@
 
 #ifdef REDOOMED
 		[specialPanel_i	setTitle:RDE_NSStringFromCString(title)];
-		if (frameString[0])
-			[specialPanel_i	setFrameUsingName:RDE_NSStringFromCString(frameString)];
-		[(SpecialListWindow *) specialPanel_i setParent:self];
+		if (frameString.length != 0)
+			[specialPanel_i	setFrameUsingName:frameString];
+		[specialPanel_i setParent:self];
 #else // Original
 		[specialPanel_i	setTitle:title];
 		if (frameString[0])
@@ -97,7 +91,6 @@
 	}
 	[specialBrowser_i	reloadColumn:0];
 	[specialPanel_i	makeKeyAndOrderFront:NULL];
-	return self;
 }
 
 //===================================================================
@@ -105,7 +98,7 @@
 //	Scroll the browser to the specified item
 //
 //===================================================================
-- scrollToItem:(int)i
+- (void)scrollToItem:(int)i
 {
 	NSMatrix *matrix;
 	
@@ -113,7 +106,6 @@
 	matrix = [specialBrowser_i	matrixInColumn:0];
 	[matrix	selectCellAtRow:i column:0];
 	[matrix	scrollCellToVisibleAtRow:i column:0];
-	return self;
 }
 			
 //===================================================================
@@ -123,20 +115,20 @@
 //===================================================================
 - (IBAction)suggestValue:sender
 {
-	int	max,i,num,found;
+	NSInteger	max,i,num;
 	
 	max = [specialList_i	count];
 	for (num=1;num<10000;num++)
 	{
-		found = 0;
+		BOOL found = NO;
 		for (i=0;i<max;i++) {
 			if (((speciallist_t *)[specialList_i	elementAt:i])->value == num) {
-				found = 1;
+				found = YES;
 			}
 		}
 		if (!found)
 		{
-			[specialValue_i	setIntValue:num];
+			[specialValue_i	setIntegerValue:num];
 			break;
 		}
 	}
@@ -147,7 +139,7 @@
 //	Make sure the string isn't weird
 //
 //===================================================================
-- validateSpecialString:sender
+- (IBAction)validateSpecialString:sender
 {
 	int	i;
 	char		s[32];
@@ -176,8 +168,6 @@
 #else // Original
 	[specialDesc_i	setStringValue:s];
 #endif
-
-	return self;
 }
 
 //===================================================================
@@ -185,7 +175,7 @@
 //	Fill data from textfields
 //
 //===================================================================
-- fillSpecialData:(speciallist_t *)special
+- (void)fillSpecialData:(speciallist_t *)special
 {
 	special->value = [specialValue_i	intValue];
 	[self	validateSpecialString:NULL];
@@ -197,8 +187,6 @@
 #else // Original
 	strcpy(special->desc,[specialDesc_i	stringValue]);
 #endif
-
-	return self;
 }
 
 //===================================================================
@@ -311,7 +299,7 @@
 //	Highlight special with matching value and fill textfields with the data
 //
 //===================================================================
-- setSpecial:(int)which
+- (void)setSpecial:(int)which
 {
 	NSInteger	i,max;
 	speciallist_t	*s;
@@ -327,7 +315,7 @@
 			[matrix	selectCellAtRow:i column:0];
 			[matrix	scrollCellToVisibleAtRow:i column:0];
 			[self	fillDataFromSpecial:s];
-			return self;
+			return;
 		}
 	}
 
@@ -338,8 +326,6 @@
 	[specialDesc_i	setStringValue:NULL];
 	[specialValue_i	setStringValue:NULL];
 #endif
-
-	return self;
 }
 
 //===================================================================
@@ -347,7 +333,7 @@
 //	Sort the specials list alphabetically
 //
 //===================================================================
-- sortSpecials
+- (void)sortSpecials
 {
 	id	cell;
 	NSMatrix *matrix;
@@ -395,8 +381,6 @@
 		[matrix	selectCellAtRow:which column:0];
 		[matrix	scrollCellToVisibleAtRow:which column:0];
 	}			
-	
-	return self;
 }
 
 //===================================================================
@@ -404,25 +388,17 @@
 //	Delegate method called by "specialBrowser_i" when reloadColumn is invoked
 //
 //===================================================================
-#ifdef REDOOMED
 // Cocoa version
 - (void) browser: (NSBrowser *) sender
         createRowsForColumn: (NSInteger) column
         inMatrix: (NSMatrix *) matrix
-#else // Original
-- (int)browser:sender  fillMatrix:matrix  inColumn:(int)column
-#endif
 {
 	NSInteger	max, i;
 	id	cell;
 	speciallist_t		*t;
 	
 	if (column > 0)
-#ifdef REDOOMED
 		return; // Cocoa version doesn't return a value
-#else // Original
-		return 0;
-#endif
 		
 	[self	sortSpecials];
 	max = [specialList_i	count];
@@ -432,20 +408,12 @@
 		[matrix	insertRow:i];
 		cell = [matrix cellAtRow:i column:0];
 
-#ifdef REDOOMED
 		[cell	setStringValue:RDE_NSStringFromCString(t->desc)];
-#else // Original
-		[cell	setStringValue:t->desc];
-#endif
 
 		[cell setLeaf: YES];
 		[cell setLoaded: YES];
 		[cell setEnabled: YES];
 	}
-
-#ifndef REDOOMED // Original (Disable for ReDoomEd - Cocoa version doesn't return a value)
-	return max;
-#endif
 }
 
 //============================================================
@@ -489,7 +457,7 @@
 	return NSNotFound;
 }
 
-- updateSpecialsDSP:(FILE *)stream
+- (void)updateSpecialsDSP:(FILE *)stream
 {
 	speciallist_t		t,*t2;
 	NSInteger	count, i, found;
@@ -533,8 +501,6 @@
 	}
 	else
 		fprintf(stream,"numspecials: %d\n",0);
-	
-	return self;
 }
 
 

@@ -90,7 +90,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 //
 // read in the lumpinfo
 //
-	lseek (handle, wad.infotableofs, L_SET);
+	lseek (handle, wad.infotableofs, SEEK_SET);
 	info = [[Storage alloc] initCount: wad.numlumps elementSize: sizeof(lumpinfo_t) description: ""];
 	lumps = [info elementAt: 0];
 	

@@ -116,18 +116,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	return self;
 }
 
-- setDirtyProject:(BOOL)truth
-{
-	self.projectDirty = truth;
-	return self;
-}
-
-- setDirtyMap:(BOOL)truth
-{
-	self.mapDirty = truth;
-	return self;
-}
-
 @synthesize mapDirty=mapdirty;
 @synthesize projectDirty=projectdirty;
 
@@ -144,16 +132,9 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 @synthesize loaded;
 
-- (NSURL *)wadfile
-{
-	return wadfile;
-}
+@synthesize wadfile;
 
-
-- (NSURL *)directory
-{
-	return projectdirectory;
-}
+@synthesize directory=projectdirectory;
 
 /*
 ===============
@@ -1601,7 +1582,7 @@ typedef struct
 			if (indx == -2)
 			{
 				[textureRemapper_i
-					addToList:lines[k].side[0].bottomtexture to:"???"];
+				 addToListFromName:@(lines[k].side[0].bottomtexture) toName:@"???"];
 				errors++;
 			}
 
@@ -1617,7 +1598,7 @@ typedef struct
 			if (indx == -2)
 			{
 				[textureRemapper_i
-					addToList:lines[k].side[0].midtexture to:"???"];
+				 addToListFromName:@(lines[k].side[0].midtexture) toName:@"???"];
 				errors++;
 			}
 
@@ -1633,7 +1614,7 @@ typedef struct
 			if (indx == -2)
 			{
 				[textureRemapper_i
-					addToList:lines[k].side[0].toptexture to:"???"];
+				 addToListFromName:@(lines[k].side[0].toptexture) toName:@"???"];
 				errors++;
 			}
 			
@@ -1646,7 +1627,7 @@ typedef struct
 				else
 				{
 					[flatRemapper_i
-						addToList:lines[k].side[0].ends.floorflat  to:"???"];
+					 addToListFromName:@(lines[k].side[0].ends.floorflat) toName:@"???"];
 					errors++;
 				}
 			}
@@ -1659,7 +1640,7 @@ typedef struct
 				else
 				{
 					[flatRemapper_i
-						addToList:lines[k].side[0].ends.ceilingflat  to:"???"];
+					 addToListFromName:@(lines[k].side[0].ends.ceilingflat) toName:@"???"];
 					errors++;
 				}
 			}
@@ -1678,7 +1659,7 @@ typedef struct
 			if (indx == -2)
 			{
 				[textureRemapper_i
-					addToList:lines[k].side[1].bottomtexture to:"???"];
+				 addToListFromName:@(lines[k].side[1].bottomtexture) toName:@"???"];
 				errors++;
 			}
 
@@ -1694,7 +1675,7 @@ typedef struct
 			if (indx == -2)
 			{
 				[textureRemapper_i
-					addToList:lines[k].side[1].midtexture to:"???"];
+				 addToListFromName:@(lines[k].side[1].midtexture) toName:@"???"];
 				errors++;
 			}
 
@@ -1710,7 +1691,7 @@ typedef struct
 			if (indx == -2)
 			{
 				[textureRemapper_i
-					addToList:lines[k].side[1].toptexture to:"???"];
+				 addToListFromName:@(lines[k].side[1].toptexture) toName:@"???"];
 				errors++;
 			}
 
@@ -1723,7 +1704,7 @@ typedef struct
 				else
 				{
 					[flatRemapper_i
-						addToList:lines[k].side[1].ends.floorflat  to:"???"];
+					 addToListFromName:@(lines[k].side[1].ends.floorflat) toName:@"???"];
 					errors++;
 				}
 			}
@@ -1737,7 +1718,7 @@ typedef struct
 				else
 				{
 					[flatRemapper_i
-						addToList:lines[k].side[1].ends.ceilingflat  to:"???"];
+					 addToListFromName:@(lines[k].side[1].ends.ceilingflat) toName:@"???"];
 					errors++;
 				}
 			}
@@ -1945,13 +1926,7 @@ typedef struct
 	return self;
 }
 
-/*
-=============================================================================
-
-						TEXTURE METHODS
-						
-=============================================================================
-*/
+#pragma mark - TEXTURE METHODS
 
 //=========================================================
 //
@@ -2020,8 +1995,9 @@ typedef struct
 #if 0		
 		max = [store count];
 		printf("\n%d textures in set %d:\n",max,windex);
-		for (x = 0;x < max;x++)
+		for (x = 0;x < max;x++) {
 			printf("%s\n",((worldtexture_t *)[store elementAt:x])->name);
+		}
 #endif			
 	}
 	
@@ -2059,12 +2035,8 @@ typedef struct
 	
 	memset (tex, 0, sizeof(*tex));
 
-#ifdef REDOOMED
 	// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 	if (fscanf (file,"%8s %d, %d, %d\n",
-#else // Original
-	if (fscanf (file,"%s %d, %d, %d\n",
-#endif
 		tex->name, &tex->width, &tex->height, &tex->patchcount) != 4)
 		return NO;
 		
@@ -2072,12 +2044,8 @@ typedef struct
 	{
 		patch = &tex->patches[i];
 
-#ifdef REDOOMED
 		// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
 		if (fscanf (file,"   (%d, %d : %8s ) %d, %d\n",
-#else // Original
-		if (fscanf (file,"   (%d, %d : %s ) %d, %d\n",
-#endif
 			&patch->originx, &patch->originy,
 			patch->patchname, &patch->stepdir, &patch->colormap) != 5)
 			return NO;
@@ -2470,7 +2438,7 @@ static	byte		*buffer, *buf_p;
 {
 	int	count, i,j;
 	worldtexture_t	*tex;
-	int	lump;
+	NSInteger	lump;
 	char	string[1024];
 	
 	buffer = [self getBuffer];
@@ -2624,9 +2592,14 @@ static	byte		*buffer, *buf_p;
 //====================================================
 - (void)initThermo:(const char *)title message:(const char *)msg
 {
+	[self beginThermoWithTitle:@(title) message:@(msg)];
+}
+
+- (void)beginThermoWithTitle:(NSString *)title message:(NSString *)msg
+{
 #ifdef REDOOMED
-	[thermoTitle_i	setStringValue:RDE_NSStringFromCString(title)];
-	[thermoMsg_i	setStringValue:RDE_NSStringFromCString(msg)];
+	[thermoTitle_i	setStringValue:title];
+	[thermoMsg_i	setStringValue:msg];
 #else // Original
 	[thermoTitle_i	setStringValue:title];
 	[thermoMsg_i	setStringValue:msg];
@@ -2669,14 +2642,14 @@ static	byte		*buffer, *buf_p;
 
 - (BOOL) rdePromptUserForWADfileLocation
 {
-	NSString *nameOfWADfile, *locateButtonTitle, *openPanelTitle;
+	NSString *locateButtonTitle, *openPanelTitle;
 	NSURL *pathToWADfile = nil;
     NSInteger alertReturnCode;
     NSOpenPanel *openPanel;
 
-    nameOfWADfile = [wadfile lastPathComponent];
+    NSString *nameOfWADfile = [wadfile lastPathComponent];
 
-    if ([[nameOfWADfile pathExtension] isEqualToString: @"wad"])
+    if ([[nameOfWADfile pathExtension] caseInsensitiveCompare: @"wad"] == NSOrderedSame)
     {
         openPanelTitle = [NSString stringWithFormat: NSLocalizedString(@"Locate \"%@\"", @"Locate \"%@\""), nameOfWADfile];
     }
@@ -2729,15 +2702,18 @@ static	byte		*buffer, *buf_p;
 - (BOOL) rdePromptUserForPNGExport
 {
     NSInteger alertReturnCode;
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = NSLocalizedString(@"Can't print maps. Export to PNG instead?", @"Can't print maps. Export to PNG instead?");
+	alert.informativeText = NSLocalizedString(@"ReDoomEd currently doesn't support DoomEd's map-printing feature, "
+	"however, maps can now be exported as PNG-format image files.\n\n"
+	"Images will be exported at the same zoom level as the current map.", @"Let the user know we can't print yet, but PNG is an option.");
+	[alert addButtonWithTitle:NSLocalizedString(@"Export as PNG...", @"Export as PNG...")];
+	[alert addButtonWithTitle:@"Cancel"];
+	
+	
+    alertReturnCode = [alert runModal];
 
-    alertReturnCode =
-        NSRunAlertPanel(@"Can't print maps. Export to PNG instead?",
-                        @"ReDoomEd currently doesn't support DoomEd's map-printing feature, "
-                        "however, maps can now be exported as PNG-format image files.\n\n"
-                        "Images will be exported at the same zoom level as the current map.",
-                        @"Export as PNG...", @"Cancel",  nil);
-
-    return (alertReturnCode == NSAlertDefaultReturn) ? YES : NO;
+    return (alertReturnCode == NSAlertFirstButtonReturn) ? YES : NO;
 }
 
 @end
@@ -2751,7 +2727,7 @@ static	byte		*buffer, *buf_p;
 ================
 */
 
-void IO_Error (char *error, ...)
+void IO_Error (const char *error, ...)
 {
 	va_list	argptr;
 	char	string[1024];

@@ -83,7 +83,7 @@ BOOL	debugflag = NO;
 #ifdef REDOOMED
 	// -[PreferencePanel getProjectPath] no longer defaults to a hard-coded project path,
 	// so it may return an empty string - added logic to check for this
-	const char *defaultProjectPath = [prefpanel_i getProjectPath];
+	const char *defaultProjectPath = (const char*)[prefpanel_i getProjectPath];
 
 	if (![doomproject_i loaded]
 		&& strlen(defaultProjectPath))

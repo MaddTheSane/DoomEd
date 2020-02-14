@@ -45,7 +45,12 @@ id	lineSpecialRemapper_i;
 
 - (void)addToList:(char *)orgname to:(char *)newname;
 {
-	[remapper_i	addToList:orgname to:newname];
+	[self addToListFromName:@(orgname) toName:@(newname)];
+}
+
+- (void)addToListFromName:(NSString *)orgname toName:(NSString *)newname
+{
+	[remapper_i addToListFromName:orgname toName:newname];
 }
 
 //===================================================================
@@ -68,11 +73,6 @@ id	lineSpecialRemapper_i;
 
 - (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
 {
-	return [self doRemap:oldname.UTF8String to:newname.UTF8String];
-}
-
-- (int)doRemap:(char *)oldname to:(char *)newname
-{
 	int		i;
 	int		linenum;
 	int		flag;
@@ -82,8 +82,8 @@ id	lineSpecialRemapper_i;
 	
 #ifdef REDOOMED
 	// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
-	sscanf(oldname,"%d:%79s",&oldval,string);
-	sscanf(newname,"%d:%79s",&newval,string);
+	sscanf(oldname.UTF8String,"%d:%79s",&oldval,string);
+	sscanf(newname.UTF8String,"%d:%79s",&newval,string);
 #else // Original
 	sscanf(oldname,"%d:%s",&oldval,string);
 	sscanf(newname,"%d:%s",&newval,string);
@@ -102,7 +102,7 @@ id	lineSpecialRemapper_i;
 		
 		if (flag)
 		{
-			printf("Remapped Line Special %s to %s.\n",oldname,newname);
+			printf("Remapped Line Special %s to %s.\n", oldname.UTF8String, newname.UTF8String);
 			linenum++;
 		}
 	}

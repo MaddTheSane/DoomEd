@@ -14,26 +14,26 @@
 #endif
 
 #define MAXPATCHES	100
-/// mappatch_t orients a patch inside a \c maptexturedef_t
+/// \c mappatch_t orients a patch inside a \c maptexturedef_t
 typedef struct
 {
-	int		originx;		// block origin (allways UL), which has allready accounted
-	int		originy;		// for the patch's internal origin
+	int		originx;		//!< block origin (allways UL), which has allready accounted
+	int		originy;		//!< for the patch's internal origin
 	char		patchname[9];
-	int		stepdir;		// allow flipping of the texture DEBUG: make this a char?
+	int		stepdir;		//!< allow flipping of the texture DEBUG: make this a char?
 	int		colormap;
 } worldpatch_t;
 
 typedef struct
 {
-	int		WADindex;	// which WAD it's from!  (JR 5/28/93 )
+	int		WADindex;	//!< which WAD it's from!  (JR 5/28/93 )
 	char		name[9];
-	BOOL	dirty;		// true if changed since last texture file load
+	BOOL	dirty;		//!< true if changed since last texture file load
 	
 	int	width;
 	int	height;
 	int	patchcount;
-	worldpatch_t	patches[MAXPATCHES]; // [patchcount] drawn back to front into the
+	worldpatch_t	patches[MAXPATCHES]; //!< [patchcount] drawn back to front into the
 } worldtexture_t;
 
 /// a \c sectordef_t describes the features of a sector without listing the lines
@@ -60,9 +60,9 @@ extern TextLog *log_i;
 extern	int	numtextures;
 extern	worldtexture_t		*textures;
 
-extern	char	mapwads[1024];		// map WAD path
-extern	char	bspprogram[1024];	// bsp program path
-extern	char	bsphost[32];		// bsp host machine
+extern	char	mapwads[1024];		//!< map WAD path
+extern	char	bspprogram[1024];	//!< bsp program path
+extern	char	bsphost[32];		//!< bsp host machine
 
 //============================================================================
 
@@ -103,8 +103,8 @@ extern	char	bsphost[32];		// bsp host machine
 - (instancetype)init;
 - (IBAction)displayLog:sender;
 @property (readonly) BOOL loaded;
-- (NSURL *)wadfile;
-- (NSURL *)directory;
+@property (readonly, retain) NSURL *wadfile;
+@property (readonly, retain) NSURL *directory;
 
 - (IBAction)menuTarget: sender;
 - (IBAction)openProject: sender;
@@ -141,8 +141,6 @@ extern	char	bsphost[32];		// bsp host machine
 - (void)saveFrame;
 - (void)changeWADfile:(NSURL *)string;
 - quit;
-- setDirtyProject:(BOOL)truth API_DEPRECATED_WITH_REPLACEMENT("-setProjectDirty:", macos(10.0, 10.0));
-- setDirtyMap:(BOOL)truth API_DEPRECATED_WITH_REPLACEMENT("-setMapDirty:", macos(10.0, 10.0));
 @property (nonatomic) BOOL projectDirty;
 @property (nonatomic) BOOL mapDirty;
 - (void)checkDirtyProject;
@@ -154,7 +152,8 @@ extern	char	bsphost[32];		// bsp host machine
 - (IBAction)toggleWeapons:sender;
 
 // Thermometer functions
-- (void)initThermo:(const char *)title message:(const char *)msg;
+- (void)initThermo:(const char *)title message:(const char *)msg API_DEPRECATED_WITH_REPLACEMENT("-beginThermoWithTitle:message:", macos(10.0, 10.0));
+- (void)beginThermoWithTitle:(NSString *)title message:(NSString *)msg;
 - (void)updateThermo:(NSInteger)current max:(NSInteger)maximum;
 - (void)closeThermo;
 
@@ -165,5 +164,5 @@ extern	char	bsphost[32];		// bsp host machine
 
 @end
 
-void IO_Error (char *error, ...) __printflike(1, 2);
+void IO_Error (const char *error, ...) __printflike(1, 2);
 void DE_DrawOutline(NXRect *r);

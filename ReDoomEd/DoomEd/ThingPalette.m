@@ -313,8 +313,8 @@ id	thingPalette_i;
 	//
 	start = [wadfile_i	lumpNamed:"icon_sta"];
 	end = [wadfile_i	lumpNamed:"icon_end"];
-	[doomproject_i	initThermo:"One moment..."
-		message:"Loading icons for Thing Palette."];
+	[doomproject_i beginThermoWithTitle:NSLocalizedString(@"One moment...", @"One moment...")
+								 message:NSLocalizedString(@"Loading icons for Thing Palette.", @"Loading icons for Thing Palette.")];
 
 	if  (start == NSNotFound || end == NSNotFound )
 	{

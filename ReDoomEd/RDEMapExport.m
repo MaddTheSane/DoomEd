@@ -386,7 +386,7 @@ ERROR:
                                         (numExportedMaps > 1) ? @"maps" : @"map",
                                         scalePercent];
 
-    [self initThermo: (char *) RDE_CStringFromNSString(title) message: ""];
+    [self beginThermoWithTitle: title message: @""];
 }
 
 - (void) rdeUpdateExportThermoPanelWithMapName: (NSString *) mapName forIndex: (int) mapIndex

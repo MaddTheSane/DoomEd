@@ -5,6 +5,9 @@
 
 // in the map file, all pointers are offsets from the start of file
 
+#ifndef __R_MAPDEFS_H__
+#define __R_MAPDEFS_H__
+
 #ifndef __FRAC__
 #define __FRAC__
 #define	FRACBITS		16
@@ -61,22 +64,22 @@ typedef struct
 	boolean	masked;				//!< if not masked, the patch's post_ts need to be combined
 	short	width;
 	short	height;
-	void		**collumndirectory;		// [width] pointers to collumn_ts to draw the texture
+	void		**collumndirectory;		//!< \c width pointers to collumn_ts to draw the texture
 	short	patchcount;
-	mappatch_t	patches[1];		// [patchcount] drawn back to front into the cached texture
+	mappatch_t	patches[1];		//!< \c patchcount drawn back to front into the cached texture
 } maptexture_t;
 
-/// A mapends_t defines what to draw on the floor and ceiling of an open area, as well as the
+/// A \c mapsector_t defines what to draw on the floor and ceiling of an open area, as well as the
 /// light level for all sprites and walls in the open area
 typedef struct
 {
 	short		floorheight, ceilingheight;
 	short		floortexture, ceilingtexture;
-	short		lightlevel;			// base light level
-	short		special;			// to allow things to happen on a given floor section
+	short		lightlevel;			//!< base light level
+	short		special;			//!< to allow things to happen on a given floor section
 	short		tag;
 	short		linecount;
-	short		lines[1];			// [linecount] size
+	short		lines[1];			//!< \c linecount size
 } mapsector_t;
 
 
@@ -123,3 +126,4 @@ typedef struct
 	mapside_t	side[2];
 } mapline_t;
 
+#endif

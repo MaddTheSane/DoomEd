@@ -13,7 +13,7 @@
 @interface SpecialListWindow:Window
 #endif
 {
-	id	parent_i;
+	__unsafe_unretained id	parent_i;
 	char	string[32];
 }
 

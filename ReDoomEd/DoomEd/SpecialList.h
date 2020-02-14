@@ -13,47 +13,48 @@ typedef struct
 } speciallist_t;
 
 @class Storage;
+@class SpecialListWindow;
 
 //
 //	Methods to be implemented by the delegate
 //
 @protocol SpecialList <NSObject>
-- specialChosen:(int)value;
+- (void)specialChosen:(int)value;
 @end
 
 @interface SpecialList:NSObject
 {
-	IBOutlet id	specialDesc_i;
-	IBOutlet id	specialBrowser_i;
-	IBOutlet id	specialValue_i;
-	IBOutlet id	specialPanel_i;
+	IBOutlet NSTextField	*specialDesc_i;
+	IBOutlet NSBrowser		*specialBrowser_i;
+	IBOutlet NSTextField	*specialValue_i;
+	IBOutlet SpecialListWindow	*specialPanel_i;
 	Storage	*specialList_i;
 	
 	__unsafe_unretained id<SpecialList>	delegate;
 	char		title[32];
-	char		frameString[32];
+	NSString	*frameString;
 }
 
 @property (readonly, retain) Storage *specialList;
-- scrollToItem:(int)i;
-- setSpecialTitle:(char *)string;
-- setFrameName:(char *)string;
-- saveFrame;
+- (void)scrollToItem:(int)i;
+- (void)setSpecialTitle:(char *)string;
+@property (copy) NSString *frameName;
+- (void)saveFrame;
 
 #ifdef REDOOMED
 // Declare setDelegate: publicly
 @property (assign) id<SpecialList> delegate;
 #endif
 
-- displayPanel;
+- (void)displayPanel;
 - (IBAction)addSpecial:sender;
 - (IBAction)suggestValue:sender;
 - (IBAction)chooseSpecial:sender;
-- updateSpecialsDSP:(FILE *)stream;
+- (void)updateSpecialsDSP:(FILE *)stream;
 - (NSInteger)findSpecial:(int)value;
-- validateSpecialString:sender;
-- setSpecial:(int)which;
-- fillSpecialData:(speciallist_t *)special;
+- (IBAction)validateSpecialString:sender;
+- (void)setSpecial:(int)which;
+- (void)fillSpecialData:(speciallist_t *)special;
 
 - (void)empty;
 @end

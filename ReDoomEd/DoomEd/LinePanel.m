@@ -51,7 +51,7 @@ SpecialList *lineSpecialPanel_i;
 	// - Added (SpecialList *) typecast so the compiler uses the correct method signature
 	lineSpecialPanel_i = [[SpecialList alloc] init];
 	[lineSpecialPanel_i setSpecialTitle:"Line Inspector - Specials"];
-	[lineSpecialPanel_i setFrameName:"LineSpecialPanel"];
+	[lineSpecialPanel_i setFrameName:@"LineSpecialPanel"];
 	[lineSpecialPanel_i setDelegate:self];
 #else // Original
 	lineSpecialPanel_i = [[[[SpecialList	alloc]
@@ -85,11 +85,10 @@ SpecialList *lineSpecialPanel_i;
 #endif
 }
 
-- specialChosen:(int)value
+- (void)specialChosen:(int)value
 {
 	[special_i		setIntValue:value];
 	[self	specialChanged:NULL];
-	return self;
 }
 
 - (void)updateLineSpecialsDSP:(FILE *)stream
@@ -291,7 +290,7 @@ SpecialList *lineSpecialPanel_i;
 //============================================================================
 
 
-- changeLineFlag: (int)mask to: (int)set
+- (void)changeLineFlag: (mapline_flags)mask to: (mapline_flags)set
 {
 	int	i;
 #ifdef REDOOMED
@@ -322,7 +321,6 @@ SpecialList *lineSpecialPanel_i;
 		}
 		
 	[editworld_i updateWindows];
-	return self;
 }
 
 - (IBAction)monsterblockChanged: sender

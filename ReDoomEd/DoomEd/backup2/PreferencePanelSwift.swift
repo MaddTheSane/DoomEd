@@ -224,10 +224,6 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		return color[Int(ucolor.rawValue)]
 	}
 	
-	@objc(colorFor:) func color(for ucolor: ucolor_e) -> NXColor {
-		RDE_NXColorFromNSColor(color[Int(ucolor.rawValue)])
-	}
-
 	open func getProjectPath() -> UnsafePointer<Int8>! {
 		return (projectPath as NSURL?)?.fileSystemRepresentation ?? ("" as NSString).utf8String
 	}

@@ -42,9 +42,9 @@ FlatRemapper *flatRemapper_i;
 	[remapper_i	showPanel];
 }
 
-- (void)addToList:(char *)orgname to:(char *)newname;
+- (void)addToListFromName:(NSString *)orgname toName:(NSString *)newname
 {
-	[remapper_i	addToList:orgname to:newname];
+	[remapper_i addToListFromName:orgname toName:newname];
 }
 
 //===================================================================
