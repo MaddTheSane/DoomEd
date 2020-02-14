@@ -188,6 +188,12 @@ void RDE_PSstroke(void)
     }
 }
 
+void RDE_DPSGlue_PSsetdash(float pattern[], int size, float offset)
+{
+    
+    //[gCurrentPath setLineDash:<#(nullable const CGFloat *)#> count:<#(NSInteger)#> phase:<#(CGFloat)#>]
+}
+
 void RDE_PSinstroke(float x, float y, int *pflag)
 {
     NSPoint elementPoints[3], lineEndpoint1, lineEndpoint2;

@@ -6,6 +6,8 @@
 #ifndef __DOOMDATA__
 #define __DOOMDATA__
 
+//#include "R_mapdef.h"
+
 #ifndef __BYTEBOOL__
 #define __BYTEBOOL__
 typedef enum {false, true} boolean;

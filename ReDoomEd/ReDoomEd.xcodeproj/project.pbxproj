@@ -119,6 +119,7 @@
 		55BAD36323ED5C1600DBE673 /* PreferencePanelSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BAD36223ED5C1600DBE673 /* PreferencePanelSwift.swift */; };
 		55C41DC323F08767000FB967 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55C41DC523F08767000FB967 /* Localizable.strings */; };
 		55D83B4D23F0EE7900E4E5B6 /* RDEPatchDivider.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D83B4C23F0EE7900E4E5B6 /* RDEPatchDivider.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		55DC531323F765A80065FADA /* doomprint.m in Sources */ = {isa = PBXBuildFile; fileRef = 55DC531123F765A80065FADA /* doomprint.m */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
@@ -344,6 +345,8 @@
 		55C41DC423F08767000FB967 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55D83B4B23F0ECE700E4E5B6 /* RDEPatchDivider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RDEPatchDivider.h; sourceTree = "<group>"; };
 		55D83B4C23F0EE7900E4E5B6 /* RDEPatchDivider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RDEPatchDivider.m; sourceTree = "<group>"; };
+		55DC531123F765A80065FADA /* doomprint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = doomprint.m; sourceTree = "<group>"; };
+		55DC531223F765A80065FADA /* doomprint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = doomprint.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ReDoomEd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReDoomEd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -633,6 +636,7 @@
 				034DD84921EED1C6005E2BC0 /* ReDoomEd */,
 				080E96DDFE201D6D7F000001 /* DoomEd */,
 				035C962520DD6D1A006068BA /* doombsp */,
+				55DC531023F765700065FADA /* doomprint */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -728,6 +732,15 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55DC531023F765700065FADA /* doomprint */ = {
+			isa = PBXGroup;
+			children = (
+				55DC531223F765A80065FADA /* doomprint.h */,
+				55DC531123F765A80065FADA /* doomprint.m */,
+			);
+			path = doomprint;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -853,6 +866,7 @@
 				033FAB2420E834C700CC584F /* Remapper.m in Sources */,
 				033FAB2520E834C700CC584F /* SectorEditor.m in Sources */,
 				033FAB2620E834C700CC584F /* SectorEditView.m in Sources */,
+				55DC531323F765A80065FADA /* doomprint.m in Sources */,
 				033FAB2720E834C700CC584F /* SettingsPanel.m in Sources */,
 				033FAB2820E834C700CC584F /* SpecialList.m in Sources */,
 				033FAB2920E834C700CC584F /* SpecialListWindow.m in Sources */,
