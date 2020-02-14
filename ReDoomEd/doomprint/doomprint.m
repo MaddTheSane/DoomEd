@@ -72,9 +72,7 @@ void BoundLineStore (id lines_i, NXRect *r)
 	
 	[super initFrame: &scaled];
 	
-	[self
-		setDrawSize:	worldbounds.size.width
-		:				worldbounds.size.height];
+	[self setBoundsSize:worldbounds.size];
 	[self 
 		setDrawOrigin:	worldbounds.origin.x 
 		: 				worldbounds.origin.y];

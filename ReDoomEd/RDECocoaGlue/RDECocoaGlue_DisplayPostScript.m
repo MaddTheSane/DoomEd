@@ -190,8 +190,15 @@ void RDE_PSstroke(void)
 
 void RDE_DPSGlue_PSsetdash(float pattern[], int size, float offset)
 {
-    
-    //[gCurrentPath setLineDash:<#(nullable const CGFloat *)#> count:<#(NSInteger)#> phase:<#(CGFloat)#>]
+    if (size == 0) {
+        [gCurrentPath setLineDash:NULL count:0 phase:offset];
+        return;
+    }
+    CGFloat *cgPattern = alloca(sizeof(CGFloat) * size);
+    for (NSInteger i = 0; i < size ; i++) {
+        cgPattern[i] = pattern[i];
+    }
+    [gCurrentPath setLineDash:cgPattern count:size phase:offset];
 }
 
 void RDE_PSinstroke(float x, float y, int *pflag)
