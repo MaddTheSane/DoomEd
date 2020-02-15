@@ -48,6 +48,7 @@ static NSRect gDirtyBoundsOfLastInstance = {{0,0},{0,0}};
 static NSColor *gInstancePathColor = nil;
 static float gInstancePathLineWidth;
 static bool gEnableInstanceDrawing = NO, gIsDrawingViewRect = NO;
+static NSFont *currentFont = nil;
 
 
 static void RedrawFocusViewInBounds(NSRect redrawBounds);
@@ -137,7 +138,11 @@ void RDE_PSsetlinewidth(float width)
 
 void RDE_PSselectfont(const char *name, float size)
 {
-    // DoomEd only calls PSselectfont() with one font, so font is hardcoded into PSshow()
+    if (!name) {
+        currentFont = nil;
+    } else {
+        currentFont = [NSFont fontWithName:@(name) size:size];
+    }
 }
 
 void RDE_PSrotate(float angle)
@@ -204,7 +209,7 @@ void RDE_DPSGlue_PSsetdash(float pattern[], int size, float offset)
 void RDE_PSinstroke(float x, float y, int *pflag)
 {
     NSPoint elementPoints[3], lineEndpoint1, lineEndpoint2;
-    float lineMinX, lineMinY, lineMaxX, lineMaxY, maxAllowedPerpendicularDistanceForLineHit,
+    CGFloat lineMinX, lineMinY, lineMaxX, lineMaxY, maxAllowedPerpendicularDistanceForLineHit,
             perpendicularDistanceToLine;
     BOOL pointTouchesLineStroke = NO;
 
@@ -273,7 +278,7 @@ void RDE_PSinstroke(float x, float y, int *pflag)
         }
     }
 
-    if (fabsf(perpendicularDistanceToLine) <= maxAllowedPerpendicularDistanceForLineHit)
+    if (fabs(perpendicularDistanceToLine) <= maxAllowedPerpendicularDistanceForLineHit)
     {
         pointTouchesLineStroke = YES;
     }
@@ -291,13 +296,13 @@ ERROR:
 
 void RDE_PSshow(const char *string)
 {
-    static NSDictionary *attributes = nil;
+    NSDictionary *attributes = nil;
     NSString *nsString;
 
-    if (!attributes)
-    {
-        attributes = [[NSDictionary alloc] initWithObjectsAndKeys:kDefaultFont, NSFontAttributeName, nil];
+    if (!currentFont) {
+        currentFont = kDefaultFont;
     }
+    attributes = [[NSDictionary alloc] initWithObjectsAndKeys:currentFont, NSFontAttributeName, nil];
 
     nsString = [[NSString alloc] initWithCString: string encoding: NSUTF8StringEncoding];
 
@@ -315,6 +320,8 @@ void RDE_PScompositerect(float x, float y, float w, float h, NSCompositingOperat
 void RDE_DPSDoUserPath(const void *coords, int numCoords, DPSNumberFormat numType,
                             const DPSUserPathOp *ops, int numOps, void *bbox, DPSUserPathAction action)
 {
+    // in case new code calls this
+    assert(action == dps_ustroke);
     switch (numType) {
         case dps_float:
             RDE_DPSDoUserPathFloat(coords, numCoords, ops, numOps, bbox, action);
@@ -650,7 +657,7 @@ static void ClearInstancePath(void)
 
 static NSRect DirtyBoundsForInstancePath(void)
 {
-    float pathBoundsOutset;
+    CGFloat pathBoundsOutset;
 
     if (!gInstancePath || [gInstancePath isEmpty])
     {

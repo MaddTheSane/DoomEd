@@ -3,15 +3,15 @@
 #import "doomprint.h"
 
 @class PrintMapView;
-extern id 			window_i;
-extern PrintMapView *view_i;
-extern float		scale;
-extern NXRect		worldbounds;
+static id 			window_i;
+static PrintMapView *view_i;
+static float		scale = 0.125;
+static NXRect		worldbounds;
 char		*levelname;
 
-BOOL		weapons;
-BOOL		powerups;
-BOOL		monsters;
+static BOOL		weapons;
+static BOOL		powerups;
+static BOOL		monsters;
 
 
 /*
@@ -22,25 +22,7 @@ BOOL		monsters;
 ===========
 */
 
-void BoundLineStore (id lines_i, NXRect *r)
-{
-	int				i,c;
-	worldline_t		*line_p;
-	
-	c = [lines_i count];
-	if (!c)
-		Error ("BoundLineStore: empty list");
-		
-	line_p = [lines_i elementAt:0];
-	IDRectFromPoints (r, &line_p->p1, &line_p->p2);
-	
-	for (i=1 ; i<c ; i++)
-	{
-		line_p = [lines_i elementAt:i];
-		IDEnclosePoint (r, &line_p->p1);
-		IDEnclosePoint (r, &line_p->p2);
-	}	
-}
+extern void BoundLineStore (Storage *lines_i, NXRect *r);
 
 
 @interface PrintMapView: View
@@ -62,7 +44,7 @@ void BoundLineStore (id lines_i, NXRect *r)
 	
 	hscale = 8*72 / worldbounds.size.width; 
 	vscale = 9.5*72 / worldbounds.size.height;
-	scale = hscale < vscale ? hscale : vscale;
+	scale = MAX(hscale, vscale);
 	worldbounds.size.height += 30/scale;
 	
 	scaled.origin.x = 300;
@@ -70,23 +52,20 @@ void BoundLineStore (id lines_i, NXRect *r)
 	scaled.size.width = worldbounds.size.width*scale;
 	scaled.size.height = worldbounds.size.height* scale;
 	
-	[super initFrame: &scaled];
+	self = [super initFrame: &scaled];
 	
-	[self setBoundsSize:worldbounds.size];
-	[self 
-		setDrawOrigin:	worldbounds.origin.x 
-		: 				worldbounds.origin.y];
+	self.bounds = worldbounds;
 
 	return self;
 }
 
 
-float	dashes[1] = {10};
-float	specdashes[2] = {2, 10};
+static float	dashes[1] = {10};
+static float	specdashes[2] = {2, 10};
 
 - drawSelf:(const NXRect *)rects :(int)rectCount
 {
-	int				i,c;
+	NSInteger		i,c;
 	worldline_t		*line_p;
 	worldthing_t	*thing_p;
 	NSRect bounds = [self bounds];
@@ -417,20 +396,17 @@ float	specdashes[2] = {2, 10};
 	return self;
 }
 
-- (BOOL)getRect:(NXRect *)theRect forPage:(int)page
+- (NSRect)rectForPage:(NSInteger)page
 {
 	if (page != 1)
-		return NO;
+		return NSZeroRect;
 		
-	
-	[self getBounds: theRect];
-	
-	return YES;
+	return self.bounds;
 }
 
-- (BOOL)knowsPagesFirst:(int *)firstPageNum last:(int *)lastPageNum
+- (BOOL)knowsPageRange:(NSRangePointer)range
 {
-	*lastPageNum = 1;
+	*range = NSMakeRange(1, 1);
 	return YES;
 }
 
@@ -458,6 +434,7 @@ int DoomPrintMain (int argc, char **argv)
 	int		i;
 	NXRect	scaled;
 	char	name[256];
+	runpanel = weapons = powerups = monsters = NO;
 	
 	i = 1;
 	if (argc > 2 && !strcmp (argv[1] , "-panel") )
@@ -484,14 +461,14 @@ int DoomPrintMain (int argc, char **argv)
 		i++;
 	}
 		
-	NXApp = [Application new];
+	//NXApp = [Application new];
 	for ( ; i< argc ; i++)
 	{
 		ExtractFileBase (argv[i], name);
 		levelname = name;
 		LoadDoomMap (argv[i]);
 		view_i = [[PrintMapView alloc] init];
-		[view_i getFrame: &scaled];
+		scaled = view_i.frame;
 		
 		window_i =
 		[[Window alloc]
@@ -506,12 +483,13 @@ int DoomPrintMain (int argc, char **argv)
 		[window_i display];
 //		[window_i orderFront: nil];
 		
-		[view_i printPSCode: view_i];
+		[view_i print: view_i];
 
 // NXPing ();
 // getchar ();
-		[window_i free];
+		[window_i release];
+		window_i = nil;
 	}
-	[NXApp free];
+	//[NXApp free];
 	return 0;
 }

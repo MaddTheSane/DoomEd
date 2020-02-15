@@ -9,7 +9,7 @@ NSView		*view_i;
 float		scale = 0.125;
 NXRect		worldbounds;
 
-static void BoundLineStore(Storage *lines_i, NXRect *r);
+extern void BoundLineStore(Storage *lines_i, NXRect *r);
 
 
 void IDRectFromPoints(NXRect *rect, NXPoint const *p1, NXPoint const *p2 )

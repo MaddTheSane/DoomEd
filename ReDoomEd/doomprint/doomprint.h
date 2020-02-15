@@ -6,7 +6,7 @@
 #import "idfunctions.h"
 
 #define	SHORT(x)	CFSwapInt16LittleToHost((short)x)
-#define	LONG(x)		CFSwapInt32LittleToHost(x)
+#define	LONG(x)		CFSwapInt32LittleToHost((int)x)
 
 #define PI	3.141592657
 
