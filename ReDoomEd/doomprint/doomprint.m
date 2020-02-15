@@ -3,11 +3,11 @@
 #import "doomprint.h"
 
 @class PrintMapView;
-static id 			window_i;
+static NSWindow 	*window_i;
 static PrintMapView *view_i;
 static float		scale = 0.125;
 static NXRect		worldbounds;
-char		*levelname;
+       char			*levelname;
 
 static BOOL		weapons;
 static BOOL		powerups;
@@ -430,10 +430,11 @@ BOOL	runpanel = NO;
 */
 
 int DoomPrintMain (int argc, char **argv)
-{	
+{
+	@autoreleasepool {
 	int		i;
 	NXRect	scaled;
-	char	name[256];
+	char	name[PATH_MAX];
 	runpanel = weapons = powerups = monsters = NO;
 	
 	i = 1;
@@ -492,4 +493,5 @@ int DoomPrintMain (int argc, char **argv)
 	}
 	//[NXApp free];
 	return 0;
+	}
 }
