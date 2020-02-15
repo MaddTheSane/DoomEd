@@ -941,7 +941,7 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="newProject:" target="125" id="298"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Open" keyEquivalent="o" id="242">
+                            <menuItem title="Open…" keyEquivalent="o" id="242">
                                 <connections>
                                     <action selector="openProject:" target="125" id="296"/>
                                 </connections>
@@ -961,12 +961,12 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="printStatistics:" target="125" id="301"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save texture as LBM" id="247">
+                            <menuItem title="Save Texture As LBM" id="247">
                                 <connections>
                                     <action selector="saveTextureLBM:" target="52" id="302"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save ALL textures as LBMs" id="241">
+                            <menuItem title="Save All Textures as LBMs" id="241">
                                 <connections>
                                     <action selector="saveAllTexturesAsLBM:" target="52" id="303"/>
                                 </connections>
@@ -993,12 +993,12 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                 <menuItem title="Map" id="212">
                     <menu key="submenu" title="Map" id="213">
                         <items>
-                            <menuItem title="Save DoomEd map/BSP map" keyEquivalent="s" id="215">
+                            <menuItem title="Save DoomEd Map/BSP map" keyEquivalent="s" id="215">
                                 <connections>
                                     <action selector="saveDoomEdMapBSP:" target="120" id="305"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save DoomEd map" keyEquivalent="S" id="214">
+                            <menuItem title="Save DoomEd Map" keyEquivalent="S" id="214">
                                 <connections>
                                     <action selector="saveWorld:" target="120" id="306"/>
                                 </connections>
@@ -1008,17 +1008,17 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                     <action selector="printSingleMapStatistics:" target="125" id="307"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Print preferences" keyEquivalent="P" id="218">
+                            <menuItem title="Print Preferences" keyEquivalent="P" id="218">
                                 <connections>
                                     <action selector="printPrefs:" target="125" id="308"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Print map" keyEquivalent="p" id="219">
+                            <menuItem title="Print Map" keyEquivalent="p" id="219">
                                 <connections>
                                     <action selector="printMap:" target="125" id="309"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Print ALL maps" id="217">
+                            <menuItem title="Print All Maps" id="217">
                                 <connections>
                                     <action selector="printAllMaps:" target="125" id="310"/>
                                 </connections>
@@ -1050,7 +1050,7 @@ ReDoomEd &amp; PikoPixel license: GNU AGPL (v3 or later approved versions)</stri
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="BTB-nT-ts9"/>
-                            <menuItem title="Find line" id="253">
+                            <menuItem title="Find Line" id="253">
                                 <connections>
                                     <action selector="menuTarget:" target="22" id="295"/>
                                 </connections>
