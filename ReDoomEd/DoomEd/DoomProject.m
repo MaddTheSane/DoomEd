@@ -21,6 +21,7 @@
 #   import <sys/stat.h>
 #   import <unistd.h>
 #   import "../RDEMapExport.h"
+#   import "doomprint.h"
 #endif
 
 DoomProject *doomproject_i;
@@ -996,7 +997,6 @@ static NSMatrix *openMatrix;
 //===================================================================
 - (IBAction)printAllMaps:sender
 {
-#ifdef REDOOMED
 	// DoomEd's 'doomprint' command-line tool is currently unimplemented in ReDoomEd -
     // give the option of exporting to PNG instead
 
@@ -1004,32 +1004,32 @@ static NSMatrix *openMatrix;
         && [self rdePromptUserForPNGExport])
     {
         [self rdeExportAllMapsAsPNG];
+		return;
     }
 
-#else // Original
-	id		openMatrix;
-	int		i;
-	int		selRow;
+	NSMatrix		*openMatrix;
+	NSInteger		i;
+	NSInteger		selRow;
 
 	[editworld_i	closeWorld];
 
 	openMatrix = [maps_i	matrixInColumn:0];
 	selRow = [openMatrix	selectedRow];
 	
+	@autoreleasepool {
 	for (i = 0;i < nummaps; i++)
 	{
-		[openMatrix	selectCellAt:i :0];
+		[openMatrix	selectCellAtRow:i column:0];
 		[self	openMap:openMatrix];
 		[self	printMap:NULL];
 	}
 	
-	if (selRow >=0)
+	if (selRow >= 0)
 	{
-		[openMatrix	selectCellAt:selRow :0];
+		[openMatrix	selectCellAtRow:selRow column:0];
 		[self	openMap:openMatrix];
 	}
-
-#endif // Original
+	}
 }
 
 //===================================================================
@@ -1066,7 +1066,6 @@ static NSMatrix *openMatrix;
 //===================================================================
 - (IBAction)printMap:sender
 {
-#ifdef REDOOMED
 	// DoomEd's 'doomprint' command-line tool is currently unimplemented in ReDoomEd -
     // give the option of exporting to PNG instead
 
@@ -1079,58 +1078,53 @@ static NSMatrix *openMatrix;
     if ([self rdePromptUserForPNGExport])
     {
         [self rdeExportMapAsPNG];
+		return;
     }
 
-#else // Original
 	char	string[1024];
-	id		m;
-	id		cell;
-	id		panel;
-	char	prpanel[10];
-	char	monsters[10];
-	char	items[10];
-	char	weapons[10];
+	NSMatrix	*m;
+	id			cell;
+	NSPanel		*panel;
+	const char	prpanel[10] = "-panel";
+	const char	monsters[10] = "-monsters";
+	const char	items[10] = "-powerups";
+	const char	weapons[10] = "-weapons";
+	// the doomprint tool's sources are embedded into ReDoomEd, and called via RDEdoombsp_main()
+	const char 	*printArgV[7];
+	int 	printArgC = 1;
 	
 	m = [maps_i	matrixInColumn:0];
 	cell = [m selectedCell];
 	if (!cell)
 	{
-		NXBeep();
-		return self;
+		NSBeep();
+		return;
 	}
 	
-	memset(prpanel,0,10);
-	memset(monsters,0,10);
-	memset(items,0,10);
-	memset(weapons,0,10);
-	
-	if (pp_panel)
-		strcpy(prpanel,"-panel");
-	if (pp_weapons)
-		strcpy(weapons,"-weapons");
-	if (pp_items)
-		strcpy(items,"-powerups");
-	if (pp_monsters)
-		strcpy(monsters,"-monsters");
+	if (pp_panel) {
+		printArgV[printArgC++] = prpanel;
+	}
+	if (pp_weapons) {
+		printArgV[printArgC++] = weapons;
+	}
+	if (pp_items) {
+		printArgV[printArgC++] = items;
+	}
+	if (pp_monsters) {
+		printArgV[printArgC++] = monsters;
+	}
 		
-	sprintf(string,"doomprint %s %s %s %s %s/%s.dwd",
-		prpanel,
-		weapons,
-		items,
-		monsters,
-		projectdirectory,
-		[cell stringValue]);
+	strncpy(string, [projectdirectory URLByAppendingPathComponent:[cell stringValue]].fileSystemRepresentation, sizeof(string));
+	printArgV[printArgC++] = string;
 		
-	panel = NXGetAlertPanel("Wait...","Printing %s.",
+	panel = NSGetAlertPanel(@"Wait...",@"Printing %@.",
 		NULL,NULL,NULL,[cell stringValue]);
 		
 	[panel	orderFront:NULL];
 	NXPing();
-	system(string);
+	DoomPrintMain(printArgC, printArgV);
 	[panel	orderOut:NULL];
-	NXFreeAlertPanel(panel);
-	
-#endif // Original
+	NSReleaseAlertPanel(panel);
 }
 
 //===================================================================

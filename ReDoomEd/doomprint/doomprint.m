@@ -1,5 +1,6 @@
 #import <AppKit/AppKit.h>
 #import "cmdlib.h"
+#define BUILDDOOMPRINT 1
 #import "doomprint.h"
 
 @class PrintMapView;
@@ -429,7 +430,7 @@ BOOL	runpanel = NO;
 ==================
 */
 
-int DoomPrintMain (int argc, char **argv)
+int DoomPrintMain (int argc, const char **argv)
 {
 	@autoreleasepool {
 	int		i;

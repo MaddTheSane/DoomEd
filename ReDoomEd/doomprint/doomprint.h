@@ -18,6 +18,7 @@
 ===============================================================================
 */
 
+#if defined(BUILDDOOMPRINT) && BUILDDOOMPRINT
 typedef struct
 {
 	int			floorheight, ceilingheight;
@@ -56,7 +57,7 @@ typedef struct
 	int			options;
 	int			area;
 } worldthing_t;
-
+#endif
 
 /*
 ===============================================================================
@@ -71,4 +72,4 @@ extern Storage *thingstore_i;
 
 void LoadDoomMap (char *mapname);
 
-extern int DoomPrintMain (int argc, char **argv);
+extern int DoomPrintMain (int argc, const char **argv);
