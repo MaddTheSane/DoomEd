@@ -250,7 +250,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 			withNames:		NO
 		];
 		[window_i	setFrameUsingName:DOOMNAME];
-		
+		window_i.representedURL = [projectdirectory URLByAppendingPathComponent:@"project.dpr"];
+
 	}
 
 	[self updatePanel];
@@ -424,7 +425,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		return;
 	}
 
-	wadfile = [NSURL fileURLWithPath:filename];
+	wadfile = [panel URL];
 #else // Original
 	strcpy (wadfile, filename);
 #endif
@@ -445,21 +446,21 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 			NULL,NULL,NULL, projpath.path.UTF8String);
 		return;
 	}
-	fprintf (stream, "Doom Project version 1\n\n");
-	fprintf (stream, "wadfile: %s\n\n",wadfile.fileSystemRepresentation);
-	fprintf (stream,"nummaps: 0\n");
-	fclose (stream);
+	fprintf(stream, "Doom Project version 1\n\n");
+	fprintf(stream, "wadfile: %s\n\n", wadfile.fileSystemRepresentation);
+	fprintf(stream, "nummaps: 0\n");
+	fclose(stream);
 
 	texturepath = [projectdirectory URLByAppendingPathComponent:@"texture1.dsp"];
 	stream = fopen (texturepath.fileSystemRepresentation,"w+");
 	if (!stream)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't create %s.",
-			NULL,NULL,NULL,texturepath.path.UTF8String);
+		NSRunAlertPanel(@"Error", @"Couldn't create %@.",
+						NULL, NULL, NULL, texturepath.path);
 		return;
 	}
-	fprintf (stream, "numtextures: 0\n");
-	fclose (stream);
+	fprintf(stream, "numtextures: 0\n");
+	fclose(stream);
 	
 #ifdef REDOOMED
 	// Bugfix: don't leave mapwads as an empty string, otherwise the app will try saving map
@@ -535,10 +536,10 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		return;
 		
 	filename = [projectdirectory URLByAppendingPathComponent:@"project.dpr"];
-	stream = fopen (filename.fileSystemRepresentation,"w");
-	fprintf (stream, "Doom Project version 1\n");
+	stream = fopen(filename.fileSystemRepresentation,"w");
+	fprintf(stream, "Doom Project version 1\n");
 	[self savePV1File: stream];
-	fclose (stream);
+	fclose(stream);
 	projectdirty = NO;
 
 	[self updateTextures];
@@ -626,13 +627,11 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- loadProject: (char const *)path
+- (BOOL)loadProject: (char const *)path
 {
-	if ([self loadProjectWithFileURL:[NSURL fileURLWithFileSystemRepresentation:path isDirectory:NO relativeToURL:nil]]) {
-		return self;
-	}
-	return nil;
+	return [self loadProjectWithFileURL:[NSURL fileURLWithFileSystemRepresentation:path isDirectory:NO relativeToURL:nil]];
 }
+
 - (BOOL)loadProjectWithFileURL:(NSURL *)path;
 {
 	FILE	*stream;
@@ -651,6 +650,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	NSURL *path2 = path;
 	projectdirectory = path2;
 	path2 = [path2 URLByAppendingPathComponent:@"project.dpr"];
+	window_i.representedURL = path2;
 	
 	stream = fopen (path2.fileSystemRepresentation,"r");
 	if (!stream)
@@ -2468,18 +2468,8 @@ static	byte		*buffer, *buf_p;
 }
 
 
-
-/*
-===============
-=
-= writeDoomTextures
-=
-= Writes out a textures.lmp file with the doom version of all the textures
-=
-===============
-*/
-
-- writeDoomTextures
+/// Writes out a textures.lmp file with the doom version of all the textures
+- (void)writeDoomTextures
 {
 	mappatch_t	*patch;
 	maptexture_t	*tex;
@@ -2557,8 +2547,6 @@ static	byte		*buffer, *buf_p;
 		sprintf( txtrname, "%s/texture%d.lmp", mapwads,windex+1 );
 		[self writeBuffer: txtrname];
 	}
-
-	return self;
 }
 
 /*

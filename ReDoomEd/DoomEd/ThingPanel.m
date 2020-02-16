@@ -161,14 +161,14 @@ ThingPanel *thingpanel_i;
 {
 	ThingPanelListObject *thing = [[ThingPanelListObject alloc] init];
 	
-	if (!fields_i)
+	if (!typeField)
 	{
 		NXBeep();
 		[thing release];
 		return NULL;
 	}
 		
-	thing.value = [fields_i		intValueAt:1];
+	thing.value = [typeField intValue];
 
 	thing.name = nameField_i.stringValue;
 	thing.iconName = [iconField_i stringValue];
@@ -290,7 +290,7 @@ ThingPanel *thingpanel_i;
 	ThingPaletteIcon	*icon;
 	
 	iconnum = [thingPalette_i	currentIcon];
-	if (iconnum == NSNotFound)
+	if (iconnum == NSNotFound || iconnum == -1)
 	{
 		NSBeep();
 		return;
@@ -349,8 +349,7 @@ ThingPanel *thingpanel_i;
 			}
 		if (!found)
 		{
-			NSCell *cell = [fields_i cellAtIndex:1];
-			[cell setIntegerValue:num];
+			[typeField setIntegerValue:num];
 			return;
 		}
 	}
@@ -471,8 +470,8 @@ ThingPanel *thingpanel_i;
 ///
 - (void)fillThingData:(ThingPanelListObject *)thing
 {
-	thing.angle = [fields_i		intValueAt:0];
-	thing.value = [fields_i		intValueAt:1];
+	thing.angle = [angleField		intValue];
+	thing.value = [typeField		intValue];
 	[self	confirmCorrectNameEntry:NULL];
 
 	thing.name = nameField_i.stringValue;
@@ -529,8 +528,8 @@ ThingPanel *thingpanel_i;
 ///
 - (void)getThing:(worldthing_t	*)thing
 {
-	thing->angle = [fields_i	intValueAt:0];
-	thing->type = [fields_i	intValueAt:1];
+	thing->angle = [angleField	intValue];
+	thing->type = [typeField	intValue];
 	thing->options = [ambush_i	intValue]<<3;
 	thing->options |= ([network_i	intValue]&1)<<4;
 	thing->options |= [[difficulty_i	cellAtRow:0 column:0] intValue]&1;
@@ -572,7 +571,7 @@ ThingPanel *thingpanel_i;
 
 - (IBAction)setAngle:sender
 {
-	[[fields_i cellAtIndex:0] setIntegerValue:[[sender selectedCell] tag]];
+	[angleField setIntegerValue:[[sender selectedCell] tag]];
 	[self		formTarget:NULL];
 }
 
@@ -609,7 +608,7 @@ ThingPanel *thingpanel_i;
 ///
 - (void)fillDataFromThing:(ThingPanelListObject *)thing
 {
-	[fields_i	setIntValue:thing.value	at:1];
+	[typeField setIntValue:thing.value];
 
 	[nameField_i	setStringValue:thing.name];
 	[thingColor_i	setColor:thing.color];
@@ -625,7 +624,7 @@ ThingPanel *thingpanel_i;
 {
 	[self	fillDataFromThing:thing];
 	
-	[fields_i	setIntValue:thing.angle	at:0];
+	[angleField	setIntValue:thing.angle];
 	[ambush_i	setState:((thing.option)>>3)&1];
 	[network_i	setState:((thing.option)>>4)&1];
 	[[difficulty_i cellAtRow:0 column:0] setState:(thing.option)&1];
@@ -829,8 +828,8 @@ ThingPanel *thingpanel_i;
 
 	[window_i disableFlushWindow];
 	
-	[fields_i setIntValue: basething.angle at: 0];
-	[fields_i setIntValue: basething.type at: 1];
+	[angleField setIntValue: basething.angle];
+	[typeField setIntValue: basething.type];
 	[ambush_i	setIntValue:((basething.options)>>3)&1];
 	[network_i	setIntValue:((basething.options)>>4)&1];
 	[[difficulty_i	cellAtRow:0 column:0] setIntValue:(basething.options)&1];
@@ -853,8 +852,8 @@ ThingPanel *thingpanel_i;
 	int			i;
 	worldthing_t	*thing;
 	
-	basething.angle = [fields_i intValueAt: 0];
-	basething.type = [fields_i intValueAt: 1];
+	basething.angle = [angleField intValue];
+	basething.type = [typeField intValue];
 	basething.options = [ambush_i	intValue]<<3;
 	basething.options |= ([network_i	intValue]&1)<<4;
 	basething.options |= [[difficulty_i cellAtRow:0 column:0] intValue]&1;

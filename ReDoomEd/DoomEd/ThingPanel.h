@@ -36,7 +36,6 @@ extern ThingPanel *thingpanel_i;
 
 @interface ThingPanel:NSObject <NSWindowDelegate>
 {
-	IBOutlet NSForm	*fields_i;
  	IBOutlet ThingWindow *window_i;
 	IBOutlet NSButton *addButton_i;
 	IBOutlet NSButton	*updateButton_i;
@@ -45,6 +44,8 @@ extern ThingPanel *thingpanel_i;
 	IBOutlet NSColorWell *thingColor_i;
 	IBOutlet NSMatrix *thingAngle_i;
 	IBOutlet NSTextField	*iconField_i;
+	IBOutlet NSTextField *typeField;
+	IBOutlet NSTextField *angleField;
 	IBOutlet NSButton	*ambush_i;		// switch
 	IBOutlet NSButton	*network_i;		// switch
 	IBOutlet NSMatrix	*difficulty_i;	// switch matrix
