@@ -337,7 +337,8 @@
 {
 	id	cell;
 	NSMatrix *matrix;
-	NSInteger	max,i,j,flag, which;
+	NSInteger	max,i,j, which;
+	BOOL flag;
 	speciallist_t		*t1, *t2, tt1, tt2;
 	char		name[32] = "\0";
 	
@@ -354,7 +355,7 @@
 	
 	do
 	{
-		flag = 0;
+		flag = NO;
 		for (i = 0;i < max; i++)
 		{
 			t1 = [specialList_i	elementAt:i];
@@ -367,7 +368,7 @@
 					tt2 = *t2;
 					[specialList_i	replaceElementAt:j  with:&tt1];
 					[specialList_i	replaceElementAt:i  with:&tt2];
-					flag = 1;
+					flag = YES;
 					break;
 				}
 			}

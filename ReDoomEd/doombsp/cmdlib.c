@@ -328,9 +328,9 @@ void    StripExtension (char *path)
 #endif // Original (Disable for ReDoomEd)
 
 
-void ExtractFileBase (char *path, char *dest)
+void ExtractFileBase (const char *path, char *dest)
 {
-	char    *src;
+	const char    *src;
 	int             length;
 
 	src = path + strlen(path) - 1;

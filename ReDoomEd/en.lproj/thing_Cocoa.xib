@@ -185,7 +185,7 @@ Type</string>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="18">
                         <rect key="frame" x="79" y="304" width="75" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Ambush" imagePosition="leading" inset="2" id="80">
+                        <buttonCell key="cell" type="check" title="Ambush" imagePosition="left" inset="2" id="80">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="user"/>
                         </buttonCell>
@@ -332,7 +332,7 @@ Display</string>
                     <button fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23">
                         <rect key="frame" x="79" y="323" width="75" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Network" imagePosition="leading" inset="2" id="81">
+                        <buttonCell key="cell" type="check" title="Network" imagePosition="left" inset="2" id="81">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="user"/>
                         </buttonCell>

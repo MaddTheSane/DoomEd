@@ -219,7 +219,7 @@
 	worldthing_t	*wp, *stop;
 	int				diff;
 	
-	diff = [thingpanel_i	getDifficultyDisplay];
+	diff = [thingpanel_i	difficultyDisplay];
 	offset = THINGDRAWSIZE;
 	
 	left = rect.origin.x - offset;
@@ -247,7 +247,7 @@
 		if (wp->selected == 1) {
 			RDE_DPSGlue_SetNSColor([prefpanel_i colorForColor: SELECTED_C]);
 		} else {
-			RDE_DPSGlue_SetNSColor([thingpanel_i getThingColor:wp->type]);
+			RDE_DPSGlue_SetNSColor([thingpanel_i thingColorForType:wp->type]);
 		}
 		r.origin.x = wp->origin.x - offset/2;
 		r.origin.y = wp->origin.y - offset/2;

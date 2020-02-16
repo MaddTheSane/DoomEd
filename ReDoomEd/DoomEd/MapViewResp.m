@@ -193,7 +193,7 @@
 	if (selected < 0)
 		return NULL;
 		
-	[itemlist selectCellAt: selected : 0];
+	[itemlist selectItemAtIndex: selected];
 	[[window scalebutton] setTitle: [[itemlist selectedCell] title]];
 	
 // parse the scale from the title

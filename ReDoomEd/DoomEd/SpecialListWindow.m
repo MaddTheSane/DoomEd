@@ -26,12 +26,12 @@
 {
 	char	key[2];
 	char	string2[32];
-	int		max;
+	NSInteger	max;
 	int		i;
 	speciallist_t	*s;
-	id		specialList_i;
+	Storage	*specialList_i;
 	int		found;
-	int		size;
+	NSInteger	size;
 	int		tries;
 	
 #ifdef REDOOMED

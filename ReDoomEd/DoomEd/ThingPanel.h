@@ -11,6 +11,7 @@
 
 @class Storage;
 @class ThingPanel;
+@class ThingWindow;
 extern ThingPanel *thingpanel_i;
 
 @interface ThingPanelListObject : NSObject
@@ -36,7 +37,7 @@ extern ThingPanel *thingpanel_i;
 @interface ThingPanel:NSObject <NSWindowDelegate>
 {
 	IBOutlet NSForm	*fields_i;
- 	IBOutlet NSPanel *window_i;
+ 	IBOutlet ThingWindow *window_i;
 	IBOutlet NSButton *addButton_i;
 	IBOutlet NSButton	*updateButton_i;
 	IBOutlet NSTextField *nameField_i;
@@ -56,7 +57,7 @@ extern ThingPanel *thingpanel_i;
 }
 
 - (IBAction)changeDifficultyDisplay:sender;
-- (int)getDifficultyDisplay;
+- (int)difficultyDisplay;
 - (void)emptyThingList;
 - (void)pgmTarget;
 - (IBAction)menuTarget:sender;
@@ -67,7 +68,7 @@ extern ThingPanel *thingpanel_i;
 - (IBAction)updateThingData:sender;
 - (void)sortThings;
 - (IBAction)setAngle:sender;
-- (NSColor*)getThingColor:(int)type;
+- (NSColor*)thingColorForType:(int)type;
 - (void)fillThingData:(ThingPanelListObject *)thing;
 - (void)fillDataFromThing:(ThingPanelListObject *)thing;
 - (void)fillAllDataFromThing:(ThingPanelListObject *)thing;
@@ -88,7 +89,7 @@ extern ThingPanel *thingpanel_i;
 - (IBAction)unlinkIcon:sender;
 - (void)selectThingWithIcon:(NSString *)name;
 
-- (ThingPanelListObject *)getCurrentThingData;
+- (ThingPanelListObject *)currentThingData;
 - (void)countCurrentThings;
 
 

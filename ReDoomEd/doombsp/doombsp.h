@@ -124,7 +124,7 @@ extern	boolean		draw;
 
 extern Storage *linestore_i, *thingstore_i;
 
-void LoadDoomMap (char *mapname);
+void LoadDoomMap (const char *mapname);
 
 
 /*

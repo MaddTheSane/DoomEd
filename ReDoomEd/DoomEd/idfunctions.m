@@ -117,7 +117,7 @@ void IDEnclosePoint (NXRect *rect, NXPoint const *point)
 
 unsigned short ShortSwap (unsigned short dat)
 {
-	return NXSwapLittleShortToHost (dat);
+	return NSSwapLittleShortToHost (dat);
 }
 
 

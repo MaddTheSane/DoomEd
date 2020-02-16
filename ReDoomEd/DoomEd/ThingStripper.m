@@ -137,7 +137,7 @@
 	ThingPanelListObject		*t;
 	thingstrip_t	ts;
 
-	t =[thingpanel_i	getCurrentThingData];
+	t =[thingpanel_i	currentThingData];
 	if (t == NULL)
 	{
 		NXBeep();

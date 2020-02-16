@@ -56,7 +56,7 @@ ThingRemapper *thingRemapper_i;
 {
 	ThingPanelListObject	*t;
 	
-	t = [thingpanel_i	getCurrentThingData];
+	t = [thingpanel_i	currentThingData];
 	if (t == NULL)
 		return NULL;
 	return t.name;
@@ -66,7 +66,7 @@ ThingRemapper *thingRemapper_i;
 {
 	ThingPanelListObject	*t;
 	
-	t = [thingpanel_i	getCurrentThingData];
+	t = [thingpanel_i	currentThingData];
 	if (t == NULL)
 		return NULL;
 	return t.name;

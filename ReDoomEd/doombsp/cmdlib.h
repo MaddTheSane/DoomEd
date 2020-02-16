@@ -100,7 +100,7 @@ void 	DefaultExtension (char *path, char *extension);
 void 	DefaultPath (char *path, char *basepath);
 void 	StripFilename (char *path);
 void 	StripExtension (char *path);
-void 	ExtractFileBase (char *path, char *dest);
+void 	ExtractFileBase (const char *path, char *dest);
 
 long 	ParseNum (char *str);
 

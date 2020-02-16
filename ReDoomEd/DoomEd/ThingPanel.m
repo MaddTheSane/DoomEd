@@ -33,7 +33,7 @@
 
 @end
 
-id	thingpanel_i;
+ThingPanel *thingpanel_i;
 
 @implementation ThingPanel {
 	NSMutableArray<ThingPanelListObject*> *masterList_i;
@@ -111,7 +111,7 @@ id	thingpanel_i;
 
 #ifdef REDOOMED
 		[count_i	setStringValue:@" "];
-		[(ThingWindow *) window_i setParent:self];
+		[window_i setParent:self];
 #else // Original
 		[count_i	setStringValue:" "];
 		[window_i	setParent:self];
@@ -157,7 +157,7 @@ id	thingpanel_i;
 		[window_i	orderFront:NULL];
 }
 
-- (ThingPanelListObject *)getCurrentThingData
+- (ThingPanelListObject *)currentThingData
 {
 	ThingPanelListObject *thing = [[ThingPanelListObject alloc] init];
 	
@@ -181,7 +181,7 @@ id	thingpanel_i;
 //	Report the difficulty of Things to view
 //
 //===================================================================
-- (int)getDifficultyDisplay
+- (int)difficultyDisplay
 {
 	return diffDisplay;
 }
@@ -228,7 +228,7 @@ id	thingpanel_i;
 	}
 		
 	max = [masterList_i	count];
-	t = [self	getCurrentThingData];
+	t = [self	currentThingData];
 	count = 0;
 	thing = &things[0];
 
@@ -398,9 +398,9 @@ id	thingpanel_i;
 	}
 }
 
-//
-// sort the thing list
-//
+///
+/// sort the thing list
+///
 - (void)sortThings
 {
 	id	cell;
@@ -426,9 +426,9 @@ id	thingpanel_i;
 	}			
 }
 
-//
-// update current thing with current data
-//
+///
+/// update current thing with current data
+///
 - (IBAction)updateThingData:sender
 {
 	id			cell;
@@ -477,9 +477,9 @@ id	thingpanel_i;
 #endif
 }
 
-//
-// take data from input fields and update thing data
-//
+///
+/// take data from input fields and update thing data
+///
 - (void)fillThingData:(ThingPanelListObject *)thing
 {
 	thing.angle = [fields_i		intValueAt:0];
@@ -502,9 +502,9 @@ id	thingpanel_i;
 	}
 }
 
-//
-// corrects any wrongness in namefield
-//
+///
+/// corrects any wrongness in namefield
+///
 - (IBAction)confirmCorrectNameEntry:sender
 {
 	char		name[32];
@@ -535,9 +535,9 @@ id	thingpanel_i;
 #endif
 }
 
-//
-// fill-in the information for a worldthing_t
-//
+///
+/// fill-in the information for a worldthing_t
+///
 - (void)getThing:(worldthing_t	*)thing
 {
 	thing->angle = [fields_i	intValueAt:0];
@@ -587,12 +587,12 @@ id	thingpanel_i;
 	[self		formTarget:NULL];
 }
 
-- (NSColor*)getThingColor:(int)type
+- (NSColor*)thingColorForType:(int)type
 {
 	NSInteger	index;
 	
 	index = [self  searchForThingType:type];
-	if (index != NSNotFound)
+	if (index == NSNotFound)
 		return [prefpanel_i colorForColor: SELECTED_C];
 	return	[masterList_i objectAtIndex:index].color;
 }

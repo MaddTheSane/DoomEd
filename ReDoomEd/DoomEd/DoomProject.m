@@ -28,10 +28,10 @@ DoomProject *doomproject_i;
 Wadfile *wadfile_i;
 TextLog *log_i;
 
-static int	pp_panel;
-static int	pp_monsters;
-static int	pp_items;
-static int	pp_weapons;
+static BOOL	pp_panel;
+static BOOL	pp_monsters;
+static BOOL	pp_items;
+static BOOL	pp_weapons;
 
 int	numtextures;
 worldtexture_t		*textures;
@@ -483,7 +483,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	[thingpanel_i	emptyThingList];
 
 	printf("Initializing WADfile %s\n",wadfile.path.UTF8String);
-	[ wadfile_i	initFromFile: wadfile.fileSystemRepresentation ];
+	wadfile_i = [[Wadfile alloc] initFromFile: wadfile.fileSystemRepresentation ];
 	
 	printf("Purging existing texture patches.\n");
 	[ textureEdit_i	dumpAllPatches ];	
@@ -1044,19 +1044,19 @@ static NSMatrix *openMatrix;
 
 - (IBAction)togglePanel:sender
 {
-	pp_panel = 1-pp_panel;
+	pp_panel = !pp_panel;
 }
 - (IBAction)toggleItems:sender
 {
-	pp_items = 1-pp_items;
+	pp_items = !pp_items;
 }
 - (IBAction)toggleMonsters:sender
 {
-	pp_monsters = 1-pp_monsters;
+	pp_monsters = !pp_monsters;
 }
 - (IBAction)toggleWeapons:sender
 {
-	pp_weapons = 1-pp_weapons;
+	pp_weapons = !pp_weapons;
 }
 
 //===================================================================
@@ -1085,14 +1085,15 @@ static NSMatrix *openMatrix;
 	NSMatrix	*m;
 	id			cell;
 	NSPanel		*panel;
-	const char	prpanel[10] = "-panel";
-	const char	monsters[10] = "-monsters";
-	const char	items[10] = "-powerups";
-	const char	weapons[10] = "-weapons";
+	const char	prpanel[] = "-panel";
+	const char	monsters[] = "-monsters";
+	const char	items[] = "-powerups";
+	const char	weapons[] = "-weapons";
 	// the doomprint tool's sources are embedded into ReDoomEd, and called via RDEdoombsp_main()
 	const char 	*printArgV[7];
 	int 	printArgC = 1;
 	
+	printArgV[0] = "doomprint";
 	m = [maps_i	matrixInColumn:0];
 	cell = [m selectedCell];
 	if (!cell)
@@ -1114,7 +1115,7 @@ static NSMatrix *openMatrix;
 		printArgV[printArgC++] = monsters;
 	}
 		
-	strncpy(string, [projectdirectory URLByAppendingPathComponent:[cell stringValue]].fileSystemRepresentation, sizeof(string));
+	strncpy(string, [[projectdirectory URLByAppendingPathComponent:[cell stringValue]] URLByAppendingPathExtension:@"dwd"].fileSystemRepresentation, sizeof(string));
 	printArgV[printArgC++] = string;
 		
 	panel = NSGetAlertPanel(@"Wait...",@"Printing %@.",

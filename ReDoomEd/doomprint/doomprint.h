@@ -70,6 +70,6 @@ typedef struct
 extern Storage *linestore_i;
 extern Storage *thingstore_i;
 
-void LoadDoomMap (char *mapname);
+void LoadDoomMap (const char *mapname);
 
 extern int DoomPrintMain (int argc, const char **argv);

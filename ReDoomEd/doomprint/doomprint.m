@@ -436,6 +436,8 @@ int DoomPrintMain (int argc, const char **argv)
 	int		i;
 	NXRect	scaled;
 	char	name[PATH_MAX];
+	//Reset the settings each run, as this is no longer a program
+	//that is relaunched
 	runpanel = weapons = powerups = monsters = NO;
 	
 	i = 1;
@@ -473,13 +475,10 @@ int DoomPrintMain (int argc, const char **argv)
 		scaled = view_i.frame;
 		
 		window_i =
-		[[Window alloc]
-			initContent:	&scaled
-			style:			NX_TITLEDSTYLE
-			backing:		NX_RETAINED
-			buttonMask:		0
-			defer:			NO
-		];
+		[[NSWindow alloc] initWithContentRect: scaled
+									styleMask: NSWindowStyleMaskTitled
+									  backing: NSBackingStoreRetained
+										defer: NO];
 		
 		[window_i setContentView: view_i];
 		[window_i display];
@@ -487,7 +486,7 @@ int DoomPrintMain (int argc, const char **argv)
 		
 		[view_i print: view_i];
 
-// NXPing ();
+		NXPing ();
 // getchar ();
 		[window_i release];
 		window_i = nil;

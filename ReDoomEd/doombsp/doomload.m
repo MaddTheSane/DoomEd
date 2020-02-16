@@ -165,7 +165,7 @@ boolean LineOverlaid (worldline_t *line)
 
 Storage	*linestore_i, *thingstore_i;
 
-void LoadDoomMap (char *mapname)
+void LoadDoomMap (const char *mapname)
 {
 	FILE 		*file;
 	int			i, version;

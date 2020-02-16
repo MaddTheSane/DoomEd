@@ -324,7 +324,7 @@ TexturePalette	*texturePalette_i;
 {
 	texpal_t *t;
 	int		i;
-	int		max;
+	NSInteger		max;
 	NXRect	r;
 	
 	max = [allTextures count];
@@ -513,7 +513,7 @@ TexturePalette	*texturePalette_i;
 //========================================================
 - (IBAction)searchWidth:sender
 {
-	int	i, max,width;
+	NSInteger	i, max,width;
 	texpal_t	*t;
 	
 	width = [widthSearch_i	intValue];
