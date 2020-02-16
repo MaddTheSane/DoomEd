@@ -57,7 +57,10 @@ extern ThingPanel *thingpanel_i;
 }
 
 - (IBAction)changeDifficultyDisplay:sender;
-- (int)difficultyDisplay;
+
+/// Report the difficulty of Things to view
+@property (readonly) int difficultyDisplay;
+
 - (void)emptyThingList;
 - (void)pgmTarget;
 - (IBAction)menuTarget:sender;

@@ -176,24 +176,12 @@ ThingPanel *thingpanel_i;
 	return [thing autorelease];
 }
 
-//===================================================================
-//
-//	Report the difficulty of Things to view
-//
-//===================================================================
-- (int)difficultyDisplay
-{
-	return diffDisplay;
-}
+@synthesize difficultyDisplay=diffDisplay;
 
-//===================================================================
-//
-//	Change the difficulty of Things to view
-//
-//===================================================================
+///	Change the difficulty of Things to view
 - (IBAction)changeDifficultyDisplay:sender
 {
-	id				cell;
+	NSCell			*cell;
 	
 	//
 	//	Handle redrawing Edit windows for diff. change
@@ -361,7 +349,8 @@ ThingPanel *thingpanel_i;
 			}
 		if (!found)
 		{
-			[fields_i	setIntValue:num	at:1];
+			NSCell *cell = [fields_i cellAtIndex:1];
+			[cell setIntegerValue:num];
 			return;
 		}
 	}

@@ -86,6 +86,8 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	public override init() {
 		super.init()
 		colorwell.reserveCapacity(10)
+		color.reserveCapacity(10)
+		openupValues.reserveCapacity(10)
 
 		_=PreferencePanel.__once
 		
@@ -173,7 +175,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 
 		// make sure the path's last character is a path separator, because StripFilename()
 		// (called by -[DoomProject loadProject:]) chops the string at the last path separator
-		newProjectPathString = rdeProjectPathWithTrailingPathSeparator(newProjectPathString)
+		//newProjectPathString = newProjectPathString
 
 		/*
 		// TODO: prevent buffer overflows: check string length
@@ -195,29 +197,28 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	}
 
 	@IBAction open func openupChanged(_ sender: Any!) {
-		guard let cell: NSCell = (sender as AnyObject).selectedCell() else {
+		guard let cell: NSCell = (sender as AnyObject?)?.selectedCell() else {
 			return
 		}
 		
 		openupValues[cell.tag] = cell.state == .on
 	}
     
-	@objc @discardableResult open func appWillTerminate(_ sender: Any!) -> Any! {
+	@objc open func appWillTerminate(_ sender: Any!) {
 		let defaults = UserDefaults.standard
-		for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
-			let colorDat = NSKeyedArchiver.archivedData(withRootObject: color[i])
-			defaults.set(colorDat, forKey: ucolornames[i])
+		for (col, name) in zip(color, ucolornames) {
+			let colorDat = NSKeyedArchiver.archivedData(withRootObject: col)
+			defaults.set(colorDat, forKey: name)
 		}
 		
 		defaults.set(Int(launchThingType), forKey: launchTypeName)
 		defaults.set(projectPath, forKey: projectPathName)
 		
-		for i in 0 ..< Int(openup_e.NUMOPENUP.rawValue) {
-			defaults.set(openupValues[i], forKey: openupNames[i])
+		for (val, name) in zip(openupValues, openupNames) {
+			defaults.set(val, forKey: name)
 		}
 		
 		window?.saveFrame(usingName: PREFNAME)
-		return self
 	}
     
 	@objc func color(forColor ucolor: ucolor_e) -> NSColor {
@@ -236,19 +237,6 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	}
 
     private(set) var launchThingType: Int32 = 0
-}
-
-/// `rdeProjectPathStringWithTrailingPathSeparator`: ReDoomEd utility method to return a project
-/// path that has a path separator ("/") at the end
-private func rdeProjectPathWithTrailingPathSeparator(_ path: String) -> String {
-	var isDirectory: ObjCBool = false
-	if path.count != 0,
-		FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory),
-		isDirectory.boolValue,
-		!path.hasSuffix("/") {
-		return path + "/"
-	}
-	return path
 }
 
 private func colorFromDefault(forKey key: String, defaults: UserDefaults = UserDefaults.standard) -> NSColor? {

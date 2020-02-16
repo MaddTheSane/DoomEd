@@ -257,16 +257,7 @@
 }
 
 
-
-/*
-============
-=
-= drawPoints
-=
-= Rect is in global world (unscaled) coordinates
-============
-*/
-
+/// Rect is in global world (unscaled) coordinates
 - (void)drawPoints: (NSRect)rect
 {
 	NXRect	*unselected, *selected, *unsel_p, *sel_p, *use;

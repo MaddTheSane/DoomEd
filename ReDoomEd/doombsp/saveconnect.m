@@ -241,14 +241,14 @@ void BuildConnections (void)
 	for (i=0 ; i<numsectors-1 ; i++, bbox[0]++)
 	{
 		bbox[1] = bbox[0] + 1;
-		if (bbox[0]->xh - bbox[0]->xl < 64 || bbox[0]->yh - bbox[0]->yl < 64)
+		if (((long)bbox[0]->xh - (long)bbox[0]->xl) < 64 || ((long)bbox[0]->yh - (long)bbox[0]->yl) < 64)
 		{	// don't bother with small sectors (stairs, doorways, etc)
 			continue;
 		}
 
 		for (j=i+1 ; j<numsectors ; j++, bbox[1]++)
 		{
-			if (bbox[1]->xh - bbox[1]->xl < 64 || bbox[1]->yh - bbox[1]->yl < 64)
+			if (((long)bbox[1]->xh - (long)bbox[1]->xl) < 64 || ((long)bbox[1]->yh - (long)bbox[1]->yl) < 64)
 			{	// don't bother with small sectors (stairs, doorways, etc)
 				continue;
 			}
