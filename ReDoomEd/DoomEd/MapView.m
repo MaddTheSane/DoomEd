@@ -288,7 +288,7 @@ printf ("Done\n");
 - displayDirty: (NXRect const *)dirty
 {
 	NXRect	rect;
-	float		adjust;
+	CGFloat		adjust;
 	
 #ifdef REDOOMED
 	// Bugfix: control point sizes are calculated using CPOINTDRAW/scale, not CPOINTDRAW*scale

@@ -459,7 +459,7 @@ SectorEditor	*sectorEdit_i;
 	flat_t		*p;
 	id			panel;
 	
-	panel = NSGetAlertPanel(@"Wait...",@"Dumping texture patches.",
+	panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait..."), NSLocalizedString(@"Dumping texture patches.", @"Dumping texture patches."),
 		NULL,NULL,NULL);
 	[panel	orderFront:NULL];
 	NXPing();

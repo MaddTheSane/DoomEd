@@ -1118,7 +1118,7 @@ static NSMatrix *openMatrix;
 	strncpy(string, [[projectdirectory URLByAppendingPathComponent:[cell stringValue]] URLByAppendingPathExtension:@"dwd"].fileSystemRepresentation, sizeof(string));
 	printArgV[printArgC++] = string;
 		
-	panel = NSGetAlertPanel(@"Wait...",@"Printing %@.",
+	panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait..."),@"Printing %@.",
 		NULL,NULL,NULL,[cell stringValue]);
 		
 	[panel	orderFront:NULL];
@@ -1506,7 +1506,7 @@ typedef struct
 		strcpy(thingCount[k].name,thing.name.UTF8String);
 	}
 	
-	[log_i addMessage:@"Starting to calculate multiple map statistics...\n"];
+	[log_i addMessage:@"Starting to calculate multiple map statistics…\n"];
 	
 	errors = 0;
 	
@@ -2125,7 +2125,7 @@ typedef struct
 	newtexture = windex = 0;
 	do
 	{
-		panel = NSGetAlertPanel(@"Wait...",
+		panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait..."),
 			@"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
 		[panel	orderFront:NULL];
 		NXPing();

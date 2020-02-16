@@ -10,7 +10,7 @@
 "%@ remaps to %@" = "%1$@ remaps to %2$@";
 
 /* Can't print maps. Export to PNG instead? */
-"Can't print maps. Export to PNG instead?" = "Can't print maps. Export to PNG instead?";
+"Can't print maps. Export to PNG instead?" = "Can’t print maps. Export to PNG instead?";
 
 /* Cancel */
 "Cancel" = "Cancel";
@@ -27,6 +27,9 @@
 /* Drawing map image... */
 "Drawing map image..." = "Drawing map image…";
 
+/* Dumping texture patches. */
+"Dumping texture patches." = "Dumping texture patches.";
+
 /* Export All: Save modified map? */
 "Export All: Save modified map?" = "Export All: Save modified map?";
 
@@ -34,7 +37,7 @@
 "Export as PNG..." = "Export as PNG…";
 
 /* information about overwriting during export */
-"Exported map images already exist in \"%@\".\n\nDo you want to replace them?\n" = "Exported map images already exist in \"%@\".\n\nDo you want to replace them?\n";
+"Exported map images already exist in \"%@\".\n\nDo you want to replace them?" = "Exported map images already exist in “%@”.\n\nDo you want to replace them?";
 
 /* Loading icons for Thing Palette. */
 "Loading icons for Thing Palette." = "Loading icons for Thing Palette.";
@@ -58,7 +61,7 @@
 "One moment..." = "One moment…";
 
 /* Let the user know we can't print yet, but PNG is an option. */
-"ReDoomEd currently doesn't support DoomEd's map-printing feature, however, maps can now be exported as PNG-format image files.\n\nImages will be exported at the same zoom level as the current map." = "ReDoomEd currently doesn't support DoomEd's map-printing feature, however, maps can now be exported as PNG-format image files.\n\nImages will be exported at the same zoom level as the current map.";
+"ReDoomEd currently doesn't support DoomEd's map-printing feature, however, maps can now be exported as PNG-format image files.\n\nImages will be exported at the same zoom level as the current map." = "ReDoomEd currently doesn’t support DoomEd’s map-printing feature, however, maps can now be exported as PNG-format image files.\n\nImages will be exported at the same zoom level as the current map.";
 
 /* Replace */
 "Replace" = "Replace";
@@ -77,6 +80,9 @@
 
 /* Toasted it! */
 "Toasted it!" = "Toasted it!";
+
+/* Wait... */
+"Wait..." = "Wait…";
 
 /* Writing PNG file... */
 "Writing PNG file..." = "Writing PNG file…";

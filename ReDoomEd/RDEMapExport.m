@@ -338,7 +338,7 @@ ERROR:
             NSInteger alertReturnCode =
                             NSRunAlertPanel(NSLocalizedString(@"Replace existing map images?", @"Replace existing map images?"),
                                             NSLocalizedString(@"Exported map images already exist in \"%@\".\n\n"
-                                            "Do you want to replace them?\n", @"information about overwriting during export"),
+                                            "Do you want to replace them?", @"information about overwriting during export"),
                                             NSLocalizedString(@"Cancel", @"Cancel"), NSLocalizedString(@"Replace", @"Replace"), nil, exportDirectory);
 
             return (alertReturnCode == NSAlertAlternateReturn) ? YES : NO;

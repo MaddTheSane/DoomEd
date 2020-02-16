@@ -347,7 +347,6 @@ int LineByPoint (NXPoint *ptin, int *side)
 ///	Save DoomEd map and run BSP program
 - (IBAction)saveDoomEdMapBSP:sender
 {
-	char		string[1024];
 #ifdef REDOOMED
 	// prevent buffer overflows: increased the buffer sizes of strcpy() destination
     // strings, toPath & fromPath, to match the buffer sizes of their source strings,
@@ -381,10 +380,7 @@ int LineByPoint (NXPoint *ptin, int *side)
 
 	// prevent buffer overflows: *sprintf() -> *snprintf() in cases where input strings
 	// might be too long for the destination buffer
-	snprintf(string,sizeof(string),"Please wait while I BSP process this map.\n\n"
-		"Map: %s\nMapWADdir: %s\nBSPprogram:%s\nHost: %s",
-		fromPath,toPath,bspprogram,bsphost);
-	panel = NSGetAlertPanel(@"Wait...",@"%s",NULL,NULL,NULL, string);
+	panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait..."),@"Please wait while I BSP process this map.\n\nMap: %s\nMapWADdir: %s\nBSPprogram:%s\nHost: %s",NULL,NULL,NULL, fromPath,toPath,bspprogram,bsphost);
 	[panel	orderFront:NULL];
 	NXPing();
 
