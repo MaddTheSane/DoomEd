@@ -82,7 +82,9 @@ TextureRemapper *textureRemapper_i;
 	int		i;
 	int		linenum;
 	int		flag;
-	
+//	const char *oldStr = oldname.UTF8String;
+//	const char *newStr = newname.UTF8String;
+
 #ifdef REDOOMED
 	// prevent buffer overflows: before calling strcpy(), clip the source string to
 	// the destination strings' (worldside_t's top/bottom/midtexture) buffer size

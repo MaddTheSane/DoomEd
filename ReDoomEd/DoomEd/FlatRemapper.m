@@ -72,53 +72,43 @@ FlatRemapper *flatRemapper_i;
 
 - (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
 {
-	return [self doRemap:oldname.UTF8String to:newname.UTF8String];
-}
-
-- (int)doRemap:(char *)oldname to:(char *)newname
-{
 	int		i;
 	int		linenum;
 	int		flag;
+	const char *oldStr = oldname.UTF8String;
+	const char *newStr = newname.UTF8String;
 	
-#ifdef REDOOMED
-	// prevent buffer overflows: before calling strcpy(), clip the source string to
-	// the destination strings' (sectordef_t's floorflat & ceilingflat) buffer size
-	macroRDE_ClipCStringLocallyForBufferSize(newname,
-	                                        macroRDE_SizeOfTypeMember(sectordef_t, floorflat));
-#endif
-
 	linenum = 0;
 	for (i = 0;i < numlines; i++)
 	{
 		flag = 0;
 		// SIDE 0
-		if (!strcasecmp ( oldname,lines[i].side[0].ends.floorflat))
+		if (!strncasecmp(oldStr, lines[i].side[0].ends.floorflat, sizeof(lines[i].side[0].ends.floorflat)))
 		{
-			strcpy(lines[i].side[0].ends.floorflat, newname );
+			strncpy(lines[i].side[0].ends.floorflat, newStr, sizeof(lines[i].side[0].ends.floorflat));
 			flag++;
 		}
-		if (!strcasecmp( oldname,lines[i].side[0].ends.ceilingflat))
+		if (!strncasecmp(oldStr, lines[i].side[0].ends.ceilingflat, sizeof(lines[i].side[0].ends.ceilingflat)))
 		{
-			strcpy(lines[i].side[0].ends.ceilingflat, newname );
+			strncpy(lines[i].side[0].ends.ceilingflat, newStr, sizeof(lines[i].side[0].ends.ceilingflat));
 			flag++;
 		}
 
 		// SIDE 1
-		if (!strcasecmp ( oldname,lines[i].side[1].ends.floorflat))
+		if (!strncasecmp(oldStr, lines[i].side[1].ends.floorflat, sizeof(lines[i].side[1].ends.floorflat)))
 		{
-			strcpy(lines[i].side[1].ends.floorflat, newname );
+			strncpy(lines[i].side[1].ends.floorflat, newStr, sizeof(lines[i].side[1].ends.floorflat));
 			flag++;
 		}
-		if (!strcasecmp( oldname,lines[i].side[1].ends.ceilingflat))
+		if (!strncasecmp(oldStr, lines[i].side[1].ends.ceilingflat, sizeof(lines[i].side[1].ends.ceilingflat)))
 		{
-			strcpy(lines[i].side[1].ends.ceilingflat, newname );
+			strncpy(lines[i].side[1].ends.ceilingflat, newStr, sizeof(lines[i].side[1].ends.ceilingflat));
 			flag++;
 		}
 		
 		if (flag)
 		{
-			printf("Remapped flat %s to %s.\n",oldname,newname);
+			printf("Remapped flat %s to %s.\n", oldStr, newStr);
 			linenum++;
 		}
 	}

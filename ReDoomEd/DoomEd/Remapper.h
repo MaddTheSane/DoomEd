@@ -18,7 +18,7 @@
 - (void)finishUp;
 
 @optional
-- (int)doRemap:(char *)oldname to:(char *)newname DEPRECATED_ATTRIBUTE;
+- (int)doRemap:(char *)oldname to:(char *)newname API_DEPRECATED_WITH_REPLACEMENT("-doRemapFromName:toName:", macos(10.0, 10.0));
 @end
 
 
