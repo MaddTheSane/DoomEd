@@ -227,21 +227,21 @@ Type</string>
                         <rect key="frame" x="6" y="256" width="71" height="57"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="71" height="19"/>
-                        <buttonCell key="prototype" type="check" title="Switch" imagePosition="leading" controlSize="small" inset="2" id="92">
+                        <buttonCell key="prototype" type="check" title="Switch" imagePosition="left" controlSize="small" inset="2" id="92">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="check" title="Easy" imagePosition="leading" controlSize="small" state="on" inset="2" id="8">
+                                <buttonCell type="check" title="Easy" imagePosition="left" controlSize="small" state="on" inset="2" id="8">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <buttonCell type="check" title="Normal" imagePosition="leading" controlSize="small" state="on" tag="1" inset="2" id="34">
+                                <buttonCell type="check" title="Normal" imagePosition="left" controlSize="small" state="on" tag="1" inset="2" id="34">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <buttonCell type="check" title="Hard" imagePosition="leading" controlSize="small" state="on" tag="2" inset="2" id="2">
+                                <buttonCell type="check" title="Hard" imagePosition="left" controlSize="small" state="on" tag="2" inset="2" id="2">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
@@ -349,25 +349,25 @@ Display</string>
                         </constraints>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="cellSize" width="67" height="18"/>
-                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" controlSize="small" inset="2" id="93">
+                        <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" controlSize="small" inset="2" id="93">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <cells>
                             <column>
-                                <buttonCell type="radio" title="Easy" imagePosition="leading" alignment="left" controlSize="small" state="on" inset="2" id="31">
+                                <buttonCell type="radio" title="Easy" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="31">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Normal" imagePosition="leading" alignment="left" controlSize="small" tag="1" inset="2" id="36">
+                                <buttonCell type="radio" title="Normal" imagePosition="left" alignment="left" controlSize="small" tag="1" inset="2" id="36">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="Hard" imagePosition="leading" alignment="left" controlSize="small" tag="2" inset="2" id="7">
+                                <buttonCell type="radio" title="Hard" imagePosition="left" alignment="left" controlSize="small" tag="2" inset="2" id="7">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>
-                                <buttonCell type="radio" title="All" imagePosition="leading" alignment="left" controlSize="small" tag="3" inset="2" id="44">
+                                <buttonCell type="radio" title="All" imagePosition="left" alignment="left" controlSize="small" tag="3" inset="2" id="44">
                                     <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="smallSystem"/>
                                 </buttonCell>

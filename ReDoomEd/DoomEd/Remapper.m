@@ -384,7 +384,7 @@
 		[matrix	addRow];
 		id cell = [matrix cellAtRow:i column:0];
 		
-		NSString *string = [NSString localizedStringWithFormat:@"%@ remaps to %@", r.originalName, r.theNewName];
+		NSString *string = [NSString stringWithFormat:NSLocalizedString(@"%@ remaps to %@", @"%@ remaps to %@"), r.originalName, r.theNewName];
 		
 		[cell setStringValue:string];
 		[cell setLeaf: YES];

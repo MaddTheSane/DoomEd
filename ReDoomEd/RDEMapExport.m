@@ -199,7 +199,7 @@ ERROR:
         return;
     }
 
-    exportDirectory = [openPanel filename];
+    exportDirectory = [[openPanel URL] path];
 
     if (![self rdeVerifyExportDirectory: exportDirectory])
     {
@@ -278,10 +278,10 @@ ERROR:
     }
     
     panelReturnCode =
-        NSRunAlertPanel(@"Export All: Save modified map?",
-                        @"The current map has unsaved changes. When exporting all maps, "
-                        "unsaved changes will be lost unless the map is saved first.",
-                        @"Cancel Export", @"Save Map & Export", @"Lose Changes & Export");
+        NSRunAlertPanel(NSLocalizedString(@"Export All: Save modified map?", @"Export All: Save modified map?"),
+                        NSLocalizedString(@"The current map has unsaved changes. When exporting all maps, "
+                        "unsaved changes will be lost unless the map is saved first.", @"Ask user to save unsaved maps before exporting"),
+                        NSLocalizedString(@"Cancel Export", @"Cancel Export"), NSLocalizedString(@"Save Map & Export", @"Save Map & Export"), NSLocalizedString(@"Lose Changes & Export", @"Lose Changes & Export"));
 
     if (panelReturnCode == NSAlertAlternateReturn) // Save Changes
     {
@@ -336,10 +336,10 @@ ERROR:
         if ([fileManager fileExistsAtPath: pngFilepath])
         {
             NSInteger alertReturnCode =
-                            NSRunAlertPanel(@"Replace existing map images?",
-                                            @"Exported map images already exist in \"%@\".\n\n"
-                                            "Do you want to replace them?\n",
-                                            @"Cancel", @"Replace", nil, exportDirectory);
+                            NSRunAlertPanel(NSLocalizedString(@"Replace existing map images?", @"Replace existing map images?"),
+                                            NSLocalizedString(@"Exported map images already exist in \"%@\".\n\n"
+                                            "Do you want to replace them?\n", @"information about overwriting during export"),
+                                            NSLocalizedString(@"Cancel", @"Cancel"), NSLocalizedString(@"Replace", @"Replace"), nil, exportDirectory);
 
             return (alertReturnCode == NSAlertAlternateReturn) ? YES : NO;
         }
@@ -380,7 +380,7 @@ ERROR:
 
     gThermoPanelState.messagePrefix = nil;
 
-    scalePercent = (int) roundf(scale * 100.0f);
+    scalePercent = (int) round(scale * 100.0f);
 
     title = [NSString stringWithFormat: @"Exporting %@ (scale: %d%%)",
                                         (numExportedMaps > 1) ? @"maps" : @"map",
@@ -418,19 +418,19 @@ ERROR:
     {
         case kRDEExportMode_DrawingMapImage:
         {
-            modeName = @"Drawing map image...";
+            modeName = NSLocalizedString(@"Drawing map image...", @"Drawing map image...");
         }
         break;
 
         case kRDEExportMode_ConvertingToPNG:
         {
-            modeName = @"Converting to PNG... ";
+            modeName = NSLocalizedString(@"Converting to PNG...", @"Converting to PNG...");
         }
         break;
 
         case kRDEExportMode_SavingFile:
         {
-            modeName = @"Writing PNG file...    ";
+            modeName = NSLocalizedString(@"Writing PNG file...", @"Writing PNG file...");
         }
         break;
 
