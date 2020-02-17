@@ -62,7 +62,6 @@
 		033FAB7420E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4920E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		033FAB7520E83CBC00CC584F /* RDECocoaGlue_Form.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4B20E83CBC00CC584F /* RDECocoaGlue_Form.m */; };
 		033FAB7620E83CBC00CC584F /* RDECocoaGlue_List.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB4E20E83CBC00CC584F /* RDECocoaGlue_List.m */; };
-		033FAB7720E83CBC00CC584F /* RDECocoaGlue_Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5120E83CBC00CC584F /* RDECocoaGlue_Matrix.m */; };
 		033FAB7820E83CBC00CC584F /* RDECocoaGlue_Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5320E83CBC00CC584F /* RDECocoaGlue_Menu.m */; };
 		033FAB7920E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5520E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m */; };
 		033FAB7A20E83CBC00CC584F /* RDECocoaGlue_NXColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 033FAB5720E83CBC00CC584F /* RDECocoaGlue_NXColor.m */; };
@@ -907,7 +906,6 @@
 				033FAB7420E83CBC00CC584F /* RDECocoaGlue_DisplayPostScript.m in Sources */,
 				033FAB7520E83CBC00CC584F /* RDECocoaGlue_Form.m in Sources */,
 				033FAB7620E83CBC00CC584F /* RDECocoaGlue_List.m in Sources */,
-				033FAB7720E83CBC00CC584F /* RDECocoaGlue_Matrix.m in Sources */,
 				033FAB7820E83CBC00CC584F /* RDECocoaGlue_Menu.m in Sources */,
 				033FAB7920E83CBC00CC584F /* RDECocoaGlue_NXBitmapImageRep.m in Sources */,
 				033FAB7A20E83CBC00CC584F /* RDECocoaGlue_NXColor.m in Sources */,

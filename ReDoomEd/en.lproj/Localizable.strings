@@ -87,6 +87,24 @@
 /* Writing PNG file... */
 "Writing PNG file..." = "Writing PNG file…";
 
+/* Error */
+"Error" = "Error";
+
+/* Unknown file version for project %@ */
+"Unknown file version for project %@" = "Unknown file version for project %@";
+
+/* Couldn't open %@ */
+"Couldn't open %@" = "Couldn't open %@";
+
+/* Couldn't open wadfile %@ */
+"Couldn't open wadfile %@" = "Couldn't open wadfile %@";
+
+/* Couldn't parse project file %@ */
+"Couldn't parse project file %@" = "Couldn't parse project file %@";
+
+/* Project filepath is too long. */
+"Project filepath is too long." = "Project filepath is too long.";
+
 
 
 "%u remappings." = "%u remappings.";

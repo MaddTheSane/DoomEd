@@ -26,7 +26,7 @@
     id			editworld_i;
 #endif
 
-int			numpoints, numlines, numthings;
+NSInteger			numpoints, numlines, numthings;
 
 worldpoint_t	*points;
 worldline_t	*lines;
@@ -1156,8 +1156,8 @@ FIXME: make these scan for deleted entries
 
 	if (num >= numpoints)
 	{
-		NSRunAlertPanel (@"Error",@"Sent point %i with numpoints %i!"
-			,NULL,NULL,NULL, num, numpoints);
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),@"Sent point %i with numpoints %li!",
+						 NULL,NULL,NULL, num, (long)numpoints);
 		[NXApp terminate:self];
 	}
 	
@@ -1186,7 +1186,7 @@ FIXME: make these scan for deleted entries
 //printf ("changeLine: %i\n",num);
 	if (num >= numlines)
 	{
-		NSRunAlertPanel (@"Error",@"Sent line %i with numlines %i!",NULL,NULL,NULL, num, numlines);
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),@"Sent line %i with numlines %li!",NULL,NULL,NULL, num, (long)numlines);
 		[NXApp terminate:self];
 	}
 
@@ -1247,7 +1247,7 @@ FIXME: make these scan for deleted entries
 //printf ("changeThing: %i\n",num);
 	if (num >= numthings)
 	{
-		NSRunAlertPanel (@"Error",@"Sent thing %i with numthings %i!",NULL,NULL,NULL, num, numthings);
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),@"Sent thing %i with numthings %li!",NULL,NULL,NULL, num, (long)numthings);
 		[NXApp terminate:self];
 	}
 

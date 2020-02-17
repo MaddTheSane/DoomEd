@@ -82,8 +82,8 @@
 
 - drawSelf:(const NXRect *)rects :(int)rectCount
 {
-	int		ct,i,outlineflag;
-	int		patchCount;
+	int		ct,outlineflag;
+	NSInteger	patchCount, i;
 	texpatch_t	*tpatch;
 	
 	ct = [textureEdit_i	currentTexture];
@@ -121,11 +121,11 @@
 	//
 	// if multiple selections, draw their outlines
 	//
-	if ([[textureEdit_i	selectedTexturePatches]		count])
+	if ([[textureEdit_i selectedTexturePatches] count])
 	{
-		int	max;
+		NSInteger	max;
 		
-		max = [[textureEdit_i	selectedTexturePatches]	count];
+		max = [[textureEdit_i selectedTexturePatches] count];
 		for (i = 0;i<max;i++)
 		{
 			tpatch = [texturePatches	elementAt:*(int *)[[textureEdit_i selectedTexturePatches] elementAt:i]];

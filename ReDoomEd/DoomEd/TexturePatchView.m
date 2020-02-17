@@ -65,7 +65,7 @@
 //==============================================================
 - drawSelf:(const NXRect *)rects :(int)rectCount
 {
-	int 		i, max, patchnum,selectedPatch;
+	NSInteger	i, max, patchnum,selectedPatch;
 	apatch_t	*patch;
 	divider_t	*d;
 	NXRect	clipview, r;

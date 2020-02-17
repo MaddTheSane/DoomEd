@@ -64,7 +64,7 @@
 	int		count;
 	texpal_t	*t;
 	NXRect	r;
-	int		max, i;
+	NSInteger	max, i;
 	divider_t	*d;
 #ifdef REDOOMED
 	// Cocoa compatibility: can no longer access 'bounds' as an instance var, fake it using a local

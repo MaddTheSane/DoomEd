@@ -65,7 +65,8 @@ int		linecrunch[8192];
 
 - writeFlatNames
 {
-	int	lump, count, i,j;
+	NSInteger lump;
+	int count, i,j;
 	worldline_t	*line;
 
 //

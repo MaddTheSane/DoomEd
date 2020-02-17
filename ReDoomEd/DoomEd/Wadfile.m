@@ -189,21 +189,21 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 	return [info count];
 }
 
-- (int)lumpsize: (int)lump
+- (int)lumpsize: (NSInteger)lump
 {
 	lumpinfo_t	*inf;
 	inf = [info elementAt: lump];
 	return inf->size;
 }
 
-- (int)lumpstart: (int)lump
+- (int)lumpstart: (NSInteger)lump
 {
 	lumpinfo_t	*inf;
 	inf = [info elementAt: lump];
 	return inf->filepos;
 }
 
-- (char const *)lumpname: (int)lump
+- (char const *)lumpname: (NSInteger)lump
 {
 	lumpinfo_t	*inf;
 	inf = [info elementAt: lump];
@@ -264,7 +264,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 ================
 */
 
-- (void *)loadLump: (int)lump
+- (void *)loadLump: (NSInteger)lump
 {
 	lumpinfo_t	*inf;
 	byte			*buf;

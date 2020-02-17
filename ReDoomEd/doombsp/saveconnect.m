@@ -36,14 +36,14 @@ typedef struct
 // [numsec][numsec] array
 byte		*connections;
 
-int			numblines;
-bline_t	*blines;
+static NSInteger	numblines;
+static bline_t		*blines;
 
-int			numsectors;
-bbox_t		*secboxes;
+static NSInteger	numsectors;
+static bbox_t		*secboxes;
 
-int			numbchains;
-bchain_t	*bchains;
+static NSInteger	numbchains;
+static bchain_t		*bchains;
 
 static void BuildBlockingChains(void);
 static void ClearBBox(bbox_t *box);
@@ -550,7 +550,7 @@ void ProcessConnections (void)
 void OutputConnections (void)
 {
 	int		i;
-	int		bytes;
+	size_t		bytes;
 	char	*cons;
 	char	*bits;
 	
@@ -564,8 +564,8 @@ void OutputConnections (void)
 		cons +=8;
 	}
 	
-	[wad_i addName: "reject" data:bits size:bytes];
-	printf ("reject: %i\n",bytes);	
+	[wad_i addName: "reject" data:bits size:(int)bytes];
+	printf ("reject: %zu\n",bytes);
 
 #ifdef REDOOMED
 	// prevent memory leaks

@@ -635,7 +635,6 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 - (BOOL)loadProjectWithFileURL:(NSURL *)path;
 {
 	FILE	*stream;
-	char	projpath[1024];
 	int		version, ret;
 	int		oldnumtextures;
 #ifdef REDOOMED
@@ -643,7 +642,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	if (strlen(path.fileSystemRepresentation) > RDE_MAX_FILEPATH_LENGTH)
 	{
-		NSRunAlertPanel (@"Error",@"%@",@"OK",NULL,NULL, @"Project filepath is too long.");
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),@"%@",@"OK",NULL,NULL, NSLocalizedString(@"Project filepath is too long.", @"Project filepath is too long."));
 		return NO;
 	}
 #endif
@@ -655,7 +654,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	stream = fopen (path2.fileSystemRepresentation,"r");
 	if (!stream)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't open %@",NULL,NULL,NULL, path2.path);
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"),NULL,NULL,NULL, path2.path);
 		return NO;
 	}
 	version = -1;
@@ -665,15 +664,15 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	else
 	{
 		fclose (stream);
-		NSRunAlertPanel (@"Error",@"Unknown file version for project %s",
-			NULL,NULL,NULL, projpath);
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Unknown file version for project %@", @"Unknown file version for project %@"),
+			NULL,NULL,NULL, path2.path);
 		return NO;
 	}
 
 	if (!ret)
 	{
 		fclose (stream);
-		NSRunAlertPanel (@"Error",@"Couldn't parse project file %s",NULL,NULL,NULL, projpath);
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"),NULL,NULL,NULL, path2.path);
 		return NO;
 	}
 	
@@ -701,7 +700,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	wadfile_i = [[Wadfile alloc] initFromFile: wadfile.fileSystemRepresentation];
 	if (!wadfile_i)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't open wadfile %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),NSLocalizedString(@"Couldn't open wadfile %@", @"Couldn't open wadfile %@"),
 			NULL,NULL,NULL, wadfile.path);
 		return NO;
 	}
@@ -957,7 +956,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 //	Load Map Functions
 //
 //===================================================================
-static int	oldSelRow,curMap;
+static NSInteger	oldSelRow,curMap;
 static NSMatrix *openMatrix;
 
 //	Init to start opening all maps
@@ -1188,7 +1187,7 @@ typedef struct
 	texpal_t	*t;
 	NSMatrix	*openMatrix;
 	NSInteger	selRow;
-	int		numth;
+	NSInteger	numth;
 	tc_t	*thingCount;
 	
 	if ([editworld_i	loaded] == NO)
@@ -1455,8 +1454,8 @@ typedef struct
 {
 	NSMatrix *openMatrix;
 
-	int		numPatches;
-	int		*patchCount;
+	NSInteger		numPatches;
+	NSInteger		*patchCount;
 	const char *patchName;
 	
 	int		i;
@@ -1770,7 +1769,7 @@ typedef struct
 	numPatches = [textureEdit_i	countOfPatches];
 	patchCount = calloc(numPatches, sizeof(*patchCount));
 	
-	fprintf(stream, "Number of patches in project:%d\n",numPatches);
+	fprintf(stream, "Number of patches in project:%ld\n",(long)numPatches);
 	fprintf(stream, "Patch count:\n");
 	for (i = 0;i < numPatches; i++)
 	{
@@ -1780,8 +1779,8 @@ typedef struct
 			for (k = 0;k < textures[j].patchcount; k++)
 				if (!strcasecmp(patchName,textures[j].patches[k].patchname))
 					patchCount[i]++;
-		fprintf(stream, "Patch\x9\x9\x9%d\x9\x9\x9%s\n",
-			patchCount[i],patchName);
+		fprintf(stream, "Patch\x9\x9\x9%ld\x9\x9\x9%s\n",
+				(long)patchCount[i],patchName);
 	}
 
 	//

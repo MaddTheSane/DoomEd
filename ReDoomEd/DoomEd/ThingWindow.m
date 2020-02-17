@@ -26,12 +26,12 @@
 {
 	char	key[2];
 	char	string2[32];
-	int		max;
-	int		i;
+	NSInteger	max;
+	NSInteger	i;
 	ThingPanelListObject	*t;
 	NSArray<ThingPanelListObject*>		*thingList_i;
-	int		found;
-	int		size;
+	BOOL		found;
+	NSInteger	size;
 	int		tries;
 	
 #ifdef REDOOMED
@@ -50,7 +50,7 @@
 	
 	while(tries)
 	{
-		found = 0;
+		found = NO;
 		
 		for (i = 0;i < max; i++)
 		{
@@ -61,7 +61,7 @@
 			if (!strncmp(string,string2,size))
 			{
 				[parent_i	scrollToItem:i];
-				found = 1;
+				found = YES;
 				tries = 0;
 				break;
 			}

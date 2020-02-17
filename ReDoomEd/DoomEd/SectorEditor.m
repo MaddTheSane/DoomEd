@@ -396,7 +396,7 @@ SectorEditor	*sectorEdit_i;
 //============================================================
 - (IBAction)locateFlat:sender
 {
-	int	flat;
+	NSInteger	flat;
 	flat_t	*f;
 	NXRect	r;
 	
@@ -455,9 +455,9 @@ SectorEditor	*sectorEdit_i;
 //==========================================================
 - (void)dumpAllFlats
 {
-	int			i, max;
+	NSInteger	i, max;
 	flat_t		*p;
-	id			panel;
+	NSPanel		*panel;
 	
 	panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait..."), NSLocalizedString(@"Dumping texture patches.", @"Dumping texture patches."),
 		NULL,NULL,NULL);

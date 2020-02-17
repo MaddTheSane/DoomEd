@@ -50,7 +50,7 @@ extern SectorEditor *sectorEdit_i;
 	IBOutlet NSTextField	*totalHeight_i;
 	IBOutlet NSTextField	*curFlat_i;
 	
-	int	ceiling_flat,floor_flat;
+	NSInteger	ceiling_flat,floor_flat;
 	sectordef_t	sector;
 	
 	Storage	*flatImages;

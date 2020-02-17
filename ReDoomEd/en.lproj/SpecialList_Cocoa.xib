@@ -53,7 +53,7 @@
                             <action selector="addSpecial:" target="-2" id="17"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3">
                         <rect key="frame" x="18" y="205" width="141" height="16"/>
                         <textFieldCell key="cell" title="Description of Special:" id="23">
                             <font key="font" metaFont="system"/>
@@ -75,7 +75,7 @@
                             <outlet property="nextKeyView" destination="7" id="11"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="18" y="166" width="79" height="11"/>
                         <textFieldCell key="cell" controlSize="mini" alignment="center" title="Value of Special" id="24">
                             <font key="font" metaFont="miniSystem"/>

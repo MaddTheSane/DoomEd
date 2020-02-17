@@ -1002,7 +1002,7 @@ Storage *texturePatches;
 	// add texture to palette
 	//
 	count = 0;
-	tex.patchcount = [texturePatches count];
+	tex.patchcount = (int)[texturePatches count];
 	tex.width = textures[currentTexture].width;
 	tex.height = textures[currentTexture].height;
 	tex.WADindex = textures[currentTexture].WADindex;

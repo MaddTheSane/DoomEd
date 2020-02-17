@@ -22,11 +22,11 @@
 - (void) close;
 
 - (NSInteger)countOfLumps;
-- (int)lumpsize: (int)lump;
-- (int)lumpstart: (int)lump;
-- (char const *)lumpname: (int)lump;
+- (int)lumpsize: (NSInteger)lump;
+- (int)lumpstart: (NSInteger)lump;
+- (char const *)lumpname: (NSInteger)lump;
 - (NSInteger)lumpNamed: (char const *)name;
-- (void *)loadLump: (int)lump;
+- (void *)loadLump: (NSInteger)lump;
 - (void *)loadLumpNamed: (char const *)name;
 
 - (void)addName: (char const *)name data: (void *)data size: (int)size;

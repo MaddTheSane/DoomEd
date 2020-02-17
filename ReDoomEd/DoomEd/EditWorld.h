@@ -90,7 +90,7 @@ typedef struct
     extern	id			editworld_i;
 #endif
 
-extern	int			numpoints, numlines, numthings;
+extern	NSInteger		numpoints, numlines, numthings;
 
 extern	worldpoint_t	*points;
 extern	worldline_t	*lines;
