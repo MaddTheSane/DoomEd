@@ -74,65 +74,53 @@ TextureRemapper *textureRemapper_i;
 
 - (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname
 {
-	return [self doRemap:oldname.UTF8String to:newname.UTF8String];
-}
-
-- (int)doRemap:(char *)oldname to:(char *)newname
-{
 	int		i;
 	int		linenum;
 	int		flag;
-//	const char *oldStr = oldname.UTF8String;
-//	const char *newStr = newname.UTF8String;
-
-#ifdef REDOOMED
-	// prevent buffer overflows: before calling strcpy(), clip the source string to
-	// the destination strings' (worldside_t's top/bottom/midtexture) buffer size
-	macroRDE_ClipCStringLocallyForBufferSize(newname,
-	                                        macroRDE_SizeOfTypeMember(worldside_t, toptexture));
-#endif
+	const char *oldStr = oldname.UTF8String;
+	const char *newStr = newname.UTF8String;
 
 	linenum = 0;
 	for (i = 0;i < numlines; i++)
 	{
 		flag = 0;
 		// SIDE 0
-		if (!strcasecmp ( oldname,lines[i].side[0].bottomtexture))
+		if (!strncasecmp(oldStr, lines[i].side[0].bottomtexture, sizeof(lines[i].side[0].bottomtexture)))
 		{
-			strcpy(lines[i].side[0].bottomtexture, newname );
+			strncpy(lines[i].side[0].bottomtexture, newStr, sizeof(lines[i].side[0].bottomtexture));
 			flag++;
 		}
-		if (!strcasecmp( oldname,lines[i].side[0].midtexture))
+		if (!strncasecmp(oldStr, lines[i].side[0].midtexture, sizeof(lines[i].side[0].midtexture)))
 		{
-			strcpy(lines[i].side[0].midtexture, newname );
+			strncpy(lines[i].side[0].midtexture, newStr, sizeof(lines[i].side[0].midtexture));
 			flag++;
 		}
-		if (!strcasecmp( oldname ,lines[i].side[0].toptexture))
+		if (!strncasecmp(oldStr, lines[i].side[0].toptexture, sizeof(lines[i].side[0].toptexture)))
 		{
-			strcpy(lines[i].side[0].toptexture, newname );
+			strncpy(lines[i].side[0].toptexture, newStr, sizeof(lines[i].side[0].toptexture));
 			flag++;
 		}
 
 		// SIDE 1
-		if (!strcasecmp ( oldname,lines[i].side[1].bottomtexture))
+		if (!strncasecmp(oldStr, lines[i].side[1].bottomtexture, sizeof(lines[i].side[1].bottomtexture)))
 		{
-			strcpy(lines[i].side[1].bottomtexture, newname );
+			strncpy(lines[i].side[1].bottomtexture, newStr, sizeof(lines[i].side[1].bottomtexture));
 			flag++;
 		}
-		if (!strcasecmp( oldname,lines[i].side[1].midtexture))
+		if (!strncasecmp(oldStr, lines[i].side[1].midtexture, sizeof(lines[i].side[1].midtexture)))
 		{
-			strcpy(lines[i].side[1].midtexture, newname );
+			strncpy(lines[i].side[1].midtexture, newStr, sizeof(lines[i].side[1].midtexture));
 			flag++;
 		}
-		if (!strcasecmp( oldname ,lines[i].side[1].toptexture))
+		if (!strncasecmp(oldStr, lines[i].side[1].toptexture, sizeof(lines[i].side[1].toptexture)))
 		{
-			strcpy(lines[i].side[1].toptexture, newname );
+			strncpy(lines[i].side[1].toptexture, newStr, sizeof(lines[i].side[1].toptexture));
 			flag++;
 		}
 		
 		if (flag)
 		{
-			printf("Remapped texture %s to %s.\n",oldname,newname);
+			printf("Remapped texture %s to %s.\n", oldStr, newStr);
 			linenum++;
 		}
 	}
