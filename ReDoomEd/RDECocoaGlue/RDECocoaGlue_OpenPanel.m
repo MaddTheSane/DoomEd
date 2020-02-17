@@ -1,5 +1,5 @@
 /*
-    RDECocoaGlue_Window.h
+    RDECocoaGlue_OpenPanel.m
 
     Copyright 2019 Josh Freeman
     http://www.twilightedge.com
@@ -21,33 +21,17 @@
     this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_OpenPanel.h"
 
 
-#define Window NSWindow
+@implementation NSOpenPanel (RDECocoaGlue_OpenPanelMethods)
 
+- (id) chooseDirectories: (BOOL) flag
+{
+    [self setCanChooseDirectories: flag];
 
-@interface NSWindow (RDECocoaGlue_WindowMethods)
-
-- (instancetype) initContent: (const NSRect *) contentRectPtr
-        style: (NSUInteger) styleMask
-        backing: (NSBackingStoreType) backingStoreType
-        buttonMask: (NSUInteger) buttonMask
-        defer: (BOOL) flag;
-
-- (NSEventMask) setEventMask: (NSEventMask) mask;
-
-- (NSEventMask) addToEventMask: (NSEventMask) mask;
-
-- (id) disableDisplay;
-- (id) reenableDisplay;
-
-- (id) reenableFlushWindow;
-
-- (id) setAvoidsActivation: (BOOL) flag;
-
-- (id) setTitleAsFilename: (const char *) aString;
-
-- (id) setDocEdited: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setDocumentEdited:", macos(10.0, 10.0));
+    return self;
+}
 
 @end
+

@@ -70,6 +70,11 @@ static NSString *CocoaNibNameForNibSection(const char *nibSection);
     *returnedScreenSize = [[NSScreen mainScreen] visibleFrame].size;
 }
 
+- (NSModalResponse) runModalFor: (NSWindow *) theWindow
+{
+    return [self runModalForWindow: theWindow];
+}
+
 @end
 
 static NSString *CocoaNibNameForNibSection(const char *nibSection)

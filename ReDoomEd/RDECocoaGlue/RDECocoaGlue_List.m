@@ -1,5 +1,5 @@
 /*
-    RDECocoaGlue_Window.h
+    RDECocoaGlue_List.m
 
     Copyright 2019 Josh Freeman
     http://www.twilightedge.com
@@ -21,33 +21,34 @@
     this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_List.h"
 
 
-#define Window NSWindow
+@implementation NSMutableArray (RDECocoaGlue_ListMethods)
 
+- (id) objectAt: (unsigned int) index
+{
+    id object = nil;
 
-@interface NSWindow (RDECocoaGlue_WindowMethods)
+    if (index < [self count])
+    {
+        object = [self objectAtIndex: index];
+    }
 
-- (instancetype) initContent: (const NSRect *) contentRectPtr
-        style: (NSUInteger) styleMask
-        backing: (NSBackingStoreType) backingStoreType
-        buttonMask: (NSUInteger) buttonMask
-        defer: (BOOL) flag;
+    return object;
+}
 
-- (NSEventMask) setEventMask: (NSEventMask) mask;
+- (void) makeObjectsPerform: (SEL) aSelector
+{
+    [self makeObjectsPerformSelector: aSelector];
+}
 
-- (NSEventMask) addToEventMask: (NSEventMask) mask;
+- (id) empty
+{
+    [self removeAllObjects];
 
-- (id) disableDisplay;
-- (id) reenableDisplay;
-
-- (id) reenableFlushWindow;
-
-- (id) setAvoidsActivation: (BOOL) flag;
-
-- (id) setTitleAsFilename: (const char *) aString;
-
-- (id) setDocEdited: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setDocumentEdited:", macos(10.0, 10.0));
+    return self;
+}
 
 @end
+

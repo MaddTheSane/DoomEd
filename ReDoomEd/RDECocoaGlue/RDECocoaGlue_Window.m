@@ -101,5 +101,12 @@
     return self;
 }
 
+- (id) setDocEdited: (BOOL) flag
+{
+    [self setDocumentEdited: flag];
+
+    return self;
+}
+
 @end
 

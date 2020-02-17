@@ -1,5 +1,5 @@
 /*
-    RDECocoaGlue_Window.h
+    RDECocoaGlue_Sound.h
 
     Copyright 2019 Josh Freeman
     http://www.twilightedge.com
@@ -24,30 +24,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-#define Window NSWindow
+#define Sound NSSound
 
 
-@interface NSWindow (RDECocoaGlue_WindowMethods)
+@interface NSSound (RDECocoaGlue_SoundMethods)
 
-- (instancetype) initContent: (const NSRect *) contentRectPtr
-        style: (NSUInteger) styleMask
-        backing: (NSBackingStoreType) backingStoreType
-        buttonMask: (NSUInteger) buttonMask
-        defer: (BOOL) flag;
-
-- (NSEventMask) setEventMask: (NSEventMask) mask;
-
-- (NSEventMask) addToEventMask: (NSEventMask) mask;
-
-- (id) disableDisplay;
-- (id) reenableDisplay;
-
-- (id) reenableFlushWindow;
-
-- (id) setAvoidsActivation: (BOOL) flag;
-
-- (id) setTitleAsFilename: (const char *) aString;
-
-- (id) setDocEdited: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setDocumentEdited:", macos(10.0, 10.0));
+- (id) initFromSection: (const char *) section;
 
 @end
+

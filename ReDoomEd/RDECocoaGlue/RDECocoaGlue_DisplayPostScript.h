@@ -23,8 +23,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-// DPS enums: only the values used by DoomEd are defined
-
 typedef NS_ENUM(unsigned char, DPSNumberFormat) {
 #ifdef __BIG_ENDIAN__
     dps_float = 48,

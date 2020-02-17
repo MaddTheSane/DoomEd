@@ -1,5 +1,5 @@
 /*
-    RDECocoaGlue_Window.h
+    RDECocoaGlue_List.h
 
     Copyright 2019 Josh Freeman
     http://www.twilightedge.com
@@ -24,30 +24,16 @@
 #import <Cocoa/Cocoa.h>
 
 
-#define Window NSWindow
+#define List NSMutableArray
 
 
-@interface NSWindow (RDECocoaGlue_WindowMethods)
+@interface NSMutableArray (RDECocoaGlue_ListMethods)
 
-- (instancetype) initContent: (const NSRect *) contentRectPtr
-        style: (NSUInteger) styleMask
-        backing: (NSBackingStoreType) backingStoreType
-        buttonMask: (NSUInteger) buttonMask
-        defer: (BOOL) flag;
+- (id) objectAt: (unsigned int) index API_DEPRECATED_WITH_REPLACEMENT("-objectAtIndex:", macos(10.0, 10.0));
 
-- (NSEventMask) setEventMask: (NSEventMask) mask;
+- (void) makeObjectsPerform: (SEL) aSelector API_DEPRECATED_WITH_REPLACEMENT("-makeObjectsPerformSelector:", macos(10.0, 10.0));
 
-- (NSEventMask) addToEventMask: (NSEventMask) mask;
-
-- (id) disableDisplay;
-- (id) reenableDisplay;
-
-- (id) reenableFlushWindow;
-
-- (id) setAvoidsActivation: (BOOL) flag;
-
-- (id) setTitleAsFilename: (const char *) aString;
-
-- (id) setDocEdited: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setDocumentEdited:", macos(10.0, 10.0));
+- (id) empty API_DEPRECATED_WITH_REPLACEMENT("-removeAllObjects", macos(10.0, 10.0));
 
 @end
+
