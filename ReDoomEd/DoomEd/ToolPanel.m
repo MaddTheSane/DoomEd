@@ -24,22 +24,21 @@ ToolPanel *toolpanel_i;
 {
 	switch([self	currentTool])
 	{
-		case THING_TOOL:
+		case ToolThing:
 			[thingpanel_i	pgmTarget];
 		default:
 			break;
 	}
 }
 
-- (tool_t)currentTool
+- (ToolPanelTool)currentTool
 {
 	return [toolmatrix_i selectedRow];
 }
 
-- changeTool:(int)which
+- (void)changeTool:(int)which
 {
 	[toolmatrix_i	selectCellAtRow:which column:0];
-	return self;
 }
 
 

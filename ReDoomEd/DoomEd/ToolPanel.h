@@ -6,16 +6,15 @@
 #   import <appkit/appkit.h>
 #endif
 
-typedef NS_ENUM(NSInteger, tool_t)
-{
-	SELECT_TOOL = 0,
-	POLY_TOOL,
-	LINE_TOOL,
-	ZOOMIN_TOOL,
-	SLIDE_TOOL,
-	GET_TOOL,
-	THING_TOOL,
-	LAUNCH_TOOL
+typedef NS_ENUM(NSInteger, ToolPanelTool) {
+	ToolSelect = 0,
+	ToolPolygon,
+	ToolLine,
+	ToolZoomIn,
+	ToolSlide,
+	ToolGet,
+	ToolThing,
+	ToolLaunch
 };
 
 @class ToolPanel;
@@ -27,8 +26,8 @@ extern ToolPanel *toolpanel_i;
 }
 
 - (IBAction)toolChanged:sender;
-- (tool_t)currentTool;
-- changeTool:(int)which;
+- (ToolPanelTool)currentTool;
+- (void)changeTool:(int)which;
 
 @end
 

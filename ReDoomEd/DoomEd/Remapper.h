@@ -17,8 +17,6 @@
 - (int)doRemapFromName:(NSString *)oldname toName:(NSString *)newname;
 - (void)finishUp;
 
-@optional
-- (int)doRemap:(char *)oldname to:(char *)newname API_DEPRECATED_WITH_REPLACEMENT("-doRemapFromName:toName:", macos(10.0, 10.0));
 @end
 
 

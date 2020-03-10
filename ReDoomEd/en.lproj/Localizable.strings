@@ -94,20 +94,34 @@
 "Unknown file version for project %@" = "Unknown file version for project %@";
 
 /* Couldn't open %@ */
-"Couldn't open %@" = "Couldn't open %@";
+"Couldn't open %@" = "Couldn’t open %@";
 
 /* Couldn't open wadfile %@ */
-"Couldn't open wadfile %@" = "Couldn't open wadfile %@";
+"Couldn't open wadfile %@" = "Couldn’t open wadfile %@";
 
 /* Couldn't parse project file %@ */
-"Couldn't parse project file %@" = "Couldn't parse project file %@";
+"Couldn't parse project file %@" = "Couldn’t parse project file %@";
 
 /* Project filepath is too long. */
 "Project filepath is too long." = "Project filepath is too long.";
 
+/* Continue */
+"Continue" = "Continue";
 
+/* Programming Error? */
+"Programming Error?" = "Programming Error?";
 
+"Returned a bad texture index: %ld" = "Returned a bad texture index: %ld";
+"Found a line with a texture that isn't present: '%s'" = "Found a line with a texture that isn't present: ‘%s’";
 "%u remappings." = "%u remappings.";
 "%u total remappings performed." = "%u total remappings performed.";
 "Loading flat set #%d for Sector Editor." = "Loading flat set #%d for Sector Editor.";
 "Loading patch set #%d for Texture Editor." = "Loading patch set #%d for Texture Editor.";
+"Hey!" = "Hey!";
+"You don't have a world loaded!" = "You don't have a world loaded!";
+"Oops, what a dolt I am!" = "Oops, what a dolt I am!";
+"Could not stream to %@" = "Could not stream to %@";
+"Reading textures from %@." = "Reading textures from %@.";
+"Writing textures to %@." = "Writing textures to %@.";
+"Couldn't create %@" = "Couldn't create %@";
+"Could not parse %@" = "Could not parse %@";

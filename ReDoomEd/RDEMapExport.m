@@ -66,7 +66,7 @@ static NSBitmapImageRep *gMapViewBitmap;
 
 - (bool) rdeVerifyExportDirectory: (NSString *) exportDirectoryPath;
 
-- (void) rdeDisplayMapAtIndex: (int) mapIndex;
+- (void) rdeDisplayMapAtIndex: (NSInteger) mapIndex;
 
 - (void) rdeSetupExportThermoPanelWithNumExportedMaps: (int) numExportedMaps
                                             andScale: (float) scale;
@@ -351,7 +351,7 @@ ERROR:
     return NO;
 }
 
-- (void) rdeDisplayMapAtIndex: (int) mapIndex
+- (void) rdeDisplayMapAtIndex: (NSInteger) mapIndex
 {
     NSMatrix *mapNameMatrix = [maps_i matrixInColumn: 0];
 

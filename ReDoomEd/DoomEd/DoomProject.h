@@ -119,28 +119,28 @@ extern	char	bsphost[32];		//!< bsp host machine
 
 - (BOOL)loadProject: (char const *)path;
 - (BOOL)loadProjectWithFileURL:(NSURL *)path;
-- updateTextures;
+- (void)updateTextures;
 
 - (void)updatePanel;
 
 - (int)textureNamed: (char const *)name;
 
 - (BOOL)readTexture: (worldtexture_t *)tex from: (FILE *)file;
-- writeTexture: (worldtexture_t *)tex to: (FILE *)file;
+- (void)writeTexture: (worldtexture_t *)tex to: (FILE *)file;
 
 - (int)newTexture: (worldtexture_t *)tex;
 - (void)changeTexture: (int)num to: (worldtexture_t *)tex;
 
-- saveDoomLumps;
+- (void)saveDoomLumps;
 - (IBAction)loadAndSaveAllMaps:sender;
 - (IBAction)printStatistics:sender;
 - (IBAction)printSingleMapStatistics:sender;
-- updateThings;
-- updateSectorSpecials;
-- updateLineSpecials;
+- (void)updateThings;
+- (void)updateSectorSpecials;
+- (void)updateLineSpecials;
 - (void)saveFrame;
 - (void)changeWADfile:(NSURL *)string;
-- quit;
+- (void)quit;
 @property (nonatomic) BOOL projectDirty;
 @property (nonatomic) BOOL mapDirty;
 - (void)checkDirtyProject;

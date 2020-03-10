@@ -969,7 +969,7 @@
 			[editworld_i	changeThing:i		to:&oldthing];
 			[editworld_i	redrawWindows];
 			NXPing();
-			[toolpanel_i	changeTool:SELECT_TOOL];
+			[toolpanel_i	changeTool:ToolSelect];
 			if ([self	scanForErrors])
 				NSRunAlertPanel(@"Errors!",
 					@"Don't run your project, you have some errors. ",
@@ -1000,34 +1000,34 @@
 // Cocoa version
 - (void) mouseDown:(NSEvent *)thisEvent
 {
-	tool_t	tool;
+	ToolPanelTool	tool;
 		
 	tool = [toolpanel_i currentTool];
 	
 	switch ( tool )
 	{
-	case SELECT_TOOL:
+	case ToolSelect:
 		[self pointSelect: thisEvent];
 		break;
-	case LINE_TOOL:
+	case ToolLine:
 		[self lineDrag: thisEvent];
 		break;
-	case POLY_TOOL:
+	case ToolPolygon:
 		[self polyDrag: thisEvent];
 		break;
-	case ZOOMIN_TOOL:
+	case ToolZoomIn:
 		[self zoomIn: thisEvent];
 		break;
-	case SLIDE_TOOL:
+	case ToolSlide:
 		[self slideView: thisEvent];
 		break;
-	case THING_TOOL:
+	case ToolThing:
 		[self placeThing: thisEvent];
 		break;
-	case GET_TOOL:
+	case ToolGet:
 		[self getSector: thisEvent];
 		break;
-	case LAUNCH_TOOL:
+	case ToolLaunch:
 		[self	launchAndSave:thisEvent];
 		break;
 	default:
@@ -1042,10 +1042,10 @@
 {
 	switch ( [toolpanel_i currentTool] )
 	{
-	case ZOOMIN_TOOL:
+	case ToolZoomIn:
 		[self zoomOut: thisEvent];
 		break;
-	case GET_TOOL:
+	case ToolGet:
 		[self fillSector:thisEvent];
 		break;
 	default:

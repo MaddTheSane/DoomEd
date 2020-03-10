@@ -325,56 +325,56 @@ SpecialList *lineSpecialPanel_i;
 
 - (IBAction)monsterblockChanged: sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [monsterblock_i state];	
 	[self changeLineFlag: ~ML_MONSTERBLOCK  to: ML_MONSTERBLOCK*state];
 }
 
 - (IBAction)blockChanged: sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [pblock_i state];	
 	[self changeLineFlag: ~ML_BLOCKMOVE  to: ML_BLOCKMOVE*state];
 }
 
 - (IBAction)secretChanged:sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [secret_i	state];
 	[self	changeLineFlag: ~ML_SECRET	to:ML_SECRET*state];
 }
 
 - (IBAction)dontDrawChanged:sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [dontdraw_i	state];
 	[self	changeLineFlag: ~ML_DONTDRAW	to:ML_DONTDRAW*state];
 }
 
 - (IBAction)soundBlkChanged:sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [soundblock_i	state];
 	[self	changeLineFlag: ~ML_SOUNDBLOCK	to:ML_SOUNDBLOCK*state];
 }
 
 - (IBAction)twosideChanged: sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [twosided_i state];	
 	[self changeLineFlag: ~ML_TWOSIDED  to: ML_TWOSIDED*state];
 }
 
 - (IBAction)toppegChanged: sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [toppeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGTOP  to: ML_DONTPEGTOP*state];
 }
 
 - (IBAction)bottompegChanged: sender
 {
-	int	state;
+	NSControlStateValue	state;
 	state = [bottompeg_i state];	
 	[self changeLineFlag: ~ML_DONTPEGBOTTOM  to: ML_DONTPEGBOTTOM*state];
 }

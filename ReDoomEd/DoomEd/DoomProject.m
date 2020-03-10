@@ -109,12 +109,10 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 //
 //	App is going to terminate:
 //
-- quit
+- (void)quit
 {
 	[editworld_i	closeWorld];
 	[self	checkDirtyProject];
-	
-	return self;
 }
 
 @synthesize mapDirty=mapdirty;
@@ -362,7 +360,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (! [panel runModal] )
 		return;
 		
-	filename = [panel filename];
+	filename = [[panel URL] path];
 
 #ifdef REDOOMED
 	if (!filename
@@ -404,7 +402,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (! [panel runModal] )
 		return;
 		
-	filename = [panel filename];
+	filename = [[panel URL] path];
 
 #ifdef REDOOMED
 	if (!filename
@@ -1006,6 +1004,7 @@ static NSMatrix *openMatrix;
 		return;
     }
 
+#ifdef REDOOMED_INCLUDE_PRINTING
 	NSMatrix		*openMatrix;
 	NSInteger		i;
 	NSInteger		selRow;
@@ -1029,6 +1028,8 @@ static NSMatrix *openMatrix;
 		[self	openMap:openMatrix];
 	}
 	}
+
+#endif
 }
 
 //===================================================================
@@ -1080,6 +1081,7 @@ static NSMatrix *openMatrix;
 		return;
     }
 
+#ifdef REDOOMED_INCLUDE_PRINTING
 	char	string[1024];
 	NSMatrix	*m;
 	id			cell;
@@ -1125,6 +1127,8 @@ static NSMatrix *openMatrix;
 	DoomPrintMain(printArgC, printArgV);
 	[panel	orderOut:NULL];
 	NSReleaseAlertPanel(panel);
+	
+#endif
 }
 
 //===================================================================
@@ -1192,9 +1196,9 @@ typedef struct
 	
 	if ([editworld_i	loaded] == NO)
 	{
-		NSRunAlertPanel(@"Hey!",
-			@"You don't have a world loaded!",
-			@"Oops, what a dolt I am!",NULL,NULL);
+		NSRunAlertPanel(NSLocalizedString(@"Hey!", @"Hey!"),
+			NSLocalizedString(@"You don't have a world loaded!", @"You don't have a world loaded!"),
+			NSLocalizedString(@"Oops, what a dolt I am!", @"Oops, what a dolt I am!"),NULL,NULL);
 		return;
 	}
 	
@@ -1263,18 +1267,18 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[0].bottomtexture];
 		if (indx >= nt)
-			NSRunAlertPanel(@"Programming Error?",
-							@"Returned a bad texture index: %ld",
-							@"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(NSLocalizedString(@"Programming Error?", @"Programming Error?"),
+							NSLocalizedString(@"Returned a bad texture index: %ld", @"Returned a bad texture index: %ld"),
+							NSLocalizedString(@"Continue", @"Continue"), NULL, NULL, (long)indx);
 		
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NSRunAlertPanel(@"Error!",
-				@"Found a line with a texture that isn't present: '%s'",
-				@"Continue",NULL,NULL, lines[k].side[0].bottomtexture);
+			NSRunAlertPanel(NSLocalizedString(@"Error!", @"Error!"),
+				NSLocalizedString(@"Found a line with a texture that isn't present: '%s'", @"Found a line with a texture that isn't present: '%s'"),
+				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL, lines[k].side[0].bottomtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].bottomtexture];
 			return;
@@ -1286,17 +1290,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[0].midtexture];
 		if (indx >= nt)
-			NSRunAlertPanel(@"Programming Error?",
-							@"Returned a bad texture index: %ld",
-							@"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(NSLocalizedString(@"Programming Error?", @"Programming Error?"),
+							NSLocalizedString(@"Returned a bad texture index: %ld", @"Returned a bad texture index: %ld"),
+							NSLocalizedString(@"Continue", @"Continue"),NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NSRunAlertPanel(@"Error!",
-				@"Found a line with a texture that isn't present: '%s'",
-				@"Continue",NULL,NULL, lines[k].side[0].midtexture);
+			NSRunAlertPanel(NSLocalizedString(@"Error!", @"Error!"),
+				NSLocalizedString(@"Found a line with a texture that isn't present: '%s'", @"Found a line with a texture that isn't present: '%s'"),
+				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL, lines[k].side[0].midtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].midtexture];
 			return;
@@ -1308,17 +1312,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[0].toptexture];
 		if (indx >= nt)
-			NSRunAlertPanel(@"Programming Error?",
-							@"Returned a bad texture index: %ld",
-							@"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(NSLocalizedString(@"Programming Error?", @"Programming Error?"),
+							NSLocalizedString(@"Returned a bad texture index: %ld", @"Returned a bad texture index: %ld"),
+							NSLocalizedString(@"Continue", @"Continue"),NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NSRunAlertPanel(@"Error!",
-				@"Found a line with a texture that isn't present: '%s'",
-				@"Continue",NULL,NULL, lines[k].side[0].toptexture);
+			NSRunAlertPanel(NSLocalizedString(@"Error!", @"Error!"),
+				NSLocalizedString(@"Found a line with a texture that isn't present: '%s'", @"Found a line with a texture that isn't present: '%s'"),
+				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL, lines[k].side[0].toptexture);
 			[editworld_i	selectLine:k];
 			[log_i	addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture];
 			return;
@@ -1331,18 +1335,18 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[1].bottomtexture];
 		if (indx >= nt)
-			NSRunAlertPanel(@"Programming Error?",
-							@"Returned a bad texture index: %ld",
-							@"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(NSLocalizedString(@"Programming Error?", @"Programming Error?"),
+							NSLocalizedString(@"Returned a bad texture index: %ld", @"Returned a bad texture index: %ld"),
+							NSLocalizedString(@"Continue", @"Continue"),NULL,NULL,(long)indx);
 		
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NSRunAlertPanel(@"Error!",
-				@"Found a line with a texture that isn't present: '%s'",
-				@"Continue",NULL,NULL, lines[k].side[1].bottomtexture);
+			NSRunAlertPanel(NSLocalizedString(@"Error!", @"Error!"),
+				NSLocalizedString(@"Found a line with a texture that isn't present: '%s'", @"Found a line with a texture that isn't present: '%s'"),
+				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL, lines[k].side[1].bottomtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n",
 			 (long)k, lines[k].side[0].bottomtexture];
@@ -1355,17 +1359,17 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[1].midtexture];
 		if (indx >= nt)
-			NSRunAlertPanel(@"Programming Error?",
-							@"Returned a bad texture index: %ld",
-							@"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(NSLocalizedString(@"Programming Error?", @"Programming Error?"),
+							NSLocalizedString(@"Returned a bad texture index: %ld", @"Returned a bad texture index: %ld"),
+							NSLocalizedString(@"Continue", @"Continue"),NULL,NULL,(long)indx);
 		if (indx >= 0)
 			textureCount[indx]++;
 		else
 		if (indx == -2)
 		{
-			NSRunAlertPanel(@"Error!",
-				@"Found a line with a texture that isn't present: '%s'",
-				@"Continue",NULL,NULL,lines[k].side[1].midtexture);
+			NSRunAlertPanel(NSLocalizedString(@"Error!", @"Error!"),
+				NSLocalizedString(@"Found a line with a texture that isn't present: '%s'", @"Found a line with a texture that isn't present: '%s'"),
+				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL,lines[k].side[1].midtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].midtexture];
 			return;
@@ -1377,15 +1381,15 @@ typedef struct
 		indx = [texturePalette_i
 				getTextureIndex:lines[k].side[1].toptexture];
 		if (indx >= nt)
-			NSRunAlertPanel(@"Programming Error?",
-							@"Returned a bad texture index: %ld",
-							@"Continue",NULL,NULL,(long)indx);
+			NSRunAlertPanel(NSLocalizedString(@"Programming Error?", @"Programming Error?"),
+							NSLocalizedString(@"Returned a bad texture index: %ld", @"Returned a bad texture index: %ld"),
+							NSLocalizedString(@"Continue", @"Continue"),NULL,NULL,(long)indx);
 		if (indx >= 0) {
 			textureCount[indx]++;
 		} else if (indx == -2) {
-			NSRunAlertPanel(@"Error!",
-				@"Found a line with a texture that isn't present: '%s'",
-				@"Continue",NULL,NULL, lines[k].side[1].toptexture);
+			NSRunAlertPanel(NSLocalizedString(@"Error!", @"Error!"),
+				NSLocalizedString(@"Found a line with a texture that isn't present: '%s'", @"Found a line with a texture that isn't present: '%s'"),
+				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL, lines[k].side[1].toptexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].toptexture];
 			return;
@@ -1813,7 +1817,7 @@ typedef struct
 //	THING METHODS
 //
 //======================================================================
-- updateThings
+- (void)updateThings
 {
 	FILE		*stream;
 	int		handle;
@@ -1823,9 +1827,9 @@ typedef struct
 	handle = open (filename.fileSystemRepresentation, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't open %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"),
 			NULL,NULL,NULL, filename.path);
-		return self;
+		return;
 	}		
 
 	flock (handle, LOCK_EX);
@@ -1834,17 +1838,15 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NSRunAlertPanel (@"Error",@"Could not stream to %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Could not stream to %@", @"Could not stream to %@"),
 			NULL,NULL,NULL, filename.path);
-		return self;
+		return;
 	}
 	
 	printf("Updating things file\n");
 	[thingPanel_i	updateThingsDSP:stream];
 	flock(handle,LOCK_UN);
 	fclose(stream);
-	
-	return self;
 }
 
 //======================================================================
@@ -1852,7 +1854,7 @@ typedef struct
 //	SPECIAL METHODS
 //
 //======================================================================
-- updateSectorSpecials
+- (void)updateSectorSpecials
 {
 	FILE		*stream;
 	int		handle;
@@ -1862,9 +1864,9 @@ typedef struct
 	handle = open (filename.fileSystemRepresentation, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't open %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"),
 			NULL,NULL,NULL, filename.path);
-		return self;
+		return;
 	}		
 
 	flock (handle, LOCK_EX);
@@ -1873,20 +1875,18 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NSRunAlertPanel (@"Error",@"Could not stream to %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Could not stream to %@", @"Could not stream to %@"),
 			NULL,NULL,NULL, filename.path);
-		return self;
+		return;
 	}
 	
 	printf("Updating Sector Specials file\n");
 	[sectorEdit_i	updateSectorSpecialsDSP:stream];
 	flock(handle,LOCK_UN);
 	fclose(stream);
-	
-	return self;
 }
 
-- updateLineSpecials
+- (void)updateLineSpecials
 {
 	FILE		*stream;
 	NSURL		*filename;
@@ -1896,9 +1896,9 @@ typedef struct
 	handle = open (filename.fileSystemRepresentation, O_CREAT | O_RDWR, 0666);
 	if (handle == -1)
 	{
-		NSRunAlertPanel (@"Error",@"Couldn't open %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"),
 			NULL,NULL,NULL, filename.path);
-		return self;
+		return;
 	}		
 
 	flock (handle, LOCK_EX);
@@ -1907,17 +1907,15 @@ typedef struct
 	if (!stream)
 	{
 		fclose (stream);
-		NSRunAlertPanel (@"Error",@"Could not stream to %@",
+		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Could not stream to %@", @"Could not stream to %@"),
 			NULL,NULL,NULL, filename.path);
-		return self;
+		return;
 	}
 	
 	printf("Updating Line Specials file\n");
 	[linepanel_i	updateLineSpecialsDSP:stream];
 	flock(handle,LOCK_UN);
 	fclose(stream);
-	
-	return self;
 }
 
 #pragma mark - TEXTURE METHODS
@@ -1927,7 +1925,7 @@ typedef struct
 //	Alphabetize the textures[] array
 //
 //=========================================================
-- alphabetizeTextures:(int)sets
+- (void)alphabetizeTextures:(int)sets
 {
 	int		x;
 	int		y;
@@ -2010,8 +2008,6 @@ typedef struct
 	}
 	
 	[list removeAllObjects];
-	
-	return self;
 }
 
 /*
@@ -2048,7 +2044,7 @@ typedef struct
 	return YES;
 }
 
-- writeTexture: (worldtexture_t *)tex to: (FILE *)file
+- (void)writeTexture: (worldtexture_t *)tex to: (FILE *)file
 {
 	int	i;
 	worldpatch_t	*patch;
@@ -2063,8 +2059,6 @@ typedef struct
 			patch->originx, patch->originy,
 			patch->patchname, patch->stepdir, patch->colormap);
 	}
-
-	return self;
 }
 
 
@@ -2103,7 +2097,7 @@ typedef struct
 ===============
 */
 
-- updateTextures
+- (void)updateTextures
 {
 	FILE	*stream;
 	int		handle;
@@ -2124,16 +2118,17 @@ typedef struct
 	newtexture = windex = 0;
 	do
 	{
+		NSString *texturePathName = [NSString stringWithFormat:@"texture%d.dsp", windex+1];
 		panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait..."),
-			@"Reading textures from texture%d.dsp.",NULL,NULL,NULL,windex+1);
+			NSLocalizedString(@"Reading textures from %@.", @"Reading textures from %@. texture%d.dsp should not be localized!"),NULL,NULL,NULL,texturePathName);
 		[panel	orderFront:NULL];
 		NXPing();
 		
 		NSURL *filename = projectdirectory;
-		filename = [filename URLByAppendingPathComponent:[NSString stringWithFormat:@"texture%d.dsp", windex+1]];
+		filename = [filename URLByAppendingPathComponent:texturePathName];
 		
-		chmod (filename.fileSystemRepresentation,0666);
-		handle = open (filename.fileSystemRepresentation,O_RDWR, 0666);
+		chmod(filename.fileSystemRepresentation, 0666);
+		handle = open(filename.fileSystemRepresentation, O_RDWR, 0666);
 		if (handle == -1)
 		{
 			if (!windex)
@@ -2141,9 +2136,9 @@ typedef struct
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
 				NXPing();
-				NSRunAlertPanel (@"Error",@"Couldn't open %@",
+				NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"),
 					NULL,NULL,NULL, filename.path);
-				return self;
+				return;
 			}
 			else
 			{
@@ -2166,9 +2161,9 @@ typedef struct
 			[panel	orderOut:NULL];
 			NSReleaseAlertPanel(panel);
 			NXPing();
-			NSRunAlertPanel (@"Error",@"Could not stream to %@",
+			NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Could not stream to %@", @"Could not stream to %@"),
 				NULL,NULL,NULL, filename.path);
-			return self;
+			return;
 		}
 		
 		//
@@ -2184,9 +2179,9 @@ typedef struct
 					[panel	orderOut:NULL];
 					NSReleaseAlertPanel(panel);
 					NXPing();
-					NSRunAlertPanel (@"Error",
-						@"Could not parse %@",NULL,NULL,NULL, filename.path);
-					return self;
+					NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),
+						NSLocalizedString(@"Could not parse %@", @"Could not parse %@"), NULL,NULL,NULL, filename.path);
+					return;
 				}
 
 				//
@@ -2243,13 +2238,14 @@ typedef struct
 	//
 	for (windex = 0; windex <= winmax; windex++)
 	{
-		panel = NSGetAlertPanel(@"Wait…",
-			@"Writing textures to texture%d.dsp.",NULL,NULL,NULL,windex+1);
+		NSString *texturePathName = [NSString stringWithFormat:@"texture%d.dsp", windex+1];
+		panel = NSGetAlertPanel(NSLocalizedString(@"Wait...", @"Wait…"),
+			NSLocalizedString(@"Writing textures to %@.", @"Writing textures to %@."), NULL, NULL, NULL, texturePathName);
 		[panel	orderFront:NULL];
 		NXPing();
 		
 		NSURL *filename = projectdirectory;
-		filename = [filename URLByAppendingPathComponent:[NSString stringWithFormat:@"texture%d.dsp", windex+1]];
+		filename = [filename URLByAppendingPathComponent:texturePathName];
 		
 		BackupFile(filename.fileSystemRepresentation);
 		unlink(filename.fileSystemRepresentation);
@@ -2261,9 +2257,9 @@ typedef struct
 				[panel	orderOut:NULL];
 				NSReleaseAlertPanel(panel);
 				NXPing();
-				NSRunAlertPanel (@"Error",@"Couldn't create %@",
+				NSRunAlertPanel(NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't create %@", @"Couldn't create %@"),
 					NULL,NULL,NULL, filename.path);
-				return self;
+				return;
 			}
 			else
 			{
@@ -2285,9 +2281,9 @@ typedef struct
 			[panel	orderOut:NULL];
 			NSReleaseAlertPanel(panel);
 			NXPing();
-			NSRunAlertPanel (@"Error",@"Could not stream to %@",
+			NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Could not stream to %@", @"Could not stream to %@"),
 				NULL,NULL,NULL, filename.path);
-			return self;
+			return;
 		}
 		
 		//
@@ -2322,8 +2318,6 @@ typedef struct
 	
 	if (newtexture)
 		[texturePalette_i	initTextures ];
-
-	return self;
 }
 
 
@@ -2558,13 +2552,11 @@ static	byte		*buffer, *buf_p;
 ===============
 */
 
-- saveDoomLumps
+- (void)saveDoomLumps
 {
 	chdir (mapwads);
 	[self writePatchNames];
 	[self writeDoomTextures];
-	
-	return self;
 }
 
 //====================================================

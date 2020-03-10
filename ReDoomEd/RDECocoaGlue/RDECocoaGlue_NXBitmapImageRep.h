@@ -46,5 +46,5 @@
 
 void NXDrawBitmap(const NSRect *rect, int pixelsWide, int pixelsHigh, int bitsPerSample,
                     int samplesPerPixel, int bitsPerPixel, int bytesPerRow, BOOL isPlanar,
-                    BOOL hasAlpha, NSString *colorSpaceName, unsigned char **data);
+                    BOOL hasAlpha, NSString *colorSpaceName, unsigned char **data) API_DEPRECATED_WITH_REPLACEMENT("NSDrawBitmap", macos(10.0, 10.0));
 

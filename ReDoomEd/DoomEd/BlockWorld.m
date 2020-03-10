@@ -418,8 +418,8 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 	aRect.origin.x = aRect.origin.y = 0;
 	
 	[blockview lockFocus]; 
-	NXDrawBitmap(
-		&aRect,  
+	NSDrawBitmap(
+		aRect,  
 		bwidth, 
 		bheight,
 		4,
@@ -428,8 +428,8 @@ if (firstx<0 || lastx>=bwidth || firstx>lastx)
 		bwidth*2,
 		NO,
 		NO,
-		NX_RGBColorSpace,
-		planes
+		NSCalibratedRGBColorSpace,
+		(const unsigned char * const *)planes
 	);
 	[blockview unlockFocus]; 
 	

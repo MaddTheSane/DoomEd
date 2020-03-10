@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// Dump all the dividers (for resizing)
 - (void)dumpDividers;
 
-@optional
-- (void)addDividerX:(int)x Y:(int)y String:(const char *__null_unspecified)string DEPRECATED_ATTRIBUTE;
 @end
 
 @interface RDEPatchDividerObject : NSObject

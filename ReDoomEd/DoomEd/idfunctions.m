@@ -158,12 +158,12 @@ int filelength (int handle)
 		exit (1);
 	}
 
-	return fileinfo.st_size;
+	return (int)fileinfo.st_size;
 }
 
 int tell (int handle)
 {
-	return lseek (handle, 0, SEEK_CUR);
+	return (int)lseek(handle, 0, SEEK_CUR);
 }
 
 
