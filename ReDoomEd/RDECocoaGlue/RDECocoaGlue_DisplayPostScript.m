@@ -193,7 +193,7 @@ void RDE_PSstroke(void)
     }
 }
 
-void RDE_DPSGlue_PSsetdash(float pattern[], int size, float offset)
+void RDE_PSsetdash(float pattern[], int size, float offset)
 {
     if (size == 0) {
         [gCurrentPath setLineDash:NULL count:0 phase:offset];

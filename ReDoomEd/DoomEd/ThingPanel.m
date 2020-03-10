@@ -187,7 +187,7 @@ ThingPanel *thingpanel_i;
 	//	Handle redrawing Edit windows for diff. change
 	//
 	cell = [sender selectedCell];
-	diffDisplay = [cell tag];
+	diffDisplay = (int)[cell tag];
 	[editworld_i	redrawWindows];
 	[self	countCurrentThings];
 }

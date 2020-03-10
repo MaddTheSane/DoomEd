@@ -95,7 +95,7 @@ void RDE_PSstroke(void);
 
 void RDE_PSinstroke(float x, float y, int *pflag);
 
-void RDE_DPSGlue_PSsetdash(float pattern[], int size, float offset);
+void RDE_PSsetdash(float pattern[], int size, float offset);
 
 
 void RDE_PSshow(const char *string);
@@ -125,7 +125,7 @@ void RDE_DPSGlue_SetIsDrawingViewRect(bool isDrawingViewRect);
 #define PSsetlinewidth  RDE_PSsetlinewidth
 #define PSselectfont    RDE_PSselectfont
 #define PSrotate        RDE_PSrotate
-#define PSsetdash       RDE_DPSGlue_PSsetdash
+#define PSsetdash       RDE_PSsetdash
 
 #define PSnewpath       RDE_PSnewpath
 #define PSmoveto        RDE_PSmoveto

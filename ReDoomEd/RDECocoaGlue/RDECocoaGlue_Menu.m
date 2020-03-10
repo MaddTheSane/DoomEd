@@ -33,7 +33,7 @@
 
 - (id) getNumRows: (int *) returnedRows numCols: (int *) returnedCols
 {
-    *returnedRows = [self numberOfItems];
+    *returnedRows = (int)[self numberOfItems];
     *returnedCols = 1;
 
     return self;
