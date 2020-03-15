@@ -69,7 +69,7 @@ BOOL	debugflag = NO;
 	
 - (BOOL) application: (NSApplication *) app openFile: (NSString *) filename
 {
-	if ([doomproject_i loaded])
+	if (doomproject_i.loaded)
 		return NO;
 
 	[doomproject_i loadProjectWithFileURL: [NSURL fileURLWithPath:filename]];
@@ -85,7 +85,7 @@ BOOL	debugflag = NO;
 	// so it may return an empty string - added logic to check for this
 	const char *defaultProjectPath = (const char*)[prefpanel_i getProjectPath];
 
-	if (![doomproject_i loaded]
+	if (!doomproject_i.loaded
 		&& strlen(defaultProjectPath))
 	{
 		[doomproject_i loadProjectWithFileURL: prefpanel_i.projectPath ];
@@ -107,7 +107,7 @@ BOOL	debugflag = NO;
 	[toolPanel_i orderFront: self];
 
 	// don't open panels if there's no project loaded
-	if ([doomproject_i loaded]) {
+	if (doomproject_i.loaded) {
 #endif
 	
 	if ([prefpanel_i	openUponLaunch:texturePalette] == TRUE)

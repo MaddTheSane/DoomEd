@@ -325,7 +325,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 - (void)writeDirectory
 {
 	wadinfo_t	wad;
-	int			i,count;
+	NSInteger	i,count;
 	lumpinfo_t	*inf;
 	
 //

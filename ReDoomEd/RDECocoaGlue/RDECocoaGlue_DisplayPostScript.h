@@ -114,7 +114,7 @@ void RDE_DPSGlue_NXFrameRectWithWidth(NSRect *rectPtr, float frameWidth);
 
 void RDE_DPSGlue_SetNSColor(NSColor *color);
 
-void RDE_DPSGlue_SetIsDrawingViewRect(bool isDrawingViewRect);
+void RDE_DPSGlue_SetIsDrawingViewRect(BOOL isDrawingViewRect);
 
 
 #define PSsetinstance   RDE_PSsetinstance

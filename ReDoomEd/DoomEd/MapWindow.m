@@ -26,7 +26,7 @@ static	int	cornerx = 128, cornery = 64;
 }
 
 
-- initFromEditWorld
+- (id)initFromEditWorld
 {
 	id		oldobj_i;
 	NXSize	screensize;

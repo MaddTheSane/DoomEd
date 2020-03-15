@@ -694,7 +694,7 @@ FIXME: make these scan for deleted entries
 	numpoints++;
 	dirtypoints = true;		// connection matrix will need to be recalculated
 	
-	return numpoints-1;	
+	return (int)(numpoints-1);	
 }
 
 

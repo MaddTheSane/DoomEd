@@ -85,7 +85,7 @@ TexturePalette	*texturePalette_i;
 
 - (IBAction)menuTarget:sender
 {
-	if (![doomproject_i loaded])
+	if (!doomproject_i.loaded)
 	{
 		NSRunAlertPanel(@"Oops!",
 						@"There must be a project loaded before you even\n"
@@ -681,7 +681,7 @@ TexturePalette	*texturePalette_i;
 	char	lbmname[1024];
 	char	lsEnteredName[24];
 	char	waddir[1024];
-	int		i;
+	NSInteger		i;
 	int		j;
 	FILE	*fp;
 	char	lsname[1024];

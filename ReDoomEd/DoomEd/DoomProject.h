@@ -64,6 +64,8 @@ extern	char	mapwads[1024];		//!< map WAD path
 extern	char	bspprogram[1024];	//!< bsp program path
 extern	char	bsphost[32];		//!< bsp host machine
 
+static const NSInteger RDENoTextureName = -1;
+
 //============================================================================
 
 @interface DoomProject : NSObject
@@ -101,8 +103,8 @@ extern	char	bsphost[32];		//!< bsp host machine
 
 
 - (instancetype)init;
-- (IBAction)displayLog:sender;
-@property (readonly) BOOL loaded;
+- (IBAction)displayLog:(id)sender;
+@property (readonly, getter=isLoaded) BOOL loaded;
 @property (readonly, retain) NSURL *wadfile;
 @property (readonly, retain) NSURL *directory;
 
@@ -114,7 +116,11 @@ extern	char	bsphost[32];		//!< bsp host machine
 - (IBAction)openMap: sender;
 - (IBAction)newMap: sender;
 - (IBAction)removeMap: sender;
+
+/// Print the map out!
 - (IBAction)printMap:sender;
+
+/// Print all the maps out!
 - (IBAction)printAllMaps:sender;
 
 - (BOOL)loadProject: (char const *)path;
@@ -123,13 +129,13 @@ extern	char	bsphost[32];		//!< bsp host machine
 
 - (void)updatePanel;
 
-- (int)textureNamed: (char const *)name;
+- (NSInteger)textureNamed: (char const *)name;
 
 - (BOOL)readTexture: (worldtexture_t *)tex from: (FILE *)file;
 - (void)writeTexture: (worldtexture_t *)tex to: (FILE *)file;
 
 - (int)newTexture: (worldtexture_t *)tex;
-- (void)changeTexture: (int)num to: (worldtexture_t *)tex;
+- (void)changeTexture: (NSInteger)num to: (worldtexture_t *)tex;
 
 - (void)saveDoomLumps;
 - (IBAction)loadAndSaveAllMaps:sender;
@@ -145,24 +151,38 @@ extern	char	bsphost[32];		//!< bsp host machine
 @property (nonatomic) BOOL mapDirty;
 - (void)checkDirtyProject;
 
+/// Map printing preferences
 - (IBAction)printPrefs:sender;
+
 - (IBAction)togglePanel:sender;
 - (IBAction)toggleMonsters:sender;
 - (IBAction)toggleItems:sender;
 - (IBAction)toggleWeapons:sender;
 
-// Thermometer functions
+// MARK: Thermometer functions
+
+/// Initialize and display the thermometer
 - (void)initThermo:(const char *)title message:(const char *)msg API_DEPRECATED_WITH_REPLACEMENT("-beginThermoWithTitle:message:", macos(10.0, 10.0));
+
+/// Initialize and display the thermometer
 - (void)beginThermoWithTitle:(NSString *)title message:(NSString *)msg;
+
+/// Update the thermometer
 - (void)updateThermo:(NSInteger)current max:(NSInteger)maximum;
+
+/// Toast the thermometer
 - (void)closeThermo;
+
+// MARK: -
 
 
 //	Map Loading Functions
-- beginOpenAllMaps;
+- (void)beginOpenAllMaps;
 - (BOOL)openNextMap;
 
 @end
 
 void IO_Error (const char *error, ...) __printflike(1, 2);
+
+/// Draw a red outline (must already be lockFocus'ed on something)
 void DE_DrawOutline(NXRect *r);

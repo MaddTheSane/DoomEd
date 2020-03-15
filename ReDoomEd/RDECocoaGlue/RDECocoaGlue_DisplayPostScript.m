@@ -614,9 +614,9 @@ void RDE_DPSGlue_SetNSColor(NSColor *color)
     }
 }
 
-void RDE_DPSGlue_SetIsDrawingViewRect(bool isDrawingViewRect)
+void RDE_DPSGlue_SetIsDrawingViewRect(BOOL isDrawingViewRect)
 {
-    gIsDrawingViewRect = (isDrawingViewRect) ? YES : NO;
+    gIsDrawingViewRect = isDrawingViewRect;
 }
 
 #pragma mark Private functions

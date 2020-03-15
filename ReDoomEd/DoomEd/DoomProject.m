@@ -957,16 +957,15 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 static NSInteger	oldSelRow,curMap;
 static NSMatrix *openMatrix;
 
-//	Init to start opening all maps
-- beginOpenAllMaps
+///	Init to start opening all maps
+- (void)beginOpenAllMaps
 {
 	openMatrix = [maps_i	matrixInColumn:0];
 	oldSelRow = [openMatrix	selectedRow];
 	curMap = 0;
-	return self;
 }
 
-//	Open next map, finish if needed
+///	Open next map, finish if needed
 - (BOOL)openNextMap
 {
 	if (curMap < nummaps)
@@ -987,11 +986,6 @@ static NSMatrix *openMatrix;
 	}
 }
 
-//===================================================================
-//
-//	Print all the maps out!
-//
-//===================================================================
 - (IBAction)printAllMaps:sender
 {
 	// DoomEd's 'doomprint' command-line tool is currently unimplemented in ReDoomEd -
@@ -1032,11 +1026,6 @@ static NSMatrix *openMatrix;
 #endif
 }
 
-//===================================================================
-//
-//	Map printing preferences
-//
-//===================================================================
 - (IBAction)printPrefs:sender
 {
 	[printPrefWindow_i	makeKeyAndOrderFront:NULL];
@@ -1059,11 +1048,6 @@ static NSMatrix *openMatrix;
 	pp_weapons = !pp_weapons;
 }
 
-//===================================================================
-//
-//	Print the map out!
-//
-//===================================================================
 - (IBAction)printMap:sender
 {
 	// DoomEd's 'doomprint' command-line tool is currently unimplemented in ReDoomEd -
@@ -1187,7 +1171,7 @@ typedef struct
 	int		*textureCount;
 	NSInteger indx;
 	FILE		*stream;
-	char		filename[]="/tmp/tempstats.txt\0";
+	const char	filename[]="/tmp/tempstats.txt\0";
 	texpal_t	*t;
 	NSMatrix	*openMatrix;
 	NSInteger	selRow;
@@ -1473,7 +1457,7 @@ typedef struct
 	int		*textureCount, *flatCount;
 	NSInteger indx;
 	FILE	*stream;
-	char	filename[]="/tmp/tempstats.txt\0";
+	const char	filename[]="/tmp/tempstats.txt\0";
 	texpal_t	*t;
 	NSInteger	numth;
 	tc_t	*thingCount;
@@ -2072,17 +2056,17 @@ typedef struct
 ================
 */
 
-- (int)textureNamed: (char const *)name
+- (NSInteger)textureNamed: (char const *)name
 {
 	int	i;
 	
 	if (!strlen(name) || !strcmp (name, "-") )
-		return -1;		// no texture
+		return RDENoTextureName;		// no texture
 		
 	for (i=0 ; i<numtextures ; i++)
 		if (!strcasecmp(textures[i].name, name) )
 			return i;
-	return -2;	
+	return NSNotFound;
 }
 
 
@@ -2103,7 +2087,7 @@ typedef struct
 	int		handle;
 	int		count;
 	int		i;
-	int		num;
+	NSInteger		num;
 	worldtexture_t		tex;
 	int		winmax;
 	int		windex;
@@ -2191,7 +2175,7 @@ typedef struct
 				// if the name is not present, add it
 				//
 				num = [self textureNamed:tex.name];
-				if (num == -2)
+				if (num == NSNotFound)
 				{
 					[self newTexture: &tex];
 					num = [self	textureNamed:tex.name ];
@@ -2350,7 +2334,7 @@ typedef struct
 ===============
 */
 
-- (void)changeTexture: (int)num to: (worldtexture_t *)tex
+- (void)changeTexture: (NSInteger)num to: (worldtexture_t *)tex
 {
 	texturesdirty = YES;
 	textures[num] = *tex;
@@ -2585,22 +2569,12 @@ static	byte		*buffer, *buf_p;
 	NXPing();
 }
 
-//====================================================
-//
-//	Update the thermometer
-//
-//====================================================
 - (void)updateThermo:(NSInteger)current max:(NSInteger)maximum
 {
 	[thermoView_i	setThermoWidth:current	max:maximum];
 	[thermoView_i setNeedsDisplay:YES];
 }
 
-//====================================================
-//
-//	Toast the thermometer
-//
-//====================================================
 - (void)closeThermo
 {
 	[thermoWindow_i	orderOut:self];
@@ -2611,9 +2585,8 @@ static	byte		*buffer, *buf_p;
 #ifdef REDOOMED
 @implementation DoomProject (RDEUtilities)
 
-// rdePromptUserForWADfileLocation: ReDoomEd utility method to allow the user to locate a
-// local copy of the project's wadfile when the project's current wadfile path is invalid
-
+/// \c rdePromptUserForWADfileLocation: ReDoomEd utility method to allow the user to locate a
+/// local copy of the project's wadfile when the project's current wadfile path is invalid
 - (BOOL) rdePromptUserForWADfileLocation
 {
 	NSString *locateButtonTitle, *openPanelTitle;
@@ -2670,9 +2643,8 @@ static	byte		*buffer, *buf_p;
     return YES;
 }
 
-// rdePromptUserForPNGExport: ReDoomEd utility method to notify the user that map printing is
-// unsupported in ReDoomEd, and to let them choose whether to export to PNG instead
-
+/// \c rdePromptUserForPNGExport: ReDoomEd utility method to notify the user that map printing is
+/// unsupported in ReDoomEd, and to let them choose whether to export to PNG instead.
 - (BOOL) rdePromptUserForPNGExport
 {
     NSInteger alertReturnCode;
@@ -2692,14 +2664,6 @@ static	byte		*buffer, *buf_p;
 
 @end
 #endif // REDOOMED
-
-/*
-================
-=
-= IO_Error
-=
-================
-*/
 
 void IO_Error (const char *error, ...)
 {
@@ -2722,11 +2686,6 @@ void IO_Error (const char *error, ...)
 	[NXApp terminate: NULL];
 }
 
-//=======================================================
-//
-//	Draw a red outline (must already be lockFocus'ed on something)
-//
-//=======================================================
 void DE_DrawOutline(NXRect *r)
 {
 	PSsetrgbcolor ( 148,0,0 );

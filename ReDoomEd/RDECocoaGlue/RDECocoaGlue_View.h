@@ -43,7 +43,7 @@
 
 - (BOOL) getVisibleRect: (NXRect *) theRect API_DEPRECATED("Call -visibleRect instead", macos(10.0, 10.0));
 
-- (id) setDrawOrigin: (float) x : (float) y;
+- (id) setDrawOrigin: (float) x : (float) y API_DEPRECATED("Call -setBoundsOrigin: instead", macos(10.0, 10.0));
 
 - (id) setDrawSize: (float) width : (float) height API_DEPRECATED("Call -setBoundsSize: instead", macos(10.0, 10.0));
 

@@ -70,7 +70,7 @@ SectorEditor	*sectorEdit_i;
 
 - (void)pgmTarget
 {
-	if (![doomproject_i loaded])
+	if (!doomproject_i.loaded)
 	{
 		NSRunAlertPanel(@"Oops!",
 						@"There must be a project loaded before you even\n"
@@ -117,7 +117,7 @@ SectorEditor	*sectorEdit_i;
 
 - (IBAction)menuTarget:sender
 {
-	if (![doomproject_i loaded])
+	if (!doomproject_i.loaded)
 	{
 		NSRunAlertPanel(@"Oops!",
 						@"There must be a project loaded before you even\n"

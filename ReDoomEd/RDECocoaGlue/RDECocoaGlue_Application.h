@@ -38,9 +38,9 @@
 
 - (NSEvent *) getNextEvent: (NSEventMask) eventMask;
 
-+ (NSWorkspace *) workspace;
++ (NSWorkspace *) workspace API_DEPRECATED("Just use [NSWorkspace sharedWorkspace] instead.", macos(10.0, 10.0));
 
-- (void) getScreenSize: (NSSize *) returnedScreenSize;
+- (void) getScreenSize: (NSSize *) returnedScreenSize API_DEPRECATED("call [[NSScreen mainScreen] visibleFrame].size instead.", macos(10.0, 10.0));
 
 - (NSModalResponse) runModalFor: (NSWindow *) theWindow API_DEPRECATED_WITH_REPLACEMENT("-runModalForWindow:", macos(10.0, 10.0));
 

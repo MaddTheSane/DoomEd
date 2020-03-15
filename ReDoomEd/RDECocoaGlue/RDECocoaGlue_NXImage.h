@@ -36,7 +36,7 @@
 
 - (BOOL) useRepresentation: (NSImageRep *) imageRep API_DEPRECATED_WITH_REPLACEMENT("-addRepresentation:", macos(10.0, 10.0));
 
-- (id) setScalable: (BOOL) flag;
+- (id) setScalable: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setScalesWhenResized:", macos(10.0, 10.0));
 
 - (BOOL) useCacheWithDepth: (int) depth;
 

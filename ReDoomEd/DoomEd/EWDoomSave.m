@@ -156,7 +156,7 @@ int		linecrunch[8192];
 - writeLines
 {
 	int		i, s,  top, bottom, height;
-	int		ttex, mtex, btex;
+	NSInteger	ttex, mtex, btex;
 	worldline_t	*wline;
 	mapline_t	*line;
 	mapside_t	*side;
@@ -212,21 +212,21 @@ int		linecrunch[8192];
 				side->firstcollumn = ShortSwap (wside->firstcollumn);
 				
 				ttex =  [doomproject_i textureNamed: wside->toptexture];
-				if (ttex == -2)
+				if (ttex == NSNotFound)
 				{
 					[editworld_i selectLine: i];
 					[log_i addFormattedMessage:@"LINE %d ERROR: Can't find top texture '%s'!\n", i, wside->toptexture];
 				}
 				side->toptexture = ShortSwap (ttex);
 				btex =  [doomproject_i textureNamed: wside->bottomtexture];
-				if (btex == -2)
+				if (btex == NSNotFound)
 				{
 					[editworld_i selectLine: i];
 					[log_i addFormattedMessage:@"LINE %d ERROR: Can't find bottom texture '%s'!\n", i, wside->bottomtexture];
 				}
 				side->bottomtexture = ShortSwap (btex);
 				mtex =  [doomproject_i textureNamed: wside->midtexture];
-				if (mtex == -2)
+				if (mtex == NSNotFound)
 				{
 					[editworld_i selectLine: i];
 					[log_i addFormattedMessage:@"LINE %d ERROR: Can't find middle texture '%s'!\n",i,wside->midtexture];

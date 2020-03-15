@@ -52,7 +52,7 @@ Storage *texturePatches;
 //
 - (IBAction)menuTarget:sender
 {
-	if (![doomproject_i loaded])
+	if (!doomproject_i.loaded)
 	{
 		NSRunAlertPanel(@"Oops!",
 						@"There must be a project loaded before you even\n"
@@ -815,7 +815,7 @@ Storage *texturePatches;
 	worldtexture_t		tex;
 	NSCell	*cell;
 	
-	if (![doomproject_i loaded])
+	if (!doomproject_i.loaded)
 		return;
 		
 	//
@@ -886,7 +886,7 @@ Storage *texturePatches;
 	[createName_i	setStringValue:name];
 #endif
 
-	if (	[doomproject_i	textureNamed:name] >= -1)
+	if (	[doomproject_i	textureNamed:name] != NSNotFound)
 	{
 		NSBeep();
 		NSRunAlertPanel(@"Oops!",
@@ -931,7 +931,7 @@ Storage *texturePatches;
 	[createName_i	setStringValue:name];
 #endif
 
-	if (	[doomproject_i	textureNamed:name] >= -1)
+	if (	[doomproject_i	textureNamed:name] != NSNotFound)
 	{
 		NSBeep();
 		NSRunAlertPanel(@"Oops!",
@@ -1393,7 +1393,7 @@ Storage *texturePatches;
 	theSize = p->size;
 	theSize.width *= 2;
 	theSize.height *= 2;
-	[p->image_x2	setScalable:YES];
+	//[p->image_x2	setScalesWhenResized:YES];
 
 #ifdef REDOOMED
 	// Cocoa's setSize: takes a value, not a pointer
