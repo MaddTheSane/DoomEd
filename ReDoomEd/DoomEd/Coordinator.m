@@ -72,7 +72,11 @@ BOOL	debugflag = NO;
 	if (doomproject_i.loaded)
 		return NO;
 
-	[doomproject_i loadProjectWithFileURL: [NSURL fileURLWithPath:filename]];
+	NSError *err;
+	BOOL success = [doomproject_i loadProjectWithFileURL: [NSURL fileURLWithPath:filename] error:&err];
+	if (!success) {
+		[app presentError:err];
+	}
 
 	return YES;
 }
@@ -84,11 +88,16 @@ BOOL	debugflag = NO;
 	// -[PreferencePanel getProjectPath] no longer defaults to a hard-coded project path,
 	// so it may return an empty string - added logic to check for this
 	const char *defaultProjectPath = (const char*)[prefpanel_i getProjectPath];
+	NSError *err;
 
 	if (!doomproject_i.loaded
 		&& strlen(defaultProjectPath))
 	{
-		[doomproject_i loadProjectWithFileURL: prefpanel_i.projectPath ];
+		BOOL success = [doomproject_i loadProjectWithFileURL: prefpanel_i.projectPath error:&err];
+		
+		if (!success) {
+			[NSApp presentError:err];
+		}
 	}
 
 	// removed the call to [doomproject_i setDirtyProject:FALSE] because the project may

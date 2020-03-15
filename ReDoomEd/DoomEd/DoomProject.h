@@ -66,6 +66,16 @@ extern	char	bsphost[32];		//!< bsp host machine
 
 static const NSInteger RDENoTextureName = -1;
 
+extern NSErrorDomain const RDEDoomProjectErrorDomain;
+typedef NS_ERROR_ENUM(RDEDoomProjectErrorDomain, RDEDoomProjectErrors) {
+	RDEDoomProjectErrorNameTooLong,
+	RDEDoomProjectErrorInvalidVersion,
+	RDEDoomProjectErrorProjectFileParseFailed,
+	
+};
+
+extern NSErrorUserInfoKey const RDEDoomParseFailToken;
+
 //============================================================================
 
 @interface DoomProject : NSObject
@@ -124,7 +134,7 @@ static const NSInteger RDENoTextureName = -1;
 - (IBAction)printAllMaps:sender;
 
 - (BOOL)loadProject: (char const *)path;
-- (BOOL)loadProjectWithFileURL:(NSURL *)path;
+- (BOOL)loadProjectWithFileURL:(NSURL *)path error:(NSError**)outError;
 - (void)updateTextures;
 
 - (void)updatePanel;

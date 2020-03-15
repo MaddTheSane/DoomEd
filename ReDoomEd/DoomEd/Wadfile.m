@@ -45,6 +45,11 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 
 - (instancetype)initFromFile: (char const *)path
 {
+	return [self initFromFileURL:[NSURL fileURLWithFileSystemRepresentation:path isDirectory:NO relativeToURL:nil] error:NULL];
+}
+
+- (instancetype)initFromFileURL: (NSURL *)path error:(NSError**)outError;
+{
 	wadinfo_t	wad;
 	lumpinfo_t	*lumps;
 	int			i;
@@ -56,7 +61,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 		return nil;
 #endif
 
-	pathname = malloc(strlen(path)+1);
+	pathname = strdup(path.fileSystemRepresentation);
 
 #ifdef REDOOMED
 	if (!pathname)
@@ -65,8 +70,7 @@ static char *RDE_ZeroTerminatedStringWithMaxLength(char *string, int maxLength);
 		return nil;
 	}
 #endif
-
-	strcpy (pathname, path);
+	
 	dirty = NO;
 	handle = open (pathname, O_RDWR, 0666);
 	if (handle== -1)

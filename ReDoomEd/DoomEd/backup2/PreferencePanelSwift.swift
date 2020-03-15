@@ -59,26 +59,27 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	private(set) var projectPath: URL?
 	
 	private static var __once: () = {
-		var defDict: [String: Any] = ["back_c": "1:1:1",
-									  "grid_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.97, green: 0.97, blue: 0.97, alpha: 1)),
-									  "tile_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.93, green: 0.93, blue: 0.93, alpha: 1)),
-									  "selected_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 0, blue: 0, alpha: 1)),
-									  "point_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1)),
-									  "onesided_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1)),
-									  "twosided_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0.69, blue: 0, alpha: 1)),
-									  "area_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 0, blue: 0, alpha: 1)),
-									  "thing_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 1, blue: 0, alpha: 1)),
-									  "special_c": NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.5, green: 1, blue: 0.5, alpha: 1)),
-									  launchTypeName: 1,
-									  projectPathName: "~/DoomMaps/",
-									  "texturePaletteOpen": false,
-									  "lineInspectorOpen": false,
-									  "lineSpecialsOpen": false,
-									  "errorLogOpen": false,
-									  "sectorEditorOpen": false,
-									  "thingPanelOpen": false,
-									  "sectorSpecialsOpen": false,
-									  "textureEditorOpen": false]
+		var defDict: [String: Any] =
+			[ucolornames[0]: "1:1:1",
+			 ucolornames[1]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.97, green: 0.97, blue: 0.97, alpha: 1)),
+			 ucolornames[2]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.93, green: 0.93, blue: 0.93, alpha: 1)),
+			 ucolornames[3]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 0, blue: 0, alpha: 1)),
+			 ucolornames[4]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1)),
+			 ucolornames[5]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0, blue: 0, alpha: 1)),
+			 ucolornames[6]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0, green: 0.69, blue: 0, alpha: 1)),
+			 ucolornames[7]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 0, blue: 0, alpha: 1)),
+			 ucolornames[8]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 1, green: 1, blue: 0, alpha: 1)),
+			 ucolornames[9]: NSKeyedArchiver.archivedData(withRootObject: NSColor(deviceRed: 0.5, green: 1, blue: 0.5, alpha: 1)),
+			 launchTypeName: 1,
+			 projectPathName: "~/DoomMaps/",
+			 openupNames[0]: false,
+			 openupNames[1]: false,
+			 openupNames[2]: false,
+			 openupNames[3]: false,
+			 openupNames[4]: false,
+			 openupNames[5]: false,
+			 openupNames[6]: false,
+			 openupNames[7]: false]
 		
 		UserDefaults.standard.register(defaults: defDict)
 	}()
@@ -92,8 +93,8 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		_=PreferencePanel.__once
 		
 		let defaults = UserDefaults.standard
-		for i in 0 ..< Int(ucolor_e.NUMCOLORS.rawValue) {
-			color.append(colorFromDefault(forKey: ucolornames[i], defaults: defaults)!)
+		for key in ucolornames {
+			color.append(colorFromDefault(forKey: key, defaults: defaults)!)
 		}
 		launchThingType = Int32(defaults.integer(forKey: launchTypeName))
 
@@ -207,7 +208,12 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	@objc open func appWillTerminate(_ sender: Any!) {
 		let defaults = UserDefaults.standard
 		for (col, name) in zip(color, ucolornames) {
-			let colorDat = NSKeyedArchiver.archivedData(withRootObject: col)
+			let colorDat: Data
+			if #available(OSX 10.13, *) {
+				colorDat = try! NSKeyedArchiver.archivedData(withRootObject: col, requiringSecureCoding: true)
+			} else {
+				colorDat = NSKeyedArchiver.archivedData(withRootObject: col)
+			}
 			defaults.set(colorDat, forKey: name)
 		}
 		
@@ -242,8 +248,12 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 private func colorFromDefault(forKey key: String, defaults: UserDefaults = UserDefaults.standard) -> NSColor? {
 	let rawObj = defaults.object(forKey: key)
 	if let dataObj = rawObj as? Data {
-		let aColor = NSKeyedUnarchiver.unarchiveObject(with: dataObj)
-		return aColor as? NSColor
+		if #available(OSX 10.13, *) {
+			return try? NSKeyedUnarchiver.unarchivedObject(ofClass: NSColor.self, from: dataObj)
+		} else {
+			let aColor = NSKeyedUnarchiver.unarchiveObject(with: dataObj)
+			return aColor as? NSColor
+		}
 	} else if let rawStr = rawObj as? String {
 		let scan = Scanner(string: rawStr)
 		var r: Float = 0

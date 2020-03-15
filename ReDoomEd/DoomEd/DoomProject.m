@@ -40,6 +40,10 @@ char	mapwads[1024];		// map WAD path
 char	bspprogram[1024];	// bsp program path
 char	bsphost[32];		// bsp host machine
 
+NSErrorDomain const RDEDoomProjectErrorDomain = @"com.twilightedge.ReDoomEd.doomProject.error";
+
+NSErrorUserInfoKey const RDEDoomParseFailToken = @"RDE parse fail token";
+
 #define BASELISTSIZE	32
 
 
@@ -143,20 +147,41 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 ===============
 */
 
-- (BOOL)loadPV1File: (FILE *)stream
+- (BOOL)loadPV1File: (FILE *)stream error:(NSError**)outError;
 {
 	int		i;
 	char tmp1[RDE_MAX_FILEPATH_LENGTH] = "";
 	
 #ifdef REDOOMED
+	NSURL *path2 = [projectdirectory URLByAppendingPathComponent:@"project.dpr"];
 	// use RDE_FileMatchStringAndGetString() instead of fscanf():
 	// prevents buffer overflows, can read filepaths containing spaces, & reads empty filepaths
-	if (!RDE_FileMatchStringAndGetString(stream, "wadfile: ", tmp1, RDE_MAX_FILEPATH_LENGTH))
+	if (!RDE_FileMatchStringAndGetString(stream, "wadfile: ", tmp1, RDE_MAX_FILEPATH_LENGTH)) {
+		if (outError) {
+			*outError = [NSError
+						 errorWithDomain:RDEDoomProjectErrorDomain
+						 code:RDEDoomProjectErrorProjectFileParseFailed
+						 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"), path2.path],
+									NSURLErrorKey: path2,
+									RDEDoomParseFailToken: @"wadfile"}];
+		}
+
 		return NO;
+	}
 
 	wadfile = [NSURL fileURLWithFileSystemRepresentation:tmp1 isDirectory:NO relativeToURL:nil];
-	if (!RDE_FileMatchStringAndGetString(stream, "mapwads: ", mapwads, RDE_MAX_FILEPATH_LENGTH))
+	if (!RDE_FileMatchStringAndGetString(stream, "mapwads: ", mapwads, RDE_MAX_FILEPATH_LENGTH)) {
+		if (outError) {
+			*outError = [NSError
+						 errorWithDomain:RDEDoomProjectErrorDomain
+						 code:RDEDoomProjectErrorProjectFileParseFailed
+						 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"), path2.path],
+									NSURLErrorKey: path2,
+									RDEDoomParseFailToken: @"mapwads"}];
+		}
+
 		return NO;
+	}
 
 	// for safety, don't allow the project file (which may have come from an external source)
 	// to determine the path of an output directory (mapwads) - instead, force the map wads
@@ -166,11 +191,30 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (!RDE_FileMatchStringAndGetString(stream, "BSPprogram: ", bspprogram,
 	                                        RDE_MAX_FILEPATH_LENGTH))
 	{
+		if (outError) {
+			*outError = [NSError
+						 errorWithDomain:RDEDoomProjectErrorDomain
+						 code:RDEDoomProjectErrorProjectFileParseFailed
+						 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"), path2.path],
+									NSURLErrorKey: path2,
+									RDEDoomParseFailToken: @"BSPprogram"}];
+		}
+
 		return NO;
 	}
 
-	if (!RDE_FileMatchStringAndGetString(stream, "BSPhost: ", bsphost, sizeof(bsphost) - 1))
+	if (!RDE_FileMatchStringAndGetString(stream, "BSPhost: ", bsphost, sizeof(bsphost) - 1)) {
+		if (outError) {
+			*outError = [NSError
+						 errorWithDomain:RDEDoomProjectErrorDomain
+						 code:RDEDoomProjectErrorProjectFileParseFailed
+						 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"), path2.path],
+									NSURLErrorKey: path2,
+									RDEDoomParseFailToken: @"BSPhost"}];
+		}
+
 		return NO;
+	}
 #else // Original
 	if (fscanf (stream, "\nwadfile: %s\n",wadfile) != 1)
 		return NO;
@@ -188,15 +232,26 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	if (fscanf(stream,"nummaps: %d\n", &nummaps) != 1)
 		return NO;
 		
-	for (i=0 ; i<nummaps ; i++)
+	for (i=0 ; i<nummaps ; i++) {
 #ifdef REDOOMED
 		// prevent buffer overflows: specify string buffer sizes in *scanf() format strings
-		if (fscanf(stream,"%8s\n", mapnames[i]) != 1)
+		if (fscanf(stream,"%8s\n", mapnames[i]) != 1) {
+			if (outError) {
+				*outError = [NSError
+							 errorWithDomain:RDEDoomProjectErrorDomain
+							 code:RDEDoomProjectErrorProjectFileParseFailed
+							 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"), path2.path],
+										NSURLErrorKey: path2,
+										RDEDoomParseFailToken: [NSString stringWithFormat:@"mapname%d", i]}];
+			}
+
 			return NO;
+		}
 #else // Original
 		if (fscanf(stream,"%s\n", mapnames[i]) != 1)
 			return NO;
 #endif
+	}
 
 	return YES;
 }
@@ -217,10 +272,10 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	fprintf (stream, "mapwads: %s\n",mapwads);
 	fprintf (stream, "BSPprogram: %s\n",bspprogram);
 	fprintf (stream, "BSPhost: %s\n",bsphost);
-	fprintf (stream,"nummaps: %d\n", nummaps);
+	fprintf (stream, "nummaps: %d\n", nummaps);
 		
 	for (i=0 ; i<nummaps ; i++)
-		fprintf (stream,"%s\n", mapnames[i]);
+		fprintf (stream, "%s\n", mapnames[i]);
 }
 
 
@@ -274,6 +329,7 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 - (IBAction)openProject: sender
 {
 	NSOpenPanel	*openpanel;
+	NSError *err;
 #ifdef REDOOMED
 	// Cocoa compatibility: -[NSOpenPanel runModalForTypes:] takes an NSArray
 	NSArray *suffixlist = [NSArray arrayWithObject: @"dpr"];
@@ -295,10 +351,11 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	printf("Purging existing flats.\n");
 	[ sectorEdit_i	dumpAllFlats ];
 	
-	if (![self loadProjectWithFileURL: [openpanel URL]])
+	if (![self loadProjectWithFileURL: [openpanel URL] error:&err])
 	{
+		[NSApp presentError:err];
 		NSRunAlertPanel(@"Uh oh!",@"Couldn't load your project!",
-			@"OK",NULL,NULL);
+			NSLocalizedString(@"OK", @"OK"),NULL,NULL);
 
 #ifdef REDOOMED
 		// after the failed call to loadProject:, the DoomProject's members are in an unknown
@@ -627,10 +684,15 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 - (BOOL)loadProject: (char const *)path
 {
-	return [self loadProjectWithFileURL:[NSURL fileURLWithFileSystemRepresentation:path isDirectory:NO relativeToURL:nil]];
+	NSError *err;
+	BOOL retVal = [self loadProjectWithFileURL:[NSURL fileURLWithFileSystemRepresentation:path isDirectory:NO relativeToURL:nil] error:&err];
+	if (!retVal) {
+		[NSApp presentError:err];
+	}
+	return retVal;
 }
 
-- (BOOL)loadProjectWithFileURL:(NSURL *)path;
+- (BOOL)loadProjectWithFileURL:(NSURL *)path error:(NSError**)outError;
 {
 	FILE	*stream;
 	int		version, ret;
@@ -640,7 +702,9 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 
 	if (strlen(path.fileSystemRepresentation) > RDE_MAX_FILEPATH_LENGTH)
 	{
-		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),@"%@",@"OK",NULL,NULL, NSLocalizedString(@"Project filepath is too long.", @"Project filepath is too long."));
+		if (outError) {
+			*outError = [NSError errorWithDomain:RDEDoomProjectErrorDomain code:RDEDoomProjectErrorNameTooLong userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Project filepath is too long.", @"Project filepath is too long.")}];
+		}
 		return NO;
 	}
 #endif
@@ -652,25 +716,35 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 	stream = fopen (path2.fileSystemRepresentation,"r");
 	if (!stream)
 	{
-		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"),NULL,NULL,NULL, path2.path);
+		if (outError) {
+			int posixErr = errno;
+			NSError *innerError = [NSError errorWithDomain:NSPOSIXErrorDomain code:posixErr userInfo:nil];
+			NSDictionary *errDict = @{NSUnderlyingErrorKey: innerError,
+									  NSURLErrorKey: path2,
+									  NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Couldn't open %@", @"Couldn't open %@"), path2.path]};
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:errDict];
+		}
+		
 		return NO;
 	}
 	version = -1;
 	fscanf (stream, "Doom Project version %d\n", &version);
 	if (version == 1)
-		ret = [self loadPV1File: stream];
+		ret = [self loadPV1File: stream error:outError];
 	else
 	{
 		fclose (stream);
-		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Unknown file version for project %@", @"Unknown file version for project %@"),
-			NULL,NULL,NULL, path2.path);
+		if (outError) {
+			*outError = [NSError errorWithDomain:RDEDoomProjectErrorDomain code:RDEDoomProjectErrorInvalidVersion userInfo:@{NSLocalizedDescriptionKey:[NSString stringWithFormat:NSLocalizedString(@"Unknown file version for project %@", @"Unknown file version for project %@"), path2.path], NSURLErrorKey: path2}];
+		}
+
 		return NO;
 	}
 
 	if (!ret)
 	{
 		fclose (stream);
-		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"),NULL,NULL,NULL, path2.path);
+		//NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"), NSLocalizedString(@"Couldn't parse project file %@", @"Couldn't parse project file %@"),NULL,NULL,NULL, path2.path);
 		return NO;
 	}
 	
@@ -695,11 +769,11 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
     }
 #endif
 
-	wadfile_i = [[Wadfile alloc] initFromFile: wadfile.fileSystemRepresentation];
+	wadfile_i = [[Wadfile alloc] initFromFileURL: wadfile error:outError];
 	if (!wadfile_i)
 	{
-		NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),NSLocalizedString(@"Couldn't open wadfile %@", @"Couldn't open wadfile %@"),
-			NULL,NULL,NULL, wadfile.path);
+		//NSRunAlertPanel (NSLocalizedString(@"Error", @"Error"),NSLocalizedString(@"Couldn't open wadfile %@", @"Couldn't open wadfile %@"),
+		//	NULL,NULL,NULL, wadfile.path);
 		return NO;
 	}
 	

@@ -17,6 +17,7 @@
 }
 
 - (instancetype)initFromFile: (char const *)path;
+- (instancetype)initFromFileURL: (NSURL *)path error:(NSError**)outError;
 - (instancetype)initNew: (char const *)path;
 
 - (void) close;
