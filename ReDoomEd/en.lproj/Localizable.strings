@@ -103,7 +103,7 @@
 "Couldn't parse project file %@" = "Couldn’t parse project file %@";
 
 /* Project filepath is too long. */
-"Project filepath is too long." = "Project filepath is too long.";
+"Project filepath is too long." = "Project file path is too long.";
 
 /* Continue */
 "Continue" = "Continue";

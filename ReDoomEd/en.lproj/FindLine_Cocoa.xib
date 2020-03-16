@@ -36,7 +36,7 @@
                             <action selector="performClick:" target="9" id="14"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                         <rect key="frame" x="11" y="75" width="72" height="14"/>
                         <textFieldCell key="cell" controlSize="small" alignment="center" title="Enter line #" id="21">
                             <font key="font" metaFont="smallSystemBold"/>
@@ -57,7 +57,7 @@
                             <action selector="findLine:" target="-2" id="12"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                         <rect key="frame" x="32" y="4" width="161" height="21"/>
                         <textFieldCell key="cell" alignment="center" title="*******Title********" id="22">
                             <font key="font" metaFont="system" size="18"/>
@@ -77,7 +77,7 @@
                     </button>
                     <button imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2">
                         <rect key="frame" x="3" y="30" width="78" height="18"/>
-                        <buttonCell key="cell" type="check" title="From BSP" imagePosition="leading" controlSize="small" inset="2" id="18">
+                        <buttonCell key="cell" type="check" title="From BSP" imagePosition="left" controlSize="small" inset="2" id="18">
                             <behavior key="behavior" pushIn="YES" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>

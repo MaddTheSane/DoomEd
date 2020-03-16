@@ -43,26 +43,26 @@ int		byteimagewidth, byteimageheight;
 #define BODYID 	('Y'+('D'<<8)+((long)'O'<<16)+((long)'B'<<24))
 #define CMAPID  	('P'+('A'<<8)+((long)'M'<<16)+((long)'C'<<24))
 #else
-#define FORMID	(((long)'M'<<24)+((long)'R'<<16)+((long)'O'<<8)+((long)'F'))
-#define ILBMID	(((long)'M'<<24)+((long)'B'<<16)+((long)'L'<<8)+((long)'I'))
-#define PBMID   (((long)' '<<24)+((long)'M'<<16)+((long)'B'<<8)+((long)'P'))
-#define BMHDID  (((long)'D'<<24)+((long)'H'<<16)+((long)'M'<<8)+((long)'B'))
-#define BODYID 	(((long)'Y'<<24)+((long)'D'<<16)+((long)'O'<<8)+((long)'B'))
-#define CMAPID  (((long)'P'<<24)+((long)'A'<<16)+((long)'M'<<8)+((long)'C'))
+#define FORMID	(((int32_t)'M'<<24)|((int32_t)'R'<<16)|((int32_t)'O'<<8)|((int32_t)'F'))
+#define ILBMID	(((int32_t)'M'<<24)|((int32_t)'B'<<16)|((int32_t)'L'<<8)|((int32_t)'I'))
+#define PBMID   (((int32_t)' '<<24)|((int32_t)'M'<<16)|((int32_t)'B'<<8)|((int32_t)'P'))
+#define BMHDID  (((int32_t)'D'<<24)|((int32_t)'H'<<16)|((int32_t)'M'<<8)|((int32_t)'B'))
+#define BODYID 	(((int32_t)'Y'<<24)|((int32_t)'D'<<16)|((int32_t)'O'<<8)|((int32_t)'B'))
+#define CMAPID  (((int32_t)'P'<<24)|((int32_t)'A'<<16)|((int32_t)'M'<<8)|((int32_t)'C'))
 #endif
 
 typedef unsigned char	UBYTE;
 typedef short			WORD;
 typedef unsigned short	UWORD;
-typedef long			LONG;
+typedef int32_t			LONG;
 
-typedef enum
+typedef NS_ENUM(UBYTE, mask_t)
 {
 	ms_none,
 	ms_mask,
 	ms_transcolor,
 	ms_lasso
-} mask_t;
+};
 
 typedef NS_ENUM(UBYTE, compress_t)
 {
@@ -75,7 +75,7 @@ typedef struct
 	UWORD		w,h;
 	WORD		x,y;
 	UBYTE		nPlanes;
-	UBYTE		masking;
+	mask_t		masking;
 	compress_t	compression;
 	UBYTE		pad1;
 	UWORD		transparentColor;

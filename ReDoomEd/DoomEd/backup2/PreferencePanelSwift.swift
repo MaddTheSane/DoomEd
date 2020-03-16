@@ -102,8 +102,8 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		
 		
 		// openup defaults
-		for i in 0 ..< Int(openup_e.NUMOPENUP.rawValue) {
-			openupValues[i] = defaults.bool(forKey: openupNames[i])
+		for (i, name) in openupNames.enumerated() {
+			openupValues[i] = defaults.bool(forKey: name)
 		}
 		
 		prefpanel_i = self;
