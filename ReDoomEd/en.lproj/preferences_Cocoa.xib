@@ -15,7 +15,7 @@
                 <outlet property="onesidedcolor" destination="40" id="DrQ-88-nAM"/>
                 <outlet property="openupDefaults" destination="25" id="sqN-VK-Eu9"/>
                 <outlet property="pointcolor" destination="22" id="vXx-e4-CXv"/>
-                <outlet property="projectDefaultPath" destination="12" id="Gy4-Qv-gdV"/>
+                <outlet property="projectDefaultPath" destination="wFI-31-u3s" id="iwD-MK-X97"/>
                 <outlet property="selectedcolor" destination="34" id="cGS-sR-Ino"/>
                 <outlet property="specialcolor" destination="13" id="Jt1-BG-WQz"/>
                 <outlet property="thingcolor" destination="16" id="dDB-5k-4c6"/>
@@ -29,15 +29,15 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="30" userLabel="Inspector Window" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="401" y="318" width="370" height="376"/>
+            <rect key="contentRect" x="401" y="318" width="370" height="396"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="9">
-                <rect key="frame" x="0.0" y="0.0" width="370" height="376"/>
+                <rect key="frame" x="0.0" y="0.0" width="370" height="396"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box fixedFrame="YES" title="Colors" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                        <rect key="frame" x="12" y="177" width="348" height="192"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="12" y="197" width="348" height="192"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <view key="contentView" id="lUp-ks-Cyf">
                             <rect key="frame" x="3" y="3" width="342" height="174"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -217,8 +217,8 @@
                         <font key="titleFont" metaFont="user"/>
                     </box>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="38">
-                        <rect key="frame" x="8" y="151" width="249" height="15"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="8" y="171" width="249" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="left" title="Type of thing for launch coordinate change:" id="80">
                             <font key="font" metaFont="user"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -226,8 +226,8 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="15">
-                        <rect key="frame" x="256" y="148" width="56" height="21"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="256" y="168" width="56" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="79">
                             <font key="font" metaFont="user"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -238,29 +238,17 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                        <rect key="frame" x="8" y="130" width="143" height="15"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="8" y="150" width="143" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <textFieldCell key="cell" alignment="left" title="Default project directory:" id="77">
                             <font key="font" metaFont="user"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                        <rect key="frame" x="8" y="106" width="352" height="21"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="78">
-                            <font key="font" metaFont="user"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                        <connections>
-                            <action selector="projectPathChanged:" target="-2" id="63"/>
-                        </connections>
-                    </textField>
                     <box fixedFrame="YES" title="Opened upon launch" translatesAutoresizingMaskIntoConstraints="NO" id="23">
-                        <rect key="frame" x="69" y="7" width="234" height="95"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="69" y="16" width="234" height="95"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                         <view key="contentView" id="LdF-d1-f5I">
                             <rect key="frame" x="3" y="3" width="228" height="77"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -342,12 +330,31 @@
                         </view>
                         <font key="titleFont" metaFont="user"/>
                     </box>
+                    <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wFI-31-u3s">
+                        <rect key="frame" x="10" y="120" width="300" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="i7A-3f-kBL">
+                            <font key="font" metaFont="system"/>
+                            <url key="url" string="file://localhost/Applications/"/>
+                        </pathCell>
+                    </pathControl>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="knv-ei-BTv">
+                        <rect key="frame" x="312" y="114" width="51" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="…" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nRd-RT-v3j">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="selectProjectPath:" target="-2" id="eMQ-2s-yGd"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="41"/>
             </connections>
-            <point key="canvasLocation" x="139" y="147"/>
+            <point key="canvasLocation" x="139" y="157"/>
         </window>
     </objects>
 </document>

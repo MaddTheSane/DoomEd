@@ -48,7 +48,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 	@IBOutlet weak var specialcolor: NSColorWell!
 	
 	@IBOutlet weak var launchThingType_i: NSTextField!
-	@IBOutlet weak var projectDefaultPath: NSTextField!
+	@IBOutlet weak var projectDefaultPath: NSPathControl!
 	@IBOutlet weak var openupDefaults: NSMatrix!
 	
     @IBOutlet weak var window: NSPanel!
@@ -143,7 +143,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		
 		launchThingType_i.intValue = launchThingType
 		
-		projectDefaultPath.stringValue = projectPath?.path ?? ""
+		projectDefaultPath.url = projectPath
 		
 		
 		window.orderFront(self)
@@ -155,6 +155,7 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		}
 		
 		// update all windows
+		// TODO: use notifications?
 		for window in NSApp.windows {
 			if let mapWin = window as? MapWindow {
 				mapWin.mapView.needsDisplay = true
@@ -167,6 +168,19 @@ private var openupValues = [Bool](repeating: false, count: Int(openup_e.NUMOPENU
 		launchThingType = Int32(launchThingType1)
 	}
 
+	@IBAction open func selectProjectPath(_ sender: Any!) {
+		let openPanel = NSOpenPanel()
+		openPanel.canChooseDirectories = true
+		
+		openPanel.beginSheetModal(for: window) { (resp) in
+			guard resp == .OK else {
+				return
+			}
+			self.projectPath = openPanel.url
+			self.projectDefaultPath.url = self.projectPath
+		}
+	}
+	
 	@IBAction open func projectPathChanged(_ sender: Any!) {
 		var newProjectPathString: String = (sender as AnyObject).stringValue ?? ""
 		
