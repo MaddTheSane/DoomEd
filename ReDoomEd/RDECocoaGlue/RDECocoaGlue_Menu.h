@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 @interface NSMenu (RDECocoaGlue_MenuMethods)

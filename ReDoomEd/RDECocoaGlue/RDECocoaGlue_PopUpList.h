@@ -22,20 +22,19 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 // the Cocoa glue for PopUpList overrides the init method, so it's implemented as an
 // NSPopUpButton subclass instead of a category
 
 @interface PopUpList : NSPopUpButton
-{
-}
 
-- (id) itemList API_DEPRECATED("Just call against this object.", macos(10.0, 10.0));
+- (id) itemList RDE_DEPRECATED("Just call against this object.", macos(10.0, 10.0));
 
 - (id) getNumRows: (int *) returnedRows numCols: (int *) returnedCols;
 
-- (NSInteger) selectedRow API_DEPRECATED_WITH_REPLACEMENT("-indexOfSelectedItem", macos(10.0, 10.0));
+- (NSInteger) selectedRow RDE_DEPRECATED_WITH_REPLACEMENT("-indexOfSelectedItem", macos(10.0, 10.0));
 
 - (id) selectedCell;
 

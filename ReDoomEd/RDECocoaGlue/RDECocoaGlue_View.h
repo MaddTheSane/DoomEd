@@ -22,11 +22,11 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
+RDE_DEPRECATED("Subclass NSView instead", macos(10.0, 10.0))
 @interface View : NSView
-{
-}
 
 - (id) initFrame: (const NSRect *) frameRectPtr;
 
@@ -37,29 +37,29 @@
 
 @interface NSView (RDECocoaGlue_ViewMethods)
 
-- (id) getBounds: (NSRect *) theRect API_DEPRECATED("Call -bounds instead", macos(10.0, 10.0));
+- (id) getBounds: (NSRect *) theRect RDE_DEPRECATED("Call -bounds instead", macos(10.0, 10.0));
 
-- (id) getFrame: (NSRect *) theRect API_DEPRECATED("Call -frame instead", macos(10.0, 10.0));
+- (id) getFrame: (NSRect *) theRect RDE_DEPRECATED("Call -frame instead", macos(10.0, 10.0));
 
-- (BOOL) getVisibleRect: (NXRect *) theRect API_DEPRECATED("Call -visibleRect instead", macos(10.0, 10.0));
+- (BOOL) getVisibleRect: (NXRect *) theRect RDE_DEPRECATED("Call -visibleRect instead", macos(10.0, 10.0));
 
-- (id) setDrawOrigin: (float) x : (float) y API_DEPRECATED("Call -setBoundsOrigin: instead", macos(10.0, 10.0));
+- (id) setDrawOrigin: (float) x : (float) y RDE_DEPRECATED("Call -setBoundsOrigin: instead", macos(10.0, 10.0));
 
-- (id) setDrawSize: (float) width : (float) height API_DEPRECATED("Call -setBoundsSize: instead", macos(10.0, 10.0));
+- (id) setDrawSize: (float) width : (float) height RDE_DEPRECATED("Call -setBoundsSize: instead", macos(10.0, 10.0));
 
 - (id) convertPointFromSuperview: (NSPoint *) aPoint;
 
 - (id) convertRectFromSuperview: (NSRect *) aRect;
 
-- (id) display: (const NSRect *) rectPtrs : (int) rectCount;
+- (id) display: (const NSRect *) rectPtrs : (int) rectCount RDE_DEPRECATED("Call -setNeedsDisplayInRect: instead", macos(10.0, 10.0));
 
-- (id) drawSelf: (const NSRect *) rectPtrs : (int) rectCount;
+- (id) drawSelf: (const NSRect *) rectPtrs : (int) rectCount RDE_DEPRECATED("Call -drawRect: instead", macos(10.0, 10.0));
 
-- (id) sizeTo: (float) width : (float) height API_DEPRECATED("Call -setFrameSize: instead", macos(10.0, 10.0));
+- (id) sizeTo: (float) width : (float) height RDE_DEPRECATED("Call -setFrameSize: instead", macos(10.0, 10.0));
 
-- (id) setAutosizing: (unsigned int) mask API_DEPRECATED_WITH_REPLACEMENT("-setAutoresizingMask:", macos(10.0, 10.0));
+- (id) setAutosizing: (unsigned int) mask RDE_DEPRECATED_WITH_REPLACEMENT("-setAutoresizingMask:", macos(10.0, 10.0));
 
-- (id) printPSCode: (id) sender API_DEPRECATED_WITH_REPLACEMENT("-print:", macos(10.0, 10.0));
+- (id) printPSCode: (id) sender RDE_DEPRECATED_WITH_REPLACEMENT("-print:", macos(10.0, 10.0));
 
 @end
 

@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define NXStream NSStream

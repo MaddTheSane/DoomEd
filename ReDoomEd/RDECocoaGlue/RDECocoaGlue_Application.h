@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define Application     NSApplication
@@ -30,7 +31,7 @@
 
 @interface NSApplication (RDECocoaGlue_ApplicationMethods)
 
-- (NSArray *) windowList API_DEPRECATED_WITH_REPLACEMENT("-windows", macos(10.0, 10.0));
+- (NSArray *) windowList RDE_DEPRECATED_WITH_REPLACEMENT("-windows", macos(10.0, 10.0));
 
 - (BOOL) loadNibSection: (const char *) section
             owner: (id) owner
@@ -38,10 +39,10 @@
 
 - (NSEvent *) getNextEvent: (NSEventMask) eventMask;
 
-+ (NSWorkspace *) workspace API_DEPRECATED("Just use [NSWorkspace sharedWorkspace] instead.", macos(10.0, 10.0));
++ (NSWorkspace *) workspace RDE_DEPRECATED("Just use [NSWorkspace sharedWorkspace] instead.", macos(10.0, 10.0));
 
-- (void) getScreenSize: (NSSize *) returnedScreenSize API_DEPRECATED("call [[NSScreen mainScreen] visibleFrame].size instead.", macos(10.0, 10.0));
+- (void) getScreenSize: (NSSize *) returnedScreenSize RDE_DEPRECATED("call [[NSScreen mainScreen] visibleFrame].size instead.", macos(10.0, 10.0));
 
-- (NSModalResponse) runModalFor: (NSWindow *) theWindow API_DEPRECATED_WITH_REPLACEMENT("-runModalForWindow:", macos(10.0, 10.0));
+- (NSModalResponse) runModalFor: (NSWindow *) theWindow RDE_DEPRECATED_WITH_REPLACEMENT("-runModalForWindow:", macos(10.0, 10.0));
 
 @end

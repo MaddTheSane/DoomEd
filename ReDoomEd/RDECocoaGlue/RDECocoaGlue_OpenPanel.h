@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define OpenPanel NSOpenPanel
@@ -29,6 +30,6 @@
 
 @interface NSOpenPanel (RDECocoaGlue_OpenPanelMethods)
 
-- (id) chooseDirectories: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setCanChooseDirectories:", macos(10.0, 10.0));
+- (id) chooseDirectories: (BOOL) flag RDE_DEPRECATED_WITH_REPLACEMENT("-setCanChooseDirectories:", macos(10.0, 10.0));
 
 @end

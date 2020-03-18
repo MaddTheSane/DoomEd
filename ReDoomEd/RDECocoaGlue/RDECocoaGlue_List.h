@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define List NSMutableArray
@@ -29,11 +30,11 @@
 
 @interface NSMutableArray (RDECocoaGlue_ListMethods)
 
-- (id) objectAt: (unsigned int) index API_DEPRECATED_WITH_REPLACEMENT("-objectAtIndex:", macos(10.0, 10.0));
+- (id) objectAt: (unsigned int) index RDE_DEPRECATED_WITH_REPLACEMENT("-objectAtIndex:", macos(10.0, 10.0));
 
-- (void) makeObjectsPerform: (SEL) aSelector API_DEPRECATED_WITH_REPLACEMENT("-makeObjectsPerformSelector:", macos(10.0, 10.0));
+- (void) makeObjectsPerform: (SEL) aSelector RDE_DEPRECATED_WITH_REPLACEMENT("-makeObjectsPerformSelector:", macos(10.0, 10.0));
 
-- (id) empty API_DEPRECATED_WITH_REPLACEMENT("-removeAllObjects", macos(10.0, 10.0));
+- (id) empty RDE_DEPRECATED_WITH_REPLACEMENT("-removeAllObjects", macos(10.0, 10.0));
 
 @end
 

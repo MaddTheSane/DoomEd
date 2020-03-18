@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define Object NSObject
@@ -29,7 +30,7 @@
 
 @interface NSObject (RDECocoaGlue_ObjectMethods)
 
-- (id) free API_DEPRECATED_WITH_REPLACEMENT("-release", macos(10.0, 10.0)) OBJC_ARC_UNAVAILABLE;
+- (id) free RDE_DEPRECATED_WITH_REPLACEMENT("-release", macos(10.0, 10.0)) OBJC_ARC_UNAVAILABLE;
 
 - (id) copyFromZone: (NSZone *) zone;
 

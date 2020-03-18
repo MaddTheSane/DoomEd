@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define NXImage     NSImage
@@ -30,13 +31,13 @@
 
 @interface NSImage (RDECocoaGlue_NXImageMethods)
 
-- (id) initSize: (NSSize *) aSize API_DEPRECATED_WITH_REPLACEMENT("-initWithSize:", macos(10.0, 10.0));
+- (id) initSize: (NSSize *) aSize RDE_DEPRECATED_WITH_REPLACEMENT("-initWithSize:", macos(10.0, 10.0));
 
-- (id) composite: (NSCompositingOperation) operation toPoint: (const NSPoint *) pointPtr API_DEPRECATED("Use -drawAtPoint:fromRect:operation:fraction: instead", macos(10.0, 10.0));
+- (id) composite: (NSCompositingOperation) operation toPoint: (const NSPoint *) pointPtr RDE_DEPRECATED("Use -drawAtPoint:fromRect:operation:fraction: instead", macos(10.0, 10.0));
 
-- (BOOL) useRepresentation: (NSImageRep *) imageRep API_DEPRECATED_WITH_REPLACEMENT("-addRepresentation:", macos(10.0, 10.0));
+- (BOOL) useRepresentation: (NSImageRep *) imageRep RDE_DEPRECATED_WITH_REPLACEMENT("-addRepresentation:", macos(10.0, 10.0));
 
-- (id) setScalable: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setScalesWhenResized:", macos(10.0, 10.0));
+- (id) setScalable: (BOOL) flag RDE_DEPRECATED_WITH_REPLACEMENT("-setScalesWhenResized:", macos(10.0, 10.0));
 
 - (BOOL) useCacheWithDepth: (int) depth;
 
@@ -44,6 +45,6 @@
 
 - (NSImageRep *) lastRepresentation;
 
-- (id) getSize: (NSSize *) theSize API_DEPRECATED("Use -size instead", macos(10.0, 10.0));
+- (id) getSize: (NSSize *) theSize RDE_DEPRECATED("Use -size instead", macos(10.0, 10.0));
 
 @end

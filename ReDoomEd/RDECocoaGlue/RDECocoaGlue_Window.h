@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define Window NSWindow
@@ -46,8 +47,8 @@
 
 - (id) setAvoidsActivation: (BOOL) flag;
 
-- (id) setTitleAsFilename: (const char *) aString API_DEPRECATED_WITH_REPLACEMENT("-setTitleWithRepresentedFilename:", macos(10.0, 10.0));
+- (id) setTitleAsFilename: (const char *) aString RDE_DEPRECATED_WITH_REPLACEMENT("-setTitleWithRepresentedFilename:", macos(10.0, 10.0));
 
-- (id) setDocEdited: (BOOL) flag API_DEPRECATED_WITH_REPLACEMENT("-setDocumentEdited:", macos(10.0, 10.0));
+- (id) setDocEdited: (BOOL) flag RDE_DEPRECATED_WITH_REPLACEMENT("-setDocumentEdited:", macos(10.0, 10.0));
 
 @end

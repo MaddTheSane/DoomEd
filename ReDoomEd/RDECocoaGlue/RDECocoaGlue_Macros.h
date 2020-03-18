@@ -106,3 +106,11 @@
 #define macroRDE_IntegralPoint(point)                                               \
             NSMakePoint(macroRDE_IntegralCoordinate_CGFloat((point).x),             \
                         macroRDE_IntegralCoordinate_CGFloat((point).y))
+
+#if defined(NORDEDEPRECATE) && NORDEDEPRECATE
+#define RDE_DEPRECATED_WITH_REPLACEMENT(...)
+#define RDE_DEPRECATED(...)
+#else
+#define RDE_DEPRECATED_WITH_REPLACEMENT(...) API_DEPRECATED_WITH_REPLACEMENT(__VA_ARGS__) NS_SWIFT_UNAVAILABLE("Very old deprecated API! Don't even think of using it for Swift!")
+#define RDE_DEPRECATED(...) API_DEPRECATED(__VA_ARGS__) NS_SWIFT_UNAVAILABLE("Very old deprecated API! Don't even think of using it for Swift!")
+#endif

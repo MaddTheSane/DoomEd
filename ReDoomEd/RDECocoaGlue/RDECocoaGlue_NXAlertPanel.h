@@ -22,14 +22,15 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 NSInteger NXRunAlertPanel(const char *titleCStr, const char *messageFormatCStr,
 						  const char *defaultButtonCStr, const char *alternateButtonCStr,
-						  const char *otherButtonCStr, ...) __printflike(2, 6) API_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
+						  const char *otherButtonCStr, ...) __printflike(2, 6) RDE_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
 
 id NXGetAlertPanel(const char *titleCStr, const char *messageFormatCStr,
                     const char *defaultButtonCStr, const char *alternateButtonCStr,
-                    const char *otherButtonCStr, ...) __printflike(2, 6) API_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
+                    const char *otherButtonCStr, ...) __printflike(2, 6) RDE_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
 
-void NXFreeAlertPanel(id NS_RELEASES_ARGUMENT panel) API_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));
+void NXFreeAlertPanel(id NS_RELEASES_ARGUMENT panel) RDE_DEPRECATED("Use NSAlert instead", macos(10.0,10.10));

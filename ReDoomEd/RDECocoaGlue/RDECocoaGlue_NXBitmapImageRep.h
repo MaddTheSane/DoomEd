@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define NXBitmapImageRep NSBitmapImageRep
@@ -38,13 +39,13 @@
         isPlanar: (BOOL) isPlanar
         colorSpace: (NSColorSpaceName) colorSpaceName
         bytesPerRow: (int) rowBytes
-        bitsPerPixel: (int) pixelBits API_DEPRECATED_WITH_REPLACEMENT("-initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:", macos(10.0, 10.0));
+        bitsPerPixel: (int) pixelBits RDE_DEPRECATED_WITH_REPLACEMENT("-initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:", macos(10.0, 10.0));
 
-- (unsigned char *) data API_DEPRECATED_WITH_REPLACEMENT("-bitmapData", macos(10.0, 10.0));
+- (unsigned char *) data RDE_DEPRECATED_WITH_REPLACEMENT("-bitmapData", macos(10.0, 10.0));
 
 @end
 
 void NXDrawBitmap(const NSRect *rect, int pixelsWide, int pixelsHigh, int bitsPerSample,
                     int samplesPerPixel, int bitsPerPixel, int bytesPerRow, BOOL isPlanar,
-                    BOOL hasAlpha, NSString *colorSpaceName, unsigned char **data) API_DEPRECATED_WITH_REPLACEMENT("NSDrawBitmap", macos(10.0, 10.0));
+                    BOOL hasAlpha, NSString *colorSpaceName, unsigned char **data) RDE_DEPRECATED_WITH_REPLACEMENT("NSDrawBitmap", macos(10.0, 10.0));
 
