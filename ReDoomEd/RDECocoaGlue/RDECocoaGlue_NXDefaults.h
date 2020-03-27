@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 typedef struct
@@ -32,9 +33,9 @@ typedef struct
 } NXDefaultsRecord, NXDefaultsVector[];
 
 
-int NXRegisterDefaults(const char *owner, NXDefaultsVector vector);
+int NXRegisterDefaults(const char *owner, NXDefaultsVector vector) RDE_DEPRECATED("Use NSUserDefaults", macos(10.0, 10.0));
 
-const char *NXGetDefaultValue(const char *owner, const char *name);
+const char *NXGetDefaultValue(const char *owner, const char *name) RDE_DEPRECATED_WITH_REPLACEMENT("Use NSUserDefaults", macos(10.0, 10.0));
 
-int NXWriteDefault(const char *owner, const char *name, const char *value);
+int NXWriteDefault(const char *owner, const char *name, const char *value) RDE_DEPRECATED_WITH_REPLACEMENT("Use NSUserDefaults", macos(10.0, 10.0));
 
