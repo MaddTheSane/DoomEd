@@ -741,9 +741,9 @@ FIXME: make these scan for deleted entries
 	
 	dirtypoints = true;		// connection matrix will need to be recalculated
 
-	[self changeLine: numlines-1 to: data];
+	[self changeLine: (int)(numlines-1) to: data];
 
-	return numlines - 1;
+	return (int)(numlines - 1);
 }
 
 

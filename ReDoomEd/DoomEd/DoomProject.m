@@ -1339,6 +1339,7 @@ typedef struct
 				NSLocalizedString(@"Continue", @"Continue"),NULL,NULL, lines[k].side[0].bottomtexture);
 			[editworld_i	selectLine:k];
 			[log_i addFormattedMessage:@"Line %ld: texture '%s' nonexistent!\n", (long)k, lines[k].side[0].bottomtexture];
+			free(textureCount);
 			return;
 		}
 
@@ -1848,6 +1849,8 @@ typedef struct
 	//
 	//	Done!
 	//
+	free(thingCount);
+	free(patchCount);
 	fclose(stream);
 	[log_i	addMessage:@"\nFinished!\n\n" ];
 	
@@ -2728,7 +2731,7 @@ static	byte		*buffer, *buf_p;
 	"however, maps can now be exported as PNG-format image files.\n\n"
 	"Images will be exported at the same zoom level as the current map.", @"Let the user know we can't print yet, but PNG is an option.");
 	[alert addButtonWithTitle:NSLocalizedString(@"Export as PNG...", @"Export as PNG...")];
-	[alert addButtonWithTitle:@"Cancel"];
+	[alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
 	
 	
     alertReturnCode = [alert runModal];

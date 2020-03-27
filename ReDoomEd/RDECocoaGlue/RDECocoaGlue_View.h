@@ -46,9 +46,9 @@ RDE_DEPRECATED("Subclass NSView instead", macos(10.0, 10.0))
 
 - (id) setDrawSize: (float) width : (float) height RDE_DEPRECATED("Call -setBoundsSize: instead", macos(10.0, 10.0));
 
-- (id) convertPointFromSuperview: (NSPoint *) aPoint;
+- (id) convertPointFromSuperview: (NSPoint *) aPoint RDE_DEPRECATED("Call -convertPoint:fromView: with the second value being the superview instead", macos(10.0, 10.0));
 
-- (id) convertRectFromSuperview: (NSRect *) aRect;
+- (id) convertRectFromSuperview: (NSRect *) aRect RDE_DEPRECATED("Call -convertRect:fromView: with the second value being the superview instead", macos(10.0, 10.0));
 
 - (id) display: (const NSRect *) rectPtrs : (int) rectCount RDE_DEPRECATED("Call -setNeedsDisplayInRect: instead", macos(10.0, 10.0));
 

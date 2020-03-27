@@ -260,7 +260,7 @@ printf ("Done\n");
 #endif
 	
 	global = superview.bounds;
-	[self convertPointFromSuperview: &global.origin];
+	global.origin = [self convertPoint: global.origin fromView: superview];
 	*worldorigin = global.origin;
 	
 	return self;
