@@ -23,6 +23,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <fcntl.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #ifndef TRUE
@@ -37,7 +38,8 @@
 #   define MAXFLOAT                 FLT_MAX
 #endif
 
-#define NX_RETAINED                 NSBackingStoreRetained
+static const NSBackingStoreType NX_RETAINED RDE_DEPRECATED_WITH_REPLACEMENT("NSBackingStoreRetained", macos(10.0,10.0)) = NSBackingStoreRetained;
+static const NSBackingStoreType NX_BUFFERED RDE_DEPRECATED_WITH_REPLACEMENT("NSBackingStoreBuffered", macos(10.0,10.0)) = NSBackingStoreBuffered;
 
 #define NX_RGBColorSpace            NSCalibratedRGBColorSpace
 
@@ -48,13 +50,13 @@
 #define NX_DKGRAY                   NSDarkGray
 #define NX_BLACK                    NSBlack
 
-#define NX_COPY                     NSCompositeCopy
-#define NX_SOVER                    NSCompositeSourceOver
+static const NSCompositingOperation NX_COPY RDE_DEPRECATED_WITH_REPLACEMENT("NSCompositingOperationCopy", macos(10.0,10.0)) = NSCompositingOperationCopy;
+static const NSCompositingOperation NX_SOVER RDE_DEPRECATED_WITH_REPLACEMENT("NSCompositingOperationSourceOver", macos(10.0,10.0)) = NSCompositingOperationSourceOver;
 
-#define NX_ALERTDEFAULT             NSAlertDefaultReturn
-#define NX_ALERTALTERNATE           NSAlertAlternateReturn
+static const NSInteger NX_ALERTDEFAULT RDE_DEPRECATED_WITH_REPLACEMENT("NSAlertDefaultReturn", macos(10.0,10.0)) = NSAlertDefaultReturn;
+static const NSInteger NX_ALERTALTERNATE RDE_DEPRECATED_WITH_REPLACEMENT("NSAlertAlternateReturn", macos(10.0,10.0)) = NSAlertAlternateReturn;
 
-#define NX_RUNABORTED               NSModalResponseAbort
+static const NSModalResponse NX_RUNABORTED RDE_DEPRECATED_WITH_REPLACEMENT("NSModalResponseAbort", macos(10.0,10.0)) = NSModalResponseAbort;
 
 #define NXLocalHandler              NSLocalHandler
 
@@ -62,19 +64,18 @@
 
 #define NX_FREEBUFFER               1
 
-#define NX_TITLEDSTYLE              NSTitledWindowMask
-#define NX_RESIZEBARSTYLE           (NSResizableWindowMask | NSTitledWindowMask)
-#define NX_MINIATURIZEBUTTONMASK    NSMiniaturizableWindowMask
-#define NX_CLOSEBUTTONMASK          NSClosableWindowMask
+static const NSWindowStyleMask NX_TITLEDSTYLE RDE_DEPRECATED_WITH_REPLACEMENT("NSWindowStyleMaskTitled", macos(10.0,10.0)) = NSWindowStyleMaskTitled;
 
-#define NX_BUFFERED                 NSBackingStoreBuffered
+static const NSWindowStyleMask NX_RESIZEBARSTYLE RDE_DEPRECATED_WITH_REPLACEMENT("(NSWindowStyleMaskResizable | NSWindowStyleMaskTitled)", macos(10.0,10.0)) = (NSWindowStyleMaskResizable | NSWindowStyleMaskTitled);
+static const NSWindowStyleMask NX_MINIATURIZEBUTTONMASK RDE_DEPRECATED_WITH_REPLACEMENT("NSWindowStyleMaskMiniaturizable", macos(10.0,10.0)) = NSWindowStyleMaskMiniaturizable;
+static const NSWindowStyleMask NX_CLOSEBUTTONMASK RDE_DEPRECATED_WITH_REPLACEMENT("NSWindowStyleMaskClosable", macos(10.0,10.0)) = NSWindowStyleMaskClosable;
 
-#define NX_WIDTHSIZABLE             NSViewWidthSizable
-#define NX_HEIGHTSIZABLE            NSViewHeightSizable
+static const NSAutoresizingMaskOptions NX_WIDTHSIZABLE RDE_DEPRECATED_WITH_REPLACEMENT("NSViewWidthSizable", macos(10.0,10.0)) = NSViewWidthSizable;
+static const NSAutoresizingMaskOptions NX_HEIGHTSIZABLE RDE_DEPRECATED_WITH_REPLACEMENT("NSViewHeightSizable", macos(10.0,10.0)) = NSViewHeightSizable;
 
-#define NX_MOUSEDRAGGEDMASK         NSLeftMouseDraggedMask
-#define NX_MOUSEUP                  NSLeftMouseUp
-#define NX_MOUSEUPMASK              NSLeftMouseUpMask
+static const NSEventMask NX_MOUSEDRAGGEDMASK RDE_DEPRECATED_WITH_REPLACEMENT("NSEventMaskLeftMouseDragged", macos(10.0,10.0)) = NSEventMaskLeftMouseDragged;
+static const NSEventType NX_MOUSEUP RDE_DEPRECATED_WITH_REPLACEMENT("NSEventTypeLeftMouseUp", macos(10.0,10.0)) = NSEventTypeLeftMouseUp;
+static const NSEventMask NX_MOUSEUPMASK RDE_DEPRECATED_WITH_REPLACEMENT("NSEventMaskLeftMouseUp", macos(10.0,10.0)) = NSEventMaskLeftMouseUp;
 
 // OS X still defines some NeXTSTEP constants (<IOKit/IOLLEvent.h>)
 #ifndef NX_SHIFTMASK

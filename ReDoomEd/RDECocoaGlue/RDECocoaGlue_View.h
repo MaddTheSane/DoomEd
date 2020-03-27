@@ -32,9 +32,8 @@ RDE_DEPRECATED("Subclass NSView instead", macos(10.0, 10.0))
 
 @end
 
-// View methods are implemented as an NSView category so they can also be inherited by
-// ScrollView (NSScrollView) & NSScroller
-
+/// View methods are implemented as an NSView category so they can also be inherited by
+/// ScrollView (NSScrollView) & NSScroller
 @interface NSView (RDECocoaGlue_ViewMethods)
 
 - (id) getBounds: (NSRect *) theRect RDE_DEPRECATED("Call -bounds instead", macos(10.0, 10.0));

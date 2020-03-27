@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define NXRect  NSRect
@@ -29,17 +30,27 @@
 #define NXSize  NSSize
 
 
-#define NXSetRect(rectPtr, originX, originY, width, height) \
-            (*(rectPtr) = NSMakeRect(originX, originY, width, height))
+static inline void NXSetRect(NSRect *rectPtr, float originX, float originY, float width, float height) RDE_DEPRECATED("Use NSMakeRect instead", macos(10.0,10.0));
+static inline void NXSetRect(NSRect *rectPtr, float originX, float originY, float width, float height) {
+    *(rectPtr) = NSMakeRect(originX, originY, width, height);
+}
 
-#define NXUnionRect(rectPtr, otherRectPtr)                  \
-            (*(otherRectPtr) = NSUnionRect(*(rectPtr), *(otherRectPtr)))
+static inline void NXUnionRect(const NSRect *rectPtr, NSRect *otherRectPtr) RDE_DEPRECATED("Use NSUnionRect instead", macos(10.0,10.0));
+static inline void NXUnionRect(const NSRect *rectPtr, NSRect *otherRectPtr) {
+    *(otherRectPtr) = NSUnionRect(*(rectPtr), *(otherRectPtr));
+}
 
-#define NXIntersectsRect(rectPtr, otherRectPtr)             \
-            NSIntersectsRect(*(rectPtr), *(otherRectPtr))
+static inline BOOL NXIntersectsRect(NSRect *rectPtr, NSRect *otherRectPtr) RDE_DEPRECATED("Use NSIntersectsRect instead", macos(10.0,10.0));
+static inline BOOL NXIntersectsRect(NSRect *rectPtr, NSRect *otherRectPtr) {
+    return NSIntersectsRect(*(rectPtr), *(otherRectPtr));
+}
 
-#define NXIntegralRect(rectPtr)                             \
-            (*(rectPtr) = NSIntegralRect(*(rectPtr)))
+static inline void NXIntegralRect(NSRect *rectPtr) RDE_DEPRECATED("Use NSIntegralRect instead", macos(10.0,10.0));
+static inline void NXIntegralRect(NSRect *rectPtr) {
+    *(rectPtr) = NSIntegralRect(*(rectPtr));
+}
 
-#define NXPointInRect(rectPtr, pointPtr)                    \
-            NSPointInRect(*(rectPtr), *(pointPtr))
+static inline BOOL NXPointInRect(NSPoint *rectPtr, NSRect *pointPtr) RDE_DEPRECATED("Use NSPointInRect instead", macos(10.0,10.0));
+static inline BOOL NXPointInRect(NSPoint *rectPtr, NSRect *pointPtr) {
+    return NSPointInRect(*(rectPtr), *(pointPtr));
+}

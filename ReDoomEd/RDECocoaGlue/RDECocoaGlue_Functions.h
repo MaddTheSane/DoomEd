@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 #import "RDECocoaGlue_StringUtilities.h"
 
 
@@ -40,7 +41,10 @@
                         format: RDE_NSStringFromCString(formatString)   \
                         arguments: argsList]
 
-#define NXBeep                  NSBeep
+static inline void NXBeep(void) RDE_DEPRECATED_WITH_REPLACEMENT("NSBeep()", macos(10.0,10.0));
+static inline void NXBeep(void) {
+    NSBeep();
+}
 
 #define NXPing()                [[NSApp keyWindow] displayIfNeeded]
 

@@ -63,7 +63,7 @@
             floor(x)
 
 
-#if defined(CGFLOAT_IS_DOUBLE) && !CGFLOAT_IS_DOUBLE
+#if !defined(CGFLOAT_IS_DOUBLE) || !CGFLOAT_IS_DOUBLE
 
 #   define macroRDE_PixelCenteredCoordinate_CGFloat                                 \
                 macroRDE_PixelCenteredCoordinate_Float

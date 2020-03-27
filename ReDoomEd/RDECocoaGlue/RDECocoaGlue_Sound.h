@@ -22,6 +22,7 @@
 */
 
 #import <Cocoa/Cocoa.h>
+#import "RDECocoaGlue_Macros.h"
 
 
 #define Sound NSSound
@@ -29,7 +30,7 @@
 
 @interface NSSound (RDECocoaGlue_SoundMethods)
 
-- (id) initFromSection: (const char *) section;
+- (id) initFromSection: (const char *) section RDE_DEPRECATED_WITH_REPLACEMENT("+soundNamed:", macos(10.0, 10.0)) ;
 
 @end
 
