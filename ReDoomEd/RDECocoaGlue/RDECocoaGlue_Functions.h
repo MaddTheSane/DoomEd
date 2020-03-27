@@ -41,7 +41,7 @@
                         format: RDE_NSStringFromCString(formatString)   \
                         arguments: argsList]
 
-static inline void NXBeep(void) RDE_DEPRECATED_WITH_REPLACEMENT("NSBeep()", macos(10.0,10.0));
+static inline void NXBeep(void) RDE_DEPRECATED_WITH_REPLACEMENT("NSBeep", macos(10.0,10.0));
 static inline void NXBeep(void) {
     NSBeep();
 }

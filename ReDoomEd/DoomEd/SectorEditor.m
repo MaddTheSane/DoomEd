@@ -407,7 +407,7 @@ SectorEditor	*sectorEdit_i;
 		
 	if (flat < 0)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 	

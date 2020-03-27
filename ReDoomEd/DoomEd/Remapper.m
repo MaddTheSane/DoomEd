@@ -190,7 +190,7 @@
 	for (i = 0;i < max; i++) {
 		r2 = [storage_i objectAtIndex:i];
 		if ([r2 isEqual:r]) {
-			NXBeep ();
+			NSBeep ();
 			[r release];
 			return;
 		}
@@ -228,10 +228,10 @@
 //===================================================================
 - (IBAction)clearList:sender
 {
-	if (NSRunAlertPanel(@"Warning!",
+	if (NSRunAlertPanel(NSLocalizedString(@"Warning!", @"Warning!"),
 		@"Are you sure you want\n"
 		"to clear the remapping list?",
-		@"OK",@"Cancel",NULL) == NX_ALERTALTERNATE)
+						NSLocalizedString(@"OK", @"OK"),NSLocalizedString(@"Cancel", @"Cancel"),NULL) == NSAlertAlternateReturn)
 		return;
 		
 #ifdef REDOOMED
@@ -268,7 +268,7 @@
 	max = [storage_i	count];
 	if (!max)
 	{
-		NXBeep ();
+		NSBeep ();
 		return;
 	}
 
@@ -307,7 +307,7 @@
 	max = [storage_i	count];
 	if (!max)
 	{
-		NXBeep ();
+		NSBeep ();
 		return;
 	}
 	total = 0;

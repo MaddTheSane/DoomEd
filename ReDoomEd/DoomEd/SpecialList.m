@@ -207,10 +207,10 @@
 	//
 	if ([self	findSpecial:t.value] != NSNotFound)
 	{
-		NXBeep();
-		NSRunAlertPanel(@"Oops!",
+		NSBeep();
+		NSRunAlertPanel(NSLocalizedString(@"Oops!", @"Oops!"),
 					@"You already have a LINE SPECIAL by that "
-					"name!",@"OK",NULL,NULL,NULL);
+					"name!",NSLocalizedString(@"OK", @"OK"),NULL,NULL,NULL);
 		return;
 	}
 	
@@ -284,7 +284,7 @@
 
 	if (which == NSNotFound)
 	{
-		NXBeep();
+		NSBeep();
 		printf("Whoa! Can't find that special!\n");
 		return;
 	}

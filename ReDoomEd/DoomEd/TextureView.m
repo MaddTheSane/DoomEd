@@ -277,7 +277,7 @@
 		[textureEdit_i	setWarning:warn];
 
 #ifdef REDOOMED
-	} while ([event type] != NX_MOUSEUP);
+	} while ([event type] != NSEventTypeLeftMouseUp);
 #else // Original
 	} while (event->type != NX_MOUSEUP);
 #endif

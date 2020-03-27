@@ -284,9 +284,9 @@ int LineByPoint (NXPoint *ptin, int *side)
 	{
 		NSInteger val;
 		
-		val = NSRunAlertPanel(@"Hey!",@"Your map has been modified! Save it?",
-			@"Yes",@"No",NULL);
-		if (val == NX_ALERTDEFAULT)
+		val = NSRunAlertPanel(NSLocalizedString(@"Hey!", @"Hey!"),@"Your map has been modified! Save it?",
+			NSLocalizedString(@"Yes", @"Yes"),NSLocalizedString(@"No", @"No"),NULL);
+		if (val == NSAlertDefaultReturn)
 			[self saveWorld:NULL];
 		[doomproject_i setMapDirty:FALSE];
 	}	
@@ -570,9 +570,9 @@ int LineByPoint (NXPoint *ptin, int *side)
 	{
 		NSInteger	val;
 		
-		val = NSRunAlertPanel(@"Hey!",@"Your map has been modified! Save it?",
-			@"Yes",@"No",NULL);
-		if (val == NX_ALERTDEFAULT)
+		val = NSRunAlertPanel(NSLocalizedString(@"Hey!", @"Hey!"),@"Your map has been modified! Save it?",
+			NSLocalizedString(@"Yes", @"Yes"),NSLocalizedString(@"No", @"No"),NULL);
+		if (val == NSAlertDefaultReturn)
 			[self	saveWorld:NULL];
 
 #ifdef REDOOMED

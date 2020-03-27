@@ -163,7 +163,7 @@ ThingPanel *thingpanel_i;
 	
 	if (!typeField)
 	{
-		NXBeep();
+		NSBeep();
 		[thing release];
 		return NULL;
 	}
@@ -429,7 +429,7 @@ ThingPanel *thingpanel_i;
 	cell = [thingBrowser_i		selectedCell];
 	if (!cell)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 
@@ -651,7 +651,7 @@ ThingPanel *thingpanel_i;
 	//
 	if ([self	findThing:t.name] != NSNotFound)
 	{
-		NXBeep();
+		NSBeep();
 		NSRunAlertPanel(@"Oops!",
 			@"You already have a THING by that name!",@"OK",NULL,NULL,NULL);
 		[t release];
@@ -731,7 +731,7 @@ ThingPanel *thingpanel_i;
 
 	if (which == NSNotFound)
 	{
-		NXBeep();
+		NSBeep();
 		printf("Whoa! Can't find that thing!\n");
 		return;
 	}

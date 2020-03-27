@@ -275,7 +275,7 @@ Storage *texturePatches;
 	
 	if (!max)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 	
@@ -524,7 +524,7 @@ Storage *texturePatches;
 	c =[selectedTexturePatches	count];
 	if (!c || c > 1)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 	
@@ -570,7 +570,7 @@ Storage *texturePatches;
 	count = [selectedTexturePatches	count];
 	if (!count)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 	
@@ -746,7 +746,7 @@ Storage *texturePatches;
 	// Bugfix: return if no current texture, otherwise can crash
 	if (currentTexture < 0)
 	{
-		NXBeep();
+		NSBeep();
 		[textureWidthField_i setIntValue: 0];
 		[textureHeightField_i setIntValue: 0];
 		return;
@@ -824,7 +824,7 @@ Storage *texturePatches;
 	
 	rcode = [NXApp	runModalForWindow:createTexture_i];
 	[createTexture_i	close];
-	if (rcode == NX_RUNABORTED)
+	if (rcode == NSModalResponseAbort)
 		return;
 
 	tex.width = [createWidth_i	intValue];
@@ -960,7 +960,7 @@ Storage *texturePatches;
 	if (nr == 5)
 	{
 		[newSetButton_i	setEnabled:NO ];
-		NXBeep ();
+		NSBeep ();
 		return;
 	}
 	
@@ -992,7 +992,7 @@ Storage *texturePatches;
 	// Bugfix: return if no current texture, otherwise can crash
 	if (currentTexture < 0)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 #endif
@@ -1156,7 +1156,7 @@ Storage *texturePatches;
 		//
 		if (ox >= textures[ct].width)
 		{
-			NXBeep();
+			NSBeep();
 			[centerPatch_i	setIntValue:1];
 			p.patchInfo.originx = dvr.origin.x/2 + dvr.size.width/4;
 			p.patchInfo.originy = dvr.origin.y/2 + dvr.size.height/4;

@@ -140,7 +140,7 @@
 	t =[thingpanel_i	currentThingData];
 	if (t == NULL)
 	{
-		NXBeep();
+		NSBeep();
 		return;
 	}
 	ts.value = t.value;

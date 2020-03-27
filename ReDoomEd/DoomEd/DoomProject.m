@@ -105,8 +105,8 @@ static bool RDE_FileMatchStringAndGetString(FILE *stream, const char *matchStr,
 		
 	val = NSRunAlertPanel(@"Important",
 		@"Do you wish to save your project before exiting?",
-		@"Yes", @"No",NULL);
-	if (val == NX_ALERTDEFAULT)
+		NSLocalizedString(@"Yes", @"Yes"), NSLocalizedString(@"No", @"No"),NULL);
+	if (val == NSAlertDefaultReturn)
 		[self	saveProject:self];
 }
 

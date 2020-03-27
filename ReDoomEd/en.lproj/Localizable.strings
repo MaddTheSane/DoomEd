@@ -125,3 +125,6 @@
 "Writing textures to %@." = "Writing textures to %@.";
 "Couldn't create %@" = "Couldn't create %@";
 "Could not parse %@" = "Could not parse %@";
+"Oops!" = "Oops!";
+"Yes" = "Yes";
+"No" = "No";
