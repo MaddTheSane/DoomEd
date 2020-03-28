@@ -128,3 +128,4 @@
 "Oops!" = "Oops!";
 "Yes" = "Yes";
 "No" = "No";
+"There must be a project loaded before you even\nTHINK about editing sectors!" = "There must be a project loaded before you even THINK about editing sectors!";

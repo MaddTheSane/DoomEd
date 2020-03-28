@@ -44,10 +44,8 @@
 
 - (void)addMessage:(NSString*)string
 {
-	NSInteger len = [text_i string].length;
-	text_i.editable = YES;
-	[text_i insertText:string replacementRange:NSMakeRange(len, 0)];
-	text_i.editable = NO;
+	[text_i.textStorage appendAttributedString:[[[NSAttributedString alloc] initWithString:string] autorelease]];
+	[text_i scrollToEndOfDocument:self];
 }
 
 - (void)addFormattedMessage:(NSString *)string, ...

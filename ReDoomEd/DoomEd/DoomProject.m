@@ -2648,7 +2648,7 @@ static	byte		*buffer, *buf_p;
 
 - (void)updateThermo:(NSInteger)current max:(NSInteger)maximum
 {
-	[thermoView_i	setThermoWidth:current	max:maximum];
+	[thermoView_i setThermoWidth:current max:maximum];
 	[thermoView_i setNeedsDisplay:YES];
 }
 

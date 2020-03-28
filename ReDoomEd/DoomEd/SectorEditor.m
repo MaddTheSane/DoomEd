@@ -72,10 +72,13 @@ SectorEditor	*sectorEdit_i;
 {
 	if (!doomproject_i.loaded)
 	{
-		NSRunAlertPanel(@"Oops!",
-						@"There must be a project loaded before you even\n"
-						"THINK about editing sectors!",
-						@"OK",NULL,NULL,NULL);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Oops!", @"Oops!");
+		alert.informativeText = NSLocalizedString(@"There must be a project loaded before you even\nTHINK about editing sectors!", @"There must be a project loaded before you even THINK about editing sectors!");
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+		[alert runModal];
+		
+		[alert release];
 		return;
 	}
 	
@@ -119,10 +122,13 @@ SectorEditor	*sectorEdit_i;
 {
 	if (!doomproject_i.loaded)
 	{
-		NSRunAlertPanel(@"Oops!",
-						@"There must be a project loaded before you even\n"
-						"THINK about editing sectors!",
-						@"OK",NULL,NULL,NULL);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Oops!", @"Oops!");
+		alert.informativeText = NSLocalizedString(@"There must be a project loaded before you even\nTHINK about editing sectors!", @"There must be a project loaded before you even THINK about editing sectors!");
+		[alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+		[alert runModal];
+		
+		[alert release];
 		return;
 	}
 	
